@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F9F8EF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="คุณยุ้ย">
+<title>คุณยุ้ย ส้มตำครกระเบิด</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Taviraj:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+  :root {
+    --cream: #F9F8EF; --card: #FFFEF9; --ink: #1D2A22; --muted: #6B7068;
+    --line: #E6E0CF; --green: #06412A; --green-2: #0B5638; --green-soft: #E4EDE6;
+    --gold: #B89A5A; --gold-soft: #F1EAD8; --red: #A63A2A; --red-soft: #F6E4DF;
+    --bar-h: 64px;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --cream: #F9F8EF; } }
+  :root[data-theme="dark"] { --cream: #F9F8EF; }
+  html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: inherit; }
+  body { margin: 0; min-height: 100%; background: var(--cream); color: var(--ink);
+    font-family: "IBM Plex Sans Thai", "Noto Sans Thai", "Leelawadee UI", Tahoma, sans-serif; line-height: 1.5;
+    -webkit-tap-highlight-color: transparent; }
+  .serif { font-family: "Taviraj", "Noto Serif Thai", serif; }
+  button, input, select, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, label:focus-within {
+    outline: 3px solid var(--gold); outline-offset: 2px; }
+  .app { max-width: 440px; margin: 0 auto; min-height: 100dvh; position: relative; }
+  .pad { padding: 0 1rem; }
+  .with-bar { padding-bottom: calc(var(--bar-h) + 1.5rem + env(safe-area-inset-bottom, 0px)); }
+
+  .landing { height: 100dvh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .sign { position: relative; container-type: inline-size; aspect-ratio: 958 / 1642; width: min(100%, calc(100dvh * 958 / 1642)); }
+  .sign img { display: block; width: 100%; height: 100%; }
+  .sign .lock { position: absolute; left: 67%; top: 3.6%; transform: translate(-50%, -50%);
+    width: max(40px, 10.5cqw); height: max(40px, 10.5cqw); display: grid; place-items: center;
+    background: color-mix(in srgb, var(--cream) 85%, transparent); border: 1px solid var(--gold); border-radius: 50%; color: var(--green); }
+  .sign .lock svg { width: 45%; height: 45%; }
+  .sign .order { position: absolute; left: 50%; top: 87%; transform: translate(-50%, -50%);
+    width: 44%; min-height: max(44px, 12.3cqw); display: flex; align-items: center; justify-content: center; gap: .5em;
+    background: var(--green); color: var(--cream); border: 0; border-radius: 999px;
+    font-family: "Taviraj", serif; font-weight: 600; font-size: clamp(15px, 4.6cqw, 24px);
+    box-shadow: 0 0 0 2px var(--cream), 0 0 0 3px var(--gold), 0 4px 12px rgba(6,65,42,.25); }
+  .sign .order svg { width: 1.15em; height: 1.15em; }
+
+  .topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: .5rem;
+    padding: .7rem 1rem; background: color-mix(in srgb, var(--cream) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  .brand { font-family: "Taviraj", serif; font-weight: 600; color: var(--green); font-size: 1.05rem; line-height: 1.2; }
+  .brand small { display: block; font-family: "IBM Plex Sans Thai", sans-serif; font-weight: 400; color: var(--muted); font-size: .72rem; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); display: grid; place-items: center; color: var(--green); position: relative; }
+  .icon-btn svg { width: 20px; height: 20px; }
+  .dot { position: absolute; top: -3px; right: -3px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: var(--red); color: #fff; font-size: .7rem; display: grid; place-items: center; }
+  .back { border: 0; background: none; color: var(--green); display: inline-flex; align-items: center; gap: .25rem; padding: .3rem 0; }
+  .back svg { width: 20px; height: 20px; }
+  .qbadge { font-family: "Taviraj", serif; font-weight: 600; color: var(--green); background: var(--gold-soft); border: 1px solid var(--gold); border-radius: 999px; padding: .15rem .7rem; font-size: .95rem; white-space: nowrap; }
+
+  .hero { margin: 1rem; border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; position: relative; border: 1px solid var(--gold); background: var(--gold-soft); display: grid; place-items: center; }
+  .hero img { width: 100%; height: 100%; object-fit: cover; }
+  .hero .ph { text-align: center; color: var(--green); display: grid; gap: .3rem; justify-items: center; }
+  .hero .ph b { display: block; font-family: "Taviraj", serif; font-size: 1.6rem; }
+  .hero .ph span { font-size: .8rem; color: var(--muted); }
+  .create { position: absolute; right: .6rem; bottom: .6rem; display: inline-flex; align-items: center; gap: .3rem; background: var(--green); color: var(--cream); border-radius: 999px; padding: .4rem .8rem; font-size: .85rem; cursor: pointer; }
+  .create.center { position: static; }
+  .sr-file { position: absolute; width: 1px; height: 1px; opacity: 0; }
+
+  .section-head { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin: .5rem 1rem .6rem; }
+  .section-head h2 { margin: 0; font-family: "Taviraj", serif; font-size: 1.25rem; color: var(--green); }
+  .search { display: flex; align-items: center; gap: .4rem; border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: .35rem .8rem; color: var(--muted); font-size: .9rem; }
+  .search svg { width: 16px; height: 16px; }
+  .search-input { margin: 0 1rem .6rem; width: calc(100% - 2rem); border: 1px solid var(--gold); background: var(--card); border-radius: 999px; padding: .55rem 1rem; }
+  .chips { display: flex; gap: .5rem; overflow-x: auto; padding: 0 1rem .8rem; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { flex: none; border: 1px solid var(--gold); background: var(--card); color: var(--green); border-radius: 999px; padding: .4rem .9rem; font-size: .92rem; }
+  .chip.on { background: var(--green); color: var(--cream); border-color: var(--green); }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; padding: 0 1rem; }
+  .dish { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; text-align: left; padding: 0; }
+  .dish-open { border: 0; background: none; padding: 0; text-align: left; display: flex; flex-direction: column; flex: 1; width: 100%; }
+  .dish .foot { display: flex; align-items: center; justify-content: space-between; padding: 0 .7rem .7rem; }
+  button.plus { border: 0; width: 38px; height: 38px; font-size: 1.3rem; }
+  .cart-opt { margin-top: .3rem; border: 1px solid var(--gold); border-radius: 999px; padding: .2rem .6rem; background: var(--card); font-size: .85rem; color: var(--green); }
+  .msg { background: var(--card); border: 1px solid var(--gold); border-left: 4px solid var(--red); border-radius: 12px; padding: .75rem .9rem; margin: .6rem 1rem; }
+  .msg.read { border-left-color: var(--gold); }
+  .msg .t { font-weight: 600; color: var(--ink); }
+  .msg .sug { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+  .day-head { margin: 1.1rem 1rem .2rem; font-family: "Taviraj", serif; color: var(--green); font-weight: 600; }
+  .reorder-note { margin: .5rem 0; padding: .45rem .7rem; border-radius: 8px; background: var(--gold-soft); color: var(--green); font-size: .85rem; }
+  .preset { display: flex; flex-wrap: wrap; gap: .4rem; margin: -.3rem 0 .8rem; }
+  .dish .pic { aspect-ratio: 4 / 3; background: var(--gold-soft); display: grid; place-items: center; position: relative; }
+  .dish .pic img { width: 100%; height: 100%; object-fit: cover; }
+  .leaf { width: 38px; height: 38px; color: var(--gold); }
+  .dish .body { padding: .55rem .7rem .7rem; display: flex; flex-direction: column; gap: .15rem; flex: 1; }
+  .dish .name { font-weight: 600; font-size: .95rem; }
+  .dish .row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  .price { font-family: "Taviraj", serif; font-weight: 600; color: var(--green); }
+  .plus { width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: var(--cream); display: grid; place-items: center; font-size: 1.1rem; line-height: 1; }
+  .soldout { position: absolute; inset: 0; background: rgba(249,248,239,.75); display: grid; place-items: center; font-weight: 600; color: var(--red); }
+  .tag { font-size: .72rem; color: var(--gold); }
+  .empty { margin: 1rem; padding: 1rem; border: 1px dashed var(--gold); border-radius: 12px; color: var(--muted); text-align: center; }
+  .banner { margin: .75rem 1rem 0; padding: .6rem .9rem; border-radius: 10px; background: var(--red-soft); color: var(--red); font-size: .9rem; }
+
+  .bottombar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; width: min(100%, 440px); z-index: 30; background: var(--card); border-top: 1px solid var(--line);
+    padding: .6rem 1rem calc(.6rem + env(safe-area-inset-bottom, 0px)); display: flex; gap: .6rem; }
+  .pill { flex: 1; min-height: 48px; border-radius: 999px; border: 1px solid var(--gold); background: var(--card); color: var(--green); display: flex; align-items: center; justify-content: center; gap: .45rem; font-weight: 600; }
+  .pill svg { width: 20px; height: 20px; }
+  .pill.main { flex: 1.6; background: var(--green); color: var(--cream); border-color: var(--green); }
+  .pill:disabled { opacity: .5; cursor: default; }
+  .pill .count { background: var(--gold); color: #fff; border-radius: 999px; font-size: .75rem; padding: 0 .45rem; }
+  .tabbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; width: min(100%, 440px); z-index: 30; background: var(--card); border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(4, 1fr); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .tab { border: 0; background: none; padding: .55rem .2rem .6rem; display: flex; flex-direction: column; align-items: center; gap: .15rem; color: var(--muted); font-size: .72rem; min-height: var(--bar-h); }
+  .tab svg { width: 22px; height: 22px; }
+  .tab.on { color: var(--green); font-weight: 600; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: .9rem; margin: .75rem 1rem; }
+  .card h3 { margin: 0 0 .5rem; font-size: 1rem; }
+  .btn { min-height: 48px; border-radius: 999px; border: 1px solid var(--green); background: var(--green); color: var(--cream); font-weight: 600; padding: 0 1.2rem;
+    display: inline-flex; align-items: center; justify-content: center; gap: .4rem; }
+  .btn.block { width: 100%; }
+  .btn.ghost { background: var(--card); color: var(--green); border-color: var(--gold); }
+  .btn.danger { background: var(--card); color: var(--red); border-color: var(--red); }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .btn.sm { min-height: 38px; font-size: .88rem; padding: 0 .9rem; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .seg label { border: 1px solid var(--gold); border-radius: 12px; padding: .7rem; text-align: center; cursor: pointer; background: var(--card); }
+  .seg input { position: absolute; opacity: 0; }
+  .seg label:has(input:checked) { background: var(--green); color: var(--cream); border-color: var(--green); }
+  .field { display: block; margin-bottom: .8rem; }
+  .field span { display: block; font-size: .85rem; color: var(--muted); margin-bottom: .25rem; }
+  .field input, .field select, .field textarea { width: 100%; border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: .65rem .8rem; }
+  .line { display: flex; justify-content: space-between; gap: .75rem; padding: .55rem 0; border-bottom: 1px solid var(--line); }
+  .line:last-child { border-bottom: 0; }
+  .muted { color: var(--muted); font-size: .85rem; }
+  .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: .5rem; }
+  .total b { font-family: "Taviraj", serif; font-size: 1.4rem; color: var(--green); }
+  .stepper { display: inline-flex; align-items: center; border: 1px solid var(--gold); border-radius: 999px; }
+  .stepper button { width: 34px; height: 34px; border: 0; background: none; color: var(--green); font-size: 1.1rem; }
+  .stepper span { min-width: 1.6rem; text-align: center; font-weight: 600; }
+  .opt { display: flex; align-items: center; justify-content: space-between; padding: .55rem .2rem; border-bottom: 1px solid var(--line); cursor: pointer; }
+  .opt:last-child { border-bottom: 0; }
+  .opt input { accent-color: var(--green); width: 18px; height: 18px; }
+  .req { font-size: .72rem; color: var(--red); margin-left: .35rem; }
+
+  .bigq { text-align: center; padding: 1.4rem 1rem .6rem; }
+  .bigq .lbl { color: var(--muted); font-size: .9rem; }
+  .bigq .code { font-family: "Taviraj", serif; font-size: 4rem; font-weight: 600; color: var(--green); line-height: 1.1; letter-spacing: .03em; }
+  .qr { display: grid; justify-items: center; gap: .5rem; text-align: center; }
+  .qr .box { width: 220px; height: 220px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 10px; }
+  .qr .box svg { width: 100%; height: 100%; }
+  .pp-logo { font-weight: 600; color: #113566; letter-spacing: .02em; }
+
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: .25rem; margin: .6rem 0 .2rem; }
+  .steps div { text-align: center; font-size: .75rem; color: var(--muted); }
+  .steps i { display: block; height: 6px; border-radius: 3px; background: var(--line); margin-bottom: .3rem; }
+  .steps .done i { background: var(--green); }
+  .steps .done { color: var(--green); font-weight: 600; }
+  .status { display: inline-block; font-size: .78rem; padding: .1rem .6rem; border-radius: 999px; background: var(--gold-soft); color: var(--green); }
+  .status.new { background: var(--red-soft); color: var(--red); }
+  .status.cancelled { background: #EEE; color: var(--muted); }
+  .status.completed { background: var(--green-soft); }
+  .oc-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+  .oc-q { font-family: "Taviraj", serif; font-size: 1.7rem; font-weight: 600; color: var(--green); line-height: 1; }
+  .oc-items { margin: .5rem 0; font-size: .92rem; }
+  .oc-meta { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .5rem; }
+  .meta-chip { font-size: .75rem; border: 1px solid var(--line); border-radius: 999px; padding: .05rem .55rem; color: var(--muted); }
+  .meta-chip.warn { border-color: var(--red); color: var(--red); }
+  .actions { display: flex; flex-wrap: wrap; gap: .45rem; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin: .75rem 1rem; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: .65rem .5rem; text-align: center; }
+  .stat b { display: block; font-family: "Taviraj", serif; font-size: 1.5rem; color: var(--green); line-height: 1.2; }
+  .stat span { font-size: .75rem; color: var(--muted); }
+  .money { text-align: center; }
+  .money .lbl { color: var(--muted); font-size: .85rem; }
+  .money .val { font-family: "Taviraj", serif; font-size: 2.3rem; font-weight: 600; color: var(--green); line-height: 1.2; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-top: .75rem; }
+  .split div { background: var(--cream); border-radius: 10px; padding: .55rem; text-align: center; }
+  .split b { display: block; color: var(--green); }
+  .split span { font-size: .78rem; color: var(--muted); }
+  .setting { display: flex; justify-content: space-between; align-items: center; gap: .75rem; padding: .7rem 0; border-bottom: 1px solid var(--line); }
+  .setting:last-child { border-bottom: 0; }
+  .switch { position: relative; width: 46px; height: 28px; flex: none; }
+  .switch input { opacity: 0; width: 100%; height: 100%; position: absolute; margin: 0; cursor: pointer; z-index: 1; }
+  .switch span { position: absolute; inset: 0; border-radius: 14px; background: #D5D0C3; transition: background .15s; }
+  .switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: transform .15s; }
+  .switch input:checked + span { background: var(--green); }
+  .switch input:checked + span::after { transform: translateX(18px); }
+  details.hist { border-bottom: 1px solid var(--line); padding: .6rem 0; }
+  details.hist:last-child { border-bottom: 0; }
+  details.hist summary { display: flex; justify-content: space-between; align-items: center; cursor: pointer; list-style: none; gap: .5rem; }
+  details.hist summary::-webkit-details-marker { display: none; }
+  details.hist .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: .3rem .75rem; margin-top: .5rem; font-size: .85rem; }
+  .arch-year { display: flex; gap: .5rem; overflow-x: auto; padding: .8rem 1rem .2rem; }
+  .month { background: var(--card); border: 1px solid var(--line); border-radius: 14px; margin: .75rem 1rem; overflow: hidden; }
+  .month summary { list-style: none; cursor: pointer; padding: .8rem .9rem; display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
+  .month summary::-webkit-details-marker { display: none; }
+  .month summary .m { font-family: "Taviraj", serif; font-weight: 600; color: var(--green); font-size: 1.1rem; }
+  .day-row { box-sizing: border-box; width: 100%; border: 0; border-top: 1px solid var(--line); background: none; display: grid; grid-template-columns: 3.2rem minmax(0, 1fr) auto; gap: .6rem; align-items: center; padding: .6rem .9rem; text-align: left; }
+  .day-row .d { font-family: "Taviraj", serif; font-size: 1.35rem; font-weight: 600; color: var(--green); line-height: 1; text-align: center; }
+  .day-row .d small { display: block; font-family: "IBM Plex Sans Thai", sans-serif; font-size: .68rem; color: var(--muted); font-weight: 400; }
+  .day-row .price { white-space: nowrap; }
+  .chip-s { font-size: .72rem; border-radius: 999px; padding: .05rem .5rem; background: var(--green-soft); color: var(--green); }
+  .chip-s.open { background: var(--red-soft); color: var(--red); }
+  .kv { display: flex; justify-content: space-between; gap: .75rem; padding: .45rem 0; border-bottom: 1px solid var(--line); }
+  .kv:last-child { border-bottom: 0; }
+  .kv.minus b { color: var(--red); }
+  .kv.sum { border-top: 2px solid var(--gold); border-bottom: 0; margin-top: .2rem; padding-top: .6rem; }
+  .kv.sum b { font-family: "Taviraj", serif; font-size: 1.3rem; color: var(--green); }
+  .orow { display: grid; grid-template-columns: 3.4rem 3rem 1fr auto; gap: .5rem; align-items: center; padding: .45rem 0; border-bottom: 1px solid var(--line); font-size: .88rem; }
+  .orow:last-child { border-bottom: 0; }
+  .orow .q { font-family: "Taviraj", serif; font-weight: 600; color: var(--green); }
+  .orow.cx { color: var(--muted); text-decoration: line-through; }
+
+  /* INDEX-ONLY ORDER BALANCE PASS */
+  .owner-order-card { padding: .75rem .85rem; }
+  .owner-order-top { display:grid; grid-template-columns:auto 1fr auto; gap:.55rem; align-items:center; }
+  .owner-order-top .oc-q { font-size:1.45rem; }
+  .owner-order-top .status { font-size:.72rem; padding:.16rem .55rem; white-space:nowrap; }
+  .owner-order-items { margin:.55rem 0 .45rem; font-size:.86rem; line-height:1.45; }
+  .owner-order-item { display:flex; gap:.5rem; align-items:baseline; padding:.12rem 0; }
+  .owner-order-item .qty { min-width:2.1rem; color:var(--muted); font-size:.78rem; }
+  .owner-order-item .name { min-width:0; flex:1; }
+  .owner-order-item .note { display:block; margin:.05rem 0 0 2.6rem; color:var(--muted); font-size:.74rem; }
+  .owner-order-summary { display:flex; justify-content:space-between; align-items:baseline; gap:.75rem; border-top:1px solid var(--line); padding-top:.5rem; margin-top:.45rem; }
+  .owner-order-summary .total { margin:0; font-size:1.05rem; color:var(--green); }
+  .owner-order-meta { display:flex; flex-wrap:wrap; gap:.3rem; margin:.5rem 0; }
+  .owner-order-meta .meta-chip { font-size:.69rem; padding:.04rem .45rem; }
+  .owner-order-actions { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.55rem; }
+  .owner-order-actions .btn.sm { min-height:36px; font-size:.8rem; padding:0 .72rem; }
+  .owner-order-more { color:var(--muted); font-size:.72rem; margin:.35rem 0 0; }
+  @media(max-width:390px){
+    .owner-order-card{padding:.7rem .75rem}
+    .owner-order-top{grid-template-columns:auto 1fr}
+    .owner-order-top .status{grid-column:2;justify-self:start}
+    .owner-order-actions .btn.sm{font-size:.76rem;padding:0 .62rem}
+  }
+
+  .login-head { text-align: center; padding: 2.5rem 1rem 1rem; }
+  .login-head .serif { font-size: 1.8rem; color: var(--green); font-weight: 600; line-height: 1.2; }
+  .spinner { width: 42px; height: 42px; border-radius: 50%; border: 3px solid var(--gold-soft); border-top-color: var(--green); animation: spin 1s linear infinite; margin: 1rem auto; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .scrim { position: fixed; inset: 0; background: rgba(29,42,34,.45); z-index: 60; display: flex; align-items: flex-end; justify-content: center; }
+  .sheet { width: min(100%, 440px); max-height: 88dvh; overflow: auto; background: var(--cream); border-radius: 18px 18px 0 0; padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px)); }
+  .sheet h3 { margin: 0 0 .8rem; font-family: "Taviraj", serif; color: var(--green); font-size: 1.25rem; }
+  .toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(var(--bar-h) + 1.2rem + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--cream);
+    padding: .55rem 1rem; border-radius: 999px; font-size: .9rem; z-index: 70; opacity: 0; pointer-events: none; transition: opacity .2s; max-width: 90vw; text-align: center; }
+  .toast.show { opacity: 1; }
+  .crop-layer { position: fixed; inset: 0; z-index: 80; background: rgba(15,22,18,.92); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1rem; }
+  .crop-layer h3 { color: #F9F8EF; margin: 0; font-family: "Taviraj", serif; font-weight: 600; }
+  .crop-frame { position: relative; width: min(92vw, 420px); overflow: hidden; border-radius: 14px; background: #000; touch-action: none; box-shadow: 0 0 0 2px var(--gold); cursor: grab; }
+  .crop-frame img { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+  .crop-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to right, transparent 33.1%, rgba(255,255,255,.35) 33.3%, transparent 33.5%, transparent 66.5%, rgba(255,255,255,.35) 66.7%, transparent 66.9%),
+                linear-gradient(to bottom, transparent 33.1%, rgba(255,255,255,.35) 33.3%, transparent 33.5%, transparent 66.5%, rgba(255,255,255,.35) 66.7%, transparent 66.9%); }
+  .crop-zoom { width: min(92vw, 420px); accent-color: var(--gold); }
+  .crop-hint { color: #CFCBBE; font-size: .85rem; margin: 0; text-align: center; }
+  .crop-actions { display: flex; gap: .6rem; width: min(92vw, 420px); }
+  .busy { position: fixed; inset: 0; z-index: 90; background: rgba(15,22,18,.55); display: grid; place-items: center; color: #fff; }
+
+  .ai-asset-btn{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;min-height:40px;padding:0 .75rem;border:1px solid var(--gold);border-radius:10px;background:var(--gold-soft);color:var(--green);font-weight:600;font-size:.82rem}
+  .ai-asset-btn:hover{background:#eadfca}
+  .ai-source{font-size:.75rem;color:var(--muted);line-height:1.45;margin:.45rem 0 .8rem}
+  .ai-preview{width:100%;aspect-ratio:4/3;overflow:hidden;border-radius:12px;background:#eee;border:1px solid var(--line);display:grid;place-items:center}
+  .ai-preview img{width:100%;height:100%;object-fit:cover;display:block}
+  .ai-match{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin:.8rem 0}
+  .ai-match .box{padding:.65rem .7rem;background:var(--green-soft);border-radius:10px}
+  .ai-match .label{display:block;color:var(--muted);font-size:.72rem;margin-bottom:.15rem}
+  .ai-match .value{display:block;color:var(--ink);font-size:.88rem;font-weight:600;line-height:1.35}
+  .ai-warn{padding:.65rem .75rem;border-radius:10px;background:var(--red-soft);color:var(--red);font-size:.8rem;line-height:1.45}
+  .ai-ok{padding:.65rem .75rem;border-radius:10px;background:var(--green-soft);color:var(--green);font-size:.8rem;line-height:1.45}
+  .ai-row{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin:.45rem 0}
+  .ai-row b{font-size:.88rem}
+  @media(max-width:420px){.ai-match{grid-template-columns:1fr}.ai-asset-btn{width:100%}}
+
+  .loading { padding: 30vh 1rem 0; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+<div id="app" class="app"><div class="loading"><div class="spinner"></div></div></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="modal"></div>
+<div id="crop"></div>
+<input id="aiZipFile" class="sr-file" type="file" accept=".zip,application/zip" hidden>
+
+<script>
+// ===================== CONFIG — the only lines that change between test and production =====================
+const CONFIG = {
+  url: 'https://mpxxarmidmpamnfzdwdi.supabase.co',          // khunyui-test
+  key: 'sb_publishable_jfdNhtPCWpxjCGccoON2mw_gJqNzrs3',    // publishable key (safe in the browser; RLS protects data)
+  store: '11111111-1111-4111-8111-111111111111',
+  imageSpec: { hero: { aspect: '16:9', width: 1600, height: 900 }, dish: { aspect: '4:3', width: 1200, height: 900 } },
+  aiAssetMaster: 'KHUNYUI_MENU_IMAGES_MASTER_CHICKEN_CLEAN_v13',
+  aiAssetCount: 92
+};
+// ============================================================================================================
+
+const sb = supabase.createClient(CONFIG.url, CONFIG.key, {
+  auth: { flowType: 'pkce', persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, storageKey: 'khunyui-auth' }
+});
+
+const I = {
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L22 8H6"/></svg>',
+  bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
+  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>',
+  receipt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
+  leaf: '<svg class="leaf" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M24 40V22"/><path d="M24 30c-9 0-15-6-16-14 9 0 15 5 16 14z"/><path d="M24 30c9 0 15-6 16-14-9 0-15 5-16 14z"/><path d="M24 20c-2-3-2-7 0-10 2 3 2 7 0 10z"/></svg>'
+};
+
+// ---------------- helpers ----------------
+const $ = (s) => document.querySelector(s);
+const esc = (t) => String(t ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const baht = (s) => '฿' + (Number(s || 0) / 100).toLocaleString('th-TH', { maximumFractionDigits: 2 });
+const thDate = (d) => new Intl.DateTimeFormat('th-TH', { day: 'numeric', month: 'short', year: 'numeric' }).format(d);
+const thTime = (d) => new Intl.DateTimeFormat('th-TH', { hour: '2-digit', minute: '2-digit' }).format(new Date(d));
+const ymd = (s) => { const [y, m, d] = String(s).split('-').map(Number); return new Date(y, m - 1, d); };
+const STATUS = { new: 'ใหม่', preparing: 'กำลังทำ', ready: 'พร้อมรับ', completed: 'เสร็จสิ้น', cancelled: 'ยกเลิก' };
+const NEXT = { new: 'รับออเดอร์', preparing: 'อาหารพร้อมแล้ว', ready: 'เสร็จสิ้นออเดอร์' };
+const PAYS = { pending: 'รอชำระ', confirmed: 'ชำระแล้ว', void: 'ไม่ต้องชำระ', failed: 'ไม่สำเร็จ' };
+const REFUND = { required: 'ต้องคืนเงิน', processing: 'กำลังคืน', completed: 'คืนแล้ว', failed: 'คืนไม่สำเร็จ' };
+const METHOD = { cash: 'เงินสด', promptpay_qr: 'พร้อมเพย์' };
+const ERR = {
+  store_not_accepting_orders: 'ร้านปิดรับออเดอร์ชั่วคราว',
+  store_unavailable: 'ร้านยังไม่เปิดให้บริการ',
+  too_many_open_orders: 'มีออเดอร์ที่รอร้านรับครบจำนวนแล้ว รอร้านรับก่อนนะคะ',
+  too_many_queue_reservations: 'วันนี้เครื่องนี้รับเลขคิวครบจำนวนแล้ว',
+  menu_item_unavailable: 'มีเมนูที่หมดแล้ว กรุณาเอาออกจากตะกร้า',
+  option_selection_out_of_range: 'กรุณาเลือกตัวเลือกให้ครบ',
+  invalid_or_unavailable_option: 'มีตัวเลือกที่หมดแล้ว',
+  quantity_per_item_limit_exceeded: 'จำนวนต่อรายการมากเกินไป',
+  total_quantity_limit_exceeded: 'จำนวนรวมมากเกินไป',
+  too_many_order_lines: 'รายการในตะกร้ามากเกินไป',
+  customer_can_only_cancel_new_order: 'ร้านรับออเดอร์แล้ว ยกเลิกเองไม่ได้ กรุณาแจ้งร้าน',
+  cancel_reason_required_for_owner: 'กรุณาระบุเหตุผลการยกเลิก',
+  invalid_promptpay_id: 'เบอร์พร้อมเพย์ไม่ถูกต้อง',
+  reorder_not_allowed: 'สั่งด้วยเลขคิวเดิมไม่ได้แล้ว กรุณาสั่งใหม่ตามปกติ',
+  order_not_open: 'ออเดอร์นี้ปิดไปแล้ว',
+  item_not_in_order: 'จานนี้ไม่อยู่ในออเดอร์',
+  invalid_suggestion: 'มีเมนูแนะนำที่หมดหรือไม่ได้ขายแล้ว',
+  too_many_suggestions: 'แนะนำได้ไม่เกิน 3 เมนู',
+  owner_required: 'ต้องเป็นเจ้าของร้าน',
+  store_member_required: 'บัญชีนี้ไม่มีสิทธิ์เข้าหลังร้าน',
+  'Invalid login credentials': 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+  'Anonymous sign-ins are disabled': 'ระบบยังไม่เปิดรับลูกค้า (Anonymous Sign-in)',
+  'Failed to fetch': 'เชื่อมต่ออินเทอร์เน็ตไม่ได้ ลองใหม่อีกครั้ง'
+};
+const nice = (e) => { const m = (e && (e.message || e.error_description)) || String(e); for (const k in ERR) if (m.includes(k)) return ERR[k]; return m; };
+let toastT;
+function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 2400); }
+const store = {
+  get(k, d) { try { const v = sessionStorage.getItem('ky:' + k); return v ? JSON.parse(v) : d; } catch (_) { return d; } },
+  set(k, v) { try { sessionStorage.setItem('ky:' + k, JSON.stringify(v)); } catch (_) {} }
+};
+async function rpc(fn, args) { const { data, error } = await sb.rpc(fn, args); if (error) throw error; return data; }
+function beep() {
+  try { const c = new (window.AudioContext || window.webkitAudioContext)(); const o = c.createOscillator(), g = c.createGain();
+    o.frequency.value = 880; o.connect(g); g.connect(c.destination); g.gain.setValueAtTime(.25, c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001, c.currentTime + .5); o.start(); o.stop(c.currentTime + .5); } catch (_) {}
+}
+
+// ---------------- PromptPay (Thai QR, EMVCo) ----------------
+function crc16(s) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < s.length; i++) {
+    crc ^= s.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) & 0xFFFF : (crc << 1) & 0xFFFF;
+  }
+  return crc.toString(16).toUpperCase().padStart(4, '0');
+}
+function promptpayPayload(id, amountSatang) {
+  const f = (tag, v) => tag + String(v.length).padStart(2, '0') + v;
+  const digits = String(id).replace(/\D/g, '');
+  let target;
+  if (digits.length === 10) target = f('01', ('0000000000000' + '66' + digits.slice(1)).slice(-13));
+  else if (digits.length === 13) target = f('02', digits);
+  else target = f('03', digits);
+  const amt = amountSatang ? (amountSatang / 100).toFixed(2) : '';
+  let p = f('00', '01') + f('01', amt ? '12' : '11') + f('29', f('00', 'A000000677010111') + target) + f('58', 'TH') + f('53', '764') + (amt ? f('54', amt) : '') + '6304';
+  return p + crc16(p);
+}
+function qrSvg(text) {
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  const n = q.getModuleCount(); let r = '';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) r += `M${x} ${y}h1v1h-1z`;
+  return `<svg viewBox="-2 -2 ${n + 4} ${n + 4}" shape-rendering="crispEdges" role="img" aria-label="QR พร้อมเพย์"><rect x="-2" y="-2" width="${n + 4}" height="${n + 4}" fill="#fff"/><path d="${r}" fill="#111"/></svg>`;
+}
+
+// Link customers scan: opens the menu directly (skips the sign page). Works on any address the app is hosted at.
+const menuUrl = () => location.origin + location.pathname + '#/menu';
+function qrPng(text) {
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  const n = q.getModuleCount(), sc = 16, pad = 4 * sc, cap = 150;
+  const cv = document.createElement('canvas'); cv.width = n * sc + pad * 2; cv.height = n * sc + pad * 2 + cap;
+  const g = cv.getContext('2d');
+  g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height);
+  g.fillStyle = '#111';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) g.fillRect(pad + x * sc, pad + y * sc, sc, sc);
+  g.textAlign = 'center'; g.fillStyle = '#06412A';
+  g.font = '600 46px Taviraj, "Noto Serif Thai", serif'; g.fillText('สแกนเพื่อสั่งอาหาร', cv.width / 2, n * sc + pad * 2 + 40);
+  g.font = '32px "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif'; g.fillText('คุณยุ้ย ส้มตำครกระเบิด', cv.width / 2, n * sc + pad * 2 + 95);
+  return cv.toDataURL('image/png');
+}
+
+// ---------------- state ----------------
+const S = {
+  settings: null, storeName: 'คุณยุ้ย ส้มตำครกระเบิด', cats: [], items: [], links: [], urls: {}, heroUrl: null,
+  cat: null, q: '', searchOpen: false, queue: null, queueErr: null,
+  cart: store.get('cart', []), draft: null, myOrders: [], messages: [], reorder: store.get('reorder', null),
+  owner: { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0, ownerSettings: null },
+  ai: { zip: null, assets: [], categories: [], asset: null, categoryId: null, rawBlob: null, cropBlob: null, previewUrl: null, matchBy: null }
+};
+// ---------------- AI ASSET MASTER — source: supplied CHICKEN CLEAN v13 ZIP ----------------
+const AI_ASSETS = [{"code":"SOM_001","menuNameTh":"ตำปูปลาร้า","category":"somtam","priceThb":50,"imagePath":"images/SOM_001_tam_pu_plara.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_002","menuNameTh":"ตำปู","category":"somtam","priceThb":50,"imagePath":"images/SOM_002_tam_pu.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_003","menuNameTh":"ตำไทย","category":"somtam","priceThb":50,"imagePath":"images/SOM_003_tam_thai.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_004","menuNameTh":"ตำไทยปู","category":"somtam","priceThb":50,"imagePath":"images/SOM_004_tam_thai_pu.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_005","menuNameTh":"ตำไทยไข่เค็ม","category":"somtam","priceThb":60,"imagePath":"images/SOM_005_tam_thai_salted_egg.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_006","menuNameTh":"ตำโคราช","category":"somtam","priceThb":60,"imagePath":"images/SOM_006_tam_korat.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_007","menuNameTh":"ตำลาว","category":"somtam","priceThb":50,"imagePath":"images/SOM_007_tam_lao.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_008","menuNameTh":"ตำป่า","category":"somtam","priceThb":70,"imagePath":"images/SOM_008_tam_pa.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_009","menuNameTh":"ตำมั่ว","category":"somtam","priceThb":70,"imagePath":"images/SOM_009_tam_mua.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_010","menuNameTh":"ตำรวมมิตร","category":"somtam","priceThb":80,"imagePath":"images/SOM_010_tam_ruam_mit.jpg","batch":"BATCH01_CORRECTED"},{"code":"SOM_011","menuNameTh":"ตำซั่ว","category":"somtam","priceThb":50,"imagePath":"images/SOM_011_tam_sua.jpg","batch":"BATCH02"},{"code":"SOM_012","menuNameTh":"ตำซั่วปูปลาร้า","category":"somtam","priceThb":50,"imagePath":"images/SOM_012_tam_sua_pu_plara.jpg","batch":"BATCH02"},{"code":"SOM_013","menuNameTh":"ตำขนมจีน","category":"somtam","priceThb":50,"imagePath":"images/SOM_013_tam_khanom_jeen.jpg","batch":"BATCH02"},{"code":"SOM_014","menuNameTh":"ตำเส้นเล็ก","category":"somtam","priceThb":60,"imagePath":"images/SOM_014_tam_sen_lek.jpg","batch":"BATCH02"},{"code":"SOM_015","menuNameTh":"ตำเส้นเล็กไก่ยอ","category":"somtam","priceThb":70,"imagePath":"images/SOM_015_tam_sen_lek_kai_yo.jpg","batch":"BATCH02"},{"code":"SOM_016","menuNameTh":"ตำมาม่า","category":"somtam","priceThb":60,"imagePath":"images/SOM_016_tam_mama.jpg","batch":"BATCH02"},{"code":"SOM_017","menuNameTh":"ตำแตง","category":"somtam","priceThb":50,"imagePath":"images/SOM_017_tam_taeng.jpg","batch":"BATCH02"},{"code":"SOM_018","menuNameTh":"ตำแตงปูปลาร้า","category":"somtam","priceThb":50,"imagePath":"images/SOM_018_tam_taeng_pu_plara.jpg","batch":"BATCH02"},{"code":"SOM_019","menuNameTh":"ตำถั่ว","category":"somtam","priceThb":50,"imagePath":"images/SOM_019_tam_thua.jpg","batch":"BATCH02"},{"code":"SOM_020","menuNameTh":"ตำถั่วปูปลาร้า","category":"somtam","priceThb":50,"imagePath":"images/SOM_020_tam_thua_pu_plara.jpg","batch":"BATCH02"},{"code":"SOM_021","menuNameTh":"ตำข้าวโพด","category":"somtam","priceThb":60,"imagePath":"images/SOM_021_tam_khao_pod.jpg","batch":"BATCH03"},{"code":"SOM_022","menuNameTh":"ตำข้าวโพดไข่เค็ม","category":"somtam","priceThb":70,"imagePath":"images/SOM_022_tam_khao_pod_khai_khem.jpg","batch":"BATCH03"},{"code":"SOM_023","menuNameTh":"ตำมะม่วง","category":"somtam","priceThb":60,"imagePath":"images/SOM_023_tam_mamuang.jpg","batch":"BATCH03"},{"code":"SOM_024","menuNameTh":"ตำมะม่วงปลากรอบ","category":"somtam","priceThb":70,"imagePath":"images/SOM_024_tam_mamuang_pla_krop.jpg","batch":"BATCH03"},{"code":"SOM_025","menuNameTh":"ตำไหลบัว","category":"somtam","priceThb":60,"imagePath":"images/SOM_025_tam_lai_bua.jpg","batch":"BATCH03"},{"code":"SOM_026","menuNameTh":"ตำกล้วย","category":"somtam","priceThb":60,"imagePath":"images/SOM_026_tam_kluai.jpg","batch":"BATCH03"},{"code":"SOM_027","menuNameTh":"ตำไก่ยอ","category":"somtam","priceThb":70,"imagePath":"images/SOM_027_tam_kai_yo.jpg","batch":"BATCH03"},{"code":"SOM_028","menuNameTh":"ตำซั่วไก่ยอ","category":"somtam","priceThb":70,"imagePath":"images/SOM_028_tam_sua_kai_yo.jpg","batch":"BATCH03"},{"code":"SOM_029","menuNameTh":"ตำตีนไก่","category":"somtam","priceThb":70,"imagePath":"images/SOM_029_tam_teen_kai.jpg","batch":"BATCH03"},{"code":"SOM_030","menuNameTh":"ตำซั่วตีนไก่","category":"somtam","priceThb":80,"imagePath":"images/SOM_030_tam_sua_teen_kai.jpg","batch":"BATCH03"},{"code":"SOM_032","menuNameTh":"ตำหอยดอง","category":"somtam","priceThb":60,"imagePath":"images/SOM_032_tam_hoi_dong.png","batch":"BATCH04"},{"code":"SOM_034","menuNameTh":"ตำเล็บมือนาง","category":"somtam","priceThb":70,"imagePath":"images/SOM_034_tam_leb_mue_nang.png","batch":"BATCH04"},{"code":"SOM_035","menuNameTh":"ตำกุ้งสด","category":"somtam","priceThb":90,"imagePath":"images/SOM_035_tam_goong_sod.png","batch":"BATCH04"},{"code":"SOM_036","menuNameTh":"ตำกุ้งลวก","category":"somtam","priceThb":90,"imagePath":"images/SOM_036_tam_goong_luak.png","batch":"BATCH04"},{"code":"SOM_037","menuNameTh":"ตำไหลบัวกุ้งสด","category":"somtam","priceThb":100,"imagePath":"images/SOM_037_tam_lai_bua_goong_sod.png","batch":"BATCH04"},{"code":"SOM_038","menuNameTh":"ตำข้าวโพดกุ้งสด","category":"somtam","priceThb":100,"imagePath":"images/SOM_038_tam_khao_pod_goong_sod.png","batch":"BATCH04"},{"code":"SOM_039","menuNameTh":"ตำปูม้า","category":"somtam","priceThb":120,"imagePath":"images/SOM_039_tam_pu_ma.png","batch":"BATCH04"},{"code":"SOM_040","menuNameTh":"ตำข้าวโพดปูม้า","category":"somtam","priceThb":130,"imagePath":"images/SOM_040_tam_khao_pod_pu_ma.png","batch":"BATCH04"},{"code":"SOM_041","menuNameTh":"ตำทะเล","category":"somtam","priceThb":120,"imagePath":"images/SOM_041_tam_seafood.png","batch":"BATCH05"},{"code":"SOM_042","menuNameTh":"ตำรวมทะเล","category":"somtam","priceThb":150,"imagePath":"images/SOM_042_tam_mixed_seafood.png","batch":"BATCH05"},{"code":"YUM_001","menuNameTh":"ยำวุ้นเส้นไก่สับ","category":"yum","priceThb":50,"imagePath":"images/YUM_001_yum_woon_sen_kai_sub.png","batch":"YUM_BATCH01"},{"code":"YUM_002","menuNameTh":"ยำวุ้นเส้นไก่ยอ","category":"yum","priceThb":60,"imagePath":"images/YUM_002_yum_woon_sen_kai_yo.png","batch":"YUM_BATCH01"},{"code":"YUM_003","menuNameTh":"ยำวุ้นเส้นรวมมิตร","category":"yum","priceThb":70,"imagePath":"images/YUM_003_yum_woon_sen_ruam_mit.png","batch":"YUM_BATCH01"},{"code":"YUM_004","menuNameTh":"ยำวุ้นเส้นทะเล","category":"yum","priceThb":90,"imagePath":"images/YUM_004_yum_woon_sen_seafood.png","batch":"YUM_BATCH01"},{"code":"YUM_005","menuNameTh":"ยำมาม่าไก่สับ","category":"yum","priceThb":50,"imagePath":"images/YUM_005_yum_mama_kai_sub.png","batch":"YUM_BATCH01"},{"code":"YUM_006","menuNameTh":"ยำมาม่าไก่ยอ","category":"yum","priceThb":60,"imagePath":"images/YUM_006_yum_mama_kai_yo.png","batch":"YUM_BATCH01"},{"code":"YUM_007","menuNameTh":"ยำมาม่ารวมมิตร","category":"yum","priceThb":70,"imagePath":"images/YUM_007_yum_mama_ruam_mit.png","batch":"YUM_BATCH01"},{"code":"YUM_008","menuNameTh":"ยำมาม่าทะเล","category":"yum","priceThb":90,"imagePath":"images/YUM_008_yum_mama_seafood.png","batch":"YUM_BATCH01"},{"code":"YUM_009","menuNameTh":"ยำเส้นแก้ว","category":"yum","priceThb":70,"imagePath":"images/YUM_009_yum_sen_kaew.png","batch":"YUM_BATCH01"},{"code":"YUM_010","menuNameTh":"ยำเส้นเล็ก","category":"yum","priceThb":60,"imagePath":"images/YUM_010_yum_sen_lek.png","batch":"YUM_BATCH01"},{"code":"YUM_011","menuNameTh":"ยำไก่ยอ","category":"yum","priceThb":60,"imagePath":"images/YUM_011_yum_kai_yo.png","batch":"YUM_BATCH02"},{"code":"YUM_012","menuNameTh":"ยำไส้กรอก","category":"yum","priceThb":60,"imagePath":"images/YUM_012_yum_sai_krok.png","batch":"YUM_BATCH02"},{"code":"YUM_013","menuNameTh":"ยำปูอัด","category":"yum","priceThb":60,"imagePath":"images/YUM_013_yum_pu_ad.png","batch":"YUM_BATCH02"},{"code":"YUM_014","menuNameTh":"ยำเล็บมือนาง","category":"yum","priceThb":70,"imagePath":"images/YUM_014_yum_leb_mue_nang.png","batch":"YUM_BATCH02"},{"code":"YUM_015","menuNameTh":"ยำไก่ยอไข่แดงเค็ม","category":"yum","priceThb":80,"imagePath":"images/YUM_015_yum_kai_yo_salted_egg.png","batch":"YUM_BATCH02"},{"code":"YUM_016","menuNameTh":"ยำไข่ดาว","category":"yum","priceThb":60,"imagePath":"images/YUM_016_yum_khai_dao.png","batch":"YUM_BATCH02"},{"code":"YUM_017","menuNameTh":"ยำไข่เยี่ยวม้า","category":"yum","priceThb":70,"imagePath":"images/YUM_017_yum_khai_yiaw_ma.png","batch":"YUM_BATCH02"},{"code":"YUM_018","menuNameTh":"ยำไข่แดงเค็ม","category":"yum","priceThb":70,"imagePath":"images/YUM_018_yum_khai_daeng_kem.png","batch":"YUM_BATCH02"},{"code":"YUM_019","menuNameTh":"ยำรวมมิตร","category":"yum","priceThb":80,"imagePath":"images/YUM_019_yum_ruam_mit.png","batch":"YUM_BATCH02"},{"code":"YUM_020","menuNameTh":"ยำกุ้งสด","category":"yum","priceThb":90,"imagePath":"images/YUM_020_yum_goong_sod.png","batch":"YUM_BATCH02"},{"code":"YUM_021","menuNameTh":"ยำกุ้งสุก","category":"yum","priceThb":90,"imagePath":"images/YUM_021_yum_goong_suk.png","batch":"YUM_BATCH03"},{"code":"YUM_022","menuNameTh":"ยำกุ้งสดข้าวโพด","category":"yum","priceThb":100,"imagePath":"images/YUM_022_yum_goong_sod_khao_pod.png","batch":"YUM_BATCH03"},{"code":"YUM_023","menuNameTh":"ยำปลาหมึก","category":"yum","priceThb":90,"imagePath":"images/YUM_023_yum_pla_muek.png","batch":"YUM_BATCH03"},{"code":"YUM_024","menuNameTh":"ยำหอยแครง","category":"yum","priceThb":90,"imagePath":"images/YUM_024_yum_hoi_khrang.png","batch":"YUM_BATCH03"},{"code":"YUM_025","menuNameTh":"ยำหอยนางรม","category":"yum","priceThb":90,"imagePath":"images/YUM_025_yum_hoi_nang_rom.png","batch":"YUM_BATCH03"},{"code":"YUM_026","menuNameTh":"ยำปูม้า","category":"yum","priceThb":120,"imagePath":"images/YUM_026_yum_pu_ma.png","batch":"YUM_BATCH03"},{"code":"YUM_027","menuNameTh":"ยำปูม้าข้าวโพด","category":"yum","priceThb":130,"imagePath":"images/YUM_027_yum_pu_ma_khao_pod.png","batch":"YUM_BATCH03"},{"code":"YUM_028","menuNameTh":"ยำทะเล","category":"yum","priceThb":120,"imagePath":"images/YUM_028_yum_talay.png","batch":"YUM_BATCH03"},{"code":"YUM_029","menuNameTh":"ยำรวมทะเล","category":"yum","priceThb":150,"imagePath":"images/YUM_029_yum_ruam_talay.png","batch":"YUM_BATCH03"},{"code":"YUM_030","menuNameTh":"ยำข้าวโพด","category":"yum","priceThb":50,"imagePath":"images/YUM_030_yum_khao_pod.png","batch":"YUM_BATCH03"},{"code":"YUM_031","menuNameTh":"ยำข้าวโพดไข่เค็ม","category":"yum","priceThb":60,"imagePath":"images/YUM_031_yum_khao_pod_khai_kem.png","batch":"YUM_BATCH04_FINAL"},{"code":"YUM_032","menuNameTh":"ยำมะม่วง","category":"yum","priceThb":50,"imagePath":"images/YUM_032_yum_mamuang.png","batch":"YUM_BATCH04_FINAL"},{"code":"YUM_033","menuNameTh":"ยำมะม่วงปลากรอบ","category":"yum","priceThb":60,"imagePath":"images/YUM_033_yum_mamuang_pla_grob.png","batch":"YUM_BATCH04_FINAL"},{"code":"YUM_034","menuNameTh":"ยำแตง","category":"yum","priceThb":50,"imagePath":"images/YUM_034_yum_taeng.png","batch":"YUM_BATCH04_FINAL"},{"code":"YUM_035","menuNameTh":"ยำไก่ยอกุ้งสด","category":"yum","priceThb":100,"imagePath":"images/YUM_035_yum_kai_yo_goong_sod.png","batch":"YUM_BATCH04_FINAL"},{"code":"YUM_036","menuNameTh":"ยำกุ้งสดไข่แดงเค็ม","category":"yum","priceThb":110,"imagePath":"images/YUM_036_yum_goong_sod_khai_daeng_kem.png","batch":"YUM_BATCH04_FINAL"},{"code":"YUM_037","menuNameTh":"ยำปูม้ากุ้งสด","category":"yum","priceThb":150,"imagePath":"images/YUM_037_yum_pu_ma_goong_sod.png","batch":"YUM_BATCH04_FINAL"},{"code":"YUM_038","menuNameTh":"ยำยกร้าน","category":"yum","priceThb":180,"imagePath":"images/YUM_038_yum_yok_ran.png","batch":"YUM_BATCH04_FINAL"},{"code":"TOP_001","menuNameTh":"ปลากรอบ","category":"topping","priceThb":10,"imagePath":"images/TOP_001_pla_grob.jpg","batch":"TOPPING_BATCH01","itemType":"addon","addonKind":"topping","cartBehavior":"MODIFIER","displayPriceTh":"+10 บาท"},{"code":"TOP_002","menuNameTh":"กุ้งแห้ง","category":"topping","priceThb":10,"imagePath":"images/TOP_002_goong_haeng.jpg","batch":"TOPPING_BATCH01","itemType":"addon","addonKind":"topping","cartBehavior":"MODIFIER","displayPriceTh":"+10 บาท"},{"code":"TOP_003","menuNameTh":"หนังไก่ทอด","category":"topping","priceThb":10,"imagePath":"images/TOP_003_nang_kai_tod.jpg","batch":"TOPPING_BATCH01","itemType":"addon","addonKind":"topping","cartBehavior":"MODIFIER","displayPriceTh":"+10 บาท"},{"code":"TOP_004","menuNameTh":"ขนมจีน","category":"topping","priceThb":10,"imagePath":"images/TOP_004_khanom_jeen.jpg","batch":"TOPPING_BATCH01","itemType":"addon","addonKind":"side_addon","cartBehavior":"SEPARATE_LINE_ITEM","displayPriceTh":"10 บาท"},{"code":"SPE_001","menuNameTh":"ตำซุปเปอร์ตีนไก่","category":"special","priceThb":80,"imagePath":"images/SPE_001_tam_super_teen_kai.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_002","menuNameTh":"ตำป่ากุ้งสด","category":"special","priceThb":80,"imagePath":"images/SPE_002_tam_pa_goong_sod.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_003","menuNameTh":"ตำป่าทะเลรวม","category":"special","priceThb":130,"imagePath":"images/SPE_003_tam_pa_mixed_seafood.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_004","menuNameTh":"ตำปลาหมึก","category":"special","priceThb":80,"imagePath":"images/SPE_004_tam_pla_muek.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_005","menuNameTh":"ตำมะม่วงกุ้งสุก","category":"special","priceThb":80,"imagePath":"images/SPE_005_tam_mamuang_goong_suk.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_006","menuNameTh":"ตำหอยดองปูปลาร้า","category":"special","priceThb":50,"imagePath":"images/SPE_006_tam_hoi_dong_pu_plara.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_007","menuNameTh":"ตำไทยไก่ยอ","category":"special","priceThb":60,"imagePath":"images/SPE_007_tam_thai_kai_yo.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_008","menuNameTh":"ตำไทยกุ้งสุก","category":"special","priceThb":80,"imagePath":"images/SPE_008_tam_thai_goong_suk.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_009","menuNameTh":"ตำปูปลาร้าขาไก่","category":"special","priceThb":60,"imagePath":"images/SPE_009_tam_pu_plara_kha_kai.png","batch":"SPECIAL_BATCH01"},{"code":"SPE_010","menuNameTh":"ตำข้าวโพดไก่ยอ","category":"special","priceThb":60,"imagePath":"images/SPE_010_tam_khao_pod_kai_yo.png","batch":"SPECIAL_BATCH01"}];
+const AI_CATEGORIES = [{"id":"somtam","nameTh":"ส้มตำ","codePrefix":"SOM_","coverage":"SOM_001–SOM_042 (excluding SOM_031, SOM_033)","assetCount":40,"status":"CHICKEN_CLEAN"},{"id":"yum","nameTh":"ยำ","codePrefix":"YUM_","coverage":"YUM_001–YUM_038","assetCount":38,"status":"CHICKEN_CLEAN"},{"id":"topping","nameTh":"ท็อปปิ้ง / เพิ่มเติม","codePrefix":"TOP_","coverage":"TOP_001–TOP_004","assetCount":4,"status":"CURRENT_SET_COMPLETE"},{"id":"special","nameTh":"ส้มตำพิเศษ","codePrefix":"SPE_","coverage":"SPE_001–SPE_010","assetCount":10,"status":"CURRENT_SET_COMPLETE"}];
+const AI_CATEGORY_ALIASES = { topping: ['topping','side'], special: ['special'], somtam: ['somtam'], yum: ['yum'] };
+const aiRootCandidates = [
+  'KHUNYUI_MENU_IMAGES_MASTER_CHICKEN_CLEAN_v13/',
+  'menu_assets_master/'
+];
+const aiNorm = (v) => String(v ?? '').toLowerCase().replace(/\s+/g,'').replace(/[\-_/·•]/g,'').replace(/หมูยอ/g,'ไก่ยอ');
+const aiFindDbCategory = (code) => {
+  const aliases = AI_CATEGORY_ALIASES[code] || [code];
+  return S.cats.find(c => aliases.includes(String(c.code || '').toLowerCase()))
+      || S.cats.find(c => aliases.includes(String(c.name || '').toLowerCase()));
+};
+const channels = {};
+function listen(topic, cb) {
+  if (channels[topic]) return;
+  const ch = sb.channel(topic, { config: { private: true } });
+  ch.on('broadcast', { event: '*' }, (m) => cb(m.event, m.payload)).subscribe();
+  channels[topic] = ch;
+}
+function unlistenAll() { for (const k in channels) { sb.removeChannel(channels[k]); delete channels[k]; } }
+async function syncRealtimeAuth() { const { data: { session } } = await sb.auth.getSession(); if (session) await sb.realtime.setAuth(session.access_token); }
+
+async function broadcastStore(topic, event, payload = {}) {
+  try {
+    const ch = sb.channel(topic, { config: { private: true } });
+    await new Promise((resolve) => {
+      let settled = false;
+      const done = () => { if (!settled) { settled = true; resolve(); } };
+      ch.subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          try { await ch.send({ type: 'broadcast', event, payload }); } catch (_) {}
+          try { sb.removeChannel(ch); } catch (_) {}
+          done();
+        } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
+          try { sb.removeChannel(ch); } catch (_) {}
+          done();
+        }
+      });
+      setTimeout(done, 2500);
+    });
+  } catch (_) {}
+}
+
+
+// ---------------- data ----------------
+async function ensureCustomer() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) { const { error } = await sb.auth.signInAnonymously(); if (error) throw error; }
+  await syncRealtimeAuth();
+}
+async function loadSettings() {
+  const { data, error } = await sb.from('store_public_settings')
+    .select('is_accepting_orders, closed_for_date, promptpay_id, queue_hold_minutes, day_cutoff, hero_image_path').eq('store_id', CONFIG.store).maybeSingle();
+  if (error) throw error; S.settings = data || {};
+}
+async function loadMenu(owner) {
+  let items = sb.from('menu_items').select('id, sku, name, description, price_satang, category_id, image_path, is_available, is_archived, is_recommended, sort_order')
+    .eq('store_id', CONFIG.store).order('sort_order').order('name');
+  if (!owner) items = items.eq('is_archived', false);
+  const [c, i, l] = await Promise.all([
+    sb.from('menu_categories').select('id, code, name, sort_order').eq('store_id', CONFIG.store).eq('is_active', true).order('sort_order'),
+    items,
+    sb.from('menu_item_option_groups').select('menu_item_id, sort_order, menu_option_groups(id, name, selection_type, min_select, max_select, is_active, sort_order, menu_option_values(id, name, price_delta_satang, is_available, is_default, sort_order))')
+  ]);
+  const e = c.error || i.error || l.error; if (e) throw e;
+  S.cats = c.data; S.items = i.data.filter(x => owner || !x.is_archived); S.links = l.data;
+  await signImages();
+}
+async function signImages() {
+  const all = [...new Set(S.items.map(x => x.image_path).concat(S.settings?.hero_image_path || []).filter(Boolean))].filter(p => !S.urls[p]);
+  all.filter(p => !p.startsWith('stores/')).forEach(p => { S.urls[p] = /^https?:/.test(p) ? p : p.replace(/^\/+/, ''); });
+  const paths = all.filter(p => p.startsWith('stores/'));
+  if (paths.length) {
+    const { data } = await sb.storage.from('menu-images').createSignedUrls(paths, 60 * 60 * 6);
+    (data || []).forEach(d => { if (d.signedUrl) S.urls[d.path] = d.signedUrl; });
+  }
+  S.heroUrl = S.settings?.hero_image_path ? S.urls[S.settings.hero_image_path] || null : null;
+}
+const groupsOf = (id) => S.links.filter(l => l.menu_item_id === id && l.menu_option_groups && l.menu_option_groups.is_active)
+  .sort((a, b) => a.sort_order - b.sort_order)
+  .map(l => ({ ...l.menu_option_groups, values: (l.menu_option_groups.menu_option_values || []).sort((a, b) => a.sort_order - b.sort_order) }));
+function defaultPicks(id) {
+  const picks = [];
+  for (const g of groupsOf(id)) {
+    if (g.selection_type !== 'single' || g.min_select < 1) continue;
+    const v = g.values.find(x => x.is_default && x.is_available) || g.values.find(x => x.is_available);
+    if (!v) return null;
+    picks.push(v.id);
+  }
+  return picks;
+}
+function makeLine(id, qty, picks, note) {
+  const it = S.items.find(x => x.id === id), vals = groupsOf(id).flatMap(g => g.values).filter(v => picks.includes(v.id));
+  return { id, name: it.name, qty, opts: vals.map(v => v.id), optNames: vals.map(v => v.name), note: note || '', unit: it.price_satang + vals.reduce((s, v) => s + v.price_delta_satang, 0) };
+}
+function addLine(line) {
+  const same = S.cart.find(l => l.id === line.id && !l.note && !line.note && l.opts.join() === line.opts.join());
+  if (same) same.qty = Math.min(20, same.qty + line.qty); else S.cart.push(line);
+  saveCart();
+}
+const cartCount = () => S.cart.reduce((s, l) => s + l.qty, 0);
+const cartTotal = () => S.cart.reduce((s, l) => s + l.unit * l.qty, 0);
+const saveCart = () => store.set('cart', S.cart);
+
+async function loadMyOrders() {
+  const { data: { user } } = await sb.auth.getUser();
+  const [o, m] = await Promise.all([
+    sb.from('orders').select('id, business_date, queue_code, status, total_satang, fulfillment_type, created_at, customer_user_id, cancel_source, cancel_reason, replaces_order_id, order_items(menu_item_id, menu_name_snapshot, quantity, customer_note, order_item_options(option_value_id, option_name_snapshot)), payments(method, status)')
+      .eq('store_id', CONFIG.store).eq('customer_user_id', user?.id).order('created_at', { ascending: false }).limit(100),
+    sb.from('customer_messages').select('id, order_id, queue_code, kind, title, body, suggestions, created_at, read_at')
+      .eq('store_id', CONFIG.store).eq('customer_user_id', user?.id).order('created_at', { ascending: false }).limit(30)
+  ]);
+  if (o.error) throw o.error;
+  S.myOrders = o.data; S.messages = m.data || [];
+  S.myOrders.filter(x => !['completed', 'cancelled'].includes(x.status) || S.messages.some(mm => mm.order_id === x.id))
+    .forEach(x => listen('order:' + x.id, async (ev, p) => {
+      const t = S.myOrders.find(y => y.id === x.id); if (!t) return;
+      if (ev === 'order_changed') { t.status = p.status; if (p.status === 'cancelled') { await loadMyOrders(); } }
+      if (ev === 'payment_changed' && t.payments[0]) t.payments[0].status = p.status;
+      if (ev === 'message') { await loadMyOrders(); toast(p.title); }
+      if (['orders', 'done', 'menu'].includes(route()[0])) render();
+    }));
+}
+const unread = () => S.messages.filter(m => !m.read_at).length;
+const replacedIds = () => new Set(S.myOrders.map(o => o.replaces_order_id).filter(Boolean));
+// Same-number re-order: only for shop-cancelled orders not yet replaced; the server also enforces "same business day".
+const canReorder = (o) => o && o.status === 'cancelled' && o.cancel_source === 'owner' && !replacedIds().has(o.id)
+  && (Date.now() - new Date(o.created_at)) < 20 * 3600e3;
+
+// ---------------- router ----------------
+const route = () => (location.hash.replace(/^#\/?/, '').split('?')[0] || '').split('/').filter(Boolean);
+const go = (h) => { if (location.hash === h) show(); else location.hash = h; };
+window.addEventListener('hashchange', () => show());
+
+async function show() {
+  const r = route(); closeModal();
+  try {
+    if (r[0] === 'owner') return await showOwner(r[1] || 'orders', r[2]);
+    if (!r[0]) { render(); return; }
+    await ensureCustomer();
+    if (!S.settings) await loadSettings();
+    if (!S.cats.length) await loadMenu(false);
+    if (r[0] === 'menu' || r[0] === 'cart' || r[0] === 'review') {
+      if (S.reorder) { S.queue = { queue_code: S.reorder.queue_code }; S.queueErr = null; }
+      else if (r[0] === 'menu' || !S.queue) {
+        try { const d = await rpc('reserve_queue', { p_store_id: CONFIG.store }); S.queue = d[0]; S.queueErr = null; }
+        catch (e) { S.queue = null; S.queueErr = nice(e); }
+      }
+      listen(`store:${CONFIG.store}:menu`, async (ev) => { if (ev === 'menu_changed' || ev === 'menu_image_changed' || ev === '*') { await loadMenu(false); if (route()[0] !== 'owner') render(); } });
+      listen(`store:${CONFIG.store}:status`, async () => { await loadSettings(); await signImages(); if (route()[0] !== 'owner') show(); });
+      await loadMyOrders();
+    }
+    if (r[0] === 'item') {
+      const d = S.items.find(x => x.id === r[1]); if (!d) return go('#/menu');
+      if (!S.draft || S.draft.id !== d.id) S.draft = { id: d.id, qty: 1, note: '', picked: defaultPicks(d.id) || [] };
+    }
+    if (r[0] === 'done' || r[0] === 'orders') await loadMyOrders();
+    if (r[0] === 'orders' && unread()) rpc('mark_messages_read', { p_store_id: CONFIG.store }).catch(() => {});
+    render(); window.scrollTo(0, 0);
+  } catch (e) { render(); toast(nice(e)); }
+}
+
+// ---------------- customer views ----------------
+const V = {};
+V[''] = () => `
+  <div class="landing"><div class="sign">
+    <img src="sign.jpg" alt="คุณยุ้ย ส้มตำครกระเบิด — ส้มตำ ยำ">
+    <button class="lock" data-go="#/owner" aria-label="เข้าสู่ระบบสำหรับเจ้าของร้าน">${I.lock}</button>
+    <button class="order" data-go="#/menu">${I.cart} สั่งอาหารเลย</button>
+  </div></div>`;
+
+function menuBlock(owner) {
+  const q = S.q.trim();
+  let list = S.items, title = 'เมนูแนะนำ';
+  if (q) { list = list.filter(d => d.name.includes(q)); title = `ค้นหา “${esc(q)}”`; }
+  else if (S.cat) { list = list.filter(d => d.category_id === S.cat); title = S.cats.find(c => c.id === S.cat)?.name || ''; }
+  else list = list.filter(d => d.is_recommended && !d.is_archived);
+  const hero = S.heroUrl
+    ? `<img src="${S.heroUrl}" alt="เมนูแนะนำของร้าน">${owner ? `<label class="create">เปลี่ยนภาพ<input class="sr-file" type="file" accept="image/*" data-upload="hero"></label>` : ''}`
+    : owner ? `<div class="ph"><label class="create center">+ create<input class="sr-file" type="file" accept="image/*" data-upload="hero"></label><span>ภาพโปสเตอร์ส้มตำ ยำ ซิกเนเจอร์ของร้าน</span></div>`
+      : `<div class="ph"><b>ส้มตำ • ยำ</b><span>${esc(S.storeName)}</span></div>`;
+  return `
+    <div class="hero">${hero}</div>
+    <div class="section-head"><h2>${title}</h2><button class="search" data-act="search" aria-expanded="${S.searchOpen}">${I.search} ค้นหา</button></div>
+    ${S.searchOpen ? `<input class="search-input" id="q" placeholder="พิมพ์ชื่อเมนู" value="${esc(S.q)}" aria-label="ค้นหาเมนู">` : ''}
+    <div class="chips">${S.cats.map(c => `<button class="chip ${S.cat === c.id && !q ? 'on' : ''}" data-cat="${c.id}" aria-pressed="${S.cat === c.id}">${esc(c.name)}</button>`).join('')}</div>
+    <div class="grid">
+      ${list.map(d => {
+        const pic = `<div class="pic">${d.image_path && S.urls[d.image_path] ? `<img src="${S.urls[d.image_path]}" alt="" loading="lazy">` : I.leaf}
+            ${d.is_archived ? '<div class="soldout" style="color:var(--muted)">เก็บเข้าคลัง</div>' : !d.is_available ? '<div class="soldout">หมดชั่วคราว</div>' : ''}</div>`;
+        return owner ? `
+        <button class="dish" data-edit="${d.id}" aria-label="แก้ไข ${esc(d.name)}">${pic}
+          <div class="body">${d.is_recommended ? '<span class="tag">★ แนะนำ</span>' : ''}<span class="name">${esc(d.name)}</span>
+            <div class="row"><span class="price">${baht(d.price_satang)}</span><span class="muted">แก้ไข</span></div></div>
+        </button>` : `
+        <div class="dish">
+          <button class="dish-open" data-open="${d.id}" aria-label="ดูรายละเอียด ${esc(d.name)}">${pic}
+            <div class="body" style="padding-bottom:.3rem">${d.is_recommended ? '<span class="tag">★ แนะนำ</span>' : ''}<span class="name">${esc(d.name)}</span></div></button>
+          <div class="foot"><span class="price">${baht(d.price_satang)}</span>
+            ${d.is_available ? `<button class="plus" data-quick="${d.id}" aria-label="เพิ่ม ${esc(d.name)} ลงตะกร้า">+</button>` : ''}</div>
+        </div>`; }).join('')}
+      ${owner && !q ? `<button class="dish" data-act="new-dish" style="justify-content:center;align-items:center;min-height:180px;border-style:dashed;border-color:var(--gold)"><span class="price">+ เพิ่มเมนู</span></button>` : ''}
+    </div>
+    ${!list.length && !owner ? `<div class="empty">${q ? 'ไม่พบเมนู' : S.cat ? 'ยังไม่มีเมนูในหมวดนี้' : 'เลือกหมวดด้านบนเพื่อดูเมนูทั้งหมด'}</div>` : ''}`;
+}
+const activeMine = () => S.myOrders.filter(o => !['completed', 'cancelled'].includes(o.status));
+V.menu = () => `
+  <div class="topbar"><button class="back" data-go="#/" aria-label="กลับหน้าแรก">${I.back}<span class="brand">คุณยุ้ย<small>ส้มตำครกระเบิด</small></span></button>
+    ${S.queue ? `<span class="qbadge" title="เลขคิวของคุณ">คิว ${esc(S.queue.queue_code)}</span>` : ''}</div>
+  ${S.queueErr ? `<div class="banner">${esc(S.queueErr)} · ดูเมนูได้ แต่ยังสั่งไม่ได้</div>` : ''}
+  ${S.reorder ? `<div class="reorder-note" style="margin:.75rem 1rem 0">สั่งใหม่แทนคิว ${esc(S.reorder.queue_code)} · ใช้เลขคิวเดิม ไม่เสียคิว <button class="back" style="display:inline;padding:0 0 0 .3rem;font-size:.85rem" data-act="reorder-off">ยกเลิกการสั่งแทน</button></div>` : ''}
+  <div class="with-bar">${menuBlock(false)}</div>
+  <div class="bottombar">
+    <button class="pill" data-go="#/orders" style="position:relative">${I.list} ordered ${activeMine().length ? `<span class="count">${activeMine().length}</span>` : ''}${unread() ? `<span class="dot" aria-label="ข้อความใหม่ ${unread()}">${unread()}</span>` : ''}</button>
+    <button class="pill main" data-go="#/cart">${I.cart} ${cartCount() ? `${cartCount()} รายการ · ${baht(cartTotal())}` : 'ตะกร้า'}</button>
+  </div>`;
+
+V.item = () => {
+  const d = S.items.find(x => x.id === S.draft.id), gs = groupsOf(d.id), dr = S.draft;
+  const vals = gs.flatMap(g => g.values).filter(v => dr.picked.includes(v.id));
+  const ok = gs.every(g => { const n = g.values.filter(v => dr.picked.includes(v.id)).length; return n >= g.min_select && n <= g.max_select; });
+  return `
+  <div class="topbar"><button class="back" data-go="#/menu">${I.back} เมนู</button>${S.queue ? `<span class="qbadge">คิว ${esc(S.queue.queue_code)}</span>` : ''}</div>
+  <div class="with-bar">
+    <div class="hero" style="aspect-ratio:4/3">${d.image_path && S.urls[d.image_path] ? `<img src="${S.urls[d.image_path]}" alt="">` : I.leaf}</div>
+    <div class="pad"><h2 class="serif" style="margin:0;color:var(--green);font-size:1.6rem">${esc(d.name)}</h2>
+      <div class="price" style="font-size:1.2rem">${baht(d.price_satang)}</div>${d.description ? `<p class="muted">${esc(d.description)}</p>` : ''}</div>
+    ${gs.map(g => `<div class="card"><h3>${esc(g.name)}${g.min_select ? '<span class="req">ต้องเลือก</span>' : '<span class="muted"> (ไม่บังคับ)</span>'}</h3>
+      ${g.values.map(v => `<label class="opt"><span>${esc(v.name)}${v.price_delta_satang ? ` <span class="muted">+${baht(v.price_delta_satang)}</span>` : ''}${!v.is_available ? ' <span class="muted">(หมด)</span>' : ''}</span>
+        <input type="${g.selection_type === 'single' ? 'radio' : 'checkbox'}" name="g-${g.id}" value="${v.id}" data-opt="${g.id}" ${dr.picked.includes(v.id) ? 'checked' : ''} ${!v.is_available ? 'disabled' : ''}></label>`).join('')}</div>`).join('')}
+    <div class="card"><label class="field" style="margin:0"><span>หมายเหตุถึงร้าน (ไม่บังคับ)</span><textarea id="note" rows="2" maxlength="300" placeholder="เช่น ไม่ใส่ถั่ว">${esc(dr.note)}</textarea></label></div>
+  </div>
+  <div class="bottombar">
+    <div class="stepper" style="align-self:center"><button data-act="dq" data-d="-1" aria-label="ลด">−</button><span>${dr.qty}</span><button data-act="dq" data-d="1" aria-label="เพิ่ม">+</button></div>
+    <button class="pill main" data-act="add" ${ok && d.is_available ? '' : 'disabled'}>ใส่ตะกร้า · ${baht((d.price_satang + vals.reduce((s, v) => s + v.price_delta_satang, 0)) * dr.qty)}</button>
+  </div>`;
+};
+
+V.cart = () => `
+  <div class="topbar"><button class="back" data-go="#/menu">${I.back} เมนู</button>${S.queue ? `<span class="qbadge">คิว ${esc(S.queue.queue_code)}</span>` : ''}</div>
+  <div class="with-bar">
+    <div class="pad"><h2 class="serif" style="color:var(--green);margin:.8rem 0 0">ตะกร้า</h2></div>
+    ${S.cart.length ? `<div class="card">${S.cart.map((l, i) => `
+      <div class="line"><div><b>${esc(l.name)}</b>
+        ${groupsOf(l.id).filter(g => g.selection_type === 'single').map(g => `<div><select class="cart-opt" data-cart="${i}" data-group="${g.id}" aria-label="${esc(g.name)}">${g.values.filter(v => v.is_available || l.opts.includes(v.id)).map(v => `<option value="${v.id}" ${l.opts.includes(v.id) ? 'selected' : ''}>${esc(g.name)}: ${esc(v.name)}</option>`).join('')}</select></div>`).join('')}
+        ${l.note ? `<div class="muted">${esc(l.note)}</div>` : ''}<div class="price">${baht(l.unit * l.qty)}</div></div>
+        <div class="stepper" style="align-self:center"><button data-act="cq" data-i="${i}" data-d="-1" aria-label="ลด">−</button><span>${l.qty}</span><button data-act="cq" data-i="${i}" data-d="1" aria-label="เพิ่ม">+</button></div></div>`).join('')}
+      <div class="total"><span>รวมโดยประมาณ</span><b>${baht(cartTotal())}</b></div></div>` : '<div class="empty">ตะกร้ายังว่าง</div>'}
+  </div>
+  <div class="bottombar"><button class="pill main" data-go="#/review" ${S.cart.length ? '' : 'disabled'}>ถัดไป · ตรวจสอบคำสั่งซื้อ</button></div>`;
+
+V.review = () => `
+  <div class="topbar"><button class="back" data-go="#/cart">${I.back} ตะกร้า</button>${S.queue ? `<span class="qbadge">คิว ${esc(S.queue.queue_code)}</span>` : ''}</div>
+  <div class="with-bar">
+    <div class="pad"><h2 class="serif" style="color:var(--green);margin:.8rem 0 0">ตรวจสอบคำสั่งซื้อ</h2></div>
+    <div class="card"><h3>รับอาหารแบบไหน</h3><div class="seg">
+      <label><input type="radio" name="ful" value="dine_in" ${store.get('ful', 'dine_in') === 'dine_in' ? 'checked' : ''}>ทานที่ร้าน</label>
+      <label><input type="radio" name="ful" value="takeaway" ${store.get('ful') === 'takeaway' ? 'checked' : ''}>กลับบ้าน</label></div></div>
+    <div class="card"><h3>ชำระเงิน</h3><div class="seg">
+      <label><input type="radio" name="pay" value="cash" ${store.get('pay', 'cash') !== 'promptpay_qr' || !S.settings?.promptpay_id ? 'checked' : ''}>เงินสด</label>
+      <label><input type="radio" name="pay" value="promptpay_qr" ${store.get('pay') === 'promptpay_qr' && S.settings?.promptpay_id ? 'checked' : ''} ${S.settings?.promptpay_id ? '' : 'disabled'}>พร้อมเพย์</label></div>
+      ${S.settings?.promptpay_id ? '' : '<p class="muted" style="margin:.5rem 0 0">ร้านยังไม่เปิดรับพร้อมเพย์</p>'}</div>
+    <div class="card">${S.cart.map(l => `<div class="line"><span>${esc(l.name)} × ${l.qty}<br><span class="muted">${esc(l.optNames.join(' · '))}</span></span><span>${baht(l.unit * l.qty)}</span></div>`).join('')}
+      <div class="total"><span>ยอดชำระ</span><b>${baht(cartTotal())}</b></div><p class="muted" style="margin:.4rem 0 0">ยอดจริงคำนวณโดยระบบร้านตอนยืนยัน</p></div>
+    ${S.queueErr ? `<div class="banner">${esc(S.queueErr)}</div>` : ''}
+  </div>
+  <div class="bottombar"><button class="pill main" data-act="confirm" ${S.cart.length && !S.queueErr ? '' : 'disabled'}>ยืนยันคำสั่งซื้อ</button></div>`;
+
+V.done = () => {
+  const o = S.myOrders.find(x => x.id === route()[1]);
+  if (!o) return `<div class="empty">ไม่พบออเดอร์</div><div class="pad"><button class="btn block" data-go="#/menu">กลับเมนู</button></div>`;
+  const pay = o.payments[0] || {};
+  const pp = pay.method === 'promptpay_qr' && S.settings?.promptpay_id && pay.status === 'pending';
+  return `
+  <div class="with-bar">
+    <div class="bigq"><div class="lbl">สั่งสำเร็จ · เลขคิวของคุณ</div><div class="code">${esc(o.queue_code)}</div>
+      <div class="muted">${o.fulfillment_type === 'dine_in' ? 'ทานที่ร้าน' : 'กลับบ้าน'} · ${thTime(o.created_at)}</div></div>
+    ${pp ? `<div class="card qr"><span class="pp-logo">PromptPay พร้อมเพย์</span><div class="box">${qrSvg(promptpayPayload(S.settings.promptpay_id, o.total_satang))}</div>
+        <div class="total" style="gap:1rem"><span>ยอดโอน</span><b>${baht(o.total_satang)}</b></div>
+        <p class="muted" style="margin:0">สแกนด้วยแอปธนาคาร ยอดขึ้นเอง · โอนแล้วร้านจะยืนยันให้</p></div>`
+      : `<div class="card" style="text-align:center"><b>${pay.method === 'cash' ? 'ชำระเงินสดที่ร้าน' : PAYS[pay.status] || ''}</b><p class="muted" style="margin:.3rem 0 0">ยอด ${baht(o.total_satang)}</p></div>`}
+  </div>
+  <div class="bottombar"><button class="pill main" data-go="#/orders">ติดตามออเดอร์</button></div>`;
+};
+
+function messageCard(m) {
+  const o = S.myOrders.find(x => x.id === m.order_id);
+  const sug = (m.suggestions || []).map(id => S.items.find(x => x.id === id)).filter(Boolean);
+  return `<div class="msg ${m.read_at ? 'read' : ''}">
+    <div class="oc-head"><span class="t">${esc(m.title)}</span><span class="muted">${esc(m.queue_code)} · ${thTime(m.created_at)}</span></div>
+    ${m.body ? `<div style="margin-top:.25rem">${esc(m.body)}</div>` : ''}
+    ${sug.length ? `<div class="muted" style="margin-top:.5rem">เมนูแนะนำแทน</div><div class="sug">${sug.map(x => x.is_available
+      ? `<button class="btn ghost sm" data-quick="${x.id}">+ ${esc(x.name)} ${baht(x.price_satang)}</button>` : `<span class="meta-chip">${esc(x.name)} (หมด)</span>`).join('')}</div>` : ''}
+    ${canReorder(o) ? `<div class="actions" style="margin-top:.6rem"><button class="btn sm" data-act="reorder" data-id="${o.id}">สั่งอีกครั้ง (คิว ${esc(o.queue_code)} เดิม)</button></div>` : ''}
+  </div>`;
+}
+V.orders = () => {
+  const steps = ['new', 'preparing', 'ready', 'completed'];
+  const byDay = {};
+  S.myOrders.forEach(o => (byDay[o.business_date] ||= []).push(o));
+  return `
+  <div class="topbar"><button class="back" data-go="#/menu">${I.back} เมนู</button><span class="brand">ออเดอร์ของฉัน</span></div>
+  <div class="with-bar">
+    <div class="section-head" style="margin-top:.9rem"><h2>กล่องข้อความ</h2>${unread() ? `<span class="chip-s open">ใหม่ ${unread()}</span>` : ''}</div>
+    ${S.messages.length ? S.messages.map(messageCard).join('') : '<p class="muted pad" style="margin:0">ยังไม่มีข้อความจากร้าน</p>'}
+    <div class="section-head" style="margin-top:1.2rem"><h2>ประวัติออเดอร์</h2></div>
+    ${Object.keys(byDay).length ? Object.entries(byDay).map(([day, list]) => `<div class="day-head">${thDate(ymd(day))}</div>` + list.map(o => {
+      const idx = steps.indexOf(o.status), pay = o.payments[0] || {};
+      return `<div class="card"><div class="oc-head"><span class="oc-q">${esc(o.queue_code)}</span><span class="status ${o.status}">${STATUS[o.status]}</span></div>
+        ${o.replaces_order_id ? '<div class="reorder-note">สั่งใหม่แทนออเดอร์ที่ร้านยกเลิก · คิวเดิม</div>' : ''}
+        ${o.status !== 'cancelled' ? `<div class="steps">${steps.map((st, i) => `<div class="${i <= idx ? 'done' : ''}"><i></i>${STATUS[st]}</div>`).join('')}</div>`
+          : `<div class="banner" style="margin:.5rem 0">${o.cancel_source === 'owner' ? 'ร้านยกเลิก' : 'คุณยกเลิกเอง'}${o.cancel_reason ? ' · ' + esc(o.cancel_reason) : ''}</div>`}
+        <div class="oc-items">${o.order_items.map(it => `${esc(it.menu_name_snapshot)}${it.order_item_options.length ? ` <span class="muted">(${esc(it.order_item_options.map(x => x.option_name_snapshot).join(', '))})</span>` : ''} × ${it.quantity}`).join('<br>')}</div>
+        <div class="oc-meta"><span class="meta-chip">${thTime(o.created_at)}</span><span class="meta-chip">${METHOD[pay.method] || ''} · ${PAYS[pay.status] || ''}</span><span class="meta-chip">${baht(o.total_satang)}</span></div>
+        <div class="actions">${pay.method === 'promptpay_qr' && pay.status === 'pending' && o.status !== 'cancelled' ? `<button class="btn ghost sm" data-go="#/done/${o.id}">เปิด QR จ่ายเงิน</button>` : ''}
+          ${o.status === 'new' ? `<button class="btn danger sm" data-act="cust-cancel" data-id="${o.id}">ยกเลิกออเดอร์</button>` : ''}
+          ${canReorder(o) ? `<button class="btn sm" data-act="reorder" data-id="${o.id}">สั่งอีกครั้ง (คิวเดิม)</button>` : ''}</div>
+      </div>`; }).join('')).join('') : '<div class="empty">ยังไม่มีออเดอร์จากเครื่องนี้</div>'}
+    <p class="muted pad">สถานะและข้อความจากร้านเด้งเองเมื่อร้านอัปเดต ไม่ต้องรีเฟรช · ประวัติผูกกับเครื่องนี้</p>
+  </div>
+  <div class="bottombar"><button class="pill" data-go="#/menu">สั่งเพิ่ม</button></div>`;
+};
+
+// ---------------- owner ----------------
+async function ownerMember() {
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user || user.is_anonymous) return null;
+  const { data } = await sb.from('store_members').select('role, is_active').eq('store_id', CONFIG.store).eq('user_id', user.id).maybeSingle();
+  return data && data.is_active ? { ...data, email: user.email } : null;
+}
+async function showOwner(tab, arg) {
+  if (tab === 'login') { render('login'); return; }
+  $('#app').innerHTML = '<div class="login-head" style="padding-top:30vh"><div class="serif" style="font-size:1.4rem">คุณยุ้ย</div><div class="spinner"></div><p class="muted">กำลังตรวจสิทธิ์เจ้าของร้าน…</p></div>';
+  const m = await ownerMember();
+  if (!m) { const { data: { user } } = await sb.auth.getUser(); S.owner.denied = !!(user && !user.is_anonymous); return render('login'); }
+  S.owner.member = m; S.owner.tab = ['menu', 'orders', 'dash', 'profile', 'archive', 'inbox'].includes(tab) ? tab : 'orders';
+  S.owner.day = tab === 'archive' && /^\d{4}-\d{2}-\d{2}$/.test(arg || '') ? arg : null;
+  await syncRealtimeAuth();
+  listen(`store:${CONFIG.store}:orders`, (ev, p) => {
+    if (ev === 'order_changed' && p.status === 'new' && !(S.owner.seen || (S.owner.seen = new Set())).has(p.order_id)) {
+      S.owner.seen.add(p.order_id); S.owner.bell += 1; beep(); toast('ออเดอร์ใหม่ ' + p.queue_code);
+    }
+    clearTimeout(S.owner.t); S.owner.t = setTimeout(() => { if (route()[0] === 'owner') loadTab().then(() => render('owner')); }, 250);
+  });
+  await loadTab(); render('owner'); window.scrollTo(0, 0);
+}
+async function loadTab() {
+  const t = S.owner.tab;
+  await loadSettings();
+  if (t === 'menu') await loadMenu(true);
+  if (t === 'orders' || t === 'dash') {
+    S.owner.dash = await rpc('get_owner_dashboard_summary', { p_store_id: CONFIG.store });
+  }
+  if (t === 'orders') {
+    const { data, error } = await sb.from('orders')
+      .select('id, queue_code, status, fulfillment_type, total_satang, created_at, queue_sort_at, customer_note, cancel_reason, replaces_order_id, order_items(menu_item_id, menu_name_snapshot, quantity, customer_note, order_item_options(option_name_snapshot)), payments(id, method, status, amount_satang, payment_refunds(id, amount_satang, status))')
+      .eq('store_id', CONFIG.store).eq('business_date', S.owner.dash.business_date).order('queue_sort_at');
+    if (error) throw error; S.owner.orders = data;
+  }
+  if (t === 'archive') await loadArchive();
+  if (t === 'inbox') {
+    if (!S.items.length) await loadMenu(true);
+    const { data, error } = await sb.from('customer_messages').select('id, queue_code, kind, title, body, suggestions, created_at, read_at')
+      .eq('store_id', CONFIG.store).order('created_at', { ascending: false }).limit(200);
+    if (error) throw error; S.owner.inbox = data;
+  }
+  if (t === 'profile') {
+    const [c, o] = await Promise.all([
+      sb.from('daily_closings').select('business_date, revision, summary, closed_at').eq('store_id', CONFIG.store).order('business_date', { ascending: false }).order('revision', { ascending: false }).limit(200),
+      sb.from('store_owner_settings').select('notify_new_order, sound_new_order').eq('store_id', CONFIG.store).maybeSingle()
+    ]);
+    const seen = new Set(); S.owner.closings = (c.data || []).filter(x => !seen.has(x.business_date) && seen.add(x.business_date));
+    S.owner.ownerSettings = o.data;
+  }
+}
+
+async function loadArchive() {
+  const since = new Date(Date.now() - 400 * 864e5).toISOString().slice(0, 10);
+  const [c, o] = await Promise.all([
+    sb.from('daily_closings').select('business_date, revision, summary, closed_at').eq('store_id', CONFIG.store).gte('business_date', since)
+      .order('business_date', { ascending: false }).order('revision', { ascending: false }),
+    sb.from('orders').select('business_date, status').eq('store_id', CONFIG.store).gte('business_date', since)
+  ]);
+  if (c.error || o.error) throw (c.error || o.error);
+  const days = {};
+  const day = (d) => days[d] || (days[d] = { date: d, closings: [], orders: 0 });
+  c.data.forEach(x => day(x.business_date).closings.push(x));
+  o.data.forEach(x => { if (x.status !== 'cancelled') day(x.business_date).orders += 1; });
+  S.owner.archive = Object.values(days).sort((a, b) => b.date.localeCompare(a.date));
+  if (S.owner.day) {
+    const dd = days[S.owner.day] || { date: S.owner.day, closings: [], orders: 0 };
+    const [sum, ol] = await Promise.all([
+      rpc('get_owner_dashboard_summary', { p_store_id: CONFIG.store, p_business_date: S.owner.day }),
+      sb.from('orders').select('queue_code, status, total_satang, created_at, fulfillment_type, payments(method, status)')
+        .eq('store_id', CONFIG.store).eq('business_date', S.owner.day).order('created_at')
+    ]);
+    if (ol.error) throw ol.error;
+    S.owner.dayData = { ...dd, live: sum, orders: ol.data };
+  }
+}
+
+V.login = () => `
+  <div class="topbar"><button class="back" data-go="#/">${I.back} หน้าแรก</button><span></span></div>
+  <div class="login-head"><div class="serif">คุณยุ้ย<br>ส้มตำครกระเบิด</div><p class="muted">สำหรับเจ้าของร้าน</p></div>
+  ${S.owner.denied ? '<div class="banner">บัญชีนี้ไม่มีสิทธิ์เข้าหลังร้าน</div>' : ''}
+  <div class="card">
+    <label class="field"><span>อีเมล</span><input id="email" type="email" autocomplete="username" inputmode="email"></label>
+    <label class="field"><span>รหัสผ่าน</span><input id="password" type="password" autocomplete="current-password"></label>
+    <button class="btn block" data-act="login">เข้าสู่ระบบ</button>
+    <button class="btn ghost block" style="margin-top:.6rem" data-act="magic">ส่งลิงก์เข้าสู่ระบบทางอีเมลแทน</button>
+  </div>`;
+
+function ownerHead() {
+  return `<div class="topbar"><span class="brand" style="font-size:1.1rem">คุณยุ้ยส้มตำครกระเบิด</span>
+    <span style="display:flex;gap:.4rem;align-items:center">
+    <button class="icon-btn" data-act="bell" aria-label="แจ้งเตือน ${S.owner.bell} รายการ">${I.bell}${S.owner.bell ? `<span class="dot">${S.owner.bell}</span>` : ''}</button></span></div>`;
+}
+function tabbar() {
+  const t = [['menu', 'หน้าหลัก&เมนู', I.home], ['orders', 'ออเดอร์', I.receipt], ['dash', 'แดชบอร์ด', I.chart], ['profile', 'โปรไฟล์', I.user]];
+  return `<nav class="tabbar" aria-label="เมนูร้าน">${t.map(([id, l, ic]) => `<button class="tab ${(['archive', 'inbox'].includes(S.owner.tab) ? 'profile' : S.owner.tab) === id ? 'on' : ''}" data-go="#/owner/${id}" aria-current="${S.owner.tab === id}">${ic}${l}</button>`).join('')}</nav>`;
+}
+const T = {};
+const closedBanner = () => S.settings && !S.settings.is_accepting_orders
+  ? `<div class="banner" style="display:flex;justify-content:space-between;align-items:center;gap:.5rem"><span>ร้านปิดรับออเดอร์อยู่${S.settings.closed_for_date ? ' · เปิดเองอัตโนมัติวันถัดไป' : ''}</span><button class="btn sm" data-act="reopen">เปิดรับตอนนี้</button></div>` : '';
+T.menu = () => `<div class="with-bar">${menuBlock(true)}<p class="muted pad" style="margin-top:1rem">แตะเมนูเพื่อแก้รูป ชื่อ ราคา หรือเปิดปิดขาย · ในหน้าแก้เมนูมี AI จัดภาพ + ชื่อหมวดจาก Master ZIP · ลูกค้าเห็นทันที</p></div>`;
+T.orders = () => {
+  const f = S.owner.filter;
+  const done = (o) => ['completed', 'cancelled'].includes(o.status) ? 1 : 0;
+  const list = S.owner.orders
+    .filter(o => f === 'all' || o.status === f)
+    .sort((a, b) => done(a) - done(b) || new Date(a.queue_sort_at) - new Date(b.queue_sort_at));
+  const fl = [['all', 'ทั้งหมด'], ['new', 'ใหม่'], ['preparing', 'กำลังทำ'], ['ready', 'พร้อมรับ'], ['completed', 'เสร็จสิ้น'], ['cancelled', 'ยกเลิก']];
+
+  return `<div class="with-bar">${closedBanner()}
+    <div class="chips" style="padding-top:.8rem">
+      ${fl.map(([id, l]) => `<button class="chip ${f === id ? 'on' : ''}" data-filter="${id}">
+        ${l}${id === 'all' ? '' : ' ' + S.owner.orders.filter(o => o.status === id).length}
+      </button>`).join('')}
+    </div>
+    <p class="muted pad" style="margin:0 0 .25rem">
+      ${thDate(ymd(S.owner.dash.business_date))} · ออเดอร์ใหม่อยู่ด้านบน · แตะการ์ดเพื่อดูรายละเอียดทั้งหมด
+    </p>
+
+    ${list.map(o => {
+      const p = o.payments[0] || {};
+      const open = NEXT[o.status];
+      const refunds = p.payment_refunds || [];
+      const visibleItems = o.order_items.slice(0, 3);
+      const hiddenCount = Math.max(0, o.order_items.length - visibleItems.length);
+
+      return `
+      <div class="card owner-order-card">
+        <div class="owner-order-top">
+          <span class="oc-q">${esc(o.queue_code)}</span>
+          <span class="muted">${thTime(o.created_at)}</span>
+          <span class="status ${o.status}">${STATUS[o.status]}</span>
+        </div>
+
+        ${o.replaces_order_id ? (() => {
+          const old = S.owner.orders.find(x => x.id === o.replaces_order_id);
+          return `<div class="reorder-note">สั่งใหม่แทนคิวเดิม${old?.cancel_reason ? ' · ' + esc(old.cancel_reason) : ''}</div>`;
+        })() : ''}
+
+        ${o.status === 'cancelled' && o.cancel_reason
+          ? `<div class="muted" style="margin-top:.35rem">เหตุผล: ${esc(o.cancel_reason)}</div>` : ''}
+
+        <div class="owner-order-items">
+          ${visibleItems.map(it => `
+            <div class="owner-order-item">
+              <span class="qty">× ${Number(it.quantity || 1)}</span>
+              <span class="name">
+                ${esc(it.menu_name_snapshot)}
+                ${it.order_item_options.length
+                  ? ` <span class="muted">(${esc(it.order_item_options.map(x => x.option_name_snapshot).join(', '))})</span>`
+                  : ''}
+                ${it.customer_note ? `<span class="note">↳ ${esc(it.customer_note)}</span>` : ''}
+              </span>
+            </div>`).join('')}
+          ${hiddenCount ? `<div class="owner-order-more">+ อีก ${hiddenCount} รายการ · ดูทั้งหมดในรายละเอียด</div>` : ''}
+        </div>
+
+        <div class="owner-order-meta">
+          <span class="meta-chip">${o.fulfillment_type === 'dine_in' ? 'ทานที่ร้าน' : 'กลับบ้าน'}</span>
+          <span class="meta-chip ${p.status === 'pending' && o.status !== 'cancelled' ? 'warn' : ''}">
+            ${METHOD[p.method] || ''} · ${PAYS[p.status] || ''}
+          </span>
+          ${refunds.map(r => `<span class="meta-chip warn">${REFUND[r.status]} ${baht(r.amount_satang)}</span>`).join('')}
+        </div>
+
+        <div class="owner-order-summary">
+          <span class="muted">${o.order_items.length} รายการ</span>
+          <b class="total">${baht(o.total_satang)}</b>
+        </div>
+
+        <div class="owner-order-actions">
+          ${open ? `<button class="btn sm" data-act="adv" data-id="${o.id}">
+            ${o.status === 'ready' && p.status === 'pending' ? 'เสร็จสิ้น · รับเงินแล้ว' : open}
+          </button>` : ''}
+          ${p.status === 'pending' && o.status !== 'cancelled'
+            ? `<button class="btn ghost sm" data-act="paid" data-id="${o.id}">รับเงินแล้ว</button>` : ''}
+          ${open ? `<button class="btn ghost sm" data-act="sold-out" data-id="${o.id}">สินค้าหมด</button>` : ''}
+          ${open ? `<button class="btn danger sm" data-act="owner-cancel" data-id="${o.id}"
+            data-q="${esc(o.queue_code)}" data-paid="${p.status === 'confirmed'}">ยกเลิก</button>` : ''}
+          ${refunds.filter(r => r.status === 'required' || r.status === 'processing')
+            .map(r => `<button class="btn ghost sm" data-act="refund" data-id="${r.id}">บันทึกว่าคืนเงินแล้ว</button>`).join('')}
+        </div>
+      </div>`;
+    }).join('') || '<div class="empty">ยังไม่มีออเดอร์</div>'}
+  </div>`;
+};
+T.dash = () => {
+  const s = S.owner.dash;
+  return `<div class="with-bar">${closedBanner()}
+    <div class="pad" style="margin-top:.9rem"><span class="muted">วันนี้</span><h2 class="serif" style="margin:0;color:var(--green)">${thDate(ymd(s.business_date))}</h2></div>
+    <div class="stats"><div class="stat"><b>${s.visits_total}</b><span>คนสแกน</span></div><div class="stat"><b>${s.orders_total}</b><span>สั่งจริง</span></div><div class="stat"><b>${s.visits_not_ordered}</b><span>ดูแต่ไม่สั่ง</span></div></div>
+    <div class="card money"><div class="lbl">รายได้ที่รับแล้ววันนี้</div><div class="val">${baht(s.received_total_satang)}</div><div class="muted">ยอดสั่งทั้งหมด ${baht(s.sales_total_satang)}</div>
+      <div class="split"><div><b>${baht(s.received_cash_satang)}</b><span>เงินสด</span></div><div><b>${baht(s.received_qr_satang)}</b><span>พร้อมเพย์</span></div></div>
+      <div class="split"><div><b>${s.dine_in_count} ออเดอร์</b><span>ทานที่ร้าน</span></div><div><b>${s.takeaway_count} ออเดอร์</b><span>กลับบ้าน</span></div></div></div>
+    <div class="card"><h3>ยังไม่ได้รับเงิน</h3>
+      <div class="line"><span>เงินสด</span><b>${baht(s.pending_cash_satang)}</b></div>
+      <div class="line"><span>พร้อมเพย์ (รอตรวจยอดเข้า)</span><b>${baht(s.pending_qr_satang)}</b></div>
+      ${s.refund_pending_count ? `<div class="line"><span>รอคืนเงิน ${s.refund_pending_count} รายการ</span><b style="color:var(--red)">${baht(s.refund_pending_satang)}</b></div>` : ''}</div>
+    <div class="pad"><button class="btn block" data-act="close-day">สรุปยอดวันนี้</button>
+      <p class="muted">บันทึกยอดเข้าคลังประวัติ และปิดรับออเดอร์ถึงสิ้นวัน · วันถัดไปร้านเปิดรับเองและเลขคิวเริ่ม A001 ใหม่ · กดซ้ำได้ ระบบเก็บเป็นฉบับแก้ไข</p></div>
+  </div>`;
+};
+T.profile = () => {
+  const st = S.settings || {}, os = S.owner.ownerSettings || {};
+  return `<div class="with-bar">
+    <div class="card"><h3>ร้าน</h3>
+      <div class="setting"><span>${esc(S.storeName)}<br><span class="muted">${esc(S.owner.member?.email || '')}</span></span></div>
+      <div class="setting"><span>เปิดรับออเดอร์</span><label class="switch"><input type="checkbox" data-act="accepting" ${st.is_accepting_orders ? 'checked' : ''} aria-label="เปิดรับออเดอร์"><span></span></label></div></div>
+    <div class="card"><h3>พร้อมเพย์และคิว</h3>
+      <label class="field"><span>เบอร์มือถือที่ผูกพร้อมเพย์ (แนะนำ ไม่ใช้เลขบัตรประชาชน)</span><input id="pp" inputmode="numeric" maxlength="15" value="${esc(st.promptpay_id || '')}" placeholder="08xxxxxxxx"></label>
+      <label class="field"><span>เวลาตัดวัน (ขึ้นเลข A001 ใหม่)</span><input id="cutoff" type="time" value="${esc(String(st.day_cutoff || '00:00').slice(0, 5))}"></label>
+      <label class="field"><span>เลขคิวที่ดูแต่ไม่สั่ง ถือว่า “ไม่ได้สั่ง” หลัง</span><select id="hold">${[15, 30, 45, 60].map(m => `<option value="${m}" ${st.queue_hold_minutes == m ? 'selected' : ''}>${m} นาที</option>`).join('')}</select></label>
+      <div class="actions"><button class="btn sm" data-act="save-settings">บันทึก</button>${st.promptpay_id ? '<button class="btn ghost sm" data-act="pp-test">ทดสอบ QR 1 บาท</button>' : ''}</div></div>
+    <div class="card"><h3>แจ้งเตือนในแอป</h3>
+      <div class="setting"><span>เสียงเมื่อมีออเดอร์ใหม่ (ขณะเปิดแอป)</span><label class="switch"><input type="checkbox" data-act="sound" ${os.sound_new_order ? 'checked' : ''} aria-label="เสียงแจ้งเตือน"><span></span></label></div>
+      <details style="margin-top:.4rem"><summary class="muted" style="cursor:pointer">วิธีติดตั้งแอปจากเว็บ</summary>
+        <p class="muted"><b>iPhone:</b> เปิดใน Safari → ปุ่มแชร์ → เพิ่มไปยังหน้าจอโฮม → เปิดจากไอคอนคุณยุ้ย<br><b>Android:</b> เปิดใน Chrome → เมนู ⋮ → ติดตั้งแอป → เปิดจากไอคอนคุณยุ้ย</p></details></div>
+    <div class="card"><h3>QR ให้ลูกค้าสแกน</h3>
+      <p class="muted" style="margin:0 0 .6rem">สแกนแล้วเข้าหน้าเมนูทันที ไม่ผ่านหน้าป้าย · ได้เลขคิวทันทีที่เปิด</p>
+      <div class="actions"><button class="btn sm" data-act="menu-qr">เปิด QR / บันทึกรูป</button></div></div>
+    <div class="card" style="padding:0"><button class="day-row" style="border-top:0;grid-template-columns:1fr auto" data-go="#/owner/inbox">
+      <span><b>กล่องข้อความ</b><br><span class="muted">ข้อความที่ส่งถึงลูกค้า · ยกเลิกและสินค้าหมด</span></span><span class="price" aria-hidden="true">›</span></button></div>
+    <div class="card" style="padding:0"><button class="day-row" style="border-top:0;grid-template-columns:1fr auto" data-go="#/owner/archive">
+      <span><b>คลังประวัติรายได้</b><br><span class="muted">${S.owner.closings.length ? 'ล่าสุด ' + thDate(ymd(S.owner.closings[0].business_date)) + ' · ' + baht(S.owner.closings[0].summary.net_after_completed_refunds_satang) : 'ยังไม่มีประวัติ'}</span></span>
+      <span class="price" aria-hidden="true">›</span></button></div>
+    <div class="pad"><button class="btn danger block" data-act="logout">ออกจากระบบ</button></div>
+  </div>`;
+};
+const KIND = { order_cancelled: 'ยกเลิกออเดอร์', sold_out: 'แจ้งสินค้าหมด' };
+T.inbox = () => {
+  const by = {};
+  (S.owner.inbox || []).forEach(m => (by[new Date(m.created_at).toDateString()] ||= []).push(m));
+  return `<div class="with-bar">
+    <div class="topbar" style="top:calc(env(safe-area-inset-top,0px) + 61px)"><button class="back" data-go="#/owner/profile">${I.back} โปรไฟล์</button><span class="brand">กล่องข้อความ</span></div>
+    <p class="muted pad" style="margin:.8rem 0 0">ข้อความที่ร้านส่งถึงลูกค้า · ลูกค้าอ่านได้อย่างเดียว</p>
+    ${Object.keys(by).length ? Object.entries(by).map(([d, list]) => `<div class="day-head">${thDate(new Date(d))}</div>` + list.map(m => {
+      const sug = (m.suggestions || []).map(id => S.items.find(x => x.id === id)?.name).filter(Boolean);
+      return `<div class="msg ${m.read_at ? 'read' : ''}"><div class="oc-head"><span class="t">${esc(m.queue_code)} · ${KIND[m.kind] || ''}</span><span class="muted">${thTime(m.created_at)}</span></div>
+        <div style="margin-top:.2rem">${esc(m.body || m.title)}</div>${sug.length ? `<div class="muted">แนะนำ: ${esc(sug.join(', '))}</div>` : ''}
+        <div class="muted" style="margin-top:.3rem">${m.read_at ? 'ลูกค้าอ่านแล้ว ' + thTime(m.read_at) : 'ลูกค้ายังไม่อ่าน'}</div></div>`; }).join('')).join('')
+      : '<div class="empty">ยังไม่มีข้อความ</div>'}
+  </div>`;
+};
+const TH_MONTH = (y, m) => new Intl.DateTimeFormat('th-TH', { month: 'long', year: 'numeric' }).format(new Date(y, m - 1, 1));
+const TH_FULL = (d) => new Intl.DateTimeFormat('th-TH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+const TH_WD = (d) => new Intl.DateTimeFormat('th-TH', { weekday: 'short' }).format(d);
+const beYear = (y) => y + 543;
+T.archive = () => S.owner.day ? archiveDay() : archiveList();
+function archiveList() {
+  const all = S.owner.archive || [];
+  const years = [...new Set(all.map(d => d.date.slice(0, 4)))];
+  const year = S.owner.year && years.includes(S.owner.year) ? S.owner.year : years[0];
+  const months = {};
+  all.filter(d => d.date.startsWith(year || '')).forEach(d => (months[d.date.slice(0, 7)] ||= []).push(d));
+  const nowKey = new Date().toISOString().slice(0, 7);
+  return `<div class="with-bar">
+    <div class="topbar" style="top:calc(env(safe-area-inset-top,0px) + 61px)"><button class="back" data-go="#/owner/profile">${I.back} โปรไฟล์</button><span class="brand">คลังประวัติรายได้</span></div>
+    ${years.length > 1 ? `<div class="arch-year">${years.map(y => `<button class="chip ${y === year ? 'on' : ''}" data-year="${y}">พ.ศ. ${beYear(+y)}</button>`).join('')}</div>` : ''}
+    ${Object.keys(months).length ? Object.entries(months).map(([ym, days]) => {
+      const closed = days.filter(d => d.closings.length), open = days.length - closed.length;
+      const net = closed.reduce((s, d) => s + Number(d.closings[0].summary.net_after_completed_refunds_satang || 0), 0);
+      const ords = closed.reduce((s, d) => s + Number(d.closings[0].summary.orders_total || 0), 0);
+      const [y, m] = ym.split('-').map(Number);
+      return `<details class="month" ${ym === nowKey || ym === Object.keys(months)[0] ? 'open' : ''}>
+        <summary><span><span class="m">${TH_MONTH(y, m)}</span><br><span class="muted">${closed.length} วันที่สรุปแล้ว · ${ords} ออเดอร์${open ? ` · ยังไม่สรุป ${open} วัน` : ''}</span></span><span class="price">${baht(net)}</span></summary>
+        ${days.map(d => { const dt = ymd(d.date), c = d.closings[0]; return `
+          <button class="day-row" data-go="#/owner/archive/${d.date}">
+            <span class="d">${dt.getDate()}<small>${TH_WD(dt)}</small></span>
+            <span>${c ? `<span class="chip-s">สรุปแล้ว ${thTime(c.closed_at)}${c.revision > 1 ? ` · แก้ไข ${c.revision - 1}` : ''}</span>` : '<span class="chip-s open">ยังไม่สรุปยอด</span>'}
+              <br><span class="muted">${c ? c.summary.orders_total : d.orders} ออเดอร์</span></span>
+            <span class="price">${c ? baht(c.summary.net_after_completed_refunds_satang) : '—'}</span>
+          </button>`; }).join('')}
+      </details>`; }).join('') : '<div class="empty">ยังไม่มีประวัติ · กด “สรุปยอดวันนี้” ในแท็บแดชบอร์ด</div>'}
+    <p class="muted pad">ยอดของเดือน รวมเฉพาะวันที่สรุปแล้ว · แตะวันเพื่อดูรายละเอียด</p>
+  </div>`;
+}
+function archiveDay() {
+  const d = S.owner.dayData, c = d.closings[0], s = c ? c.summary : d.live, dt = ymd(d.date);
+  const n = (k) => Number(s[k] || 0);
+  const pending = n('pending_cash_satang') + n('pending_qr_satang');
+  return `<div class="with-bar">
+    <div class="topbar" style="top:calc(env(safe-area-inset-top,0px) + 61px)"><button class="back" data-go="#/owner/archive">${I.back} คลังประวัติ</button><span></span></div>
+    <div class="pad" style="margin-top:.8rem"><h2 class="serif" style="margin:0;color:var(--green);font-size:1.35rem">${TH_FULL(dt)}</h2>
+      ${c ? `<span class="chip-s">สรุปยอดเมื่อ ${thTime(c.closed_at)}${c.revision > 1 ? ` · ฉบับแก้ไขครั้งที่ ${c.revision - 1}` : ''}</span>` : '<span class="chip-s open">ยังไม่สรุปยอด · ตัวเลขตามจริงขณะนี้</span>'}</div>
+    <div class="card"><h3>เงินของวันนี้</h3>
+      <div class="kv"><span>รับเงินสด</span><b>${baht(n('received_cash_satang'))}</b></div>
+      <div class="kv"><span>รับพร้อมเพย์</span><b>${baht(n('received_qr_satang'))}</b></div>
+      ${n('refund_completed_satang') ? `<div class="kv minus"><span>คืนเงินลูกค้าแล้ว</span><b>−${baht(n('refund_completed_satang'))}</b></div>` : ''}
+      <div class="kv sum"><span>สุทธิ</span><b>${baht(n('net_after_completed_refunds_satang'))}</b></div>
+      ${pending ? `<div class="kv"><span class="muted">ยังไม่ได้รับ (เงินสด ${baht(n('pending_cash_satang'))} · พร้อมเพย์ ${baht(n('pending_qr_satang'))})</span><b>${baht(pending)}</b></div>` : ''}
+      ${n('refund_pending_satang') ? `<div class="kv minus"><span>รอคืนเงิน ${n('refund_pending_count')} รายการ</span><b>${baht(n('refund_pending_satang'))}</b></div>` : ''}
+    </div>
+    <div class="card"><h3>ออเดอร์และลูกค้า</h3>
+      <div class="kv"><span>ออเดอร์</span><b>${n('orders_total')}</b></div>
+      <div class="kv"><span>ทานที่ร้าน / กลับบ้าน</span><b>${n('dine_in_count')} / ${n('takeaway_count')}</b></div>
+      ${n('cancelled_count') ? `<div class="kv"><span>ยกเลิก</span><b>${n('cancelled_count')}</b></div>` : ''}
+      <div class="kv"><span>คนสแกน / ดูแต่ไม่สั่ง</span><b>${n('visits_total')} / ${n('visits_not_ordered')}</b></div>
+      <div class="kv"><span>ยอดสั่งทั้งหมด</span><b>${baht(n('sales_total_satang'))}</b></div>
+    </div>
+    <div class="card"><h3>รายการออเดอร์ (${d.orders.length})</h3>
+      ${d.orders.map(o => { const p = o.payments[0] || {}; return `<div class="orow ${o.status === 'cancelled' ? 'cx' : ''}"><span class="q">${esc(o.queue_code)}</span><span class="muted">${thTime(o.created_at)}</span>
+        <span>${METHOD[p.method] || ''} · ${o.status === 'cancelled' ? 'ยกเลิก' : PAYS[p.status] || ''}</span><b>${baht(o.total_satang)}</b></div>`; }).join('') || '<p class="muted" style="margin:0">ไม่มีออเดอร์</p>'}
+    </div>
+    ${d.closings.length > 1 ? `<div class="card"><h3>ประวัติการสรุปยอดของวันนี้</h3>${d.closings.map(x => `<div class="kv"><span>${x.revision === 1 ? 'ฉบับแรก' : 'ฉบับแก้ไขครั้งที่ ' + (x.revision - 1)} · ${thTime(x.closed_at)}</span><b>${baht(x.summary.net_after_completed_refunds_satang)}</b></div>`).join('')}</div>` : ''}
+    <div class="pad"><button class="btn ${c ? 'ghost' : ''} block" data-act="close-date" data-date="${d.date}">${c ? 'สรุปยอดวันที่ ' + thDate(dt) + ' อีกครั้ง' : 'สรุปยอดวันที่ ' + thDate(dt)}</button>
+      <p class="muted">ตัวเลขในคลังคือยอด ณ เวลาที่กดสรุป ถ้ามีรายการตามมาทีหลัง กดสรุปอีกครั้งได้ ระบบเก็บฉบับเดิมไว้</p></div>
+  </div>`;
+}
+V.owner = () => ownerHead() + T[S.owner.tab]() + tabbar();
+
+function render(view) {
+  const r = route();
+  const v = view || (r[0] === 'owner' ? 'owner' : r[0] || '');
+  $('#app').innerHTML = (V[v] || V[''])();
+}
+
+// ---------------- sheets ----------------
+function openModal(html) { $('#modal').innerHTML = `<div class="scrim" data-act="scrim"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`; }
+function closeModal() { $('#modal').innerHTML = ''; }
+function editSheet(d) {
+  const isNew = !d;
+  d = d || { id: null, name: '', description: '', price_satang: 0, category_id: S.cat || S.cats[0]?.id, image_path: null, is_available: true, is_recommended: false, is_archived: false };
+  S.edit = { id: d.id, sku: d.sku || null, image_path: d.image_path, image_blob: null, image_preview_url: null, aiAsset: null };
+  openModal(`<h3>${isNew ? 'เพิ่มเมนู' : 'แก้ไขเมนู'}</h3>
+    <div class="hero" style="margin:0 0 .8rem;aspect-ratio:4/3" id="edit-pic">${d.image_path && S.urls[d.image_path] ? `<img src="${S.urls[d.image_path]}" alt="">` : I.leaf}
+      <label class="create">${d.image_path ? 'เปลี่ยนรูป' : '+ รูป'}<input class="sr-file" type="file" accept="image/*" data-upload="dish"></label></div>
+    <div style="text-align:right;margin:-.4rem 0 .6rem"><button class="back" id="rm-pic" data-act="rm-pic" ${d.image_path ? '' : 'hidden'} style="color:var(--red)">เอารูปออก</button></div>
+    <label class="field"><span>ชื่อเมนู</span><input id="e-name" value="${esc(d.name)}" maxlength="80"></label>
+    <label class="field"><span>ราคา (บาท)</span><input id="e-price" inputmode="decimal" value="${d.price_satang ? d.price_satang / 100 : ''}"></label>
+    <label class="field"><span>หมวด</span><select id="e-cat">${S.cats.map(c => `<option value="${c.id}" ${d.category_id === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
+    <button class="ai-asset-btn" type="button" data-act="ai-zip-open">✨ AI จัดภาพ + ชื่อหมวด</button>
+    <p class="ai-source">ใช้รหัสเมนู (SKU) เป็นหลัก · ถ้าไม่มี ใช้ชื่อเมนู · ราคาเดิมของร้านจะไม่ถูก AI เปลี่ยน</p>
+    <div class="setting"><span>ขายอยู่</span><label class="switch"><input type="checkbox" id="e-avail" ${d.is_available ? 'checked' : ''} aria-label="ขายอยู่"><span></span></label></div>
+    <div class="setting"><span>แสดงในเมนูแนะนำ</span><label class="switch"><input type="checkbox" id="e-rec" ${d.is_recommended ? 'checked' : ''} aria-label="เมนูแนะนำ"><span></span></label></div>
+    ${!isNew ? `<div class="setting"><span>เก็บเข้าคลัง (ซ่อนจากลูกค้า)</span><label class="switch"><input type="checkbox" id="e-arch" ${d.is_archived ? 'checked' : ''} aria-label="เก็บเข้าคลัง"><span></span></label></div>` : ''}
+    <div class="actions" style="margin-top:1rem"><button class="btn ghost" data-act="close">ยกเลิก</button><button class="btn" style="flex:1" data-act="save-dish">บันทึก</button></div>`);
+}
+// ---- photo flow: pick → preview & crop (drag / zoom) → confirm or cancel → upload ----
+function loadImage(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => resolve({ img, url });
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('เปิดรูปนี้ไม่ได้ ลองเลือกรูป JPG หรือ PNG')); };
+    img.src = url;
+  });
+}
+function cropImage(file, aspect, title) {
+  return new Promise(async (resolve) => {
+    let loaded;
+    try { loaded = await loadImage(file); } catch (e) { toast(e.message); return resolve(null); }
+    const { img, url } = loaded;
+    $('#crop').innerHTML = `<div class="crop-layer" role="dialog" aria-modal="true" aria-label="${esc(title)}">
+      <h3>${esc(title)} · ${aspect >= 1.5 ? '16:9 · 1600×900 px' : '4:3 · 1200×900 px'}</h3>
+      <div class="crop-frame" id="cf" style="aspect-ratio:${aspect}"></div>
+      <input class="crop-zoom" id="cz" type="range" min="1" max="3" step="0.01" value="1" aria-label="ซูม">
+      <p class="crop-hint">กรอบลูกค้าเห็นจริง · ${aspect >= 1.5 ? '16:9 · 1600×900 px' : '4:3 · 1200×900 px'} · ลากเพื่อเลื่อน · ซูมด้วยแถบหรือถ่างสองนิ้ว</p>
+      <div class="crop-actions"><button class="btn ghost" id="cc" style="flex:1">ยกเลิก</button><button class="btn" id="ck" style="flex:2">ยืนยันใช้รูปนี้</button></div>
+    </div>`;
+    const frame = $('#cf'); frame.appendChild(img);
+    const nw = img.naturalWidth, nh = img.naturalHeight;
+    let fw, fh, base, zoom = 1, x = 0, y = 0;
+    const clamp = () => { const s = base * zoom; x = Math.min(0, Math.max(fw - nw * s, x)); y = Math.min(0, Math.max(fh - nh * s, y)); };
+    const draw = () => { clamp(); img.style.transform = `translate(${x}px, ${y}px) scale(${base * zoom})`; };
+    const layout = () => { fw = frame.clientWidth; fh = frame.clientHeight; base = Math.max(fw / nw, fh / nh);
+      x = (fw - nw * base * zoom) / 2; y = (fh - nh * base * zoom) / 2; draw(); };
+    const zoomTo = (z, cx = fw / 2, cy = fh / 2) => { const old = base * zoom; zoom = Math.min(3, Math.max(1, z)); const nwS = base * zoom;
+      x = cx - (cx - x) * nwS / old; y = cy - (cy - y) * nwS / old; $('#cz').value = zoom; draw(); };
+    requestAnimationFrame(layout);
+    const pts = new Map(); let pinch = null;
+    frame.addEventListener('pointerdown', (e) => { frame.setPointerCapture(e.pointerId); pts.set(e.pointerId, { x: e.clientX, y: e.clientY }); });
+    frame.addEventListener('pointermove', (e) => {
+      if (!pts.has(e.pointerId)) return;
+      const prev = pts.get(e.pointerId); pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pts.size === 2) {
+        const [a, b] = [...pts.values()], dist = Math.hypot(a.x - b.x, a.y - b.y), r = frame.getBoundingClientRect();
+        if (pinch) zoomTo(pinch.zoom * dist / pinch.dist, (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top); else pinch = { dist, zoom };
+      } else { x += e.clientX - prev.x; y += e.clientY - prev.y; draw(); }
+    });
+    const up = (e) => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; };
+    frame.addEventListener('pointerup', up); frame.addEventListener('pointercancel', up);
+    frame.addEventListener('wheel', (e) => { e.preventDefault(); const r = frame.getBoundingClientRect(); zoomTo(zoom * (e.deltaY < 0 ? 1.08 : 0.93), e.clientX - r.left, e.clientY - r.top); }, { passive: false });
+    $('#cz').addEventListener('input', (e) => zoomTo(Number(e.target.value)));
+    const finish = (v) => { $('#crop').innerHTML = ''; URL.revokeObjectURL(url); resolve(v); };
+    $('#cc').onclick = () => finish(null);
+    $('#ck').onclick = () => {
+      const s = base * zoom, outW = aspect >= 1.5 ? 1600 : 1200, outH = aspect >= 1.5 ? 900 : 900;
+      const cv = document.createElement('canvas'); cv.width = outW; cv.height = outH;
+      const g = cv.getContext('2d'); g.imageSmoothingQuality = 'high';
+      g.drawImage(img, -x / s, -y / s, fw / s, fh / s, 0, 0, outW, outH);
+      cv.toBlob((blob) => finish(blob), 'image/jpeg', 0.86);
+    };
+  });
+}
+async function uploadBlob(blob, filename = null) {
+  if (!blob) throw new Error('สร้างรูปไม่สำเร็จ ลองใหม่อีกครั้ง');
+  const safe = filename ? String(filename).replace(/[^a-zA-Z0-9._-]/g, '_') : crypto.randomUUID();
+  const path = `stores/${CONFIG.store}/menu/${safe}-${crypto.randomUUID()}.jpg`;
+  const { error } = await sb.storage.from('menu-images').upload(path, blob, { contentType: 'image/jpeg', upsert: false, cacheControl: '31536000' });
+  if (error) throw error;
+  const { data } = await sb.storage.from('menu-images').createSignedUrl(path, 60 * 60 * 6);
+  if (data?.signedUrl) S.urls[path] = data.signedUrl;
+  return path;
+}
+
+async function aiReadZip(file) {
+  if (!window.JSZip) throw new Error('ตัวอ่าน ZIP ยังโหลดไม่เสร็จ กรุณาลองอีกครั้ง');
+  const zip = await JSZip.loadAsync(file);
+  const assetEntry = Object.keys(zip.files).find(k => /(?:^|\/)code\/menu_assets_master\.json$/i.test(k));
+  const catEntry = Object.keys(zip.files).find(k => /(?:^|\/)categories\/category_registry\.json$/i.test(k));
+  if (!assetEntry || !catEntry) throw new Error('ZIP นี้ไม่ใช่ KHUNYUI MENU IMAGES MASTER ที่รองรับ');
+  const assets = JSON.parse(await zip.file(assetEntry).async('text'));
+  const categories = JSON.parse(await zip.file(catEntry).async('text')).categories || [];
+  if (!Array.isArray(assets) || !assets.length) throw new Error('ไม่พบรายการภาพใน Master ZIP');
+  return { zip, assets, categories };
+}
+function aiMatchCurrentMenu() {
+  const name = ($('#e-name')?.value || '').trim();
+  const sku = String(S.edit?.sku || '').trim().toUpperCase();
+  const normalizedName = aiNorm(name);
+  let asset = sku ? S.ai.assets.find(x => String(x.code).toUpperCase() === sku) : null;
+  let matchBy = asset ? 'รหัสเมนู (SKU)' : null;
+  if (!asset && normalizedName) {
+    asset = S.ai.assets.find(x => aiNorm(x.menuNameTh) === normalizedName) || null;
+    if (asset) matchBy = 'ชื่อเมนู';
+  }
+  if (!asset && normalizedName) {
+    const canonical = S.ai.assets.find(x => aiNorm(x.menuNameTh) === aiNorm(name.replace(/หมูยอ/g,'ไก่ยอ')));
+    if (canonical) { asset = canonical; matchBy = 'ชื่อหลังปรับ Chicken Clean'; }
+  }
+  return { asset, matchBy };
+}
+async function aiOpenFromZip(file) {
+  await withBusy('กำลังอ่าน Master ZIP…', async () => {
+    const loaded = await aiReadZip(file);
+    S.ai.zip = loaded.zip;
+    S.ai.assets = loaded.assets;
+    S.ai.categories = loaded.categories;
+  });
+  const { asset, matchBy } = aiMatchCurrentMenu();
+  if (!asset) {
+    S.ai.asset = null; S.ai.categoryId = null; S.ai.rawBlob = null; S.ai.cropBlob = null;
+    return openModal(`<h3>AI จัดภาพ + ชื่อหมวด</h3><div class="ai-warn">ไม่พบรายการที่ตรงกับรหัสหรือชื่อเมนูนี้ใน Master ZIP v13 · 92 ภาพ</div><div class="actions"><button class="btn block" data-act="close">ปิด</button></div>`);
+  }
+  const dbCat = aiFindDbCategory(asset.category);
+  if (!dbCat) {
+    S.ai.asset = asset; S.ai.categoryId = null; S.ai.matchBy = matchBy;
+    return openModal(`<h3>AI จัดภาพ + ชื่อหมวด</h3><div class="ai-warn">พบ ${esc(asset.code)} แต่ฐานข้อมูลหน้านี้ยังไม่มีหมวดที่ตรงกับ “${esc(asset.category)} / ${esc(AI_CATEGORIES.find(c=>c.id===asset.category)?.nameTh || asset.category)}” จึงยังไม่เขียนข้อมูล</div><div class="actions"><button class="btn block" data-act="close">ปิด</button></div>`);
+  }
+  const root = Object.keys(S.ai.zip.files).find(k => /(?:^|\/)code\/menu_assets_master\.json$/i.test(k))?.replace(/\/code\/menu_assets_master\.json$/i,'');
+  const imagePath = root ? `${root}/${asset.imagePath}` : asset.imagePath;
+  const entry = S.ai.zip.file(imagePath) || S.ai.zip.file(asset.imagePath);
+  if (!entry) throw new Error(`ไม่พบไฟล์ภาพ ${asset.imagePath} ใน ZIP`);
+  const raw = await entry.async('blob');
+  const cropped = await cropMasterBlob(raw, 4/3, 1200, 900);
+  if (S.ai.previewUrl) URL.revokeObjectURL(S.ai.previewUrl);
+  S.ai.rawBlob = raw; S.ai.cropBlob = cropped; S.ai.asset = asset; S.ai.categoryId = dbCat.id; S.ai.matchBy = matchBy;
+  S.ai.previewUrl = URL.createObjectURL(cropped);
+  openAiReview();
+}
+function openAiReview() {
+  const a = S.ai.asset, c = AI_CATEGORIES.find(x => x.id === a.category);
+  openModal(`<h3>AI ตรวจข้อมูลก่อนใช้</h3>
+    <div class="ai-preview"><img src="${S.ai.previewUrl}" alt="${esc(a.menuNameTh)}"></div>
+    <div class="ai-ok">ตรงจาก Master ZIP · ${esc(S.ai.matchBy)} · ${esc(CONFIG.aiAssetMaster)}</div>
+    <div class="ai-match">
+      <div class="box"><span class="label">รหัส</span><span class="value">${esc(a.code)}</span></div>
+      <div class="box"><span class="label">ชื่อจาก Master</span><span class="value">${esc(a.menuNameTh)}</span></div>
+      <div class="box"><span class="label">หมวด</span><span class="value">${esc(c?.nameTh || a.category)}</span></div>
+      <div class="box"><span class="label">ราคาใน ZIP (อ้างอิง)</span><span class="value">${Number(a.priceThb).toLocaleString('th-TH')} บาท · ไม่เปลี่ยนราคาอัตโนมัติ</span></div>
+    </div>
+    <p class="ai-source">ภาพจะถูกจัดอัตโนมัติเป็นกรอบลูกค้า 4:3 · 1200×900 px และอัปโหลดเข้า Storage ของร้านเมื่อกดยืนยัน</p>
+    <div class="actions"><button class="btn ghost" data-act="close">ยกเลิก</button><button class="btn" style="flex:1" data-act="ai-use">ยืนยันใช้ข้อมูลนี้</button></div>`);
+}
+async function cropMasterBlob(blob, aspect, outW, outH) {
+  let loaded = null;
+  try {
+    loaded = await loadImage(new File([blob], 'master-image', {type: blob.type || 'image/jpeg'}));
+    const img = loaded.img;
+    const sw = img.naturalWidth, sh = img.naturalHeight;
+    const srcAspect = sw / sh;
+    let sx=0, sy=0, cw=sw, ch=sh;
+    if (srcAspect > aspect) { cw = Math.round(sh * aspect); sx = Math.round((sw - cw)/2); }
+    else if (srcAspect < aspect) { ch = Math.round(sw / aspect); sy = Math.round((sh - ch)/2); }
+    const cv=document.createElement('canvas'); cv.width=outW; cv.height=outH;
+    const g=cv.getContext('2d'); if(!g) throw new Error('สร้างภาพไม่สำเร็จ');
+    g.imageSmoothingEnabled=true; g.imageSmoothingQuality='high';
+    g.drawImage(img,sx,sy,cw,ch,0,0,outW,outH);
+    return await new Promise((resolve,reject)=>cv.toBlob(b=>b?resolve(b):reject(new Error('ตัดภาพ Master ไม่สำเร็จ')),'image/jpeg',0.88));
+  } finally { if (loaded?.url) URL.revokeObjectURL(loaded.url); }
+}
+async function applyAiAsset() {
+  const a=S.ai.asset, cat=S.ai.categoryId;
+  if(!a || !cat || !S.ai.cropBlob) throw new Error('ข้อมูล AI ยังไม่พร้อม');
+  if(!S.edit) throw new Error('กรุณาเปิดเมนูที่ต้องการแก้ก่อน');
+  const newName=a.menuNameTh;
+  const oldPreview=S.edit.image_preview_url;
+  if(S.edit.id){
+    await withBusy('กำลังลงภาพและจัดหมวด…', async()=>{
+      const path=await uploadBlob(S.ai.cropBlob, `ai-${a.code}`);
+      try{
+        const it=S.items.find(x=>x.id===S.edit.id);
+        await rpc('update_menu_item',{p_menu_item_id:S.edit.id,p_name:newName,p_description:it.description,p_price_satang:it.price_satang,p_category_id:cat,p_image_path:path,p_is_available:it.is_available});
+        it.name=newName; it.category_id=cat; it.image_path=path; S.urls[path]=URL.createObjectURL(S.ai.cropBlob);
+        await broadcastStore(`store:${CONFIG.store}:menu`,'menu_changed',{menu_item_id:S.edit.id,image_path:path});
+      }catch(e){ try{await sb.storage.from('menu-images').remove([path]);}catch(_){} throw e; }
+    });
+    if(oldPreview)URL.revokeObjectURL(oldPreview);
+    closeModal(); S.edit=null; await loadTab(); render('owner'); toast(`AI จัด ${a.code} แล้ว · ลูกค้าเห็นทันที`);
+    return;
+  }
+  $('#e-name').value=newName;
+  $('#e-cat').value=cat;
+  if(oldPreview)URL.revokeObjectURL(oldPreview);
+  S.edit.image_blob=S.ai.cropBlob; S.edit.image_path=null; S.edit.aiAsset=a;
+  S.edit.image_preview_url=URL.createObjectURL(S.ai.cropBlob);
+  closeModal(); paintEditPic(null,S.edit.image_preview_url);
+  toast(`AI จัด ${a.code} แล้ว · กดบันทึกเมนูเพื่อส่งข้อมูลจริง`);
+}
+
+async function withBusy(label, fn) {
+  $('#crop').innerHTML = `<div class="busy"><div style="text-align:center"><div class="spinner"></div>${esc(label)}</div></div>`;
+  try { return await fn(); } finally { $('#crop').innerHTML = ''; }
+}
+async function saveDishImage(id, path) {
+  const it = S.items.find(x => x.id === id);
+  await rpc('update_menu_item', { p_menu_item_id: id, p_name: it.name, p_description: it.description, p_price_satang: it.price_satang,
+    p_category_id: it.category_id, p_image_path: path, p_is_available: it.is_available });
+  it.image_path = path;
+  await broadcastStore(`store:${CONFIG.store}:menu`, 'menu_image_changed', { menu_item_id: id, image_path: path });
+}
+function paintEditPic(path, localUrl = null) {
+  const box = $('#edit-pic'); if (!box) return;
+  box.querySelector('img, svg')?.remove();
+  const src = localUrl || (path && S.urls[path] ? S.urls[path] : '');
+  box.insertAdjacentHTML('afterbegin', src ? `<img src="${src}" alt="">` : I.leaf);
+  box.querySelector('.create').firstChild.textContent = (path || localUrl) ? 'เปลี่ยนรูป' : '+ รูป';
+  const rm = $('#rm-pic'); if (rm) rm.hidden = !(path || localUrl);
+}
+
+// create_order contract: p_items = menu_item_id + quantity + customer_note only; option UI is not sent to the RPC.
+// ---------------- events ----------------
+async function act(fn, okMsg) { try { await fn(); if (okMsg) toast(okMsg); } catch (e) { toast(nice(e)); } }
+document.addEventListener('click', async (e) => {
+  const t = e.target.closest('[data-go],[data-act],[data-cat],[data-open],[data-edit],[data-filter],[data-year],[data-quick],[data-reason]');
+  if (!t || t.disabled) return;
+  if (t.dataset.act === 'scrim' && e.target !== t) return;
+  const d = t.dataset;
+  if (d.go) return go(d.go);
+  if (d.cat) { S.cat = S.cat === d.cat ? null : d.cat; S.q = ''; return render(); }
+  if (d.filter) { S.owner.filter = d.filter; return render('owner'); }
+  if (d.year) { S.owner.year = d.year; return render('owner'); }
+  if (d.open) { const it = S.items.find(x => x.id === d.open); if (!it.is_available) return toast('เมนูนี้หมดชั่วคราว'); return go('#/item/' + d.open); }
+  if (d.edit) return editSheet(S.items.find(x => x.id === d.edit));
+  if (d.quick) {
+    const it = S.items.find(x => x.id === d.quick); if (!it || !it.is_available) return toast('เมนูนี้หมดชั่วคราว');
+    const picks = defaultPicks(it.id); if (!picks) return go('#/item/' + it.id);
+    const line = makeLine(it.id, 1, picks, ''); addLine(line);
+    toast(`ใส่ตะกร้าแล้ว · ${it.name}${line.optNames.length ? ' (' + line.optNames.join(', ') + ')' : ''}`);
+    return render();
+  }
+  if (d.reason) { const el = $('#reason'); if (el) { el.value = d.reason; el.focus(); } return; }
+  const reloadOwner = async () => { await loadTab(); render('owner'); };
+  switch (d.act) {
+    case 'search': S.searchOpen = !S.searchOpen; if (!S.searchOpen) S.q = ''; render(); if (S.searchOpen) $('#q')?.focus(); break;
+    case 'dq': S.draft.note = $('#note')?.value || ''; S.draft.qty = Math.max(1, Math.min(20, S.draft.qty + Number(d.d))); render(); break;
+    case 'add': {
+      addLine(makeLine(S.draft.id, S.draft.qty, S.draft.picked, ($('#note')?.value || '').trim()));
+      S.draft = null; toast('ใส่ตะกร้าแล้ว'); go('#/menu'); break;
+    }
+    case 'reorder': {
+      const o = S.myOrders.find(x => x.id === d.id); if (!o) break;
+      if (!S.items.length) await loadMenu(false);
+      let dropped = [];
+      S.cart = [];
+      o.order_items.forEach(it => {
+        const m = S.items.find(x => x.id === it.menu_item_id);
+        if (!m || !m.is_available || m.is_archived) { dropped.push(it.menu_name_snapshot); return; }
+        const all = groupsOf(m.id).flatMap(g => g.values);
+        let picks = it.order_item_options.map(x => x.option_value_id).filter(id => all.some(v => v.id === id && v.is_available));
+        for (const g of groupsOf(m.id)) if (g.selection_type === 'single' && g.min_select > 0 && !g.values.some(v => picks.includes(v.id))) {
+          const v = g.values.find(x => x.is_default && x.is_available) || g.values.find(x => x.is_available); if (v) picks.push(v.id);
+        }
+        addLine(makeLine(m.id, it.quantity, picks, it.customer_note));
+      });
+      S.reorder = { id: o.id, queue_code: o.queue_code }; store.set('reorder', S.reorder); saveCart();
+      if (dropped.length) toast('เอาออกแล้ว (หมด): ' + dropped.join(', '));
+      go('#/cart'); break;
+    }
+    case 'reorder-off': S.reorder = null; store.set('reorder', null); go('#/menu'); break;
+    case 'cq': { const l = S.cart[d.i]; l.qty += Number(d.d); if (l.qty <= 0) S.cart.splice(d.i, 1); saveCart(); render(); break; }
+    case 'confirm': {
+      t.disabled = true;
+      const ful = document.querySelector('input[name=ful]:checked').value, pay = document.querySelector('input[name=pay]:checked').value;
+      store.set('ful', ful); store.set('pay', pay);
+      const reqId = store.get('req') || crypto.randomUUID(); store.set('req', reqId);
+      try {
+        const args = { p_store_id: CONFIG.store, p_fulfillment_type: ful, p_payment_method: pay, p_customer_note: null, p_client_request_id: reqId,
+          p_items: S.cart.map(l => ({ menu_item_id: l.id, quantity: l.qty, customer_note: l.note || null })) };
+        const r = await rpc('create_order', args);
+        store.set('req', null); S.cart = []; saveCart(); S.queue = null; S.reorder = null; store.set('reorder', null);
+        go('#/done/' + r[0].order_id);
+      } catch (err) {
+        if (!/fetch|network/i.test(err.message || '')) store.set('req', null);
+        if (/reorder_not_allowed/.test(err.message || '')) { S.reorder = null; store.set('reorder', null); }
+        toast(nice(err)); t.disabled = false; }
+      break;
+    }
+    case 'cust-cancel': await act(async () => { await rpc('cancel_order', { p_order_id: d.id, p_cancel_reason: null }); await loadMyOrders(); render(); }, 'ยกเลิกออเดอร์แล้ว'); break;
+
+    case 'login': await act(async () => {
+      const { error } = await sb.auth.signInWithPassword({ email: $('#email').value.trim(), password: $('#password').value });
+      if (error) throw error; S.owner.denied = false; unlistenAll(); go('#/owner/orders');
+    }); break;
+    case 'magic': await act(async () => {
+      const email = $('#email').value.trim(); if (!email) throw new Error('กรุณาใส่อีเมล');
+      const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname + '#/owner' } });
+      if (error) throw error;
+    }, 'ส่งลิงก์แล้ว เปิดอีเมลบนเครื่องนี้เพื่อเข้าสู่ระบบ'); break;
+    case 'bell': S.owner.bell = 0; S.owner.filter = 'new'; go('#/owner/orders'); break;
+    case 'adv': await act(async () => { await rpc('advance_order_status', { p_order_id: d.id }); await reloadOwner(); }); break;
+    case 'paid': await act(async () => { await rpc('confirm_payment', { p_order_id: d.id }); await reloadOwner(); }, 'บันทึกรับเงินแล้ว'); break;
+    case 'owner-cancel':
+      openModal(`<h3>ยกเลิก ${esc(d.q)}</h3><label class="field"><span>เหตุผล (ลูกค้าจะเห็นข้อความนี้)</span><input id="reason" placeholder="เช่น ขนมจีนหมด" maxlength="200"></label>
+        <div class="preset">${['ของหมด', 'ไม่มีเมนูนี้จริง', 'ร้านปิดแล้ว'].map(r => `<button class="chip" data-reason="${r}">${r}</button>`).join('')}</div>
+        ${d.paid === 'true' ? '<p class="banner" style="margin:0 0 .8rem">ออเดอร์นี้ชำระแล้ว ระบบจะสร้างรายการ “ต้องคืนเงิน”</p>' : ''}
+        <div class="actions"><button class="btn ghost" data-act="close">ไม่ยกเลิก</button><button class="btn danger" style="flex:1" data-act="do-cancel" data-id="${d.id}">ยืนยันยกเลิก</button></div>`); break;
+    case 'do-cancel': {
+      const reason = $('#reason').value.trim(); if (!reason) { $('#reason').focus(); return toast('กรุณาใส่เหตุผล'); }
+      await act(async () => { await rpc('cancel_order', { p_order_id: d.id, p_cancel_reason: reason }); closeModal(); await reloadOwner(); }, 'ยกเลิกแล้ว'); break;
+    }
+    case 'sold-out': {
+      if (!S.items.length) await loadMenu(true);
+      const o = S.owner.orders.find(x => x.id === d.id);
+      const dishes = [...new Map(o.order_items.map(it => [it.menu_item_id, it])).values()];
+      S.owner.so = { orderId: o.id, q: o.queue_code, dishes };
+      soldOutSheet(dishes[0].menu_item_id); break;
+    }
+    case 'send-sold-out': {
+      const item = document.querySelector('input[name=so-item]:checked')?.value;
+      const sugg = [...document.querySelectorAll('input[name=so-sug]:checked')].map(x => x.value);
+      if (sugg.length > 3) return toast('แนะนำได้ไม่เกิน 3 เมนู');
+      await act(async () => { await rpc('report_sold_out', { p_order_id: S.owner.so.orderId, p_menu_item_id: item, p_suggestions: sugg }); closeModal(); await loadMenu(true); await reloadOwner(); },
+        'แจ้งลูกค้าแล้ว · ตั้งเป็นหมดชั่วคราวแล้ว'); break;
+    }
+    case 'refund':
+      openModal(`<h3>บันทึกว่าคืนเงินแล้ว</h3><label class="field"><span>เลขอ้างอิงการโอนคืน (ไม่บังคับ)</span><input id="ref" maxlength="80"></label>
+        <div class="actions"><button class="btn ghost" data-act="close">ยังไม่คืน</button><button class="btn" style="flex:1" data-act="do-refund" data-id="${d.id}">คืนเงินแล้ว</button></div>`); break;
+    case 'do-refund': await act(async () => { await rpc('complete_refund', { p_refund_id: d.id, p_provider_reference: $('#ref').value.trim() || null }); closeModal(); await reloadOwner(); }, 'บันทึกการคืนเงินแล้ว'); break;
+    case 'close-day': {
+      const s = S.owner.dash;
+      openModal(`<h3>สรุปยอด ${thDate(ymd(s.business_date))}</h3>
+        <div class="line"><span>ออเดอร์</span><b>${s.orders_total}</b></div><div class="line"><span>รายได้ที่รับแล้ว</span><b>${baht(s.received_total_satang)}</b></div>
+        <div class="line"><span>ยังไม่ได้รับเงิน</span><b>${baht(s.pending_cash_satang + s.pending_qr_satang)}</b></div>
+        <p class="muted">บันทึกเข้าคลังประวัติ และปิดรับออเดอร์ถึงสิ้นวัน · พรุ่งนี้ร้านเปิดรับเอง</p>
+        <div class="actions"><button class="btn ghost" data-act="close">ยังไม่สรุป</button><button class="btn" style="flex:1" data-act="do-close">ยืนยันสรุปยอด</button></div>`); break;
+    }
+    case 'do-close': await act(async () => { const r = await rpc('close_business_day', { p_store_id: CONFIG.store }); closeModal(); await reloadOwner();
+      toast(r.revision > 1 ? `บันทึกฉบับแก้ไขครั้งที่ ${r.revision - 1} แล้ว` : 'สรุปยอดแล้ว · อยู่ในคลังประวัติ'); }); break;
+    case 'close-date': await act(async () => { const r = await rpc('close_business_day', { p_store_id: CONFIG.store, p_business_date: d.date }); await reloadOwner();
+      toast(r.revision > 1 ? `บันทึกฉบับแก้ไขครั้งที่ ${r.revision - 1} แล้ว` : 'สรุปยอดแล้ว'); }); break;
+    case 'reopen': await act(async () => { await rpc('set_store_accepting_orders', { p_store_id: CONFIG.store, p_is_accepting_orders: true }); await reloadOwner(); }, 'เปิดรับออเดอร์แล้ว'); break;
+    case 'save-settings': await act(async () => {
+      await rpc('set_store_settings', { p_store_id: CONFIG.store, p_promptpay_id: $('#pp').value, p_queue_hold_minutes: Number($('#hold').value), p_day_cutoff: $('#cutoff').value || '00:00' });
+      await reloadOwner(); }, 'บันทึกแล้ว'); break;
+    case 'pp-test': openModal(`<h3>ทดสอบพร้อมเพย์ 1 บาท</h3><div class="qr"><span class="pp-logo">PromptPay พร้อมเพย์</span><div class="box">${qrSvg(promptpayPayload(S.settings.promptpay_id, 100))}</div>
+        <p class="muted">สแกนด้วยแอปธนาคารของอีกเครื่อง ถ้าขึ้นชื่อบัญชีร้านถูก แปลว่าผูกถูกแล้ว ไม่ต้องโอนจริง</p></div><button class="btn block" data-act="close">ปิด</button>`); break;
+    case 'menu-qr': {
+      const png = qrPng(menuUrl());
+      openModal(`<h3>QR ให้ลูกค้าสแกน</h3>
+        <img src="${png}" alt="QR สแกนเพื่อสั่งอาหาร คุณยุ้ย" style="width:100%;max-width:340px;display:block;margin:0 auto;border:1px solid var(--line);border-radius:12px">
+        <p class="muted" style="word-break:break-all;text-align:center">${esc(menuUrl())}</p>
+        <p class="muted">บน iPhone: กดค้างที่รูปแล้วเลือก “บันทึกลงในรูปภาพ” · ถ้าย้ายเว็บไปที่อยู่ใหม่ ต้องทำ QR ใหม่</p>
+        <div class="actions"><a class="btn" style="flex:1;text-decoration:none" href="${png}" download="khunyui-qr-menu.png">ดาวน์โหลดรูป</a><button class="btn ghost" data-act="close">ปิด</button></div>`);
+      break;
+    }
+    case 'ai-zip-open': {
+      if (!S.edit) {
+        return toast('เปิดเมนูที่ต้องการแก้ก่อน');
+      }
+      const f = $('#aiZipFile');
+      if (!f) return toast('ไม่พบตัวเลือก ZIP');
+      f.value = '';
+      f.click();
+      break;
+    }
+    case 'ai-use': await act(async () => { await applyAiAsset(); }, 'ใช้ข้อมูล AI แล้ว'); break;
+    case 'rm-pic': await act(async () => { if (S.edit?.image_preview_url) URL.revokeObjectURL(S.edit.image_preview_url); S.edit.image_preview_url = null; S.edit.image_blob = null; S.edit.image_path = null; if (S.edit.id) await saveDishImage(S.edit.id, null); paintEditPic(null); }, S.edit?.id ? 'เอารูปออกแล้ว' : 'เอารูปออกแล้ว'); break;
+    case 'new-dish': editSheet(null); break;
+    case 'save-dish': {
+      const name = $('#e-name').value.trim(), price = Math.round(parseFloat($('#e-price').value) * 100), cat = $('#e-cat').value;
+      if (!name || !(price >= 0)) return toast('กรุณาใส่ชื่อและราคา');
+      await act(async () => {
+        let id = S.edit.id;
+        let uploadedPath = null;
+        try {
+          // New menu image is uploaded only at the Save step.
+          if (!id && S.edit.image_blob) {
+            uploadedPath = await uploadBlob(S.edit.image_blob);
+            S.edit.image_path = uploadedPath;
+          }
+
+          if (!id) {
+            const r = await rpc('create_menu_item', { p_store_id: CONFIG.store, p_category_id: cat, p_sku: 'M' + Date.now().toString(36).toUpperCase(), p_name: name,
+              p_description: null, p_price_satang: price, p_image_path: S.edit.image_path, p_is_available: $('#e-avail').checked, p_sort_order: 999 });
+            id = r[0].menu_item_id;
+          } else {
+            const it = S.items.find(x => x.id === id);
+            await rpc('update_menu_item', { p_menu_item_id: id, p_name: name, p_description: it.description, p_price_satang: price, p_category_id: cat,
+              p_image_path: S.edit.image_path, p_is_available: $('#e-avail').checked });
+            const arch = $('#e-arch')?.checked ?? false;
+            if (arch !== it.is_archived) await rpc('set_menu_archived', { p_menu_item_id: id, p_is_archived: arch });
+          }
+          await rpc('set_menu_recommended', { p_menu_item_id: id, p_is_recommended: $('#e-rec').checked });
+          await broadcastStore(`store:${CONFIG.store}:menu`, 'menu_changed', { menu_item_id: id });
+          if (S.edit.image_preview_url) URL.revokeObjectURL(S.edit.image_preview_url);
+          S.edit = null;
+          closeModal(); await reloadOwner();
+        } catch (e) {
+          if (uploadedPath) { try { await sb.storage.from('menu-images').remove([uploadedPath]); } catch (_) {} }
+          throw e;
+        }
+      }, 'บันทึกแล้ว · ลูกค้าเห็นทันที');
+      break;
+    }
+    case 'logout': await sb.auth.signOut(); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/'); break;
+    case 'close': case 'scrim': if (S.edit?.image_preview_url) URL.revokeObjectURL(S.edit.image_preview_url); S.edit = null; closeModal(); if (route()[0] === 'owner' && S.owner.tab === 'menu') render('owner'); break;
+  }
+});
+document.addEventListener('change', async (e) => {
+  const t = e.target;
+  if (t.dataset.soItem !== undefined && t.checked) { soldOutSheet(t.value); return; }
+  if (t.dataset.cart !== undefined) {
+    const l = S.cart[t.dataset.cart], g = groupsOf(l.id).find(x => x.id === t.dataset.group), ids = g.values.map(v => v.id);
+    const picks = l.opts.filter(o => !ids.includes(o)).concat(t.value);
+    Object.assign(l, makeLine(l.id, l.qty, picks, l.note)); saveCart(); render(); return;
+  }
+  if (t.name === 'so-sug' && document.querySelectorAll('input[name=so-sug]:checked').length > 3) { t.checked = false; toast('แนะนำได้ไม่เกิน 3 เมนู'); return; }
+  if (t.dataset.opt) {
+    const g = groupsOf(S.draft.id).find(x => x.id === t.dataset.opt), ids = g.values.map(v => v.id);
+    if (g.selection_type === 'single') S.draft.picked = S.draft.picked.filter(p => !ids.includes(p)).concat(t.value);
+    else S.draft.picked = t.checked ? S.draft.picked.concat(t.value) : S.draft.picked.filter(p => p !== t.value);
+    S.draft.note = $('#note')?.value || ''; render(); return;
+  }
+  if (t.id === 'aiZipFile' && t.files?.[0]) {
+    const file=t.files[0]; t.value='';
+    await act(async()=>{ await aiOpenFromZip(file); });
+    return;
+  }
+  if (t.dataset.upload && t.files?.[0]) {
+    const file = t.files[0], kind = t.dataset.upload; t.value = '';
+    const blob = await cropImage(file, kind === 'hero' ? 16 / 9 : 4 / 3, kind === 'hero' ? 'ภาพปกเมนูแนะนำ' : 'รูปเมนู');
+    if (!blob) return;
+    await act(async () => {
+      if (kind === 'hero') {
+        await withBusy('กำลังอัปโหลดภาพปก…', async () => {
+          const path = await uploadBlob(blob);
+          await rpc('set_store_hero_image', { p_store_id: CONFIG.store, p_image_path: path });
+          await loadSettings();
+          await signImages();
+          await broadcastStore(`store:${CONFIG.store}:status`, 'hero_image_changed', { hero_image_path: path });
+          render('owner');
+        });
+        return;
+      }
+
+      // Existing menu: Confirm → upload + save immediately.
+      if (S.edit?.id) {
+        await withBusy('กำลังอัปโหลดรูปเมนู…', async () => {
+          const path = await uploadBlob(blob);
+          S.edit.image_path = path;
+          await saveDishImage(S.edit.id, path);
+          paintEditPic(path);
+        });
+        toast('บันทึกรูปแล้ว · ลูกค้าเห็นทันที');
+        return;
+      }
+
+      // New menu: Confirm only keeps the cropped image locally.
+      // The actual upload happens once, together with Save.
+      if (S.edit) {
+        if (S.edit.image_preview_url) URL.revokeObjectURL(S.edit.image_preview_url);
+        S.edit.image_blob = blob;
+        S.edit.image_preview_url = URL.createObjectURL(blob);
+        paintEditPic(null, S.edit.image_preview_url);
+        toast('เลือกรูปแล้ว · รูปจะอัปโหลดเมื่อกดบันทึกเมนู');
+      }
+    });
+    return;
+  }
+  if (t.dataset.act === 'accepting') await act(async () => { await rpc('set_store_accepting_orders', { p_store_id: CONFIG.store, p_is_accepting_orders: t.checked }); await loadSettings(); },
+    t.checked ? 'เปิดรับออเดอร์แล้ว' : 'ปิดรับออเดอร์แล้ว');
+  if (t.dataset.act === 'sound') await act(async () => {
+    await rpc('update_store_owner_settings', { p_store_id: CONFIG.store, p_notify_new_order: true, p_sound_new_order: t.checked }); S.owner.ownerSettings.sound_new_order = t.checked; }, 'บันทึกแล้ว');
+});
+document.addEventListener('input', (e) => {
+  if (e.target.id === 'q') { S.q = e.target.value; const p = e.target.selectionStart; render(); const el = $('#q'); if (el) { el.focus(); el.setSelectionRange(p, p); } }
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+const _beep = beep; beep = () => { if (S.owner.ownerSettings?.sound_new_order !== false) _beep(); };
+
+// Email-link sign-in finishes asynchronously; re-check the owner area once it lands.
+sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_IN' && route()[0] === 'owner') setTimeout(show, 0); });
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+show();
+</script>
+<!-- KHUNYUI INDEX CLEAN REAL-USE V5 · AI ASSET ASSIST · image crop: hero 16:9 1600×900 / dish 4:3 1200×900 -->
+</body>
+</html>
