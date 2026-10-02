@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Taviraj:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako_inflate.min.js"></script>
 <style>
   :root {
     --cream: #F9F8EF; --card: #FFFEF9; --ink: #1D2A22; --muted: #6B7068;
@@ -1229,7 +1230,7 @@ async function readZipEntries(file) {
       if (lh.getUint32(0, true) !== 0x04034b50) throw new Error('อ่านไฟล์ใน ZIP ไม่ได้');
       const start = lho + 30 + lh.getUint16(26, true) + lh.getUint16(28, true), raw = file.slice(start, start + csize);
       if (method === 0) return raw;
-      if (method === 8) return await new Response(raw.stream().pipeThrough(new DecompressionStream('deflate-raw'))).blob();
+      if (method === 8) return new Blob([pako.inflateRaw(new Uint8Array(await raw.arrayBuffer()))]);
       throw new Error('ZIP แบบบีบอัดนี้ยังไม่รองรับ');
     } });
   }
@@ -1292,7 +1293,7 @@ async function runImport() {
       done++; draw();
     }
   };
-  await Promise.all([worker(), worker(), worker()]);
+  await worker();
   $('#crop').innerHTML = ''; S.owner.imp = null;
   await loadMenu(true); render('owner');
   openModal(`<h3>${S.owner.impStop ? 'หยุดแล้ว' : 'นำเข้าเสร็จแล้ว'}</h3>
@@ -1546,6 +1547,11 @@ const _beep = beep; beep = () => { if (S.owner.ownerSettings?.sound_new_order !=
 
 // Email-link sign-in finishes asynchronously; re-check the owner area once it lands.
 sb.auth.onAuthStateChange((ev) => { if (ev === 'SIGNED_IN' && route()[0] === 'owner') setTimeout(show, 0); });
+// Surface any crash as a visible message instead of failing silently — this is what we need
+// to see on a phone where there is no way to open developer console.
+window.addEventListener('error', (e) => toast('เกิดข้อผิดพลาด: ' + (e.error?.message || e.message || 'ไม่ทราบสาเหตุ')));
+window.addEventListener('unhandledrejection', (e) => toast('เกิดข้อผิดพลาด: ' + (e.reason?.message || e.reason || 'ไม่ทราบสาเหตุ')));
+
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 show();
 </script>
