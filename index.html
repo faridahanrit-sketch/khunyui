@@ -499,6 +499,21 @@
   .rq-code { font: 700 2.2rem/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; color: var(--green); background: var(--green-soft); border-radius: 12px; padding: .6rem .8rem; }
   .rq-hcode { font: 700 .95rem/1 ui-monospace, Menlo, monospace; letter-spacing: .06em; color: var(--green); background: var(--green-soft); border-radius: 6px; padding: .12rem .35rem; margin-right: .25rem; }
   .secalert .ctbtns { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; margin-top: .35rem; }
+  .tick { flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%; border: 2px solid var(--line); display: inline-grid; place-items: center; color: var(--green); }
+  .tick.on { border-color: transparent; }
+  .tick svg { width: 1.5rem; height: 1.5rem; }
+  .secrow { display: flex; align-items: center; gap: .7rem; padding: .65rem 0; border-bottom: 1px solid var(--line); }
+  .sectx { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .sectx small { color: var(--muted); font-size: .82rem; word-break: break-all; }
+  .secscore { float: right; font-size: .8rem; font-weight: 600; background: var(--gold-soft); color: #7A5F26; border-radius: 999px; padding: .1rem .6rem; }
+  .okbox { background: #E7F1E9; border: 1px solid #BFD9C6; border-radius: 12px; padding: .6rem .8rem; margin: .7rem 0 .3rem; }
+  .okbox b { color: var(--green); }
+  .whyl { margin: .3rem 0 0 1.1rem; padding: 0; font-size: .9rem; }
+  .whyl li { margin: .25rem 0; }
+  details.why { margin: .7rem 0 .2rem; } details.why summary, details.hq summary { cursor: pointer; font-weight: 600; color: var(--green); }
+  details.hq { border-bottom: 1px solid var(--line); padding: .55rem 0; } details.hq p { margin: .4rem 0 0; font-size: .92rem; line-height: 1.55; }
+  .vchip { display: inline-flex; align-items: center; gap: .25rem; font-size: .75rem; border-radius: 999px; padding: .08rem .55rem; margin-left: .3rem; background: var(--gold-soft); color: #7A5F26; vertical-align: middle; }
+  .vchip.on { background: #E1EFE5; color: #0E6B3D; } .vchip svg { width: .95rem; height: .95rem; }
   .kv.accrow { flex-wrap: wrap; }
   .kv.accrow .rcbtns { flex-direction: row; flex-wrap: wrap; width: 100%; align-items: center; justify-content: flex-start; }
   #doclayer { position: fixed; inset: 0; z-index: 80; background: #E6E2D3; overflow: auto; -webkit-overflow-scrolling: touch; }
@@ -1125,7 +1140,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 06:40 · อีเมลของฉัน (ไว้กู้รหัส)": "App version 20 Oct 06:40 · My email (for password recovery)",
+"เวอร์ชันแอป 20 ต.ค. 07:10 · ติ๊กยืนยันอีเมล + ข้อมูลช่วยเหลือ": "App version 20 Oct 07:10 · Email verification ticks + help topics",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1156,6 +1171,41 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ยืนยันอีเมลแล้ว": "Email verified",
+"ความปลอดภัยของบัญชี": "Account security",
+"ใส่อีเมลของฉันแล้ว": "My email added",
+"คุณฟารีดายืนยันให้แล้ว": "Khun Fareeda has verified it",
+"รอคุณฟารีดายืนยันทางโทรหรือไลน์": "Waiting for Khun Fareeda to verify by phone or LINE",
+"ใส่อีเมลก่อน แล้วรอคุณฟารีดายืนยัน": "Add your email first, then wait for Khun Fareeda to verify it",
+"มีรหัสกู้คืนส่วนตัวแล้ว": "Personal recovery code issued",
+"เก็บเลข 8 หลักไว้ในเอกสารของงานคุณ": "Your 8-digit number is on your screen's manual",
+"ขอจากคุณฟารีดา (เลข 8 หลัก)": "Ask Khun Fareeda for it (8 digits)",
+"ยืนยันอีเมลแล้ว ดีต่อบัญชีของคุณอย่างไร": "Why a verified email is good for your account",
+"ทำไมต้องยืนยันอีเมล": "Why verify your email",
+"ข้อมูลช่วยเหลือ": "Help topics",
+"เช่น ลืมรหัส": "e.g. forgot password",
+"ไม่พบหัวข้อที่ตรงกับคำค้น": "No topic matches your search",
+"ยังไม่ยืนยันอีเมล": "Email not verified yet",
+"ยืนยันแล้ว": "Verified",
+"ยังไม่ยืนยัน": "Not verified",
+"ยกเลิกการยืนยันอีเมล": "Remove verification",
+"ยกเลิกการยืนยันแล้ว": "Verification removed",
+"ลืมรหัสผ่านแล้วยืนยันตัวตนได้เร็ว คุณฟารีดาเทียบกับอีเมลที่ยืนยันไว้ ไม่ต้องถามหลายขั้น": "If you forget your password you can prove who you are quickly: Khun Fareeda compares against the verified email, with no long questioning.",
+"คนอื่นแอบอ้างเป็นคุณยากขึ้น เพราะคำขอรหัสต้องตรงกับอีเมลที่ยืนยันแล้ว และเลข 6 หลักบนหน้าจอของคุณ": "It is harder for someone else to pretend to be you, because a password request must match the verified email and the 6-digit number on your screen.",
+"ถ้าแก้อีเมล สถานะยืนยันจะหาย ต้องยืนยันใหม่ จึงไม่มีใครแอบเปลี่ยนเป็นอีเมลของตัวเองได้เงียบ ๆ": "If the email is changed the verified status disappears and must be verified again, so nobody can quietly swap in their own email.",
+"เมื่อต่อบริการส่งเมลจริงในอนาคต ระบบส่งรหัสกู้คืนและแจ้งเตือนความปลอดภัยเข้าอีเมลนี้ได้ทันที (ตอนนี้ยังไม่ส่งอัตโนมัติ)": "Once a real email service is connected, the system can send recovery codes and security alerts to this email straight away (it does not send automatically yet).",
+"ลืมรหัสผ่านต้องทำอย่างไร": "What do I do if I forget my password",
+"ที่หน้าเข้าสู่ระบบกด \"ลืมรหัสผ่าน?\" มี 2 ทาง ก) ถ้ามีรหัสกู้คืนส่วนตัว 8 หลัก กด \"มีรหัสกู้คืนส่วนตัว (คีย์ลัด)\" ใส่อีเมล เลข 8 หลัก และรหัสผ่านใหม่ แล้วเข้าได้ทันที ข) ส่งคำขอไปศูนย์บริการ IMCB2Help แล้วบอกเลข 6 หลักบนหน้าจอกับคุณฟารีดาทางโทรหรือไลน์ รหัสชั่วคราวจะขึ้นบนหน้าจอเอง": "On the sign-in page tap \"Forgot password?\". There are 2 ways. A) If you have an 8-digit personal recovery code, tap \"I have a personal recovery code (shortcut)\", enter your email, the 8 digits and a new password, and you are in at once. B) Send a request to the IMCB2Help service center and tell Khun Fareeda the 6-digit number on your screen by phone or LINE; the temporary password then appears on your screen by itself.",
+"รหัสกู้คืนส่วนตัวคืออะไร": "What is a personal recovery code",
+"เลข 8 หลักที่คุณฟารีดาออกให้ล่วงหน้า เขียนไว้ในเอกสารของงานคุณ ใช้ได้ครั้งเดียว ใส่ผิด 5 ครั้งล็อก 30 นาที ใช้แล้วต้องขอเลขใหม่จากคุณฟารีดา": "An 8-digit number Khun Fareeda issues in advance and writes on your screen's manual. It works once; 5 wrong tries lock it for 30 minutes; after use, ask Khun Fareeda for a new one.",
+"เปลี่ยนรหัสผ่านเองทำอย่างไร": "How do I change my password myself",
+"งานหลังร้าน: แท็บโปรไฟล์ แล้วกด \"เปลี่ยนรหัสผ่าน\" · จอคุณยุ้ย: ล่างสุดของหน้าจอ กด \"เปลี่ยนรหัสผ่าน\" ใส่รหัสเดิม แล้วรหัสใหม่ 2 ครั้ง (อย่างน้อย 8 ตัว) เปลี่ยนต่อเนื่องได้ 3 ครั้ง ครบแล้วรอ 30 นาที": "Back office: Profile tab, then \"Change password\". Khun Yui's screen: bottom of the page, \"Change password\". Enter the old password, then the new one twice (at least 8 characters). You can change it 3 times in a row, then wait 30 minutes.",
+"ใครเห็นอีเมลของฉันบ้าง": "Who can see my email",
+"เห็นเฉพาะคุณและคุณฟารีดา (ศูนย์บริการ IMCB2Help) ไม่แสดงให้ลูกค้าหรือคนอื่นในร้านเห็น": "Only you and Khun Fareeda (IMCB2Help service center). It is never shown to customers or other staff.",
+"แก้อีเมลแล้วเกิดอะไรขึ้น": "What happens when I change my email",
+"สถานะ \"ยืนยันอีเมลแล้ว\" จะหาย ต้องให้คุณฟารีดายืนยันใหม่ เพื่อกันการแก้เป็นอีเมลของคนอื่นแบบเงียบ ๆ": "The \"Email verified\" status disappears and Khun Fareeda must verify it again, so nobody can quietly swap in someone else's email.",
+"ศูนย์บริการจะขออะไรจากฉัน": "What will the service center ask me for",
+"ขอแค่เลข 6 หลักที่ขึ้นบนหน้าจอตอนส่งคำขอ ศูนย์บริการไม่ขอรหัสผ่านของคุณ ถ้ามีใครขอรหัสผ่านทางโทรหรือไลน์ อย่าให้": "Only the 6-digit number shown on your screen when you send a request. The service center never asks for your password. If anyone asks for it by phone or LINE, do not give it.",
 "ยังไม่ได้ใส่อีเมลของคุณ": "You have not added your email yet",
 "ใส่อีเมลจริงของคุณไว้ ถ้าลืมรหัสผ่าน คุณฟารีดาจะได้ตรวจว่าเป็นคุณจริง": "Add your real email so that if you forget your password, Khun Fareeda can check it is really you.",
 "ใส่อีเมลของฉัน": "Add my email",
@@ -1995,10 +2045,50 @@ async function loadMust(cl, key) {
 // "My email" (SQL 039): each screen's owner keeps a real contact email, so the executive can check who is asking when a password is forgotten.
 // undefined = SQL 039 not installed (nothing is shown) · '' = not filled yet · text = the saved email
 S.contact = { o: undefined, y: undefined }; S.contactLater = { o: false, y: false };
+S.csec = { o: undefined, y: undefined };   // account checklist from SQL 040 (undefined = not installed: the old single "my email" row is shown instead)
 async function loadContact(cl, key) {
+  S.csec[key] = undefined;
+  try { const a = await cl.rpc('my_account_security'); if (!a.error && a.data && typeof a.data === 'object') { S.csec[key] = a.data; S.contact[key] = a.data.contact_email || ''; return; } } catch (_) {}
   try { const r = await cl.rpc('my_contact_email'); S.contact[key] = r.error ? undefined : (typeof r.data === 'string' ? r.data : ''); }
   catch (_) { S.contact[key] = undefined; }
 }
+// Why a verified email matters (shown after it is verified, and as a folded hint before)
+const WHY = ['ลืมรหัสผ่านแล้วยืนยันตัวตนได้เร็ว คุณฟารีดาเทียบกับอีเมลที่ยืนยันไว้ ไม่ต้องถามหลายขั้น',
+  'คนอื่นแอบอ้างเป็นคุณยากขึ้น เพราะคำขอรหัสต้องตรงกับอีเมลที่ยืนยันแล้ว และเลข 6 หลักบนหน้าจอของคุณ',
+  'ถ้าแก้อีเมล สถานะยืนยันจะหาย ต้องยืนยันใหม่ จึงไม่มีใครแอบเปลี่ยนเป็นอีเมลของตัวเองได้เงียบ ๆ',
+  'เมื่อต่อบริการส่งเมลจริงในอนาคต ระบบส่งรหัสกู้คืนและแจ้งเตือนความปลอดภัยเข้าอีเมลนี้ได้ทันที (ตอนนี้ยังไม่ส่งอัตโนมัติ)'];
+const whyList = () => `<ul class="whyl">${WHY.map(x => `<li>${x}</li>`).join('')}</ul>`;
+const secTick = (on) => `<span class="tick ${on ? 'on' : ''}" aria-hidden="true">${on ? I.checkCircle : ''}</span>`;
+const vchip = (cli) => { const c = S.csec[cli]; return c ? ` <span class="vchip ${c.contact_verified ? 'on' : ''}">${c.contact_verified ? I.checkCircle + ' ยืนยันอีเมลแล้ว' : 'ยังไม่ยืนยันอีเมล'}</span>` : ''; };
+function secCard(cli) {
+  const c = S.csec[cli]; if (!c) return '';
+  const filled = !!c.contact_email, ver = !!c.contact_verified, rec = !!c.has_recovery_code, n = [filled, ver, rec].filter(Boolean).length;
+  const row = (on, title, sub, btn) => `<div class="secrow ${on ? 'on' : ''}">${secTick(on)}<span class="sectx"><b>${title}</b><small>${sub}</small></span>${btn || ''}</div>`;
+  return `<div class="card seccard"><h3>ความปลอดภัยของบัญชี <span class="secscore">${n}/3</span></h3>
+    ${row(filled, 'ใส่อีเมลของฉันแล้ว', filled ? esc(c.contact_email) : 'ยังไม่ได้ใส่', `<button class="btn ghost sm" data-act="contact-open" data-cli="${cli}">${filled ? 'แก้ไข' : 'ใส่อีเมล'}</button>`)}
+    ${row(ver, 'ยืนยันอีเมลแล้ว', ver ? 'คุณฟารีดายืนยันให้แล้ว' : (filled ? 'รอคุณฟารีดายืนยันทางโทรหรือไลน์' : 'ใส่อีเมลก่อน แล้วรอคุณฟารีดายืนยัน'))}
+    ${row(rec, 'มีรหัสกู้คืนส่วนตัวแล้ว', rec ? 'เก็บเลข 8 หลักไว้ในเอกสารของงานคุณ' : 'ขอจากคุณฟารีดา (เลข 8 หลัก)')}
+    ${ver ? `<div class="okbox"><b>ยืนยันอีเมลแล้ว ดีต่อบัญชีของคุณอย่างไร</b>${whyList()}</div>` : `<details class="why"><summary>ทำไมต้องยืนยันอีเมล</summary>${whyList()}</details>`}
+    <div class="actions"><button class="btn ghost sm" data-act="help-open">ข้อมูลช่วยเหลือ</button></div></div>`;
+}
+// Small in-app knowledge base (static, searchable)
+const HELP = [
+  ['ทำไมต้องยืนยันอีเมล', WHY.join(' · ')],
+  ['ลืมรหัสผ่านต้องทำอย่างไร', 'ที่หน้าเข้าสู่ระบบกด "ลืมรหัสผ่าน?" มี 2 ทาง ก) ถ้ามีรหัสกู้คืนส่วนตัว 8 หลัก กด "มีรหัสกู้คืนส่วนตัว (คีย์ลัด)" ใส่อีเมล เลข 8 หลัก และรหัสผ่านใหม่ แล้วเข้าได้ทันที ข) ส่งคำขอไปศูนย์บริการ IMCB2Help แล้วบอกเลข 6 หลักบนหน้าจอกับคุณฟารีดาทางโทรหรือไลน์ รหัสชั่วคราวจะขึ้นบนหน้าจอเอง'],
+  ['รหัสกู้คืนส่วนตัวคืออะไร', 'เลข 8 หลักที่คุณฟารีดาออกให้ล่วงหน้า เขียนไว้ในเอกสารของงานคุณ ใช้ได้ครั้งเดียว ใส่ผิด 5 ครั้งล็อก 30 นาที ใช้แล้วต้องขอเลขใหม่จากคุณฟารีดา'],
+  ['เปลี่ยนรหัสผ่านเองทำอย่างไร', 'งานหลังร้าน: แท็บโปรไฟล์ แล้วกด "เปลี่ยนรหัสผ่าน" · จอคุณยุ้ย: ล่างสุดของหน้าจอ กด "เปลี่ยนรหัสผ่าน" ใส่รหัสเดิม แล้วรหัสใหม่ 2 ครั้ง (อย่างน้อย 8 ตัว) เปลี่ยนต่อเนื่องได้ 3 ครั้ง ครบแล้วรอ 30 นาที'],
+  ['ใครเห็นอีเมลของฉันบ้าง', 'เห็นเฉพาะคุณและคุณฟารีดา (ศูนย์บริการ IMCB2Help) ไม่แสดงให้ลูกค้าหรือคนอื่นในร้านเห็น'],
+  ['แก้อีเมลแล้วเกิดอะไรขึ้น', 'สถานะ "ยืนยันอีเมลแล้ว" จะหาย ต้องให้คุณฟารีดายืนยันใหม่ เพื่อกันการแก้เป็นอีเมลของคนอื่นแบบเงียบ ๆ'],
+  ['ศูนย์บริการจะขออะไรจากฉัน', 'ขอแค่เลข 6 หลักที่ขึ้นบนหน้าจอตอนส่งคำขอ ศูนย์บริการไม่ขอรหัสผ่านของคุณ ถ้ามีใครขอรหัสผ่านทางโทรหรือไลน์ อย่าให้']
+];
+const helpItems = (q) => { const k = (q || '').trim().toLowerCase(); const l = HELP.filter(([a, b]) => !k || (a + ' ' + b).toLowerCase().includes(k)); return l.length ? l.map(([a, b]) => `<details class="hq"><summary>${a}</summary><p>${b}</p></details>`).join('') : '<p class="muted">ไม่พบหัวข้อที่ตรงกับคำค้น</p>'; };
+function helpSheet() {
+  openModal(`<h3>ข้อมูลช่วยเหลือ</h3>
+    <label class="field"><span>ค้นหา</span><input id="help-q" type="search" autocomplete="off" placeholder="เช่น ลืมรหัส"></label>
+    <div id="help-list">${helpItems('')}</div>
+    <div class="actions" style="margin-top:.8rem"><button class="btn ghost" style="flex:1" data-act="close">ปิด</button></div>`);
+}
+document.addEventListener('input', (e) => { if (e.target && e.target.id === 'help-q' && $('#help-list')) { $('#help-list').innerHTML = helpItems(e.target.value); trTree($('#help-list')); } });
 const contactBanner = (cli) => (S.contact[cli] === '' && !S.contactLater[cli]) ? `<div class="secalert warn" role="alert"><b>ยังไม่ได้ใส่อีเมลของคุณ</b>
   <span>ใส่อีเมลจริงของคุณไว้ ถ้าลืมรหัสผ่าน คุณฟารีดาจะได้ตรวจว่าเป็นคุณจริง</span>
   <span class="ctbtns"><button class="btn sm" data-act="contact-open" data-cli="${cli}">ใส่อีเมลของฉัน</button><button class="back" data-act="contact-later" data-cli="${cli}">ไว้ทีหลัง</button></span></div>` : '';
@@ -2539,7 +2629,7 @@ V.exec = () => {
     ${S.exec.reqErr ? `<div class="xcard"><b>ยังใช้ห้องนี้ไม่ได้</b><p class="muted" style="margin:.4rem 0 0">ระบบคำขอยังไม่ได้ติดตั้งในฐานข้อมูล ให้รันไฟล์ <b>034_khunyui_reset_requests.sql</b> ใน Supabase SQL Editor 1 ครั้ง · ระหว่างนี้ใช้ห้อง "บัญชีร้าน" ตั้งรหัสชั่วคราวเองได้</p></div>` : ''}
     ${!S.exec.reqErr && !pend.length ? `<div class="xcard" style="text-align:center"><div class="bigic">${I.bellRing}</div><b>ยังไม่มีคำขอ</b><p class="muted" style="margin:.3rem 0 0">เปิดหน้านี้ค้างไว้ได้ ระบบเช็กให้เองทุก 2 วินาที มีคำขอเข้าเมื่อไหร่จะมีเสียงและป้ายแจ้ง</p></div>` : ''}
     ${pend.map(r => `<div class="xcard rq"><div class="rq-top"><span class="rq-code" aria-label="เลขยืนยัน">${esc(r.code)}</span>
-        <span><b>${esc(r.email)}</b><br><span class="srcbadge s-${esc(r.screen)}">${RQ_SCREEN[r.screen] || ''}</span> <span class="muted">ขอเมื่อ ${thTime(r.created_at)}</span>${r.contact_email !== undefined ? `<br><span class="muted">${r.contact_email ? t('อีเมลที่เจ้าของใส่ไว้') + ': <b>' + esc(r.contact_email) + '</b>' : t('เจ้าของยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}</span></div>
+        <span><b>${esc(r.email)}</b><br><span class="srcbadge s-${esc(r.screen)}">${RQ_SCREEN[r.screen] || ''}</span> <span class="muted">ขอเมื่อ ${thTime(r.created_at)}</span>${r.contact_email !== undefined ? `<br><span class="muted">${r.contact_email ? t('อีเมลที่เจ้าของใส่ไว้') + ': <b>' + esc(r.contact_email) + '</b>' + (r.contact_verified === undefined ? '' : ' · ' + t(r.contact_verified ? 'ยืนยันแล้ว' : 'ยังไม่ยืนยัน')) : t('เจ้าของยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}</span></div>
       ${r.account_state !== 'ok' ? `<div class="rq-warn">${RQ_STATE[r.account_state] || ''}</div>` : ''}
       <p class="muted" style="margin:.6rem 0">ให้เจ้าของอ่านเลข 6 หลักบนหน้าจอของเขา (โทรหรือไลน์) ถ้าตรงกับเลขนี้ ค่อยกดส่ง</p>
       <div class="actions"><button class="btn" style="flex:1" data-act="rq-approve" data-id="${esc(r.id)}" ${r.account_state !== 'ok' ? 'disabled' : ''}>ส่งรหัสชั่วคราว</button><button class="btn ghost" data-act="rq-deny" data-id="${esc(r.id)}">ปฏิเสธ</button></div></div>`).join('')}
@@ -2641,8 +2731,8 @@ V.exec = () => {
       <p class="muted" style="margin:0 0 .5rem">ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า</p>
       <p class="muted" style="margin:0 0 .5rem">เอกสารคู่มือ 1 ชุดต่อ 1 งาน: ปุ่ม "ออกเอกสาร" ในแต่ละบัญชีใส่อีเมลให้เอง มีช่องว่างให้เขียนเลขรหัสกู้คืนด้วยมือ · หรือเปิดฉบับว่าง: <button class="back" data-act="exec-doc" data-kind="yui">งานคุณยุ้ย</button> · <button class="back" data-act="exec-doc" data-kind="owner">งานหลังร้าน</button></p>
       ${S.exec.recovery ? '<p class="muted" style="margin:0 0 .5rem">รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น · ตั้งเลขเองได้ หรือให้ระบบสุ่ม</p>' : ''}
-      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email), ct = (S.exec.contacts || []).find(x => x.email === a.email); return `<div class="kv accrow"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.contacts ? `<br><span class="muted">${ct ? t('อีเมลติดต่อ') + ': ' + esc(ct.contact_email) : t('ยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
-        <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${esc(a.email)}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
+      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email), ct = (S.exec.contacts || []).find(x => x.email === a.email); return `<div class="kv accrow"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.contacts ? `<br><span class="muted">${ct ? t('อีเมลติดต่อ') + ': ' + esc(ct.contact_email) + (ct.verified === undefined ? '' : ' · ' + t(ct.verified ? 'ยืนยันแล้ว' : 'ยังไม่ยืนยัน')) : t('ยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
+        <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${esc(a.email)}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${ct && ct.verified !== undefined ? `<button class="btn ghost sm" data-act="exec-verify" data-email="${esc(a.email)}" data-contact="${esc(ct.contact_email)}" data-v="${ct.verified ? 0 : 1}">${ct.verified ? 'ยกเลิกการยืนยันอีเมล' : 'ยืนยันอีเมลแล้ว'}</button>` : ''}${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
     icons: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ชุดไอคอนชุดที่ 1</h2>
       <p class="muted" style="margin:0 0 .6rem">ไอคอนชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เริ่มใช้ 20 ต.ค. · เก็บไว้ให้ใช้ซ้ำกับป้าย เมนู และสื่อของร้าน · เส้นหนา 2 มุมมน สีเขียวร้าน</p>
       <button class="btn sm" data-act="icon-dl-all">${I.box} โหลดทั้งชุดเป็นไฟล์เดียว</button>
@@ -2814,7 +2904,7 @@ V.yui = () => {
     </div>
     <details class="card fold"><summary><h3>รายการอาหารที่ขายวันนี้ (${items.length} เมนู)</h3></summary>
       ${items.map(x => `<div class="kv"><span>${esc(x.name)}</span><span class="muted">× ${x.qty}</span><b>${baht(x.total_satang)}</b></div>`).join('') || '<p class="muted" style="margin:0">ยังไม่มี</p>'}</details>
-    ${S.contact.y === undefined ? '' : `<div class="card"><h3>แจ้งเตือนและกู้รหัส</h3>${contactRow('y')}</div>`}
+    ${S.csec.y ? secCard('y') : (S.contact.y === undefined ? '' : `<div class="card"><h3>แจ้งเตือนและกู้รหัส</h3>${contactRow('y')}</div>`)}
     <div class="pad"><button class="btn ghost block" data-act="pw-open" data-cli="y">เปลี่ยนรหัสผ่าน</button></div>
     <p class="muted pad">หน้านี้ดูอย่างเดียว · รีเฟรชเองทันทีที่มีออเดอร์เข้า</p>
   </div>`;
@@ -3124,15 +3214,16 @@ T.profile = () => {
   const st = S.settings || {}, os = S.owner.ownerSettings || {};
   return `<div class="with-bar ow-set">
     <div class="card"><h3>ร้าน</h3>
-      <div class="setting"><span>${esc(S.storeName)}<br><span class="muted">${esc(S.owner.member?.email || '')}</span></span></div>
+      <div class="setting"><span>${esc(S.storeName)}<br><span class="muted">${esc(S.owner.member?.email || '')}</span>${vchip('o')}</span></div>
       <div class="setting"><span>เปิดร้าน (รับออเดอร์)<br><span class="muted">วันใหม่ต้องกดเปิดเองทุกวัน</span></span><label class="switch"><input type="checkbox" data-act="accepting" ${isOpen() ? 'checked' : ''} aria-label="เปิดรับออเดอร์"><span></span></label></div></div>
+    ${secCard('o')}
     <div class="card"><h3>คิวและวันทำการ</h3>
       <label class="field"><span>เวลาตัดวัน (ขึ้นเลข A001 ใหม่)</span><input id="cutoff" type="time" value="${esc(String(st.day_cutoff || '00:00').slice(0, 5))}"></label>
       <label class="field"><span>เลขคิวที่ดูแต่ไม่สั่ง ถือว่า “ไม่ได้สั่ง” หลัง</span><select id="hold">${[15, 30, 45, 60].map(m => `<option value="${m}" ${st.queue_hold_minutes == m ? 'selected' : ''}>${m} นาที</option>`).join('')}</select></label>
       <p class="muted">การชำระเงินเป็นแบบจ่ายหน้าร้านทั้งหมด (เงินสด/สแกนจ่าย) ไม่ต้องตั้งค่าเพิ่ม</p>
       <div class="actions"><button class="btn sm" data-act="save-settings">บันทึก</button></div></div>
     <div class="card"><h3>แจ้งเตือนในแอป</h3>
-      ${contactRow('o')}
+      ${S.csec.o ? '' : contactRow('o')}
       <div class="setting"><span>เสียงเมื่อมีออเดอร์ใหม่ (ขณะเปิดแอป)</span><label class="switch"><input type="checkbox" data-act="sound" ${os.sound_new_order ? 'checked' : ''} aria-label="เสียงแจ้งเตือน"><span></span></label></div>
       <details style="margin-top:.4rem"><summary class="muted" style="cursor:pointer">วิธีติดตั้งแอปจากเว็บ</summary>
         <p class="muted"><b>iPhone:</b> เปิดใน Safari → ปุ่มแชร์ → เพิ่มไปยังหน้าจอโฮม → เปิดจากไอคอนคุณยุ้ย<br><b>Android:</b> เปิดใน Chrome → เมนู ⋮ → ติดตั้งแอป → เปิดจากไอคอนคุณยุ้ย</p></details></div>
@@ -3283,7 +3374,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 06:40 · อีเมลของฉัน (ไว้กู้รหัส)';
+const APP_VERSION = '20 ต.ค. 07:10 · ติ๊กยืนยันอีเมล + ข้อมูลช่วยเหลือ';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3722,12 +3813,18 @@ document.addEventListener('click', async (e) => {
     case 'fp-cancel': { const w = S.fp && S.fp.wait; stopWait(); closeModal(); if (w) { try { await cliOf(w.cli).rpc('cancel_password_reset', { p_id: w.id, p_token: w.token }); } catch (_) {} toast('ยกเลิกคำขอแล้ว'); } break; }
     case 'fp-again': askSheet(d.cli, d.email); break;
     case 'contact-open': contactSheet(d.cli); break;
+    case 'help-open': helpSheet(); break;
+    case 'exec-verify': {
+      if (d.v === '1' && !window.confirm(`ยืนยันว่าอีเมล ${d.contact} เป็นของเจ้าของบัญชี ${d.email} จริงแล้ว ?\n(ควรโทรหรือไลน์ถามเขาก่อน)`)) break;
+      await act(async () => { const { error } = await sbx.rpc('exec_verify_contact', { p_email: d.email, p_verified: d.v === '1' }); if (error) throw error; await loadExec(); render('exec'); }, d.v === '1' ? 'ยืนยันอีเมลแล้ว' : 'ยกเลิกการยืนยันแล้ว');
+      break; }
     case 'contact-later': S.contactLater[d.cli] = true; render(d.cli === 'y' ? 'yui' : 'owner'); break;
     case 'contact-save': await act(async () => {
       const em = (($('#ct-email') || {}).value || '').trim().toLowerCase();
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) throw new Error('อีเมลไม่ถูกต้อง ลองตรวจตัวสะกดอีกครั้ง');
       const { error } = await cliOf(d.cli).rpc('set_my_contact_email', { p_email: em });
       if (error) throw error;
+      const cs = S.csec[d.cli]; if (cs) { if ((cs.contact_email || '') !== em) cs.contact_verified = false; cs.contact_email = em; }
       S.contact[d.cli] = em; closeModal(); render(d.cli === 'y' ? 'yui' : 'owner');
     }, 'บันทึกอีเมลของคุณแล้ว'); break;
     case 'fp-rec': recSheet(d.cli, (($('#fp-email') || {}).value || '').trim()); break;
