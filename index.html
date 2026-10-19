@@ -9,7 +9,17 @@
 <title>คุณยุ้ย ส้มตำครกระเบิด</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="คุณยุ้ย ส้มตำครกระเบิด">
+<meta property="og:title" content="คุณยุ้ย ส้มตำครกระเบิด">
+<meta property="og:description" content="สแกนคิวอาร์ ดูเมนู สั่งส้มตำและติดตามออเดอร์ได้จากมือถือ">
+<meta property="og:image" content="https://faridahanrit-sketch.github.io/khunyui/khunyui-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://faridahanrit-sketch.github.io/khunyui/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://faridahanrit-sketch.github.io/khunyui/khunyui-og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Taviraj:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;600&display=swap" rel="stylesheet">
@@ -493,6 +503,12 @@
   .rq-wait { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: .4rem 0 .8rem; color: var(--muted); }
   .rq .actions .btn[disabled] { opacity: .45; }
   .tab .dot { top: -5px; right: -9px; }
+  .igh { margin: .9rem 0 .4rem; font-size: .9rem; color: var(--green); }
+  .igrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: .5rem; }
+  .itile { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding: .6rem .3rem; background: var(--cream); border: 1px solid var(--line); border-radius: 12px; color: var(--green); font: inherit; font-size: .72rem; cursor: pointer; min-height: 44px; }
+  .itile > svg { width: 28px; height: 28px; color: var(--green); }
+  .itile > em { font-style: normal; font-size: .6rem; color: var(--red); }
+  .itile:active { background: var(--gold-soft); }
   .xcard { background: var(--card); border: 1px solid var(--line); border-radius: 16px; margin: .75rem 1rem; padding: .9rem; }
   .xhead { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; }
   .xhead h2 { margin: 0; font-family: "Taviraj", serif; color: var(--green); font-size: 1.15rem; line-height: 1.25; }
@@ -576,8 +592,17 @@
   .hb b { font-size: .75rem; color: var(--green); }
   .hb span { font-size: .7rem; color: var(--muted); }
   /* sound button (every screen) */
-  .sndbtn { min-height: 36px; min-width: 40px; padding: 0 .55rem; border: 1px solid var(--gold); border-radius: 999px; background: var(--cream); font-size: 1.05rem; line-height: 1; cursor: pointer; }
-  .sndbtn.off { background: var(--card); opacity: .7; filter: grayscale(1); }
+  .sndbtn { min-height: 36px; min-width: 40px; padding: 0 .55rem; border: 1px solid var(--gold); border-radius: 999px; background: var(--cream); color: var(--green); display: inline-grid; place-items: center; line-height: 1; cursor: pointer; }
+  .sndbtn svg { width: 20px; height: 20px; }
+  .btn svg { width: 1.1em; height: 1.1em; vertical-align: -.17em; margin-right: .25rem; }
+  .chip svg { width: 1.1em; height: 1.1em; vertical-align: -.17em; margin-right: .25rem; }
+  .xalert span svg { width: 1.15em; height: 1.15em; vertical-align: -.2em; margin-right: .2rem; color: var(--green); }
+  .bigic svg { width: 2rem; height: 2rem; color: var(--green); }
+  .yt i svg { width: 1.5rem; height: 1.5rem; }
+  .yt i { color: var(--green); }
+  .yt.wait i { color: var(--gold); }
+  .yf-dot svg { width: 1.05rem; height: 1.05rem; }
+  .sndbtn.off { background: var(--card); color: var(--muted); border-color: var(--line); }
   .sndhint { margin-top: .7rem; }
   /* Khun Yui: live activity timeline */
   .yfeedcard { margin: .75rem 1rem; padding: .85rem 1rem .5rem; }
@@ -595,12 +620,12 @@
   .yf:last-child::before { bottom: calc(100% - 1.3rem); }
   .yf[data-yord] { cursor: pointer; }
   .yf-t { text-align: right; padding-top: .35rem; font: 600 .78rem/1 ui-monospace, Menlo, monospace; color: var(--muted); }
-  .yf-dot { position: relative; z-index: 1; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--card); border: 2px solid var(--line); font-size: .95rem; line-height: 1; }
-  .yf.new .yf-dot { border-color: var(--red); }
-  .yf.prep .yf-dot { border-color: var(--gold); }
-  .yf.ready .yf-dot { border-color: #1BA45B; }
+  .yf-dot { position: relative; z-index: 1; width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--card); border: 2px solid var(--line); color: var(--green); line-height: 1; }
+  .yf.new .yf-dot { border-color: var(--red); color: var(--red); }
+  .yf.prep .yf-dot { border-color: var(--gold); color: #8A6A12; }
+  .yf.ready .yf-dot { border-color: #1BA45B; color: #0E6B3D; }
   .yf.done .yf-dot { border-color: var(--green); }
-  .yf.cx .yf-dot { border-color: var(--muted); filter: grayscale(1); }
+  .yf.cx .yf-dot { border-color: var(--muted); color: var(--muted); }
   .yf-b { min-width: 0; padding-top: .2rem; font-size: .92rem; line-height: 1.35; }
   .yf-b b { font-family: "Taviraj", serif; font-size: 1.05rem; color: var(--green); margin-right: .3rem; }
   .yf.cx .yf-b { color: var(--muted); }
@@ -663,27 +688,43 @@ const sby = supabase.createClient(CONFIG.url, CONFIG.key, {
 });
 
 const I = {
-  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>',
-  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L22 8H6"/></svg>',
-  bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>',
-  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
-  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>',
-  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></svg>',
-  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>',
-  receipt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></svg>',
-  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
-  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
-  key: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></svg>',
-  leaf: '<svg class="leaf" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M24 40V22"/><path d="M24 30c-9 0-15-6-16-14 9 0 15 5 16 14z"/><path d="M24 30c9 0 15-6 16-14-9 0-15 5-16 14z"/><path d="M24 20c-2-3-2-7 0-10 2 3 2 7 0 10z"/></svg>'
+  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"/><path d="M7 10h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"/><path d="M12 15v2"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h2l2.3 11h11.5L21 8H6"/><path d="M8 16h11"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>',
+  bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v1"/><path d="M18 10a6 6 0 0 0-12 0c0 5.5-2 6.5-2 8h16c0-1.5-2-2.5-2-8Z"/><path d="M10 21h4"/></svg>',
+  search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5.5 5.5"/></svg>',
+  back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 5-7 7 7 7"/><path d="M5 12h15"/></svg>',
+  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="4" cy="6" r=".4"/><circle cx="4" cy="12" r=".4"/><circle cx="4" cy="18" r=".4"/><path d="M9 6h11M9 12h11M9 18h11"/></svg>',
+  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 11 4.5a1.6 1.6 0 0 1 2 0L21 11"/><path d="M5 10.5V20h14v-9.5"/><path d="M9.5 20v-6h5v6"/></svg>',
+  receipt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20v-6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6"/><path d="M10 20V9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v11"/><path d="M16 20V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v15"/><path d="M3 20h18"/></svg>',
+  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-2a7.5 7.5 0 0 1 15 0v2"/></svg>',
+  key: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4"/><path d="m11 11 9 9M16 16l2.5-2.5M19 19l2-2"/></svg>',
+  leaf: '<svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h18"/><path d="M5 14c0 4 3 6 7 6s7-2 7-6"/><path d="M12 14c-.6-4.5 2.2-7.5 7-9-.2 4.5-2.5 7.5-7 9Z"/></svg>',
+  bellOn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v1"/><path d="M17 10a5 5 0 0 0-10 0c0 5-2 6-2 8h14c0-2-2-3-2-8Z"/><path d="M10 21h4"/><path d="M3 9c-1 1-1 3 0 4M21 9c1 1 1 3 0 4"/></svg>',
+  bellOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7a5.5 5.5 0 0 1 10 3c0 5 2 6 2 8H5c0-1 .9-2.3 1.4-4"/><path d="M10 21h4M12 3v1"/><path d="M3 3 21 21"/></svg>',
+  bellRing: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="1"/><path d="M5 17a7 7 0 0 1 14 0"/><path d="M3 19h18"/><path d="m5 9-2-2m16 2 2-2"/></svg>',
+  clipboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><path d="M9 3h6v4H9z"/><path d="M9 12h6M9 16h6"/></svg>',
+  cash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/><circle cx="12" cy="12" r="3"/><path d="M5 10h1M18 14h1"/></svg>',
+  paid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 7.2a5 5 0 0 0-7.1-1L12 7.3l-1.1-1.1a5 5 0 0 0-7.1 7.1L12 21l8.2-7.7a5 5 0 0 0 0-6.1Z"/><path d="m8.7 13 2.4 2.4 4.5-4.8"/></svg>',
+  qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3z"/><path d="M15 15h2v2h-2zM21 15v3M17 21h4"/></svg>',
+  coin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 6.5v11M10 8.5h2.7c3.5 0 3.5 3.7 0 3.7H10M10 12.2h2.7c3.8 0 3.8 4.3 0 4.3H10"/></svg>',
+  hourglass: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12M6 21h12"/><path d="M7.5 3v3c0 3.5 4.5 4 4.5 6s-4.5 2.5-4.5 6v3"/><path d="M16.5 3v3c0 3.5-4.5 4-4.5 6s4.5 2.5 4.5 6v3"/></svg>',
+  refund: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7H4V2"/><path d="M4 7a9 9 0 1 1-1 8"/><circle cx="12.5" cy="12.5" r="3"/></svg>',
+  box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3.5 7.5 8.5-4 8.5 4v9l-8.5 4-8.5-4v-9Z"/><path d="m3.5 7.5 8.5 4 8.5-4M12 11.5v9M8 5.5l8.5 4"/></svg>',
+  cooking: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h14v2c0 4-3 6-7 6s-7-2-7-6v-2Z"/><path d="M18 14h3"/><path d="M8 9c-2-2 2-3 0-5M14 9c-2-2 2-3 0-5"/></svg>',
+  checkCircle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m7.8 12.5 3.1 3.1 5.6-6.3"/></svg>',
+  xCircle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg>',
+  topping: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14h16c-.8 3-3.8 4.5-8 4.5S3.8 17 3 14Z"/><path d="M6 14c0-3 1.6-4.5 3.2-4.5S12 11 12 14"/><path d="M12 14c0-2.4 1.2-3.6 2.6-3.6S17 11.6 17 14"/><path d="M8 21.5h6"/><path d="M20 3v4m-2-2h4"/></svg>',
+  vault: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a2 2 0 0 1 2 2v3H2V7a2 2 0 0 1 2-2Z"/><path d="M4 10v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9"/><path d="M9 15h6"/></svg>'
 };
 
 // Category icons (one colour, drawn with currentColor): chili · mortar · soup bowl · sparkle · rice basket
 const IC = {
-  SOMTAM: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M31.5 13.5c-1.7-.4-3.4.5-4.1 2.2C25 21.6 19.6 27 11.6 31.4c-1.7.9-1.8 3.2-.1 4.2 5.3 3 12.6 1.9 18-3.2 6.4-6 8.4-13.6 6.3-18.3-.5-1.1-2.3-1.2-4.3-.6z"/><path d="M31 13c.3-3.4 2.1-6 5.6-7.1l1 2.4c-2.2.9-3.4 2.4-3.6 4.7z"/></svg>',
-  YUM: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M7 25h34c0 8.8-6.9 15-17 15S7 33.8 7 25z"/><path d="M16 42h16v2.4H16z"/><rect x="28" y="4" width="6.4" height="27" rx="3.2" transform="rotate(28 31 17)"/></svg>',
-  GAOLAO: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M7 23h34c0 9.6-6.9 16.5-17 16.5S7 32.6 7 23z"/><path d="M15 42h18v2.4H15z"/><path d="M16 8c-2.6 2.6 2.4 4.4 0 7.2M24 5.5c-2.6 2.6 2.4 4.4 0 7.2M32 8c-2.6 2.6 2.4 4.4 0 7.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
-  SPECIAL: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M22 6l4.6 13.4L40 24l-13.4 4.6L22 42l-4.6-13.4L4 24l13.4-4.6z"/><path d="M38 5l1.6 4.4L44 11l-4.4 1.6L38 17l-1.6-4.4L32 11l4.4-1.6z"/></svg>',
-  SIDES: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M8.5 36c0-11.5 6.4-19.5 15.5-19.5S39.5 24.5 39.5 36z"/><circle cx="24" cy="12.2" r="3.6"/><path d="M5 38.5h38v3.2H5z"/></svg>'
+  SOMTAM: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M8 23h32c-1 10-5.5 16-12 17H20C13.5 39 9 33 8 23Z"/><path d="M18 39h12v3H18z"/><path d="M8.7 8.3a3 3 0 0 1 5.2-3l9.4 14.2-4.6 3.1L8.7 8.3Z"/><path d="M28 18c2.8-4.7 6.1-5.9 9.8-3.5-1.8.7-3.1 1.8-3.7 3.3 2.9-.8 5.4.2 6.1 2.5-4.7-1.3-8 2.6-12.2 1.6-1.5-.5-2.2-1.8-2-3.1 1.8.8 2.9.4 4-1.4Z"/><path fill-rule="evenodd" d="M24 18c11 0 20 2.6 20 6s-9 6-20 6S4 27.4 4 24s9-6 20-6Zm0 4c-9 0-15.5 1-15.5 2S15 26 24 26s15.5-1 15.5-2S33 22 24 22Z"/></svg>',
+  YUM: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M12 19c1-11 5.5-14.6 10.2-12.3 5.2 2.6 7.4 9.2 14.2 2.3-2.6 8.2-7.1 11.5-11.7 8.7-4.3-2.6-6.4-6.8-9.2-5.2-1.2.7-2.3 2-3.5 3.5Z"/><path d="M9 28.8c1.1-5.9 6.4-9.1 13.1-9.1 6.8 0 12.3 3.4 12.8 9.1-7.2 3.2-18.3 3.2-25.9 0Z"/><path fill-rule="evenodd" d="M31 28a7 8 0 0 1 14 0H31Zm4.1-2.8h5.6c-1-2.5-1.7-3.4-2.8-3.4-1.2 0-1.9 1-2.8 3.4Z"/><path d="M4 30c10 4.2 30 4.2 40 0-2.5 8.8-10 14-20 14S6.5 38.8 4 30Z"/></svg>',
+  GAOLAO: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M7 24h34c-.7 10-6.8 15.8-17 15.8S7.7 34 7 24Z"/><path d="M17 39h14v3H17z"/><path d="M7 27c-3.4-1.1-4.5-3.3-3.2-5.7C5 19 7.2 19 9 20l1.4 3.6c-1.6-.8-2.5-.3-2.8.7-.3 1.2.4 1.8 1.6 2.4L7 27Z"/><path d="M41 27c3.4-1.1 4.5-3.3 3.2-5.7-1.2-2.3-3.4-2.3-5.2-1.3l-1.4 3.6c1.6-.8 2.5-.3 2.8.7.3 1.2-.4 1.6-1.6 2.4L41 27Z"/><path d="M13 19c-2.7-3.7.2-5.3 1-7.4.8-2 .1-3.1-.8-4.3 5.6 3 5.8 6.1 2.4 9.7-.8.8-1.4 1.6-1.6 2Z"/><path d="M23 17.5c-2.7-3.7.2-5.3 1-7.4.8-2 .1-3.1-.8-4.3 5.6 3 5.8 6.1 2.4 9.7-.8.8-1.4 1.6-1.6 2Z"/><path d="M33 19c-2.7-3.7.2-5.3 1-7.4.8-2 .1-3.1-.8-4.3 5.6 3 5.8 6.1 2.4 9.7-.8.8-1.4 1.6-1.6 2Z"/><path fill-rule="evenodd" d="M24 20c11.7 0 20 2.5 20 5.5S35.7 31 24 31 4 28.5 4 25.5 12.3 20 24 20Zm0 3.7c-9.2 0-15 1-15 1.8s5.8 1.8 15 1.8 15-1 15-1.8-5.8-1.8-15-1.8Z"/></svg>',
+  SPECIAL: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 5c2.2 8.7 6.2 13 15.5 15.5C30.2 23 26.2 27.3 24 37c-2.2-9.7-6.2-14-15.5-16.5C17.8 18 21.8 13.7 24 5Z"/><path d="M10 5.5c.8 3.5 2.4 5.1 6 6-3.6.9-5.2 2.5-6 6-.8-3.5-2.4-5.1-6-6 3.6-.9 5.2-2.5 6-6Z"/><path d="M39 30c1.1 4.1 2.9 5.9 7 7-4.1 1.1-5.9 2.9-7 7-1.1-4.1-2.9-5.9-7-7 4.1-1.1 5.9-2.9 7-7Z"/></svg>',
+  SIDES: '<svg class="leaf" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M18.5 29.7c-4.4-3.6-5.3-7.6-3.1-12.6 2.4-5.6 10.9-12 18-11.5 6.1.4 10 5 9.5 11.7-.4 6.6-5 13.7-11.1 16.1-4.5 1.7-7.7.1-10.1-1.6l-5.5 6c1.8 1.5 1.9 3.8.2 5.4-2 1.9-4.5 1.4-5.9-.9-2.8 1.2-5.5-.7-5.6-3.4-.1-2.9 2.6-4.8 5.5-3.6l7.8-7.4ZM21.1 19.3c1.7 1.8 3.4 3.2 5.4 4.5l1.8-2.2c-1.9-1.2-3.6-2.6-5.3-4.3Zm6.8-6.2c1.6 1.8 3.4 3.2 5.2 4.4l1.8-2.1c-1.8-1.2-3.4-2.6-5.2-4.3Z"/></svg>'
 };
 const catCode = (d) => S.cats.find(c => c.id === d.category_id)?.code;
 const catIcon = (code) => IC[code] || I.leaf;
@@ -1027,14 +1068,14 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 00:35 · เสียงทุกจอ + แผงเรียลไทม์": "App version 20 Oct 00:35 · sound on every screen + live panel",
+"เวอร์ชันแอป 20 ต.ค. 02:30 · ไอคอนครบชุดใหม่": "App version 20 Oct 02:30 · complete new icon set",
 "เสียงแจ้งเตือน: เปิด": "Notification sound: on",
 "เสียงแจ้งเตือน: ปิด": "Notification sound: off",
 "แตะเพื่อปิดเสียง": "Tap to mute",
 "แตะเพื่อเปิดเสียง": "Tap to turn sound on",
 "เปิดเสียงแจ้งเตือนแล้ว": "Notification sound is on",
 "ปิดเสียงแจ้งเตือนแล้ว": "Notification sound is off",
-"🔔 แตะที่นี่เพื่อเปิดเสียงแจ้งเตือน": "🔔 Tap here to turn on notification sounds",
+"แตะที่นี่เพื่อเปิดเสียงแจ้งเตือน": "Tap here to turn on notification sounds",
 "ร้านรับออเดอร์แล้ว · กำลังทำ": "The shop accepted your order · preparing",
 "อาหารพร้อมรับแล้ว": "Your food is ready",
 "ร้านยกเลิกออเดอร์": "The shop cancelled the order",
@@ -1051,6 +1092,43 @@ Object.assign(EN, {
 "โหลดแอปใหม่": "Reload app",
 "ภาพรวม": "Overview",
 "คำขอรหัส": "Requests",
+"ไอคอน": "Icons",
+"ส้มตำ": "Som tam",
+"ยำ": "Yum (spicy salad)",
+"เก้าแหลว": "Gao lao (soup)",
+"พิเศษ": "Specials",
+"ของทานเล่น": "Snacks & sides",
+"หน้าหลัก": "Home",
+"กุญแจล็อก": "Padlock",
+"กระดิ่ง": "Bell",
+"ย้อนกลับ": "Back",
+"ใบเสร็จ": "Receipt",
+"กราฟ": "Chart",
+"ผู้ใช้": "User",
+"กุญแจ": "Key",
+"ใบไม้": "Leaf",
+"เสียงเปิด": "Sound on",
+"เสียงปิด": "Sound off",
+"กระดิ่งดัง": "Ringing bell",
+"คลิปบอร์ด": "Clipboard",
+"เงินสด": "Cash",
+"จ่ายแล้ว": "Paid",
+"คิวอาร์": "QR",
+"เหรียญ": "Coin",
+"นาฬิกาทราย": "Hourglass",
+"คืนเงิน": "Refund",
+"กล่อง": "Box",
+"สำเร็จ": "Done",
+"ท็อปปิ้ง": "Topping",
+"ตู้นิรภัย": "Vault",
+"ตัวแทนชั่วคราว": "Temporary stand-in",
+"ไอคอนใช้งานในแอป (28)": "App icons (28)",
+"ไอคอนหมวดอาหาร (5)": "Food category icons (5)",
+"คลังไอคอนของร้าน": "Shop icon library",
+"ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg": "Icon set 1 of Khun Yui's Somtam Krok Raboed shop · kept here · tap an icon to download its .svg",
+"ชุดไอคอนชุดที่ 1": "Icon set 1",
+"ไอคอนชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เริ่มใช้ 20 ต.ค. · เก็บไว้ให้ใช้ซ้ำกับป้าย เมนู และสื่อของร้าน · เส้นหนา 2 มุมมน สีเขียวร้าน": "The first icon set of Khun Yui's Somtam Krok Raboed shop · in use since 20 Oct · kept for reuse on signs, menus and shop media · 2px rounded stroke, shop green",
+"โหลดทั้งชุดเป็นไฟล์เดียว": "Download the whole set as one file",
 "บัญชีร้าน": "Accounts",
 "รายได้": "Revenue",
 "ประวัติ": "History",
@@ -1091,7 +1169,7 @@ Object.assign(EN, {
 "ส่งรหัสไปที่หน้าจอเขาแล้ว": "Password sent to their screen",
 "ปฏิเสธคำขอแล้ว": "Request denied",
 "มีคำขอรีเซ็ตรหัสใหม่จาก {0}": "New password reset request from {0}",
-"🔔 มีคำขอรีเซ็ตรหัสรออยู่ {0} รายการ": "🔔 {0} password reset request(s) waiting",
+"มีคำขอรีเซ็ตรหัสรออยู่ {0} รายการ": "{0} password reset request(s) waiting",
 "เปิดดู": "Open",
 "ห้องของผู้บริหาร": "Executive rooms",
 "บัญชีของร้าน · ตั้งรหัสชั่วคราวเอง": "Shop accounts · set a temporary password yourself",
@@ -1222,8 +1300,8 @@ Object.assign(EN, {
 "{0}เฉพาะที่ยังไม่มีรูป": "{0}Only dishes without a photo",
 "นำเข้ารูปหลายรูป / ZIP": "Import many photos / ZIP",
 "รูปเมนู {0} / {1}": "Dish photos {0} / {1}",
-"🍤 ท็อปปิ้ง / มิกซ์": "🍤 Toppings / mixes",
-"🗄️ คลังเมนู {0}": "🗄️ Archived dishes {0}",
+"ท็อปปิ้ง / มิกซ์": "Toppings / mixes",
+"คลังเมนู {0}": "Archived dishes {0}",
 "เก็บเมนูเข้าคลังได้จากหน้าแก้ไขเมนู (สวิตช์ “เก็บเข้าคลัง”)": "Archive a dish from the dish edit screen (the “Archive” switch)",
 "เมนูที่เก็บเข้าคลังลูกค้าจะไม่เห็นเลย · “เรียกกลับ” แล้วเมนูจะกลับมาขายตามเดิมทันที · “ลบ” ลบถาวร เรียกกลับไม่ได้ (เมนูที่เคยมีออเดอร์จะลบไม่ได้ ให้เก็บไว้ในคลังต่อไป)": "Archived dishes are completely hidden from customers · “Restore” puts a dish back on sale immediately · “Delete” is permanent and cannot be undone (dishes that have been ordered cannot be deleted; keep them archived)",
 "ลบ": "Delete",
@@ -1710,8 +1788,8 @@ const SND = (() => {
 })();
 ['pointerup', 'touchend', 'click', 'keydown'].forEach(ev => window.addEventListener(ev, () => SND.unlock(), { capture: true, passive: true }));
 const sndBtn = (sc) => { const o = SND.on(sc);
-  return `<button class="sndbtn ${o ? '' : 'off'}" data-act="snd-toggle" data-surface="${sc}" aria-pressed="${o}" aria-label="${o ? 'เสียงแจ้งเตือน: เปิด' : 'เสียงแจ้งเตือน: ปิด'}" title="${o ? 'แตะเพื่อปิดเสียง' : 'แตะเพื่อเปิดเสียง'}">${o ? '🔔' : '🔕'}</button>`; };
-const sndBanner = (sc) => !SND.ready && SND.on(sc) ? `<div class="pad sndhint"><button class="btn block" data-act="snd-unlock" data-surface="${sc}">🔔 แตะที่นี่เพื่อเปิดเสียงแจ้งเตือน</button></div>` : '';
+  return `<button class="sndbtn ${o ? '' : 'off'}" data-act="snd-toggle" data-surface="${sc}" aria-pressed="${o}" aria-label="${o ? 'เสียงแจ้งเตือน: เปิด' : 'เสียงแจ้งเตือน: ปิด'}" title="${o ? 'แตะเพื่อปิดเสียง' : 'แตะเพื่อเปิดเสียง'}">${o ? I.bellOn : I.bellOff}</button>`; };
+const sndBanner = (sc) => !SND.ready && SND.on(sc) ? `<div class="pad sndhint"><button class="btn block" data-act="snd-unlock" data-surface="${sc}">${I.bellOn} แตะที่นี่เพื่อเปิดเสียงแจ้งเตือน</button></div>` : '';
 function beep() { SND.play('order', 'owner'); }
 // customer screens: put the sound button next to the language button
 function ensureSndBtn(v) {
@@ -2030,7 +2108,7 @@ V.menu = () => S.closedStore ? V.closedshop() : `
     ${S.queueErr ? `<div class="banner">${esc(t(S.queueErr))} · ${t('ดูเมนูได้ แต่ยังสั่งไม่ได้')}</div>` : ''}
     ${S.reorder ? `<div class="reorder-note" style="margin:.75rem 1rem 0">${t('สั่งใหม่แทนคิว {0} · ใช้เลขคิวเดิม ไม่เสียคิว', esc(S.reorder.queue_code))} <button class="back" style="display:inline;padding:0 0 0 .3rem;font-size:.85rem" data-act="reorder-off">${t('ยกเลิกการสั่งแทน')}</button></div>` : ''}`)}</div>
   <div class="bottombar">
-    <button class="pill ord" data-go="#/orders" style="position:relative" aria-label="${t('ออเดอร์ของฉัน')}${S.queue ? ' ' + t('คิว {0}', esc(S.queue.queue_code)) : ''}"><span class="pill-e" aria-hidden="true">📋</span>
+    <button class="pill ord" data-go="#/orders" style="position:relative" aria-label="${t('ออเดอร์ของฉัน')}${S.queue ? ' ' + t('คิว {0}', esc(S.queue.queue_code)) : ''}"><span class="pill-e" aria-hidden="true">${I.clipboard}</span>
       ${S.queue ? `<span class="pill-t"><small>${t('คิว {0}', esc(S.queue.queue_code))}</small></span>` : ''}
       ${activeMine().length ? `<span class="count">${activeMine().length}</span>` : ''}${unread() ? `<span class="dot" aria-label="${t('ข้อความใหม่ {0}', unread())}">${unread()}</span>` : ''}</button>
     <button class="pill main" data-go="#/cart">${I.cart} ${cartCount() ? `${t('{0} รายการ', cartCount())} · ${baht(cartTotal())}` : t('ตะกร้า')}</button>
@@ -2260,8 +2338,24 @@ V.execdenied = () => `
   <div class="card"><p style="margin-top:0">บัญชี <b>${esc(S.exec.email)}</b> ไม่มีสิทธิ์เข้าหน้านี้</p>
     <p class="muted">หน้านี้สำหรับผู้ดูแลระบบ ถ้าเป็นเจ้าของร้าน ให้เข้าทางหน้าเข้าสู่ระบบของร้าน</p>
     <button class="btn ghost block" data-act="exec-logout">ออกจากระบบ</button></div>`;
-const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list]];
+const ICON_NAMES = { lock: 'กุญแจล็อก', cart: 'ตะกร้า', bell: 'กระดิ่ง', search: 'ค้นหา', back: 'ย้อนกลับ', list: 'รายการ', home: 'หน้าหลัก', receipt: 'ใบเสร็จ', chart: 'กราฟ', user: 'ผู้ใช้', key: 'กุญแจ', leaf: 'ใบไม้', bellOn: 'เสียงเปิด', bellOff: 'เสียงปิด', bellRing: 'กระดิ่งดัง', clipboard: 'คลิปบอร์ด', cash: 'เงินสด', paid: 'จ่ายแล้ว', qr: 'คิวอาร์', coin: 'เหรียญ', hourglass: 'นาฬิกาทราย', refund: 'คืนเงิน', box: 'กล่อง', cooking: 'กำลังทำ', checkCircle: 'สำเร็จ', xCircle: 'ยกเลิก', topping: 'ท็อปปิ้ง', vault: 'ตู้นิรภัย' };
+const ICON_CATS = { SOMTAM: 'ส้มตำ', YUM: 'ยำ', GAOLAO: 'เก้าแหลว', SPECIAL: 'พิเศษ', SIDES: 'ของทานเล่น' };
+const ICON_TEMP = {};
+const iconKey = (k) => k.startsWith('I:') ? [k.slice(2), I[k.slice(2)]] : [k.slice(2), IC[k.slice(2)]];
+const iconFile = (k) => k.startsWith('I:') ? 'ic-' + k.slice(2).replace(/[A-Z]/g, m => '-' + m.toLowerCase()) : 'cat-' + k.slice(2).toLowerCase();
+const iconSvg = (svg) => svg.replace(/ class="[^"]*"/, '').replace(' aria-hidden="true"', '').replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" color="#06412A" ');
+function iconSave(name, text, type) {
+  try { const u = URL.createObjectURL(new Blob([text], { type })); const a = document.createElement('a'); a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); return true; }
+  catch (_) { return false; }
+}
+const iconTiles = () => {
+  const tile = (k, nm, svg, temp) => `<button class="itile" data-act="icon-dl" data-k="${k}" aria-label="โหลดไอคอน ${nm}">${svg}<span>${nm}</span>${temp ? '<em>ตัวแทนชั่วคราว</em>' : ''}</button>`;
+  return `<h3 class="igh">ไอคอนใช้งานในแอป (${Object.keys(ICON_NAMES).length})</h3><div class="igrid">${Object.keys(ICON_NAMES).map(k => tile('I:' + k, ICON_NAMES[k], I[k], ICON_TEMP[k])).join('')}</div>
+    <h3 class="igh">ไอคอนหมวดอาหาร (${Object.keys(ICON_CATS).length})</h3><div class="igrid">${Object.keys(ICON_CATS).map(k => tile('C:' + k, ICON_CATS[k], IC[k], false)).join('')}</div>`;
+};
+const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf]];
 const XTITLE = { home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'เจ้าของที่ลืมรหัสกดขอจากหน้าล็อกอิน คำขอจะขึ้นที่นี่ทันที'],
+  icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
   acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติการแก้ไข', 'ใครทำอะไร เมื่อไหร่'] };
 const RQ_SCREEN = { owner: 'หลังร้าน', yui: 'จอคุณยุ้ย', exec: 'ผู้บริหาร' };
 const RQ_STATE = { not_found: 'ไม่พบอีเมลนี้ในระบบ อาจพิมพ์ผิดหรือเป็นคนอื่นลองขอ · ยังส่งรหัสให้ไม่ได้', admin: 'เป็นบัญชีผู้บริหาร ตั้งรหัสชั่วคราวให้ไม่ได้', not_member: 'อีเมลนี้ไม่ได้เป็นสมาชิกของร้าน · ยังส่งรหัสให้ไม่ได้' };
@@ -2273,7 +2367,7 @@ V.exec = () => {
   const reqs = S.exec.reqs || [], pend = reqs.filter(r => r.status === 'pending'), done = reqs.filter(r => r.status !== 'pending');
   const reqRoom = () => `
     ${S.exec.reqErr ? `<div class="xcard"><b>ยังใช้ห้องนี้ไม่ได้</b><p class="muted" style="margin:.4rem 0 0">ระบบคำขอยังไม่ได้ติดตั้งในฐานข้อมูล ให้รันไฟล์ <b>034_khunyui_reset_requests.sql</b> ใน Supabase SQL Editor 1 ครั้ง · ระหว่างนี้ใช้ห้อง "บัญชีร้าน" ตั้งรหัสชั่วคราวเองได้</p></div>` : ''}
-    ${!S.exec.reqErr && !pend.length ? `<div class="xcard" style="text-align:center"><div style="font-size:1.8rem;line-height:1">🔔</div><b>ยังไม่มีคำขอ</b><p class="muted" style="margin:.3rem 0 0">เปิดหน้านี้ค้างไว้ได้ ระบบเช็กให้เองทุก 2 วินาที มีคำขอเข้าเมื่อไหร่จะมีเสียงและป้ายแจ้ง</p></div>` : ''}
+    ${!S.exec.reqErr && !pend.length ? `<div class="xcard" style="text-align:center"><div class="bigic">${I.bellRing}</div><b>ยังไม่มีคำขอ</b><p class="muted" style="margin:.3rem 0 0">เปิดหน้านี้ค้างไว้ได้ ระบบเช็กให้เองทุก 2 วินาที มีคำขอเข้าเมื่อไหร่จะมีเสียงและป้ายแจ้ง</p></div>` : ''}
     ${pend.map(r => `<div class="xcard rq"><div class="rq-top"><span class="rq-code" aria-label="เลขยืนยัน">${esc(r.code)}</span>
         <span><b>${esc(r.email)}</b><br><span class="muted">${RQ_SCREEN[r.screen] || ''} · ขอเมื่อ ${thTime(r.created_at)}</span></span></div>
       ${r.account_state !== 'ok' ? `<div class="rq-warn">${RQ_STATE[r.account_state] || ''}</div>` : ''}
@@ -2310,6 +2404,10 @@ V.exec = () => {
       <p class="muted" style="margin:0 0 .5rem">ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า</p>
       ${S.exec.accounts.map(a => `<div class="kv"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ' : 'ดูอย่างเดียว'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span></span>
         <button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button></div>`).join('')}</div>` : ''}`,
+    icons: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ชุดไอคอนชุดที่ 1</h2>
+      <p class="muted" style="margin:0 0 .6rem">ไอคอนชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เริ่มใช้ 20 ต.ค. · เก็บไว้ให้ใช้ซ้ำกับป้าย เมนู และสื่อของร้าน · เส้นหนา 2 มุมมน สีเขียวร้าน</p>
+      <button class="btn sm" data-act="icon-dl-all">${I.box} โหลดทั้งชุดเป็นไฟล์เดียว</button>
+      ${iconTiles()}</div>`,
     money: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">รายได้ย้อนหลัง 30 วัน</h2>
       ${hist.length ? hist.map(h => `<div class="kv"><span>${thDate(ymd(h.business_date))}${stores.length > 1 ? ' · ' + esc(h.store_name) : ''}<br><span class="muted">${n(h.orders_total)} ออเดอร์ · คนสแกน ${n(h.visits_total)}${h.revision > 1 ? ' · แก้ไข ' + (h.revision - 1) : ''}</span></span><b>${baht(h.net_satang)}</b></div>`).join('')
         : '<p class="muted" style="margin:0">ยังไม่มีการสรุปยอด</p>'}</div>`,
@@ -2326,7 +2424,7 @@ V.exec = () => {
     <div class="xroomhead"><h2>${XTITLE[room][0]}</h2><p>${XTITLE[room][1]}${room === 'home' ? ` · อัปเดตล่าสุด ${S.exec.at ? thTime(S.exec.at) : ''}` : ''}</p></div>
     ${secBanner('exec', 'x')}
     ${sndBanner('exec')}
-    ${pend.length && room !== 'req' ? `<div class="xalert" role="alert"><span>🔔 มีคำขอรีเซ็ตรหัสรออยู่ ${pend.length} รายการ</span><button class="btn sm" data-act="exec-room" data-room="req">เปิดดู</button></div>` : ''}
+    ${pend.length && room !== 'req' ? `<div class="xalert" role="alert"><span>${I.bellRing} มีคำขอรีเซ็ตรหัสรออยู่ ${pend.length} รายการ</span><button class="btn sm" data-act="exec-room" data-room="req">เปิดดู</button></div>` : ''}
     ${rooms[room]()}
     ${verLine()}
   </div>
@@ -2415,8 +2513,8 @@ V.yuidenied = () => `
     <p class="muted">ให้ผู้ดูแลระบบเพิ่มบัญชีนี้เป็น “ผู้ดูร้าน” ก่อน</p>
     <button class="btn ghost block" data-act="yui-logout">ออกจากระบบ</button></div>`;
 // live activity timeline: newest first; live events from the shop channel, topped up with today's orders so it is never empty after a reload
-const YFE = { new: ['🛎️', 'สั่งอาหารเข้ามา', 'new'], preparing: ['👩‍🍳', 'ร้านรับออเดอร์ · กำลังทำ', 'prep'], ready: ['✅', 'อาหารพร้อมรับ', 'ready'],
-  completed: ['💚', 'รับเงินแล้ว · เสร็จสิ้น', 'done'], cancelled: ['✖️', 'ยกเลิกออเดอร์', 'cx'], paid: ['💵', 'ชำระเงินแล้ว', 'done'] };
+const YFE = { new: [I.bellRing, 'สั่งอาหารเข้ามา', 'new'], preparing: [I.cooking, 'ร้านรับออเดอร์ · กำลังทำ', 'prep'], ready: [I.checkCircle, 'อาหารพร้อมรับ', 'ready'],
+  completed: [I.paid, 'รับเงินแล้ว · เสร็จสิ้น', 'done'], cancelled: [I.xCircle, 'ยกเลิกออเดอร์', 'cx'], paid: [I.cash, 'ชำระเงินแล้ว', 'done'] };
 function yFeedList() {
   const live = S.yui.feed, keys = new Set(live.map(e => e.k)), seed = [];
   S.yui.orders.forEach(o => {
@@ -2459,14 +2557,14 @@ V.yui = () => {
     <div class="ychips"><span class="t-new">ใหม่ <b>${n('new_count')}</b></span><span>กำลังทำ <b>${n('preparing_count')}</b></span><span>พร้อมรับ <b>${n('ready_count')}</b></span><span>เสร็จสิ้น <b>${n('completed_count')}</b></span><span class="t-cx">ยกเลิก <b>${n('cancelled_count')}</b></span></div>
     ${yFeed()}
     <div class="yt2">
-      ${tile('💵', 'ยอดขายรวม', money('sales_total_satang'))}
-      ${tile('💚', 'รับเงินเรียบร้อย', money('received_total_satang'), 'good')}
-      ${tile('📱', 'QR ยืนยันแล้ว', money('received_qr_satang'))}
-      ${tile('💴', 'เงินสดยืนยันแล้ว', money('received_cash_satang'))}
-      ${tile('⏳', 'QR รอยืนยัน', money('pending_qr_satang'), 'wait')}
-      ${tile('⏳', 'เงินสดรอรับ', money('pending_cash_satang'), 'wait')}
-      ${tile('↩️', 'Refund รอดำเนินการ', money('refund_pending_satang'))}
-      ${tile('📦', 'จำนวนออเดอร์', n('orders_total') + ' ออเดอร์')}
+      ${tile(I.cash, 'ยอดขายรวม', money('sales_total_satang'))}
+      ${tile(I.paid, 'รับเงินเรียบร้อย', money('received_total_satang'), 'good')}
+      ${tile(I.qr, 'QR ยืนยันแล้ว', money('received_qr_satang'))}
+      ${tile(I.coin, 'เงินสดยืนยันแล้ว', money('received_cash_satang'))}
+      ${tile(I.hourglass, 'QR รอยืนยัน', money('pending_qr_satang'), 'wait')}
+      ${tile(I.hourglass, 'เงินสดรอรับ', money('pending_cash_satang'), 'wait')}
+      ${tile(I.refund, 'Refund รอดำเนินการ', money('refund_pending_satang'))}
+      ${tile(I.box, 'จำนวนออเดอร์', n('orders_total') + ' ออเดอร์')}
     </div>
     <div class="card ytable"><h3>ออเดอร์วันนี้ <span class="muted" style="font-weight:400;font-size:.8rem">(แตะเพื่อดูรายการ)</span></h3>
       ${orders.map(o => `<div class="yord ${o.status === 'cancelled' ? 'cx' : ''}" data-yord="${o.id}" role="button" tabindex="0" aria-label="ดูรายการของ ${esc(o.queue_code)}">
@@ -2675,8 +2773,8 @@ T.menu = () => {
         <button class="btn ghost sm" data-act="nopic" aria-pressed="${S.owner.noPic}">${S.owner.noPic ? '✓ ' : ''}เฉพาะที่ยังไม่มีรูป</button></div></div>
     <div class="chips">${S.cats.map(c => { const ci = all.filter(x => x.category_id === c.id);
       return `<button class="chip ${c.id === cat ? 'on' : ''}" data-ocat="${c.id}">${esc(c.name)} ${ci.filter(x => x.image_path).length}/${ci.length}</button>`; }).join('')}
-      <button class="chip ${isOpts ? 'on' : ''}" data-ocat="opts">🍤 ท็อปปิ้ง / มิกซ์</button>
-      <button class="chip ${isVault ? 'on' : ''}" data-ocat="vault">🗄️ คลังเมนู ${vault.length}</button></div>
+      <button class="chip ${isOpts ? 'on' : ''}" data-ocat="opts">${I.topping} ท็อปปิ้ง / มิกซ์</button>
+      <button class="chip ${isVault ? 'on' : ''}" data-ocat="vault">${I.vault} คลังเมนู ${vault.length}</button></div>
     ${isVault ? `<p class="vault-note">เมนูที่เก็บเข้าคลังลูกค้าจะไม่เห็นเลย · “เรียกกลับ” แล้วเมนูจะกลับมาขายตามเดิมทันที · “ลบ” ลบถาวร เรียกกลับไม่ได้ (เมนูที่เคยมีออเดอร์จะลบไม่ได้ ให้เก็บไว้ในคลังต่อไป)</p>
     <div class="slots">${vault.map(d => `
         <div class="slot">
@@ -2942,7 +3040,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 00:35 · เสียงทุกจอ + แผงเรียลไทม์';
+const APP_VERSION = '20 ต.ค. 02:30 · ไอคอนครบชุดใหม่';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3311,6 +3409,12 @@ document.addEventListener('click', async (e) => {
       const ids = w.cli === 'y' ? ['#yemail', '#ypass', '[data-act=yui-login]'] : ['#email', '#password', '[data-act=login]'];
       if ($(ids[0]) && w.tmp) { $(ids[0]).value = w.email; $(ids[1]).value = w.tmp; const b = $(ids[2]); S.fp = null; if (b) b.click(); }
       break; }
+    case 'icon-dl': { const [nm, svg] = iconKey(d.k); if (svg) { const ok = iconSave(iconFile(d.k) + '.svg', iconSvg(svg), 'image/svg+xml'); toast(ok ? 'โหลดไฟล์ ' + iconFile(d.k) + '.svg แล้ว' : 'โหลดไม่ได้ ลองเปิดแอปในเบราว์เซอร์'); } break; }
+    case 'icon-dl-all': {
+      const syms = [...Object.keys(ICON_NAMES).map(k => ['I:' + k, I[k]]), ...Object.keys(ICON_CATS).map(k => ['C:' + k, IC[k]])]
+        .map(([k, v]) => { const vb = (v.match(/viewBox="([^"]+)"/) || [])[1] || '0 0 24 24'; const inner = v.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, ''); return `<symbol id="${iconFile(k)}" viewBox="${vb}"${k[0] === 'I' ? ' fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' : ' fill="currentColor"'}>${inner}</symbol>`; }).join('\n');
+      const ok = iconSave('khunyui-icons-set1.svg', `<svg xmlns="http://www.w3.org/2000/svg" color="#06412A" style="display:none">\n${syms}\n</svg>\n`, 'image/svg+xml');
+      toast(ok ? 'โหลดชุดไอคอนทั้งหมดแล้ว (33 ตัว)' : 'โหลดไม่ได้ ลองเปิดแอปในเบราว์เซอร์'); break; }
     case 'exec-room': S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
     case 'rq-approve': await act(async () => { const { error } = await sbx.rpc('exec_approve_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ส่งรหัสไปที่หน้าจอเขาแล้ว'); break;
     case 'rq-deny': await act(async () => { const { error } = await sbx.rpc('exec_deny_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ปฏิเสธคำขอแล้ว'); break;
