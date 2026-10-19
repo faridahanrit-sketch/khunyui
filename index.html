@@ -498,6 +498,7 @@
   .rq-top { display: flex; align-items: center; gap: .9rem; }
   .rq-code { font: 700 2.2rem/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; color: var(--green); background: var(--green-soft); border-radius: 12px; padding: .6rem .8rem; }
   .rq-hcode { font: 700 .95rem/1 ui-monospace, Menlo, monospace; letter-spacing: .06em; color: var(--green); background: var(--green-soft); border-radius: 6px; padding: .12rem .35rem; margin-right: .25rem; }
+  .secalert .ctbtns { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; margin-top: .35rem; }
   .kv.accrow { flex-wrap: wrap; }
   .kv.accrow .rcbtns { flex-direction: row; flex-wrap: wrap; width: 100%; align-items: center; justify-content: flex-start; }
   #doclayer { position: fixed; inset: 0; z-index: 80; background: #E6E2D3; overflow: auto; -webkit-overflow-scrolling: touch; }
@@ -1124,7 +1125,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 06:10 · คู่มือต่องาน + ตั้งรหัสเอง": "App version 20 Oct 06:10 · Manual per screen + set your own code",
+"เวอร์ชันแอป 20 ต.ค. 06:40 · อีเมลของฉัน (ไว้กู้รหัส)": "App version 20 Oct 06:40 · My email (for password recovery)",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1155,6 +1156,22 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ยังไม่ได้ใส่อีเมลของคุณ": "You have not added your email yet",
+"ใส่อีเมลจริงของคุณไว้ ถ้าลืมรหัสผ่าน คุณฟารีดาจะได้ตรวจว่าเป็นคุณจริง": "Add your real email so that if you forget your password, Khun Fareeda can check it is really you.",
+"ใส่อีเมลของฉัน": "Add my email",
+"ไว้ทีหลัง": "Later",
+"อีเมลของฉัน (ไว้กู้รหัสผ่าน)": "My email (for password recovery)",
+"ยังไม่ได้ใส่": "Not added yet",
+"ใส่อีเมล": "Add email",
+"อีเมลของฉัน": "My email",
+"ใส่อีเมลจริงที่คุณเปิดอ่านได้ ใช้ให้คุณฟารีดาตรวจว่าเป็นคุณตอนลืมรหัสผ่าน (ไม่ใช่รหัสผ่าน และไม่ใช่อีเมลที่ใช้ล็อกอิน) · ตอนนี้ระบบยังไม่ส่งเมลให้อัตโนมัติ": "Enter a real email you can read. Khun Fareeda uses it to check it is you when a password is forgotten (it is not a password and not your sign-in email) · the system does not send emails automatically yet.",
+"อีเมลไม่ถูกต้อง ลองตรวจตัวสะกดอีกครั้ง": "That email does not look right. Please check the spelling.",
+"บันทึกอีเมลของคุณแล้ว": "Your email is saved",
+"แจ้งเตือนและกู้รหัส": "Alerts and password recovery",
+"อีเมลที่เจ้าของใส่ไว้": "Email the owner entered",
+"เจ้าของยังไม่ได้ใส่อีเมลติดต่อ": "The owner has not added a contact email",
+"อีเมลติดต่อ": "Contact email",
+"ยังไม่ได้ใส่อีเมลติดต่อ": "No contact email yet",
 "ออกเอกสาร": "Issue manual",
 "เอกสารคู่มือ 1 ชุดต่อ 1 งาน: ปุ่ม \"ออกเอกสาร\" ในแต่ละบัญชีใส่อีเมลให้เอง มีช่องว่างให้เขียนเลขรหัสกู้คืนด้วยมือ · หรือเปิดฉบับว่าง:": "One manual per screen: the \"Issue manual\" button on each account fills in the email and leaves boxes to write the recovery code by hand · or open a blank copy:",
 "งานคุณยุ้ย": "Khun Yui's screen",
@@ -1975,6 +1992,23 @@ async function loadMust(cl, key) {
   try { const r = await cl.rpc('my_must_change_password'); S.must[key] = !r.error && r.data === true; }
   catch (_) { S.must[key] = false; }
 }
+// "My email" (SQL 039): each screen's owner keeps a real contact email, so the executive can check who is asking when a password is forgotten.
+// undefined = SQL 039 not installed (nothing is shown) · '' = not filled yet · text = the saved email
+S.contact = { o: undefined, y: undefined }; S.contactLater = { o: false, y: false };
+async function loadContact(cl, key) {
+  try { const r = await cl.rpc('my_contact_email'); S.contact[key] = r.error ? undefined : (typeof r.data === 'string' ? r.data : ''); }
+  catch (_) { S.contact[key] = undefined; }
+}
+const contactBanner = (cli) => (S.contact[cli] === '' && !S.contactLater[cli]) ? `<div class="secalert warn" role="alert"><b>ยังไม่ได้ใส่อีเมลของคุณ</b>
+  <span>ใส่อีเมลจริงของคุณไว้ ถ้าลืมรหัสผ่าน คุณฟารีดาจะได้ตรวจว่าเป็นคุณจริง</span>
+  <span class="ctbtns"><button class="btn sm" data-act="contact-open" data-cli="${cli}">ใส่อีเมลของฉัน</button><button class="back" data-act="contact-later" data-cli="${cli}">ไว้ทีหลัง</button></span></div>` : '';
+const contactRow = (cli) => S.contact[cli] === undefined ? '' : `<div class="setting"><span>อีเมลของฉัน (ไว้กู้รหัสผ่าน)<br><span class="muted">${S.contact[cli] ? esc(S.contact[cli]) : 'ยังไม่ได้ใส่'}</span></span><button class="btn ghost sm" data-act="contact-open" data-cli="${cli}">${S.contact[cli] ? 'แก้ไข' : 'ใส่อีเมล'}</button></div>`;
+function contactSheet(cli) {
+  openModal(`<h3>อีเมลของฉัน</h3>
+    <p class="muted" style="margin-top:0">ใส่อีเมลจริงที่คุณเปิดอ่านได้ ใช้ให้คุณฟารีดาตรวจว่าเป็นคุณตอนลืมรหัสผ่าน (ไม่ใช่รหัสผ่าน และไม่ใช่อีเมลที่ใช้ล็อกอิน) · ตอนนี้ระบบยังไม่ส่งเมลให้อัตโนมัติ</p>
+    <label class="field"><span>อีเมลของฉัน</span><input id="ct-email" type="email" inputmode="email" autocomplete="email" value="${esc(S.contact[cli] || '')}"></label>
+    <div class="actions"><button class="btn" style="flex:1" data-act="contact-save" data-cli="${cli}">บันทึก</button><button class="btn ghost" data-act="close">ยกเลิก</button></div>`);
+}
 const cliOf = (c) => c === 'x' ? sbx : c === 'y' ? sby : sb;
 const PORTAL = { o: '#/owner', x: '#/exec', y: '#/yui' };
 async function loadSec(cl, key) {
@@ -2439,6 +2473,7 @@ async function loadExec() {
   S.exec.data = o.data || []; S.exec.history = h.data || []; S.exec.audit = a.data || []; S.exec.at = new Date();
   await loadSec(sbx, 'exec');
   try { const r = await sbx.rpc('exec_list_accounts'); S.exec.accounts = (!r.error && Array.isArray(r.data)) ? r.data : []; } catch (_) { S.exec.accounts = []; }
+  try { const r = await sbx.rpc('exec_list_contacts'); S.exec.contacts = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.contacts = null; }
   try { const r = await sbx.rpc('exec_list_recovery'); S.exec.recovery = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.recovery = null; }   // null = SQL 038 not installed yet
 }
 // Two-tone chime + vibration when a new reset request arrives (the badge and banner always show; sound needs one tap on the page first)
@@ -2504,7 +2539,7 @@ V.exec = () => {
     ${S.exec.reqErr ? `<div class="xcard"><b>ยังใช้ห้องนี้ไม่ได้</b><p class="muted" style="margin:.4rem 0 0">ระบบคำขอยังไม่ได้ติดตั้งในฐานข้อมูล ให้รันไฟล์ <b>034_khunyui_reset_requests.sql</b> ใน Supabase SQL Editor 1 ครั้ง · ระหว่างนี้ใช้ห้อง "บัญชีร้าน" ตั้งรหัสชั่วคราวเองได้</p></div>` : ''}
     ${!S.exec.reqErr && !pend.length ? `<div class="xcard" style="text-align:center"><div class="bigic">${I.bellRing}</div><b>ยังไม่มีคำขอ</b><p class="muted" style="margin:.3rem 0 0">เปิดหน้านี้ค้างไว้ได้ ระบบเช็กให้เองทุก 2 วินาที มีคำขอเข้าเมื่อไหร่จะมีเสียงและป้ายแจ้ง</p></div>` : ''}
     ${pend.map(r => `<div class="xcard rq"><div class="rq-top"><span class="rq-code" aria-label="เลขยืนยัน">${esc(r.code)}</span>
-        <span><b>${esc(r.email)}</b><br><span class="srcbadge s-${esc(r.screen)}">${RQ_SCREEN[r.screen] || ''}</span> <span class="muted">ขอเมื่อ ${thTime(r.created_at)}</span></span></div>
+        <span><b>${esc(r.email)}</b><br><span class="srcbadge s-${esc(r.screen)}">${RQ_SCREEN[r.screen] || ''}</span> <span class="muted">ขอเมื่อ ${thTime(r.created_at)}</span>${r.contact_email !== undefined ? `<br><span class="muted">${r.contact_email ? t('อีเมลที่เจ้าของใส่ไว้') + ': <b>' + esc(r.contact_email) + '</b>' : t('เจ้าของยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}</span></div>
       ${r.account_state !== 'ok' ? `<div class="rq-warn">${RQ_STATE[r.account_state] || ''}</div>` : ''}
       <p class="muted" style="margin:.6rem 0">ให้เจ้าของอ่านเลข 6 หลักบนหน้าจอของเขา (โทรหรือไลน์) ถ้าตรงกับเลขนี้ ค่อยกดส่ง</p>
       <div class="actions"><button class="btn" style="flex:1" data-act="rq-approve" data-id="${esc(r.id)}" ${r.account_state !== 'ok' ? 'disabled' : ''}>ส่งรหัสชั่วคราว</button><button class="btn ghost" data-act="rq-deny" data-id="${esc(r.id)}">ปฏิเสธ</button></div></div>`).join('')}
@@ -2606,7 +2641,7 @@ V.exec = () => {
       <p class="muted" style="margin:0 0 .5rem">ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า</p>
       <p class="muted" style="margin:0 0 .5rem">เอกสารคู่มือ 1 ชุดต่อ 1 งาน: ปุ่ม "ออกเอกสาร" ในแต่ละบัญชีใส่อีเมลให้เอง มีช่องว่างให้เขียนเลขรหัสกู้คืนด้วยมือ · หรือเปิดฉบับว่าง: <button class="back" data-act="exec-doc" data-kind="yui">งานคุณยุ้ย</button> · <button class="back" data-act="exec-doc" data-kind="owner">งานหลังร้าน</button></p>
       ${S.exec.recovery ? '<p class="muted" style="margin:0 0 .5rem">รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น · ตั้งเลขเองได้ หรือให้ระบบสุ่ม</p>' : ''}
-      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email); return `<div class="kv accrow"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
+      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email), ct = (S.exec.contacts || []).find(x => x.email === a.email); return `<div class="kv accrow"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.contacts ? `<br><span class="muted">${ct ? t('อีเมลติดต่อ') + ': ' + esc(ct.contact_email) : t('ยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
         <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${esc(a.email)}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
     icons: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ชุดไอคอนชุดที่ 1</h2>
       <p class="muted" style="margin:0 0 .6rem">ไอคอนชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เริ่มใช้ 20 ต.ค. · เก็บไว้ให้ใช้ซ้ำกับป้าย เมนู และสื่อของร้าน · เส้นหนา 2 มุมมน สีเขียวร้าน</p>
@@ -2653,6 +2688,7 @@ async function showYui() {
   const { data: m } = await sby.from('store_members').select('role, is_active').eq('store_id', CONFIG.store).eq('user_id', session.user.id).maybeSingle();
   if (!m || !m.is_active) { if (await toExecIfAdmin(sby)) return; S.yui.state = 'denied'; return render('yuidenied'); }
   await loadMust(sby, 'y'); if (S.must.y) { S.yui.state = 'must'; return render('yuimust'); }
+  await loadContact(sby, 'y');
   await sby.realtime.setAuth(session.access_token);
   yListen();
   await loadYui(); S.yui.state = 'ready'; render('yui'); yWake();
@@ -2751,7 +2787,7 @@ V.yui = () => {
   return `<div class="yui">
     <div class="topbar"><span class="brand" style="font-size:1.05rem">คุณยุ้ย<small>สรุปยอดของวัน · ${esc(S.yui.email)}</small></span>
       <span style="display:flex;gap:.4rem">${sndBtn('yui')}<button class="btn ghost sm" data-act="yui-logout">ออก</button></span></div>
-    ${secBanner('yui', 'y')}
+    ${secBanner('yui', 'y')}${contactBanner('y')}
     ${sndBanner('yui')}
     ${alerts.map(({ a, o }) => `<div class="yalert" role="alert"><div><b>ออเดอร์ใหม่ ${esc(a.code || (o && o.queue_code) || '')}</b>
         <span>${o ? `${o.order_items.length} รายการ · ${baht(o.total_satang)} · ${o.fulfillment_type === 'dine_in' ? 'ทานที่ร้าน' : 'กลับบ้าน'}` : 'กำลังโหลดรายละเอียด…'}</span></div>
@@ -2778,6 +2814,7 @@ V.yui = () => {
     </div>
     <details class="card fold"><summary><h3>รายการอาหารที่ขายวันนี้ (${items.length} เมนู)</h3></summary>
       ${items.map(x => `<div class="kv"><span>${esc(x.name)}</span><span class="muted">× ${x.qty}</span><b>${baht(x.total_satang)}</b></div>`).join('') || '<p class="muted" style="margin:0">ยังไม่มี</p>'}</details>
+    ${S.contact.y === undefined ? '' : `<div class="card"><h3>แจ้งเตือนและกู้รหัส</h3>${contactRow('y')}</div>`}
     <div class="pad"><button class="btn ghost block" data-act="pw-open" data-cli="y">เปลี่ยนรหัสผ่าน</button></div>
     <p class="muted pad">หน้านี้ดูอย่างเดียว · รีเฟรชเองทันทีที่มีออเดอร์เข้า</p>
   </div>`;
@@ -2814,6 +2851,7 @@ async function showOwner(tab, arg) {
   if (!m) { if (await toExecIfAdmin(sb)) return; const { data: { user } } = await sb.auth.getUser(); S.owner.denied = !!(user && !user.is_anonymous); return render('login'); }
   if (m.role === 'monitor') { S.owner.denied = 'monitor'; return render('login'); }
   await loadMust(sb, 'o'); if (S.must.o) return render('ownermust');
+  await loadContact(sb, 'o');
   S.owner.member = m; S.owner.tab = ['menu', 'orders', 'dash', 'profile', 'archive', 'inbox'].includes(tab) ? tab : 'orders';
   S.owner.day = tab === 'archive' && /^\d{4}-\d{2}-\d{2}$/.test(arg || '') ? arg : null;
   await syncRealtimeAuth();
@@ -3094,6 +3132,7 @@ T.profile = () => {
       <p class="muted">การชำระเงินเป็นแบบจ่ายหน้าร้านทั้งหมด (เงินสด/สแกนจ่าย) ไม่ต้องตั้งค่าเพิ่ม</p>
       <div class="actions"><button class="btn sm" data-act="save-settings">บันทึก</button></div></div>
     <div class="card"><h3>แจ้งเตือนในแอป</h3>
+      ${contactRow('o')}
       <div class="setting"><span>เสียงเมื่อมีออเดอร์ใหม่ (ขณะเปิดแอป)</span><label class="switch"><input type="checkbox" data-act="sound" ${os.sound_new_order ? 'checked' : ''} aria-label="เสียงแจ้งเตือน"><span></span></label></div>
       <details style="margin-top:.4rem"><summary class="muted" style="cursor:pointer">วิธีติดตั้งแอปจากเว็บ</summary>
         <p class="muted"><b>iPhone:</b> เปิดใน Safari → ปุ่มแชร์ → เพิ่มไปยังหน้าจอโฮม → เปิดจากไอคอนคุณยุ้ย<br><b>Android:</b> เปิดใน Chrome → เมนู ⋮ → ติดตั้งแอป → เปิดจากไอคอนคุณยุ้ย</p></details></div>
@@ -3213,7 +3252,7 @@ const mustView = (cli, out) => `
     <button class="btn ghost block" style="margin-top:.6rem" data-act="${out}">ออกจากระบบ</button></div>`;
 V.ownermust = () => mustView('o', 'logout');
 V.yuimust = () => mustView('y', 'yui-logout');
-V.owner = () => ownerHead() + secBanner('owner', 'o') + T[S.owner.tab]() + tabbar();
+V.owner = () => ownerHead() + secBanner('owner', 'o') + contactBanner('o') + T[S.owner.tab]() + tabbar();
 
 function render(view) {
   const r = route();
@@ -3244,7 +3283,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 06:10 · คู่มือต่องาน + ตั้งรหัสเอง';
+const APP_VERSION = '20 ต.ค. 06:40 · อีเมลของฉัน (ไว้กู้รหัส)';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3682,6 +3721,15 @@ document.addEventListener('click', async (e) => {
     }); break;
     case 'fp-cancel': { const w = S.fp && S.fp.wait; stopWait(); closeModal(); if (w) { try { await cliOf(w.cli).rpc('cancel_password_reset', { p_id: w.id, p_token: w.token }); } catch (_) {} toast('ยกเลิกคำขอแล้ว'); } break; }
     case 'fp-again': askSheet(d.cli, d.email); break;
+    case 'contact-open': contactSheet(d.cli); break;
+    case 'contact-later': S.contactLater[d.cli] = true; render(d.cli === 'y' ? 'yui' : 'owner'); break;
+    case 'contact-save': await act(async () => {
+      const em = (($('#ct-email') || {}).value || '').trim().toLowerCase();
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) throw new Error('อีเมลไม่ถูกต้อง ลองตรวจตัวสะกดอีกครั้ง');
+      const { error } = await cliOf(d.cli).rpc('set_my_contact_email', { p_email: em });
+      if (error) throw error;
+      S.contact[d.cli] = em; closeModal(); render(d.cli === 'y' ? 'yui' : 'owner');
+    }, 'บันทึกอีเมลของคุณแล้ว'); break;
     case 'fp-rec': recSheet(d.cli, (($('#fp-email') || {}).value || '').trim()); break;
     case 'fp-rec-save': await act(async () => {
       const cl = cliOf(d.cli), email = (($('#fp-email') || {}).value || '').trim();
