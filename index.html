@@ -514,6 +514,14 @@
   details.hq { border-bottom: 1px solid var(--line); padding: .55rem 0; } details.hq p { margin: .4rem 0 0; font-size: .92rem; line-height: 1.55; }
   .vchip { display: inline-flex; align-items: center; gap: .25rem; font-size: .75rem; border-radius: 999px; padding: .08rem .55rem; margin-left: .3rem; background: var(--gold-soft); color: #7A5F26; vertical-align: middle; }
   .vchip.on { background: #E1EFE5; color: #0E6B3D; } .vchip svg { width: .95rem; height: .95rem; }
+  .chathead { display: flex; align-items: center; gap: .65rem; margin: -.2rem 0 .7rem; padding-bottom: .6rem; border-bottom: 1px solid var(--line); }
+  .chathead .av { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font: 700 .7rem/1 system-ui, sans-serif; letter-spacing: .02em; flex: none; }
+  .chathead b { display: block; font-size: 1.02rem; } .chathead small { color: var(--muted, #6b6b5f); font-size: .8rem; }
+  .chat { display: flex; flex-direction: column; gap: .5rem; max-height: 52vh; overflow-y: auto; padding: .1rem 0 .3rem; }
+  .bub { align-self: flex-start; max-width: 94%; background: var(--gold-soft); border-radius: 4px 16px 16px 16px; padding: .6rem .8rem; font-size: .93rem; line-height: 1.5; }
+  .bub.me { align-self: stretch; max-width: 100%; background: var(--green-soft); border-radius: 16px 4px 16px 16px; }
+  .bub ol { margin: .3rem 0 0; padding-left: 1.2rem; } .bub li { margin: .25rem 0; }
+  .bub .field { margin: .2rem 0 0; } .bub code { background: #fff; border-radius: 6px; padding: .05rem .35rem; font-size: .85rem; word-break: break-all; }
   .kv.accrow { flex-wrap: wrap; }
   .kv.accrow .rcbtns { flex-direction: row; flex-wrap: wrap; width: 100%; align-items: center; justify-content: flex-start; }
   #doclayer { position: fixed; inset: 0; z-index: 80; background: #E6E2D3; overflow: auto; -webkit-overflow-scrolling: touch; }
@@ -1140,7 +1148,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 07:50 · แก้ปุ่มออกจากระบบให้ออกจริง": "App version 20 Oct 07:50 · Sign-out button now really signs out",
+"เวอร์ชันแอป 20 ต.ค. 08:10 · ลืมรหัส = ห้องแชทศูนย์บริการทางเดียว": "App version 20 Oct 08:10 · Forgot password = service-center chat only",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1171,6 +1179,22 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ศูนย์บริการ IMCB2Help": "IMCB2Help service center",
+"ห้องขอรหัสกู้คืน · คุณฟารีดาดูแล": "Recovery-code room · looked after by Khun Fareeda",
+"ห้องขอรหัสกู้คืน · ผู้บริหาร": "Recovery-code room · executive",
+"สวัสดีค่ะ ลืมรหัสผ่านใช่ไหมคะ ขอรหัสได้ตามนี้เลย": "Hello! Forgot your password? You can ask for a code like this.",
+"พิมพ์อีเมลที่ใช้เข้าสู่ระบบ ในช่องด้านล่าง แล้วกด \"ส่งข้อความหาศูนย์บริการ\"": "Type the email you sign in with in the box below, then tap \"Message the service center\".",
+"หน้าจอจะขึ้นเลข 6 หลัก ให้โทรหรือไลน์บอกเลขนี้กับคุณฟารีดา เพื่อยืนยันว่าเป็นคุณ": "A 6-digit number appears on screen. Call or LINE Khun Fareeda and read it out so she knows it is you.",
+"ศูนย์บริการกดส่งรหัสชั่วคราวให้ รหัสจะขึ้นบนหน้าจอนี้เอง กด \"เข้าสู่ระบบด้วยรหัสนี้\" แล้วตั้งรหัสใหม่ของคุณ": "The service center sends a temporary code. It shows up on this screen by itself. Tap \"Sign in with this code\", then set your own new password.",
+"ศูนย์บริการไม่ขอรหัสผ่านของคุณ ขอแค่เลข 6 หลักบนหน้าจอเท่านั้น": "The service center never asks for your password, only the 6-digit number on your screen.",
+"อีเมลของบัญชีที่ลืมรหัส": "Email of the account that forgot its password",
+"ส่งข้อความหาศูนย์บริการ": "Message the service center",
+"มีรหัสกู้คืนส่วนตัว 8 หลัก (คีย์ลัด)": "I have an 8-digit personal recovery code (shortcut)",
+"บัญชีผู้บริหารเป็นบัญชีสูงสุด ตั้งรหัสให้กันในแอปไม่ได้ เพื่อกันคนอื่นสวมสิทธิ์ ผู้ดูแลระบบตั้งให้ได้ตามนี้ค่ะ": "The executive account is the top account, so nobody can reset it inside the app (this stops others taking it over). The system admin can set it like this.",
+"เข้า Supabase ของโปรเจกต์ แล้วเปิด SQL Editor": "Open the project in Supabase, then open the SQL Editor.",
+"เปิดไฟล์ด้านล่าง แก้ 2 บรรทัด คืออีเมลผู้บริหาร กับรหัสใหม่ (อย่างน้อย 8 ตัว) แล้วกด Run": "Open the file below, edit 2 lines (the executive email and the new password, at least 8 characters), then press Run.",
+"กลับมาหน้านี้ เข้าสู่ระบบด้วยรหัสใหม่ ทุกเครื่องเดิมจะถูกออกจากระบบ": "Come back here and sign in with the new password. All old devices are signed out.",
+"ไม่ต้องรอรหัสทางอีเมล ระบบไม่ส่งรหัสทางอีเมลแล้ว": "No need to wait for an email code. The system no longer sends codes by email.",
 "ยืนยันอีเมลแล้ว": "Email verified",
 "ความปลอดภัยของบัญชี": "Account security",
 "ใส่อีเมลของฉันแล้ว": "My email added",
@@ -1195,7 +1219,7 @@ Object.assign(EN, {
 "ถ้าแก้อีเมล สถานะยืนยันจะหาย ต้องยืนยันใหม่ จึงไม่มีใครแอบเปลี่ยนเป็นอีเมลของตัวเองได้เงียบ ๆ": "If the email is changed the verified status disappears and must be verified again, so nobody can quietly swap in their own email.",
 "เมื่อต่อบริการส่งเมลจริงในอนาคต ระบบส่งรหัสกู้คืนและแจ้งเตือนความปลอดภัยเข้าอีเมลนี้ได้ทันที (ตอนนี้ยังไม่ส่งอัตโนมัติ)": "Once a real email service is connected, the system can send recovery codes and security alerts to this email straight away (it does not send automatically yet).",
 "ลืมรหัสผ่านต้องทำอย่างไร": "What do I do if I forget my password",
-"ที่หน้าเข้าสู่ระบบกด \"ลืมรหัสผ่าน?\" มี 2 ทาง ก) ถ้ามีรหัสกู้คืนส่วนตัว 8 หลัก กด \"มีรหัสกู้คืนส่วนตัว (คีย์ลัด)\" ใส่อีเมล เลข 8 หลัก และรหัสผ่านใหม่ แล้วเข้าได้ทันที ข) ส่งคำขอไปศูนย์บริการ IMCB2Help แล้วบอกเลข 6 หลักบนหน้าจอกับคุณฟารีดาทางโทรหรือไลน์ รหัสชั่วคราวจะขึ้นบนหน้าจอเอง": "On the sign-in page tap \"Forgot password?\". There are 2 ways. A) If you have an 8-digit personal recovery code, tap \"I have a personal recovery code (shortcut)\", enter your email, the 8 digits and a new password, and you are in at once. B) Send a request to the IMCB2Help service center and tell Khun Fareeda the 6-digit number on your screen by phone or LINE; the temporary password then appears on your screen by itself.",
+"ที่หน้าเข้าสู่ระบบกด \"ลืมรหัสผ่าน?\" มี 2 ทาง ก) ถ้ามีรหัสกู้คืนส่วนตัว 8 หลัก กด \"มีรหัสกู้คืนส่วนตัว 8 หลัก (คีย์ลัด)\" ใส่อีเมล เลข 8 หลัก และรหัสผ่านใหม่ แล้วเข้าได้ทันที ข) ส่งคำขอไปศูนย์บริการ IMCB2Help แล้วบอกเลข 6 หลักบนหน้าจอกับคุณฟารีดาทางโทรหรือไลน์ รหัสชั่วคราวจะขึ้นบนหน้าจอเอง": "On the sign-in page tap \"Forgot password?\". There are 2 ways. A) If you have an 8-digit personal recovery code, tap \"I have a personal recovery code (shortcut)\", enter your email, the 8 digits and a new password, and you are in at once. B) Send a request to the IMCB2Help service center and tell Khun Fareeda the 6-digit number on your screen by phone or LINE; the temporary password then appears on your screen by itself.",
 "รหัสกู้คืนส่วนตัวคืออะไร": "What is a personal recovery code",
 "เลข 8 หลักที่คุณฟารีดาออกให้ล่วงหน้า เขียนไว้ในเอกสารของงานคุณ ใช้ได้ครั้งเดียว ใส่ผิด 5 ครั้งล็อก 30 นาที ใช้แล้วต้องขอเลขใหม่จากคุณฟารีดา": "An 8-digit number Khun Fareeda issues in advance and writes on your screen's manual. It works once; 5 wrong tries lock it for 30 minutes; after use, ask Khun Fareeda for a new one.",
 "เปลี่ยนรหัสผ่านเองทำอย่างไร": "How do I change my password myself",
@@ -1235,7 +1259,7 @@ Object.assign(EN, {
 "แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · เขียนลงในช่องของเอกสาร (กด \"ออกเอกสาร\") แล้วส่งให้เจ้าของบัญชีเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้": "Shown once; you will not see it again after closing this. Write it in the box on the manual (tap \"Issue manual\") and give it to the account owner to keep (it is not the password). Single use; 5 wrong tries lock it for 30 minutes. Do not keep a screenshot.",
 "เลขนี้ง่ายเกินไป (ซ้ำกันหมดหรือเรียงกัน) เลือกเลขอื่น": "That number is too easy to guess (all the same or in a row). Pick another.",
 "ส่งคำขอไปศูนย์บริการ": "Send request to the service center",
-"มีรหัสกู้คืนส่วนตัว (คีย์ลัด)": "I have a personal recovery code (shortcut)",
+"มีรหัสกู้คืนส่วนตัว 8 หลัก (คีย์ลัด)": "I have a personal recovery code (shortcut)",
 "ตั้งรหัสใหม่ด้วยรหัสกู้คืน": "Set a new password with a recovery code",
 "รหัสกู้คืนส่วนตัวเป็นเลข 8 หลักที่คุณฟารีดาออกให้ล่วงหน้า ใช้ได้ครั้งเดียว ถ้าหายหรือใช้ไปแล้ว ให้ขอผ่านศูนย์บริการ IMCB2Help": "Your personal recovery code is an 8-digit number Khun Fareeda issued to you in advance. It works once. If it is lost or already used, ask through the IMCB2Help service center.",
 "อีเมลของบัญชี": "Account email",
@@ -2074,7 +2098,7 @@ function secCard(cli) {
 // Small in-app knowledge base (static, searchable)
 const HELP = [
   ['ทำไมต้องยืนยันอีเมล', WHY.join(' · ')],
-  ['ลืมรหัสผ่านต้องทำอย่างไร', 'ที่หน้าเข้าสู่ระบบกด "ลืมรหัสผ่าน?" มี 2 ทาง ก) ถ้ามีรหัสกู้คืนส่วนตัว 8 หลัก กด "มีรหัสกู้คืนส่วนตัว (คีย์ลัด)" ใส่อีเมล เลข 8 หลัก และรหัสผ่านใหม่ แล้วเข้าได้ทันที ข) ส่งคำขอไปศูนย์บริการ IMCB2Help แล้วบอกเลข 6 หลักบนหน้าจอกับคุณฟารีดาทางโทรหรือไลน์ รหัสชั่วคราวจะขึ้นบนหน้าจอเอง'],
+  ['ลืมรหัสผ่านต้องทำอย่างไร', 'ที่หน้าเข้าสู่ระบบกด "ลืมรหัสผ่าน?" มี 2 ทาง ก) ถ้ามีรหัสกู้คืนส่วนตัว 8 หลัก กด "มีรหัสกู้คืนส่วนตัว 8 หลัก (คีย์ลัด)" ใส่อีเมล เลข 8 หลัก และรหัสผ่านใหม่ แล้วเข้าได้ทันที ข) ส่งคำขอไปศูนย์บริการ IMCB2Help แล้วบอกเลข 6 หลักบนหน้าจอกับคุณฟารีดาทางโทรหรือไลน์ รหัสชั่วคราวจะขึ้นบนหน้าจอเอง'],
   ['รหัสกู้คืนส่วนตัวคืออะไร', 'เลข 8 หลักที่คุณฟารีดาออกให้ล่วงหน้า เขียนไว้ในเอกสารของงานคุณ ใช้ได้ครั้งเดียว ใส่ผิด 5 ครั้งล็อก 30 นาที ใช้แล้วต้องขอเลขใหม่จากคุณฟารีดา'],
   ['เปลี่ยนรหัสผ่านเองทำอย่างไร', 'งานหลังร้าน: แท็บโปรไฟล์ แล้วกด "เปลี่ยนรหัสผ่าน" · จอคุณยุ้ย: ล่างสุดของหน้าจอ กด "เปลี่ยนรหัสผ่าน" ใส่รหัสเดิม แล้วรหัสใหม่ 2 ครั้ง (อย่างน้อย 8 ตัว) เปลี่ยนต่อเนื่องได้ 3 ครั้ง ครบแล้วรอ 30 นาที'],
   ['ใครเห็นอีเมลของฉันบ้าง', 'เห็นเฉพาะคุณและคุณฟารีดา (ศูนย์บริการ IMCB2Help) ไม่แสดงให้ลูกค้าหรือคนอื่นในร้านเห็น'],
@@ -3381,7 +3405,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 07:50 · แก้ปุ่มออกจากระบบให้ออกจริง';
+const APP_VERSION = '20 ต.ค. 08:10 · ลืมรหัส = ห้องแชทศูนย์บริการทางเดียว';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3392,11 +3416,32 @@ function stopWait() { if (S.fp && S.fp.wait) { clearInterval(S.fp.wait.timer); S
 // Step 1 (owner / Khun Yui screens): ask the executive for a temporary password. The answer comes back to THIS screen within about a second of the executive's tap.
 function askSheet(cli, email) {
   stopWait(); S.fp = { cli, email: email || '', verified: false };
-  openModal(`<h3>ลืมรหัสผ่าน</h3>
-    <p class="muted" style="margin-top:0">ส่งคำขอไปที่ศูนย์บริการ IMCB2Help ศูนย์จะเห็นคำขอทันที เมื่อคุณฟารีดากดส่ง รหัสจะขึ้นบนหน้าจอนี้เอง</p>
-    <label class="field"><span>อีเมลของบัญชีที่ลืมรหัส</span><input id="fp-email" type="email" inputmode="email" autocomplete="username" value="${esc(email || '')}"></label>
-    <div class="actions"><button class="btn" style="flex:1" data-act="fp-ask" data-cli="${cli}">ส่งคำขอไปศูนย์บริการ</button><button class="btn ghost" data-act="close">ปิด</button></div>
-    <button class="back" style="display:block;margin:.8rem auto 0" data-act="fp-rec" data-cli="${cli}">มีรหัสกู้คืนส่วนตัว (คีย์ลัด)</button>`);
+  openModal(`<div class="chathead"><span class="av" aria-hidden="true">IMCB</span><div><b>ศูนย์บริการ IMCB2Help</b><small>ห้องขอรหัสกู้คืน · คุณฟารีดาดูแล</small></div></div>
+    <div class="chat">
+      <div class="bub">สวัสดีค่ะ ลืมรหัสผ่านใช่ไหมคะ ขอรหัสได้ตามนี้เลย</div>
+      <div class="bub"><ol>
+        <li>พิมพ์อีเมลที่ใช้เข้าสู่ระบบ ในช่องด้านล่าง แล้วกด "ส่งข้อความหาศูนย์บริการ"</li>
+        <li>หน้าจอจะขึ้นเลข 6 หลัก ให้โทรหรือไลน์บอกเลขนี้กับคุณฟารีดา เพื่อยืนยันว่าเป็นคุณ</li>
+        <li>ศูนย์บริการกดส่งรหัสชั่วคราวให้ รหัสจะขึ้นบนหน้าจอนี้เอง กด "เข้าสู่ระบบด้วยรหัสนี้" แล้วตั้งรหัสใหม่ของคุณ</li></ol></div>
+      <div class="bub">ศูนย์บริการไม่ขอรหัสผ่านของคุณ ขอแค่เลข 6 หลักบนหน้าจอเท่านั้น</div>
+      <div class="bub me"><label class="field"><span>อีเมลของบัญชีที่ลืมรหัส</span><input id="fp-email" type="email" inputmode="email" autocomplete="username" value="${esc(email || '')}"></label></div>
+    </div>
+    <div class="actions" style="margin-top:.7rem"><button class="btn" style="flex:1" data-act="fp-ask" data-cli="${cli}">ส่งข้อความหาศูนย์บริการ</button><button class="btn ghost" data-act="close">ปิด</button></div>
+    <button class="back" style="display:block;margin:.8rem auto 0" data-act="fp-rec" data-cli="${cli}">มีรหัสกู้คืนส่วนตัว 8 หลัก (คีย์ลัด)</button>`);
+}
+// The executive's own account cannot be reset by anyone inside the app (nobody may take over the top account), so the service center (the system owner) sets it from the SQL Editor.
+function execSvcSheet() {
+  S.fp = { cli: 'x', email: '', verified: false };
+  openModal(`<div class="chathead"><span class="av" aria-hidden="true">IMCB</span><div><b>ศูนย์บริการ IMCB2Help</b><small>ห้องขอรหัสกู้คืน · ผู้บริหาร</small></div></div>
+    <div class="chat">
+      <div class="bub">บัญชีผู้บริหารเป็นบัญชีสูงสุด ตั้งรหัสให้กันในแอปไม่ได้ เพื่อกันคนอื่นสวมสิทธิ์ ผู้ดูแลระบบตั้งให้ได้ตามนี้ค่ะ</div>
+      <div class="bub"><ol>
+        <li>เข้า Supabase ของโปรเจกต์ แล้วเปิด SQL Editor</li>
+        <li>เปิดไฟล์ด้านล่าง แก้ 2 บรรทัด คืออีเมลผู้บริหาร กับรหัสใหม่ (อย่างน้อย 8 ตัว) แล้วกด Run<br><code>041_khunyui_reset_exec_password_TEMPLATE.sql</code></li>
+        <li>กลับมาหน้านี้ เข้าสู่ระบบด้วยรหัสใหม่ ทุกเครื่องเดิมจะถูกออกจากระบบ</li></ol></div>
+      <div class="bub">ไม่ต้องรอรหัสทางอีเมล ระบบไม่ส่งรหัสทางอีเมลแล้ว</div>
+    </div>
+    <div class="actions" style="margin-top:.7rem"><button class="btn ghost" style="flex:1" data-act="close">ปิด</button></div>`);
 }
 // ---- Printable manual, one set per work (Khun Yui's screen / back office). Thai only; the blank boxes are filled in by hand by the executive.
 const DOCS = {
@@ -3434,11 +3479,11 @@ function docHtml(kind, email) {
     <h2>3. ลืมรหัสผ่าน (มี 2 ทาง)</h2>
     <p style="margin:.1rem 0"><b>ทาง ก · ใช้รหัสกู้คืนส่วนตัว (เร็วที่สุด)</b> ใช้เมื่อมีเลข 8 หลักในกล่องข้อ 4</p>
     <ol class="dl-step"><li>ที่หน้าเข้าสู่ระบบ กด <b>ลืมรหัสผ่าน?</b></li>
-      <li>กด <b>มีรหัสกู้คืนส่วนตัว (คีย์ลัด)</b></li>
+      <li>กด <b>มีรหัสกู้คืนส่วนตัว 8 หลัก (คีย์ลัด)</b></li>
       <li>ใส่อีเมล เลข 8 หลักจากกล่องข้อ 4 และรหัสผ่านใหม่ 2 ครั้ง แล้วกด <b>ตั้งรหัสใหม่</b></li>
       <li>เข้าระบบได้ทันที · เลขนี้ใช้ได้ครั้งเดียว ใช้แล้วต้องขอเลขใหม่จากคุณฟารีดา</li></ol>
     <p style="margin:.3rem 0 .1rem"><b>ทาง ข · ส่งคำขอไปศูนย์บริการ IMCB2Help</b> ใช้เมื่อไม่มีเลขหรือเลขหาย</p>
-    <ol class="dl-step"><li>ที่หน้าเข้าสู่ระบบ กด <b>ลืมรหัสผ่าน?</b> ใส่อีเมล แล้วกด <b>ส่งคำขอไปศูนย์บริการ</b></li>
+    <ol class="dl-step"><li>ที่หน้าเข้าสู่ระบบ กด <b>ลืมรหัสผ่าน?</b> ใส่อีเมล แล้วกด <b>ส่งข้อความหาศูนย์บริการ</b></li>
       <li>หน้าจอจะขึ้นเลข 6 หลัก ให้โทรหรือไลน์บอกเลขนี้กับคุณฟารีดา เพื่อยืนยันว่าเป็นคุณ</li>
       <li>คุณฟารีดากดส่ง รหัสชั่วคราวจะขึ้นบนหน้าจอคุณเอง (ภายในไม่กี่วินาที) กด <b>เข้าสู่ระบบด้วยรหัสนี้</b></li>
       <li>แอปให้ตั้งรหัสผ่านใหม่ของคุณเองทันที · คำขออยู่ได้ 10 นาที หมดแล้วกดขอใหม่</li></ol>
@@ -3517,7 +3562,7 @@ function askFallbackSheet(cli, email) {
 }
 function forgotSheet(cli, email) {
   S.fp = { cli, email: email || '', verified: false };
-  if (!EMAIL_RESET && cli !== 'x') return askSheet(cli, email);       // the executive's own account is not reset by the executive: it uses the email flow
+  if (!EMAIL_RESET) return cli === 'x' ? execSvcSheet() : askSheet(cli, email);       // one way only: the service center
   openModal(`<h3>ลืมรหัสผ่าน</h3>
     <p class="muted" style="margin-top:0">ใส่อีเมลของบัญชีนี้ ระบบจะส่งรหัสจากอีเมลให้ แล้วตั้งรหัสใหม่ได้เลย</p>
     <label class="field"><span>อีเมล</span><input id="fp-email" type="email" inputmode="email" autocomplete="username" value="${esc(email || '')}"></label>
