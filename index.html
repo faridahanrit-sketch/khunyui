@@ -1140,7 +1140,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 07:10 · ติ๊กยืนยันอีเมล + ข้อมูลช่วยเหลือ": "App version 20 Oct 07:10 · Email verification ticks + help topics",
+"เวอร์ชันแอป 20 ต.ค. 07:30 · ออกจากระบบแล้วกลับหน้าเข้าสู่ระบบ": "App version 20 Oct 07:30 · Logout returns to the sign-in page",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -3374,7 +3374,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 07:10 · ติ๊กยืนยันอีเมล + ข้อมูลช่วยเหลือ';
+const APP_VERSION = '20 ต.ค. 07:30 · ออกจากระบบแล้วกลับหน้าเข้าสู่ระบบ';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4176,7 +4176,7 @@ document.addEventListener('click', async (e) => {
       }, 'บันทึกแล้ว · ลูกค้าเห็นทันที');
       break;
     }
-    case 'logout': await sb.auth.signOut(); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/'); break;
+    case 'logout': await sb.auth.signOut(); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/owner'); break;
     case 'close': case 'scrim': closeModal(); if (route()[0] === 'owner' && S.owner.tab === 'menu') render('owner'); break;
   }
 });
