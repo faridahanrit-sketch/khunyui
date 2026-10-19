@@ -503,6 +503,19 @@
   .rq-wait { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: .4rem 0 .8rem; color: var(--muted); }
   .rq .actions .btn[disabled] { opacity: .45; }
   .tab .dot { top: -5px; right: -9px; }
+  .xcrumb { display: flex; flex-wrap: wrap; gap: .1rem .3rem; align-items: center; margin: .6rem 1rem 0; font-size: .85rem; color: var(--muted); }
+  .xcrumb button { background: none; border: 0; color: var(--green); font: inherit; text-decoration: underline; padding: .3rem .15rem; min-height: 32px; cursor: pointer; }
+  .xcrumb b { color: var(--green); }
+  .xnavwrap { margin: .6rem 1rem; }
+  .navrow { display: flex; align-items: center; gap: .8rem; width: 100%; padding: .9rem; background: var(--card); border: 1px solid var(--line); border-radius: 16px; text-align: left; font: inherit; color: var(--green); cursor: pointer; min-height: 64px; }
+  .navrow:active { background: var(--gold-soft); }
+  .navic { width: 44px; height: 44px; border-radius: 12px; background: var(--gold-soft); display: grid; place-items: center; flex: none; }
+  .navic svg { width: 26px; height: 26px; color: var(--green); }
+  .navtx { min-width: 0; flex: 1; }
+  .navtx b { display: block; font-size: 1rem; }
+  .navtx small { display: block; color: var(--muted); font-size: .8rem; margin-top: .1rem; }
+  .navrow .chev { margin-left: auto; font-size: 1.5rem; color: var(--gold); }
+  .xmarket { display: flex; align-items: center; gap: .8rem; }
   .igh { margin: .9rem 0 .4rem; font-size: .9rem; color: var(--green); }
   .igrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: .5rem; }
   .itile { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding: .6rem .3rem; background: var(--cream); border: 1px solid var(--line); border-radius: 12px; color: var(--green); font: inherit; font-size: .72rem; cursor: pointer; min-height: 44px; }
@@ -1068,7 +1081,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 04:10 · อีเมลผู้บริหารเข้าตรง": "App version 20 Oct 04:10 · executive email goes straight in",
+"เวอร์ชันแอป 20 ต.ค. 05:00 · ตลาดคุณยิ้ม สาขาอุดมสุข": "App version 20 Oct 05:00 · Khun Yim Market, Udomsuk branch",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1097,6 +1110,27 @@ Object.assign(EN, {
 "ภาพรวม": "Overview",
 "คำขอรหัส": "Requests",
 "ไอคอน": "Icons",
+"ตลาดคุณยิ้ม": "Khun Yim Market",
+"สาขาอุดมสุข": "Udomsuk branch",
+"สาขาอุดมสุข · ภาพรวมทั้งตลาด · ดูอย่างเดียว": "Udomsuk branch · whole market overview · view only",
+"ร้าน/อาหาร": "Shops / food",
+"เลือกร้านที่จะดู": "Choose a shop to view",
+"เลือกส่วนที่จะดู: ร้าน · คุณยุ้ย · ลูกค้า": "Choose a part: Shop · Khun Yui · Customers",
+"{0} ร้าน": "{0} shops",
+"คุณยุ้ย": "Khun Yui",
+"ลูกค้า": "Customers",
+"หลังร้าน ออเดอร์ เงิน เมนู และผู้มีสิทธิ์": "Back office: orders, money, menu and who has access",
+"จอของคุณยุ้ย ยอดวันนี้และบัญชีที่ดูบอร์ด": "Khun Yui's screen: today's money and the accounts that view the board",
+"คนสแกน คนสั่ง และสิ่งที่ลูกค้าเห็น": "Scans, who ordered and what customers see",
+"ตำแหน่งในภาพรวม": "Where you are in the overview",
+"สถานะร้าน": "Shop status",
+"บัญชีที่ดูบอร์ดได้ (ดูอย่างเดียว)": "Accounts that can view the board (view only)",
+"ยังไม่เคยเข้า": "Never signed in",
+"จอนี้เป็นของคุณยุ้ย เปิดจากลิงก์ส่วนตัวของเขา ผู้บริหารดูตัวเลขได้ที่นี่": "This screen belongs to Khun Yui and opens from his private link. Executives can see the numbers here.",
+"สั่งอาหาร": "Ordered",
+"สัดส่วนที่สั่ง": "Share who ordered",
+"เมนูทั้งหมด": "All menu items",
+"คน": "people",
 "ส้มตำ": "Som tam",
 "ยำ": "Yum (spicy salad)",
 "เก้าแหลว": "Gao lao (soup)",
@@ -2392,29 +2426,95 @@ V.exec = () => {
     ${done.length ? `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ประวัติคำขอรหัส</h2>
       <p class="muted" style="margin:0 0 .5rem;font-size:.85rem">เก็บไว้ 90 วัน · เลขหน้าแถวคือเลขยืนยันของแต่ละคำขอ (รหัสชั่วคราวสำหรับเข้าระบบไม่ถูกเก็บ)</p>
       ${done.slice(0, 60).map(r => `<div class="kv"><span><b class="rq-hcode">${esc(r.code)}</b> ${esc(r.email)}<br><span class="muted">${RQ_SCREEN[r.screen] || ''} · ${thDate(new Date(r.created_at))} ${thTime(r.created_at)}${r.decided_by_email ? ' · ' + t('โดย') + ' ' + esc(r.decided_by_email) : ''}</span></span><b style="font-weight:600">${RQ_ST[r.status] || ''}</b></div>`).join('')}</div>` : ''}`;
-  const rooms = {
-    home: () => `${stores.map(s => { const t = s.today || {}, lo = s.last_order_at, lc = s.last_closing; return `
-      <div class="xcard">
-        <div class="xhead"><h2>${esc(s.name)}<br><span class="muted" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:400;font-size:.8rem">${esc(s.branch_name)} · ${thDate(ymd(s.business_date))}</span></h2>
-          <span class="pillstat ${s.is_accepting_orders ? 'ok' : 'off'}">${s.is_accepting_orders ? 'เปิดรับออเดอร์' : 'ปิดรับออเดอร์'}</span></div>
+  // ---- Overview = a drill-down: ตลาดคุณยิ้ม (สาขาอุดมสุข) > ร้าน/อาหาร > (shop) > one of 3 parts: ร้าน · คุณยุ้ย · ลูกค้า (read-only)
+  const MARKET = { name: 'ตลาดคุณยิ้ม', branch: 'สาขาอุดมสุข' };
+  const nav = S.exec.nav || { l: 0 };
+  const curStore = stores.find(x => x.store_id === nav.sid) || null;
+  const PARTS = { shop: ['ร้าน', I.receipt, 'หลังร้าน ออเดอร์ เงิน เมนู และผู้มีสิทธิ์'], yui: ['คุณยุ้ย', I.cooking, 'จอของคุณยุ้ย ยอดวันนี้และบัญชีที่ดูบอร์ด'], cust: ['ลูกค้า', I.qr, 'คนสแกน คนสั่ง และสิ่งที่ลูกค้าเห็น'] };
+  const tdy = (s) => s.today || {};
+  const dotj = (...a) => a.filter(Boolean).join(' · ');
+  const pill = (s) => `<span class="pillstat ${s.is_accepting_orders ? 'ok' : 'off'}">${t(s.is_accepting_orders ? 'เปิดรับออเดอร์' : 'ปิดรับออเดอร์')}</span>`;
+  const kvl = (k, v) => `<div class="kv"><span>${t(k)}</span><b>${v}</b></div>`;
+  const navRow = (ic, title, sub, attrs) => `<div class="xnavwrap"><button class="navrow" data-act="xnav" ${attrs}><span class="navic">${ic}</span><span class="navtx"><b>${title}</b><small>${sub}</small></span><span class="chev" aria-hidden="true">›</span></button></div>`;
+  const homeHead = () => {
+    if (nav.l === 0) return [MARKET.name, MARKET.branch + ' · ภาพรวมทั้งตลาด · ดูอย่างเดียว'];
+    if (nav.l === 1) return ['ร้าน/อาหาร', 'เลือกร้านที่จะดู'];
+    if (nav.l === 2 && curStore) return [curStore.name, 'เลือกส่วนที่จะดู: ร้าน · คุณยุ้ย · ลูกค้า'];
+    if (nav.l === 3 && curStore && PARTS[nav.part]) return [PARTS[nav.part][0], PARTS[nav.part][2]];
+    return [MARKET.name, MARKET.branch + ' · ภาพรวมทั้งตลาด · ดูอย่างเดียว'];
+  };
+  const crumbs = () => {
+    const it = [[MARKET.name, 0, '']];
+    if (nav.l >= 1) it.push(['ร้าน/อาหาร', 1, '']);
+    if (nav.l >= 2 && curStore) it.push([curStore.name, 2, curStore.store_id]);
+    if (nav.l >= 3 && curStore && PARTS[nav.part]) it.push([PARTS[nav.part][0], 3, curStore.store_id]);
+    return `<nav class="xcrumb" aria-label="ตำแหน่งในภาพรวม">${it.map(([l, lv, sid], k) => k === it.length - 1 ? `<b>${esc(l)}</b>` : `<button data-act="xnav" data-l="${lv}" data-sid="${esc(sid)}">${esc(l)}</button><span aria-hidden="true">›</span>`).join('')}</nav>`;
+  };
+  const partBody = (s, p) => {
+    const td = tdy(s), lo = s.last_order_at, lc = s.last_closing;
+    if (p === 'shop') return `<div class="xcard">
         <div class="xgrid">
-          <div><b>${n(t.orders_total)}</b><span>ออเดอร์วันนี้</span></div>
-          <div><b>${baht(t.received_total_satang)}</b><span>รับเงินแล้ว</span></div>
-          <div><b>${baht(n(t.pending_cash_satang) + n(t.pending_qr_satang))}</b><span>ยังไม่ได้รับ</span></div>
-          <div><b>${n(t.visits_total)}</b><span>คนสแกน</span></div>
-          <div><b>${n(t.visits_not_ordered)}</b><span>ดูแต่ไม่สั่ง</span></div>
-          <div><b>${n(t.refund_pending_count)}</b><span>รอคืนเงิน</span></div>
+          <div><b>${n(td.orders_total)}</b><span>ออเดอร์วันนี้</span></div>
+          <div><b>${baht(td.received_total_satang)}</b><span>รับเงินแล้ว</span></div>
+          <div><b>${baht(n(td.pending_cash_satang) + n(td.pending_qr_satang))}</b><span>ยังไม่ได้รับ</span></div>
+          <div><b>${n(td.refund_pending_count)}</b><span>รอคืนเงิน</span></div>
         </div>
-        <div class="kv"><span>เงินสด / สแกนจ่าย (รับแล้ว)</span><b>${baht(t.received_cash_satang)} / ${baht(t.received_qr_satang)}</b></div>
-        <div class="kv"><span>ทานที่ร้าน / กลับบ้าน</span><b>${n(t.dine_in_count)} / ${n(t.takeaway_count)}</b></div>
-        <div class="kv"><span>รูปเมนู</span><b>${n(s.dishes_with_photo)} / ${n(s.dishes_total)}</b></div>
-        <div class="kv"><span>เมนูที่หมดชั่วคราว</span><b>${n(s.dishes_unavailable)}</b></div>
-        <div class="kv"><span>ผู้มีสิทธิ์เข้าหลังร้าน</span><b>${n(s.owners)} คน</b></div>
-        <div class="kv"><span>ออเดอร์ทั้งหมดตั้งแต่เปิดระบบ</span><b>${n(s.orders_all_time)}</b></div>
-        <div class="kv"><span>ออเดอร์ล่าสุด</span><b>${lo ? thDate(new Date(lo)) + ' ' + thTime(lo) : '—'}</b></div>
-        <div class="kv"><span>สรุปยอดล่าสุด</span><b>${lc ? thDate(ymd(lc.business_date)) + ' · ' + thTime(lc.closed_at) : 'ยังไม่เคย'}</b></div>
+        ${kvl('เงินสด / สแกนจ่าย (รับแล้ว)', `${baht(td.received_cash_satang)} / ${baht(td.received_qr_satang)}`)}
+        ${kvl('ทานที่ร้าน / กลับบ้าน', `${n(td.dine_in_count)} / ${n(td.takeaway_count)}`)}
+        ${kvl('รูปเมนู', `${n(s.dishes_with_photo)} / ${n(s.dishes_total)}`)}
+        ${kvl('เมนูที่หมดชั่วคราว', n(s.dishes_unavailable))}
+        ${kvl('ผู้มีสิทธิ์เข้าหลังร้าน', `${n(s.owners)} ${t('คน')}`)}
+        ${kvl('ออเดอร์ทั้งหมดตั้งแต่เปิดระบบ', n(s.orders_all_time))}
+        ${kvl('สรุปยอดล่าสุด', lc ? thDate(ymd(lc.business_date)) + ' · ' + thTime(lc.closed_at) : t('ยังไม่เคย'))}
         ${CONFIG.testMode ? `<button class="btn ghost sm" style="margin-top:.7rem;color:var(--danger,#b3261e);border-color:currentColor" data-act="exec-clear" data-store="${esc(s.store_id)}" data-name="${esc(s.name)}">ล้างข้อมูลทดสอบ (ออเดอร์ ยอด คนสแกน)</button>` : ''}
-      </div>`; }).join('') || '<div class="empty">ไม่มีร้านในระบบ</div>'}`,
+      </div>`;
+    if (p === 'yui') {
+      const mons = (S.exec.accounts || []).filter(a => a.role === 'monitor');
+      return `<div class="xcard">
+        <div class="xgrid">
+          <div><b>${baht(td.received_total_satang)}</b><span>รับเงินแล้ว</span></div>
+          <div><b>${n(td.orders_total)}</b><span>ออเดอร์วันนี้</span></div>
+        </div>
+        ${kvl('สถานะร้าน', pill(s))}
+        ${kvl('ออเดอร์ล่าสุด', lo ? thDate(new Date(lo)) + ' ' + thTime(lo) : '—')}
+        ${kvl('บัญชีที่ดูบอร์ดได้ (ดูอย่างเดียว)', `${mons.length} ${t('บัญชี')}`)}
+        ${mons.map(a => `<div class="kv"><span>${esc(a.email)}</span><span class="muted">${a.last_sign_in_at ? thDate(new Date(a.last_sign_in_at)) + ' ' + thTime(a.last_sign_in_at) : t('ยังไม่เคยเข้า')}</span></div>`).join('')}
+        <p class="muted" style="margin:.7rem 0 0;font-size:.85rem">${t('จอนี้เป็นของคุณยุ้ย เปิดจากลิงก์ส่วนตัวของเขา ผู้บริหารดูตัวเลขได้ที่นี่')}</p>
+      </div>`;
+    }
+    const conv = n(td.visits_total) ? Math.round(n(td.orders_total) / n(td.visits_total) * 100) + '%' : '—';
+    return `<div class="xcard">
+        <div class="xgrid">
+          <div><b>${n(td.visits_total)}</b><span>คนสแกน</span></div>
+          <div><b>${n(td.orders_total)}</b><span>สั่งอาหาร</span></div>
+          <div><b>${n(td.visits_not_ordered)}</b><span>ดูแต่ไม่สั่ง</span></div>
+          <div><b>${conv}</b><span>สัดส่วนที่สั่ง</span></div>
+        </div>
+        ${kvl('ทานที่ร้าน / กลับบ้าน', `${n(td.dine_in_count)} / ${n(td.takeaway_count)}`)}
+        ${kvl('เมนูทั้งหมด', n(s.dishes_total))}
+        ${kvl('รูปเมนู', `${n(s.dishes_with_photo)} / ${n(s.dishes_total)}`)}
+        ${kvl('เมนูที่หมดชั่วคราว', n(s.dishes_unavailable))}
+        ${kvl('รอคืนเงิน', n(td.refund_pending_count))}
+      </div>`;
+  };
+  const homeRoom = () => {
+    if (!stores.length) return '<div class="empty">ไม่มีร้านในระบบ</div>';
+    const sumOrders = stores.reduce((a, x) => a + n(tdy(x).orders_total), 0), sumRecv = stores.reduce((a, x) => a + n(tdy(x).received_total_satang), 0);
+    const crumb = nav.l > 0 ? crumbs() : '';
+    if (nav.l === 1) return crumb + stores.map(s => navRow(IC.SOMTAM, esc(s.name), dotj(esc(s.branch_name || ''), t('ออเดอร์วันนี้') + ' ' + n(tdy(s).orders_total), t('รับเงินแล้ว') + ' ' + baht(tdy(s).received_total_satang)), `data-l="2" data-sid="${esc(s.store_id)}"`)).join('');
+    if (nav.l === 2 && curStore) { const s = curStore, td = tdy(s);
+      return crumb + `<div class="xcard"><div class="xhead"><h2>${esc(s.name)}<br><span class="muted" style="font-family:'IBM Plex Sans Thai',sans-serif;font-weight:400;font-size:.8rem">${esc(s.branch_name || '')} · ${thDate(ymd(s.business_date))}</span></h2>${pill(s)}</div></div>`
+        + navRow(PARTS.shop[1], t('ร้าน'), dotj(t('ออเดอร์วันนี้') + ' ' + n(td.orders_total), t('รับเงินแล้ว') + ' ' + baht(td.received_total_satang)), `data-l="3" data-part="shop" data-sid="${esc(s.store_id)}"`)
+        + navRow(PARTS.yui[1], t('คุณยุ้ย'), dotj(t('รับเงินแล้ว') + ' ' + baht(td.received_total_satang), t(s.is_accepting_orders ? 'เปิดรับออเดอร์' : 'ปิดรับออเดอร์')), `data-l="3" data-part="yui" data-sid="${esc(s.store_id)}"`)
+        + navRow(PARTS.cust[1], t('ลูกค้า'), dotj(t('คนสแกน') + ' ' + n(td.visits_total), t('ดูแต่ไม่สั่ง') + ' ' + n(td.visits_not_ordered)), `data-l="3" data-part="cust" data-sid="${esc(s.store_id)}"`);
+    }
+    if (nav.l === 3 && curStore && PARTS[nav.part]) return crumb + partBody(curStore, nav.part);
+    // level 0: the market, with ONE sub-heading
+    return `<div class="xcard xmarket"><span class="navic">${I.leaf}</span><span><h2 class="serif" style="margin:0;color:var(--green);font-size:1.15rem">${esc(MARKET.name)}</h2><span class="muted" style="font-size:.85rem">${t(MARKET.branch)} · ${t('{0} ร้าน', stores.length)}</span></span></div>`
+      + navRow(IC.SOMTAM, 'ร้าน/อาหาร', dotj(t('{0} ร้าน', stores.length), t('ออเดอร์วันนี้') + ' ' + sumOrders, t('รับเงินแล้ว') + ' ' + baht(sumRecv)), 'data-l="1"');
+  };
+  const rooms = {
+    home: homeRoom,
     req: reqRoom,
     acc: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">อีเมลผู้บริหาร</h2><div class="kv"><span>${esc(S.exec.email)}<br><span class="muted">บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง</span></span></div></div>${(S.exec.accounts || []).length ? `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">บัญชีของร้าน · ตั้งรหัสชั่วคราวเอง</h2>
       <p class="muted" style="margin:0 0 .5rem">ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า</p>
@@ -2432,12 +2532,12 @@ V.exec = () => {
         <span class="w"><b>${esc(AUD[a.action] || a.action)}</b>${audDetail(a) ? ' · ' + esc(audDetail(a)) : ''}<small>${esc(a.actor)}${a.role ? ' (' + (a.role === 'owner' ? 'เจ้าของ' : 'พนักงาน') + ')' : ''}${stores.length > 1 ? ' · ' + esc(a.store_name) : ''}</small></span></div>`).join('')
         : '<p class="muted" style="margin:0">ยังไม่มีประวัติ</p>'}</div>`
   };
-  const one = (room !== 'home' && room !== 'req') || (room === 'home' && stores.length <= 1) ? ' xone' : '';
+  const one = room !== 'req' ? ' xone' : '';
   return `
   <div class="topbar"><span class="brand" style="font-size:1.05rem">ผู้บริหาร<small>${esc(S.exec.email)}</small></span>
     <span style="display:flex;gap:.4rem">${sndBtn('exec')}<button class="btn ghost sm" data-act="exec-refresh">รีเฟรช</button><button class="btn ghost sm" data-act="exec-logout">ออก</button></span></div>
   <div class="with-bar x-wrap${one}">
-    <div class="xroomhead"><h2>${XTITLE[room][0]}</h2><p>${XTITLE[room][1]}${room === 'home' ? ` · อัปเดตล่าสุด ${S.exec.at ? thTime(S.exec.at) : ''}` : ''}</p></div>
+    <div class="xroomhead"><h2>${room === 'home' ? esc(homeHead()[0]) : XTITLE[room][0]}</h2><p>${room === 'home' ? homeHead()[1] : XTITLE[room][1]}${room === 'home' ? ` · อัปเดตล่าสุด ${S.exec.at ? thTime(S.exec.at) : ''}` : ''}</p></div>
     ${secBanner('exec', 'x')}
     ${sndBanner('exec')}
     ${pend.length && room !== 'req' ? `<div class="xalert" role="alert"><span>${I.bellRing} มีคำขอรีเซ็ตรหัสรออยู่ ${pend.length} รายการ</span><button class="btn sm" data-act="exec-room" data-room="req">เปิดดู</button></div>` : ''}
@@ -3056,7 +3156,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 04:10 · อีเมลผู้บริหารเข้าตรง';
+const APP_VERSION = '20 ต.ค. 05:00 · ตลาดคุณยิ้ม สาขาอุดมสุข';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3431,7 +3531,8 @@ document.addEventListener('click', async (e) => {
         .map(([k, v]) => { const vb = (v.match(/viewBox="([^"]+)"/) || [])[1] || '0 0 24 24'; const inner = v.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, ''); return `<symbol id="${iconFile(k)}" viewBox="${vb}"${k[0] === 'I' ? ' fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' : ' fill="currentColor"'}>${inner}</symbol>`; }).join('\n');
       const ok = iconSave('khunyui-icons-set1.svg', `<svg xmlns="http://www.w3.org/2000/svg" color="#06412A" style="display:none">\n${syms}\n</svg>\n`, 'image/svg+xml');
       toast(ok ? 'โหลดชุดไอคอนทั้งหมดแล้ว (33 ตัว)' : 'โหลดไม่ได้ ลองเปิดแอปในเบราว์เซอร์'); break; }
-    case 'exec-room': S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
+    case 'xnav': { const l = Number(d.l) || 0; S.exec.nav = { l, sid: l >= 2 ? (d.sid || (S.exec.nav || {}).sid || null) : null, part: l === 3 ? (d.part || (S.exec.nav || {}).part || null) : null }; render('exec'); window.scrollTo(0, 0); break; }
+    case 'exec-room': if (d.room === 'home' && S.exec.room === 'home') S.exec.nav = { l: 0 }; S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
     case 'rq-approve': await act(async () => { const { error } = await sbx.rpc('exec_approve_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ส่งรหัสไปที่หน้าจอเขาแล้ว'); break;
     case 'rq-deny': await act(async () => { const { error } = await sbx.rpc('exec_deny_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ปฏิเสธคำขอแล้ว'); break;
     case 'fp-copy': {
