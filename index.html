@@ -498,6 +498,13 @@
   .rq-top { display: flex; align-items: center; gap: .9rem; }
   .rq-code { font: 700 2.2rem/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; color: var(--green); background: var(--green-soft); border-radius: 12px; padding: .6rem .8rem; }
   .rq-hcode { font: 700 .95rem/1 ui-monospace, Menlo, monospace; letter-spacing: .06em; color: var(--green); background: var(--green-soft); border-radius: 6px; padding: .12rem .35rem; margin-right: .25rem; }
+  .srcbadge { display: inline-block; font-size: .72rem; font-weight: 600; border-radius: 999px; padding: .08rem .55rem; white-space: nowrap; background: var(--gold-soft); color: #7A5F26; }
+  .srcbadge.s-owner { background: var(--green-soft); color: var(--green); }
+  .srcbadge.s-yui { background: var(--gold-soft); color: #7A5F26; }
+  .rqf { display: flex; gap: .4rem; flex-wrap: wrap; margin: 0 0 .5rem; }
+  .rqf button { font: inherit; font-size: .82rem; border: 1px solid var(--line); background: #fff; color: var(--green); border-radius: 999px; padding: .25rem .8rem; cursor: pointer; }
+  .rqf button.on { background: var(--green); color: #fff; border-color: var(--green); }
+  .rcbtns { display: flex; flex-direction: column; align-items: flex-end; gap: .35rem; }
   .rq-code.big { display: block; text-align: center; font-size: 3rem; margin: .6rem 0; }
   .rq-warn { margin-top: .6rem; padding: .5rem .7rem; border-radius: 10px; background: #FBE9E7; color: var(--red); font-size: .9rem; }
   .rq-wait { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: .4rem 0 .8rem; color: var(--muted); }
@@ -1081,7 +1088,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 05:00 · ตลาดคุณยิ้ม สาขาอุดมสุข": "App version 20 Oct 05:00 · Khun Yim Market, Udomsuk branch",
+"เวอร์ชันแอป 20 ต.ค. 05:40 · ศูนย์บริการ + รหัสกู้คืน": "App version 20 Oct 05:40 · Service center + recovery code",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1112,6 +1119,32 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ส่งคำขอไปศูนย์บริการ": "Send request to the service center",
+"มีรหัสกู้คืนส่วนตัว (คีย์ลัด)": "I have a personal recovery code (shortcut)",
+"ตั้งรหัสใหม่ด้วยรหัสกู้คืน": "Set a new password with a recovery code",
+"รหัสกู้คืนส่วนตัวเป็นเลข 8 หลักที่คุณฟารีดาออกให้ล่วงหน้า ใช้ได้ครั้งเดียว ถ้าหายหรือใช้ไปแล้ว ให้ขอผ่านศูนย์บริการ IMCB2Help": "Your personal recovery code is an 8-digit number Khun Fareeda issued to you in advance. It works once. If it is lost or already used, ask through the IMCB2Help service center.",
+"อีเมลของบัญชี": "Account email",
+"รหัสกู้คืนส่วนตัว (8 หลัก)": "Personal recovery code (8 digits)",
+"รหัสกู้คืนต้องเป็นเลข 8 หลัก": "The recovery code must be 8 digits",
+"ยังใช้รหัสกู้คืนไม่ได้ ต้องรันไฟล์ 038 ในฐานข้อมูลก่อน": "Recovery codes are not available yet: run file 038 in the database first",
+"กรอกผิดหลายครั้ง ล็อกไว้ชั่วคราว รอ {0} นาที หรือขอผ่านศูนย์บริการ IMCB2Help": "Too many wrong tries, temporarily locked. Wait {0} minutes or ask through the IMCB2Help service center.",
+"อีเมลหรือรหัสกู้คืนไม่ถูกต้อง · เหลืออีก {0} ครั้งก่อนล็อก": "Email or recovery code is wrong · {0} tries left before it locks",
+"อีเมลหรือรหัสกู้คืนไม่ถูกต้อง หรือยังไม่ได้รับรหัสกู้คืน": "Email or recovery code is wrong, or no recovery code has been issued",
+"รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น": "Personal recovery code (8 digits): issued to the owner in advance. When they forget their password they enter their email + this code on the sign-in page and set a new password at once. Single use; 5 wrong tries lock it for 30 minutes; a new one can only be asked through Khun Fareeda.",
+"รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)": "Recovery code locked (too many wrong tries)",
+"มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}": "Has a recovery code · issued {0}",
+"ยังไม่มีรหัสกู้คืน": "No recovery code yet",
+"ออกรหัสกู้คืนใหม่": "Issue a new recovery code",
+"ออกรหัสกู้คืน": "Issue recovery code",
+"ยกเลิกรหัสกู้คืน": "Revoke recovery code",
+"ยกเลิกรหัสกู้คืนแล้ว": "Recovery code revoked",
+"แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · บอกเจ้าของบัญชีให้จดเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ตอนลืมรหัสผ่านให้กด \"มีรหัสกู้คืนส่วนตัว\" ที่หน้าลืมรหัส · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้": "Shown once; you will not see it again after closing this. Tell the account owner to keep it safe themselves (it is not the password). When they forget their password they tap \"I have a personal recovery code\" on the forgot-password page. Single use; 5 wrong tries lock it for 30 minutes. Do not keep a screenshot.",
+"เก็บไว้ 90 วัน · ป้ายสีบอกว่ามาจากงานไหน · เลขหน้าแถวคือเลขยืนยันของแต่ละคำขอ (รหัสชั่วคราวสำหรับเข้าระบบไม่ถูกเก็บ)": "Kept for 90 days · the colored tag shows which screen each came from · the number on each row is that request's confirmation number (temporary sign-in passwords are never stored)",
+"ยังไม่มีรายการจากงานนี้": "No entries from this screen yet",
+"ใช้รหัสกู้คืนเอง": "Used recovery code",
+"ล็อกชั่วคราว": "Temporarily locked",
+"ตั้งรหัสใหม่เองด้วยรหัสกู้คืนส่วนตัว": "Set a new password themselves with the personal recovery code",
+"กรอกรหัสกู้คืนผิดครบ 5 ครั้ง · ล็อก 30 นาที": "Wrong recovery code 5 times · locked for 30 minutes",
 "สาขาอุดมสุข · ภาพรวมทั้งตลาด · ดูอย่างเดียว": "Udomsuk branch · whole market overview · view only",
 "ร้าน/อาหาร": "Shops / food",
 "เลือกร้านที่จะดู": "Choose a shop to view",
@@ -1173,7 +1206,7 @@ Object.assign(EN, {
 "ภาพรวมร้าน": "Shop overview",
 "ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว": "Today's figures and shop status · view only",
 "คำขอรีเซ็ตรหัสผ่าน": "Password reset requests",
-"เจ้าของที่ลืมรหัสกดขอจากหน้าล็อกอิน คำขอจะขึ้นที่นี่ทันที": "Staff who forgot a password ask from the sign-in page; the request shows up here right away",
+"ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน": "IMCB2Help service center · forgot-password requests from every screen (back office / Khun Yui) land here, with where each came from",
 "บัญชีของร้าน": "Shop accounts",
 "ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง": "Who can use the back office, and set a temporary password yourself",
 "ยอดที่สรุปแล้วย้อนหลัง 30 วัน": "Closed-day totals for the last 30 days",
@@ -1212,14 +1245,14 @@ Object.assign(EN, {
 "ห้องของผู้บริหาร": "Executive rooms",
 "บัญชีของร้าน · ตั้งรหัสชั่วคราวเอง": "Shop accounts · set a temporary password yourself",
 "ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า": "Use this when you do not need to wait for a request (for example they phoned you). The system generates a password and shows it once; the account is signed out everywhere and must set a new password after signing in.",
-"ขอรหัสชั่วคราวจากผู้บริหาร (คุณฟารีดา) ผู้บริหารจะเห็นคำขอทันที เมื่อผู้บริหารกดส่ง รหัสจะขึ้นบนหน้าจอนี้เอง": "Ask the executive (Khun Fareeda) for a temporary password. The executive sees your request right away, and when they tap send the password appears on this screen by itself.",
+"ส่งคำขอไปที่ศูนย์บริการ IMCB2Help ศูนย์จะเห็นคำขอทันที เมื่อคุณฟารีดากดส่ง รหัสจะขึ้นบนหน้าจอนี้เอง": "Send a request to the IMCB2Help service center. The center sees it right away, and when Khun Fareeda taps send the password appears on this screen by itself.",
 "ขอรหัสชั่วคราว": "Request temporary password",
 "ส่งคำขอแล้ว": "Request sent",
-"บอกเลขนี้กับผู้บริหาร (คุณฟารีดา) ทางโทรหรือไลน์ เพื่อยืนยันว่าเป็นคุณ": "Tell this number to the executive (Khun Fareeda) by phone or LINE to confirm it is you.",
-"รอผู้บริหารกดส่งรหัส…": "Waiting for the executive to send the password…",
+"บอกเลขนี้กับศูนย์บริการ IMCB2Help (คุณฟารีดา) ทางโทรหรือไลน์ เพื่อยืนยันว่าเป็นคุณ": "Tell this number to the IMCB2Help service center (Khun Fareeda) by phone or LINE to confirm it is you.",
+"รอศูนย์บริการ IMCB2Help กดส่งรหัส…": "Waiting for the IMCB2Help service center to send the password…",
 "ยกเลิกคำขอ": "Cancel request",
 "ยกเลิกคำขอแล้ว": "Request cancelled",
-"ผู้บริหารยังไม่อนุมัติคำขอนี้ ลองติดต่อผู้บริหารโดยตรง": "The executive has not approved this request. Please contact the executive directly.",
+"ศูนย์บริการยังไม่อนุมัติคำขอนี้ ลองติดต่อคุณฟารีดาโดยตรง": "The service center has not approved this request. Please contact Khun Fareeda directly.",
 "คำขอหมดอายุ (10 นาที) กดขอใหม่ได้": "The request expired (10 minutes). You can request again.",
 "ไม่พบคำขอนี้แล้ว กดขอใหม่ได้": "This request no longer exists. You can request again.",
 "คำขอสิ้นสุดแล้ว": "The request has ended.",
@@ -1232,7 +1265,7 @@ Object.assign(EN, {
 "คำขอนี้ถูกจัดการไปแล้ว": "This request has already been handled",
 "ไม่พบคำขอนี้แล้ว": "This request no longer exists",
 "อีเมลไม่ถูกต้อง": "The email is not valid",
-"ขอรหัสชั่วคราวจากผู้บริหาร (คุณฟารีดา) ผู้บริหารจะตั้งรหัสชั่วคราวให้บัญชีของคุณ แล้วคุณเข้าสู่ระบบด้วยรหัสนั้น ระบบจะให้ตั้งรหัสใหม่เองทันที": "Ask the executive (Khun Fareeda) for a temporary password. The executive will set one for your account; sign in with it and the app will ask you to choose your own new password straight away.",
+"ส่งคำขอไปที่ศูนย์บริการ IMCB2Help คุณฟารีดาจะตั้งรหัสชั่วคราวให้บัญชีของคุณ แล้วคุณเข้าสู่ระบบด้วยรหัสนั้น ระบบจะให้ตั้งรหัสใหม่เองทันที": "Send a request to the IMCB2Help service center. Khun Fareeda will set a temporary password for your account; sign in with it and the app will ask you to choose your own new password straight away.",
 "อีเมลของบัญชีที่ลืมรหัส": "Email of the account whose password you forgot",
 "ข้อความที่ส่งให้ผู้บริหาร:": "Message to send to the executive:",
 "คัดลอกข้อความ": "Copy message",
@@ -1585,6 +1618,7 @@ Object.assign(EN, {
 "ตั้งรหัสใหม่แล้ว · เครื่องอื่นของบัญชีนี้ออกจากระบบแล้ว": "New password set · other devices of this account have been signed out",
 "คัดลอกรหัส": "Copy password",
 "รหัสชั่วคราวของ {0}": "Temporary password for {0}",
+"รหัสกู้คืนของ {0}": "Recovery code for {0}",
 "แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · ส่งให้เจ้าของบัญชีทางที่ปลอดภัย (บอกต่อหน้า หรือส่งแบบลบได้) · เขาต้องตั้งรหัสใหม่เองหลังเข้า · อย่าถ่ายภาพหน้าจอเก็บไว้": "Shown only once; after you close this it cannot be seen again · give it to the account owner securely (in person, or in a message that can be deleted) · they must set a new password after signing in · do not keep a screenshot",
 "คัดลอกแล้ว": "Copied",
 "คัดลอกไม่ได้ ให้แตะที่รหัสค้างไว้เพื่อคัดลอก": "Could not copy. Press and hold the password to copy it.",
@@ -2355,6 +2389,7 @@ async function loadExec() {
   S.exec.data = o.data || []; S.exec.history = h.data || []; S.exec.audit = a.data || []; S.exec.at = new Date();
   await loadSec(sbx, 'exec');
   try { const r = await sbx.rpc('exec_list_accounts'); S.exec.accounts = (!r.error && Array.isArray(r.data)) ? r.data : []; } catch (_) { S.exec.accounts = []; }
+  try { const r = await sbx.rpc('exec_list_recovery'); S.exec.recovery = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.recovery = null; }   // null = SQL 038 not installed yet
 }
 // Two-tone chime + vibration when a new reset request arrives (the badge and banner always show; sound needs one tap on the page first)
 function xChime() { SND.play('request', 'exec'); }
@@ -2404,7 +2439,7 @@ const iconTiles = () => {
     <h3 class="igh">ไอคอนหมวดอาหาร (${Object.keys(ICON_CATS).length})</h3><div class="igrid">${Object.keys(ICON_CATS).map(k => tile('C:' + k, ICON_CATS[k], IC[k], false)).join('')}</div>`;
 };
 const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf]];
-const XTITLE = { home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'เจ้าของที่ลืมรหัสกดขอจากหน้าล็อกอิน คำขอจะขึ้นที่นี่ทันที'],
+const XTITLE = { home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
   acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติการแก้ไข', 'ใครทำอะไร เมื่อไหร่'] };
 const RQ_SCREEN = { owner: 'หลังร้าน', yui: 'จอคุณยุ้ย', exec: 'ผู้บริหาร' };
@@ -2419,13 +2454,14 @@ V.exec = () => {
     ${S.exec.reqErr ? `<div class="xcard"><b>ยังใช้ห้องนี้ไม่ได้</b><p class="muted" style="margin:.4rem 0 0">ระบบคำขอยังไม่ได้ติดตั้งในฐานข้อมูล ให้รันไฟล์ <b>034_khunyui_reset_requests.sql</b> ใน Supabase SQL Editor 1 ครั้ง · ระหว่างนี้ใช้ห้อง "บัญชีร้าน" ตั้งรหัสชั่วคราวเองได้</p></div>` : ''}
     ${!S.exec.reqErr && !pend.length ? `<div class="xcard" style="text-align:center"><div class="bigic">${I.bellRing}</div><b>ยังไม่มีคำขอ</b><p class="muted" style="margin:.3rem 0 0">เปิดหน้านี้ค้างไว้ได้ ระบบเช็กให้เองทุก 2 วินาที มีคำขอเข้าเมื่อไหร่จะมีเสียงและป้ายแจ้ง</p></div>` : ''}
     ${pend.map(r => `<div class="xcard rq"><div class="rq-top"><span class="rq-code" aria-label="เลขยืนยัน">${esc(r.code)}</span>
-        <span><b>${esc(r.email)}</b><br><span class="muted">${RQ_SCREEN[r.screen] || ''} · ขอเมื่อ ${thTime(r.created_at)}</span></span></div>
+        <span><b>${esc(r.email)}</b><br><span class="srcbadge s-${esc(r.screen)}">${RQ_SCREEN[r.screen] || ''}</span> <span class="muted">ขอเมื่อ ${thTime(r.created_at)}</span></span></div>
       ${r.account_state !== 'ok' ? `<div class="rq-warn">${RQ_STATE[r.account_state] || ''}</div>` : ''}
       <p class="muted" style="margin:.6rem 0">ให้เจ้าของอ่านเลข 6 หลักบนหน้าจอของเขา (โทรหรือไลน์) ถ้าตรงกับเลขนี้ ค่อยกดส่ง</p>
       <div class="actions"><button class="btn" style="flex:1" data-act="rq-approve" data-id="${esc(r.id)}" ${r.account_state !== 'ok' ? 'disabled' : ''}>ส่งรหัสชั่วคราว</button><button class="btn ghost" data-act="rq-deny" data-id="${esc(r.id)}">ปฏิเสธ</button></div></div>`).join('')}
-    ${done.length ? `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ประวัติคำขอรหัส</h2>
-      <p class="muted" style="margin:0 0 .5rem;font-size:.85rem">เก็บไว้ 90 วัน · เลขหน้าแถวคือเลขยืนยันของแต่ละคำขอ (รหัสชั่วคราวสำหรับเข้าระบบไม่ถูกเก็บ)</p>
-      ${done.slice(0, 60).map(r => `<div class="kv"><span><b class="rq-hcode">${esc(r.code)}</b> ${esc(r.email)}<br><span class="muted">${RQ_SCREEN[r.screen] || ''} · ${thDate(new Date(r.created_at))} ${thTime(r.created_at)}${r.decided_by_email ? ' · ' + t('โดย') + ' ' + esc(r.decided_by_email) : ''}</span></span><b style="font-weight:600">${RQ_ST[r.status] || ''}</b></div>`).join('')}</div>` : ''}`;
+    ${done.length ? (() => { const f = S.exec.rqf || '', list = done.filter(r => !f || r.screen === f); return `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ประวัติคำขอรหัส</h2>
+      <p class="muted" style="margin:0 0 .5rem;font-size:.85rem">เก็บไว้ 90 วัน · ป้ายสีบอกว่ามาจากงานไหน · เลขหน้าแถวคือเลขยืนยันของแต่ละคำขอ (รหัสชั่วคราวสำหรับเข้าระบบไม่ถูกเก็บ)</p>
+      <div class="rqf" role="group" aria-label="กรองตามงาน">${[['', 'ทั้งหมด'], ['owner', RQ_SCREEN.owner], ['yui', RQ_SCREEN.yui]].map(([k, n]) => `<button class="${f === k ? 'on' : ''}" data-act="rq-filter" data-f="${k}" aria-pressed="${f === k}">${n}</button>`).join('')}</div>
+      ${list.slice(0, 60).map(r => `<div class="kv"><span>${r.via === 'code' ? '' : `<b class="rq-hcode">${esc(r.code)}</b> `}${esc(r.email)}<br><span class="srcbadge s-${esc(r.screen)}">${RQ_SCREEN[r.screen] || ''}</span> <span class="muted">${thDate(new Date(r.created_at))} ${thTime(r.created_at)}${r.decided_by_email ? ' · ' + t('โดย') + ' ' + esc(r.decided_by_email) : ''}</span>${r.via === 'code' && r.note ? `<br><span class="muted">${esc(r.note)}</span>` : ''}</span><b style="font-weight:600">${r.via === 'code' ? (r.status === 'delivered' ? 'ใช้รหัสกู้คืนเอง' : 'ล็อกชั่วคราว') : (RQ_ST[r.status] || '')}</b></div>`).join('')}${list.length ? '' : `<p class="muted" style="margin:.5rem 0 0">ยังไม่มีรายการจากงานนี้</p>`}</div>`; })() : ''}`;
   // ---- Overview = a drill-down: ตลาดคุณยิ้ม (สาขาอุดมสุข) > ร้าน/อาหาร > (shop) > one of 3 parts: ร้าน · คุณยุ้ย · ลูกค้า (read-only)
   const MARKET = { name: 'ตลาดคุณยิ้ม', branch: 'สาขาอุดมสุข' };
   const nav = S.exec.nav || { l: 0 };
@@ -2518,8 +2554,9 @@ V.exec = () => {
     req: reqRoom,
     acc: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">อีเมลผู้บริหาร</h2><div class="kv"><span>${esc(S.exec.email)}<br><span class="muted">บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง</span></span></div></div>${(S.exec.accounts || []).length ? `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">บัญชีของร้าน · ตั้งรหัสชั่วคราวเอง</h2>
       <p class="muted" style="margin:0 0 .5rem">ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า</p>
-      ${S.exec.accounts.map(a => `<div class="kv"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span></span>
-        <button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button></div>`).join('')}</div>` : ''}`,
+      ${S.exec.recovery ? '<p class="muted" style="margin:0 0 .5rem">รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น</p>' : ''}
+      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email); return `<div class="kv"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
+        <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button>${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
     icons: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ชุดไอคอนชุดที่ 1</h2>
       <p class="muted" style="margin:0 0 .6rem">ไอคอนชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เริ่มใช้ 20 ต.ค. · เก็บไว้ให้ใช้ซ้ำกับป้าย เมนู และสื่อของร้าน · เส้นหนา 2 มุมมน สีเขียวร้าน</p>
       <button class="btn sm" data-act="icon-dl-all">${I.box} โหลดทั้งชุดเป็นไฟล์เดียว</button>
@@ -3156,7 +3193,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 05:00 · ตลาดคุณยิ้ม สาขาอุดมสุข';
+const APP_VERSION = '20 ต.ค. 05:40 · ศูนย์บริการ + รหัสกู้คืน';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3168,20 +3205,32 @@ function stopWait() { if (S.fp && S.fp.wait) { clearInterval(S.fp.wait.timer); S
 function askSheet(cli, email) {
   stopWait(); S.fp = { cli, email: email || '', verified: false };
   openModal(`<h3>ลืมรหัสผ่าน</h3>
-    <p class="muted" style="margin-top:0">ขอรหัสชั่วคราวจากผู้บริหาร (คุณฟารีดา) ผู้บริหารจะเห็นคำขอทันที เมื่อผู้บริหารกดส่ง รหัสจะขึ้นบนหน้าจอนี้เอง</p>
+    <p class="muted" style="margin-top:0">ส่งคำขอไปที่ศูนย์บริการ IMCB2Help ศูนย์จะเห็นคำขอทันที เมื่อคุณฟารีดากดส่ง รหัสจะขึ้นบนหน้าจอนี้เอง</p>
     <label class="field"><span>อีเมลของบัญชีที่ลืมรหัส</span><input id="fp-email" type="email" inputmode="email" autocomplete="username" value="${esc(email || '')}"></label>
-    <div class="actions"><button class="btn" style="flex:1" data-act="fp-ask" data-cli="${cli}">ขอรหัสชั่วคราว</button><button class="btn ghost" data-act="close">ปิด</button></div>`);
+    <div class="actions"><button class="btn" style="flex:1" data-act="fp-ask" data-cli="${cli}">ส่งคำขอไปศูนย์บริการ</button><button class="btn ghost" data-act="close">ปิด</button></div>
+    <button class="back" style="display:block;margin:.8rem auto 0" data-act="fp-rec" data-cli="${cli}">มีรหัสกู้คืนส่วนตัว (คีย์ลัด)</button>`);
+}
+// Shortcut: the owner enters the personal recovery code the executive issued earlier (8 digits, single use) and sets a new password at once.
+function recSheet(cli, email) {
+  S.fp = { cli, email: email || '', verified: false };
+  openModal(`<h3>ตั้งรหัสใหม่ด้วยรหัสกู้คืน</h3>
+    <p class="muted" style="margin-top:0">รหัสกู้คืนส่วนตัวเป็นเลข 8 หลักที่คุณฟารีดาออกให้ล่วงหน้า ใช้ได้ครั้งเดียว ถ้าหายหรือใช้ไปแล้ว ให้ขอผ่านศูนย์บริการ IMCB2Help</p>
+    <label class="field"><span>อีเมลของบัญชี</span><input id="fp-email" type="email" inputmode="email" autocomplete="username" value="${esc(email || '')}"></label>
+    <label class="field"><span>รหัสกู้คืนส่วนตัว (8 หลัก)</span><input id="rc-code" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="0000 0000"></label>
+    <label class="field"><span>รหัสผ่านใหม่ (อย่างน้อย 8 ตัว)</span><input id="pw1" type="password" autocomplete="new-password"></label>
+    <label class="field"><span>พิมพ์รหัสผ่านใหม่อีกครั้ง</span><input id="pw2" type="password" autocomplete="new-password"></label>
+    <div class="actions"><button class="btn" style="flex:1" data-act="fp-rec-save" data-cli="${cli}">ตั้งรหัสใหม่</button><button class="btn ghost" data-act="fp-again" data-cli="${cli}" data-email="${esc(email || '')}">ย้อนกลับ</button></div>`);
 }
 function waitSheet(w) {
   openModal(`<h3>ส่งคำขอแล้ว</h3>
-    <p class="muted" style="margin-top:0">บอกเลขนี้กับผู้บริหาร (คุณฟารีดา) ทางโทรหรือไลน์ เพื่อยืนยันว่าเป็นคุณ</p>
+    <p class="muted" style="margin-top:0">บอกเลขนี้กับศูนย์บริการ IMCB2Help (คุณฟารีดา) ทางโทรหรือไลน์ เพื่อยืนยันว่าเป็นคุณ</p>
     <div id="fp-wait" class="rq-code big" aria-label="เลขยืนยัน">${esc(w.code)}</div>
-    <div class="rq-wait"><span class="pulse" aria-hidden="true"></span><span>รอผู้บริหารกดส่งรหัส…</span><b id="fp-left"></b></div>
+    <div class="rq-wait"><span class="pulse" aria-hidden="true"></span><span>รอศูนย์บริการ IMCB2Help กดส่งรหัส…</span><b id="fp-left"></b></div>
     <p class="muted" style="margin:0 0 .8rem;text-align:center">${esc(w.email)}</p>
     <div class="actions"><button class="btn ghost" style="flex:1" data-act="fp-cancel">ยกเลิกคำขอ</button></div>`);
 }
 function endSheet(status) {
-  const msg = { denied: 'ผู้บริหารยังไม่อนุมัติคำขอนี้ ลองติดต่อผู้บริหารโดยตรง', expired: 'คำขอหมดอายุ (10 นาที) กดขอใหม่ได้', cancelled: 'ยกเลิกคำขอแล้ว', unknown: 'ไม่พบคำขอนี้แล้ว กดขอใหม่ได้' }[status] || 'คำขอสิ้นสุดแล้ว';
+  const msg = { denied: 'ศูนย์บริการยังไม่อนุมัติคำขอนี้ ลองติดต่อคุณฟารีดาโดยตรง', expired: 'คำขอหมดอายุ (10 นาที) กดขอใหม่ได้', cancelled: 'ยกเลิกคำขอแล้ว', unknown: 'ไม่พบคำขอนี้แล้ว กดขอใหม่ได้' }[status] || 'คำขอสิ้นสุดแล้ว';
   const cli = S.fp && S.fp.cli, em = S.fp && S.fp.email;
   openModal(`<h3>ลืมรหัสผ่าน</h3><p style="margin-top:0">${msg}</p>
     <div class="actions"><button class="btn" style="flex:1" data-act="fp-again" data-cli="${cli}" data-email="${esc(em || '')}">ขอใหม่</button><button class="btn ghost" data-act="close">ปิด</button></div>`);
@@ -3210,7 +3259,7 @@ function tempSheet() {
 function askFallbackSheet(cli, email) {
   S.fp = { cli, email: email || '', verified: false };
   openModal(`<h3>ลืมรหัสผ่าน</h3>
-      <p class="muted" style="margin-top:0">ขอรหัสชั่วคราวจากผู้บริหาร (คุณฟารีดา) ผู้บริหารจะตั้งรหัสชั่วคราวให้บัญชีของคุณ แล้วคุณเข้าสู่ระบบด้วยรหัสนั้น ระบบจะให้ตั้งรหัสใหม่เองทันที</p>
+      <p class="muted" style="margin-top:0">ส่งคำขอไปที่ศูนย์บริการ IMCB2Help คุณฟารีดาจะตั้งรหัสชั่วคราวให้บัญชีของคุณ แล้วคุณเข้าสู่ระบบด้วยรหัสนั้น ระบบจะให้ตั้งรหัสใหม่เองทันที</p>
       <label class="field"><span>อีเมลของบัญชีที่ลืมรหัส</span><input id="fp-email" type="email" inputmode="email" autocomplete="username" value="${esc(email || '')}"></label>
       <p class="muted" style="margin:0 0 .4rem">ข้อความที่ส่งให้ผู้บริหาร:</p>
       <div id="fp-msg" style="padding:.65rem .8rem;background:var(--cream);border:1px solid var(--line);border-radius:10px;user-select:all">${esc(askMsg(email))}</div>
@@ -3520,6 +3569,30 @@ document.addEventListener('click', async (e) => {
     }); break;
     case 'fp-cancel': { const w = S.fp && S.fp.wait; stopWait(); closeModal(); if (w) { try { await cliOf(w.cli).rpc('cancel_password_reset', { p_id: w.id, p_token: w.token }); } catch (_) {} toast('ยกเลิกคำขอแล้ว'); } break; }
     case 'fp-again': askSheet(d.cli, d.email); break;
+    case 'fp-rec': recSheet(d.cli, (($('#fp-email') || {}).value || '').trim()); break;
+    case 'fp-rec-save': await act(async () => {
+      const cl = cliOf(d.cli), email = (($('#fp-email') || {}).value || '').trim();
+      const code = (($('#rc-code') || {}).value || '').replace(/\D/g, ''), p1 = $('#pw1').value, p2 = $('#pw2').value;
+      if (!email) throw new Error('กรุณาใส่อีเมล');
+      if (code.length !== 8) throw new Error('รหัสกู้คืนต้องเป็นเลข 8 หลัก');
+      if (p1.length < 8) throw new Error('รหัสผ่านใหม่ต้องยาวอย่างน้อย 8 ตัว');
+      if (p1 !== p2) throw new Error('รหัสผ่านใหม่สองช่องไม่ตรงกัน');
+      const r = await cl.rpc('recover_with_code', { p_email: email, p_code: code, p_new_password: p1, p_screen: d.cli === 'y' ? 'yui' : 'owner' });
+      if (r.error) {
+        if (/does not exist|schema cache|could not find the function/i.test(r.error.message || '')) throw new Error('ยังใช้รหัสกู้คืนไม่ได้ ต้องรันไฟล์ 038 ในฐานข้อมูลก่อน');
+        throw r.error;
+      }
+      const res = r.data || {};
+      if (!res.ok) {
+        if (res.error === 'locked') throw new Error(i18n('กรอกผิดหลายครั้ง ล็อกไว้ชั่วคราว รอ {0} นาที หรือขอผ่านศูนย์บริการ IMCB2Help', res.minutes || 30));
+        throw new Error(res.left != null ? i18n('อีเมลหรือรหัสกู้คืนไม่ถูกต้อง · เหลืออีก {0} ครั้งก่อนล็อก', res.left) : 'อีเมลหรือรหัสกู้คืนไม่ถูกต้อง หรือยังไม่ได้รับรหัสกู้คืน');
+      }
+      const si = await cl.auth.signInWithPassword({ email, password: p1 });
+      if (si.error) throw si.error;
+      S.fp = null; S.must = { o: false, y: false }; S.owner.denied = false;
+      closeModal(); toast('ตั้งรหัสใหม่แล้ว · เครื่องอื่นของบัญชีนี้ออกจากระบบแล้ว');
+      await show();
+    }); break;
     case 'fp-use': {
       const w = S.fp || {}; closeModal();
       const ids = w.cli === 'y' ? ['#yemail', '#ypass', '[data-act=yui-login]'] : ['#email', '#password', '[data-act=login]'];
@@ -3584,6 +3657,24 @@ document.addEventListener('click', async (e) => {
         await loadExec(); render('exec');
       });
       break; }
+    case 'exec-rc-issue': {
+      if (d.has === '1' && !window.confirm(`ออกรหัสกู้คืนใหม่ให้ ${d.email} ?\nรหัสกู้คืนเดิมจะใช้ไม่ได้อีก`)) break;
+      await act(async () => {
+        const { data, error } = await sbx.rpc('exec_issue_recovery_code', { p_email: d.email });
+        if (error) throw error;
+        const c = String(data.code), shown = c.slice(0, 4) + ' ' + c.slice(4);
+        openModal(`<h3>รหัสกู้คืนของ ${esc(data.email)}</h3>
+          <div style="font:600 2rem/1.2 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-align:center;padding:.9rem;border:2px dashed var(--green);border-radius:12px;margin:.6rem 0;user-select:all">${esc(shown)}</div>
+          <p class="muted">แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · บอกเจ้าของบัญชีให้จดเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ตอนลืมรหัสผ่านให้กด "มีรหัสกู้คืนส่วนตัว" ที่หน้าลืมรหัส · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้</p>
+          <div class="actions"><button class="btn ghost" style="flex:1" data-act="copy-tmp" data-v="${esc(c)}">คัดลอกรหัส</button><button class="btn" data-act="close">ปิด</button></div>`);
+        await loadExec(); render('exec');
+      });
+      break; }
+    case 'exec-rc-revoke': {
+      if (!window.confirm(`ยกเลิกรหัสกู้คืนของ ${d.email} ?`)) break;
+      await act(async () => { const { error } = await sbx.rpc('exec_revoke_recovery_code', { p_email: d.email }); if (error) throw error; await loadExec(); render('exec'); }, 'ยกเลิกรหัสกู้คืนแล้ว');
+      break; }
+    case 'rq-filter': S.exec.rqf = d.f || ''; render('exec'); break;
     case 'copy-tmp': try { await navigator.clipboard.writeText(d.v); toast('คัดลอกแล้ว'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่รหัสค้างไว้เพื่อคัดลอก'); } break;
     case 'pw-save': await act(async () => {
       const cl = d.cli === 'y' ? sby : sb;
