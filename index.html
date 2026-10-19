@@ -1140,7 +1140,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 07:30 · ออกจากระบบแล้วกลับหน้าเข้าสู่ระบบ": "App version 20 Oct 07:30 · Logout returns to the sign-in page",
+"เวอร์ชันแอป 20 ต.ค. 07:50 · แก้ปุ่มออกจากระบบให้ออกจริง": "App version 20 Oct 07:50 · Sign-out button now really signs out",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -2541,6 +2541,13 @@ async function toExecIfAdmin(cli) {
     go('#/exec'); return true;
   } catch (_) { return false; }
 }
+// Sign out for real: revoke on the server (best effort), then ALWAYS clear this device's session, even if the server call fails
+// (supabase-js keeps the session when that call errors, which made "ออก" bounce straight back in).
+async function hardSignOut(cli, key) {
+  try { await cli.auth.signOut(); } catch (_) {}
+  try { await cli.auth.signOut({ scope: 'local' }); } catch (_) {}
+  try { localStorage.removeItem(key); localStorage.removeItem(key + '-code-verifier'); localStorage.removeItem(key + '-user'); } catch (_) {}
+}
 async function showExec() {
   clearInterval(S.exec.t); clearInterval(S.exec.rt);
   $('#app').innerHTML = '<div class="loading"><div class="spinner"></div></div>';
@@ -3374,7 +3381,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 07:30 · ออกจากระบบแล้วกลับหน้าเข้าสู่ระบบ';
+const APP_VERSION = '20 ต.ค. 07:50 · แก้ปุ่มออกจากระบบให้ออกจริง';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3777,11 +3784,11 @@ document.addEventListener('click', async (e) => {
     case 'exec-login': await act(async () => {
       const { error } = await sbx.auth.signInWithPassword({ email: $('#xemail').value.trim(), password: $('#xpass').value });
       if (error) throw error; await showExec(); }); break;
-    case 'exec-logout': clearInterval(S.exec.t); clearInterval(S.exec.rt); await sbx.auth.signOut(); S.exec = { state: 'login', data: [], history: [], audit: [], accounts: [], email: '', at: null, t: null, rt: null, room: 'home', reqs: null, reqErr: '', reqSig: '', reqSeen: false, pbusy: false, ctx: null }; await showExec(); break;
+    case 'exec-logout': clearInterval(S.exec.t); clearInterval(S.exec.rt); await hardSignOut(sbx, 'khunyui-exec'); S.exec = { state: 'login', data: [], history: [], audit: [], accounts: [], email: '', at: null, t: null, rt: null, room: 'home', reqs: null, reqErr: '', reqSig: '', reqSeen: false, pbusy: false, ctx: null }; await showExec(); break;
     case 'yui-login': await act(async () => {
       const { error } = await sby.auth.signInWithPassword({ email: $('#yemail').value.trim(), password: $('#ypass').value });
       if (error) throw error; if (await toExecIfAdmin(sby)) return; SND.unlock(); await showYui(); }); break;
-    case 'yui-logout': leaveYui(); await sby.auth.signOut(); S.yui = { ...S.yui, state: 'login', board: null, orders: [], email: '', alerts: [], feed: [], fresh: null, live: null, seen: new Set(), at: null }; await showYui(); break;
+    case 'yui-logout': leaveYui(); await hardSignOut(sby, 'khunyui-yui'); S.yui = { ...S.yui, state: 'login', board: null, orders: [], email: '', alerts: [], feed: [], fresh: null, live: null, seen: new Set(), at: null }; await showYui(); break;
     case 'snd-toggle': { const sc = d.surface, v = !SND.on(sc); SND.set(sc, v); SND.unlock();
       document.querySelectorAll(`.sndbtn[data-surface="${sc}"]`).forEach(b => b.outerHTML = sndBtn(sc)); trTree($('#app'));
       if (v) { SND.play(sc === 'cust' ? 'status' : sc === 'exec' ? 'request' : 'order', sc); toast('เปิดเสียงแจ้งเตือนแล้ว'); } else toast('ปิดเสียงแจ้งเตือนแล้ว'); break; }
@@ -4176,7 +4183,7 @@ document.addEventListener('click', async (e) => {
       }, 'บันทึกแล้ว · ลูกค้าเห็นทันที');
       break;
     }
-    case 'logout': await sb.auth.signOut(); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/owner'); break;
+    case 'logout': await hardSignOut(sb, 'khunyui-auth'); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/owner'); break;
     case 'close': case 'scrim': closeModal(); if (route()[0] === 'owner' && S.owner.tab === 'menu') render('owner'); break;
   }
 });
