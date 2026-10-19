@@ -498,6 +498,42 @@
   .rq-top { display: flex; align-items: center; gap: .9rem; }
   .rq-code { font: 700 2.2rem/1 ui-monospace, Menlo, monospace; letter-spacing: .12em; color: var(--green); background: var(--green-soft); border-radius: 12px; padding: .6rem .8rem; }
   .rq-hcode { font: 700 .95rem/1 ui-monospace, Menlo, monospace; letter-spacing: .06em; color: var(--green); background: var(--green-soft); border-radius: 6px; padding: .12rem .35rem; margin-right: .25rem; }
+  .kv.accrow { flex-wrap: wrap; }
+  .kv.accrow .rcbtns { flex-direction: row; flex-wrap: wrap; width: 100%; align-items: center; justify-content: flex-start; }
+  #doclayer { position: fixed; inset: 0; z-index: 80; background: #E6E2D3; overflow: auto; -webkit-overflow-scrolling: touch; }
+  .dl-bar { position: sticky; top: 0; z-index: 2; display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; padding: .6rem 1rem; background: var(--cream); border-bottom: 1px solid var(--line); }
+  .dl-bar span { flex: 1 1 14rem; font-size: .8rem; color: var(--muted); }
+  .dl-page { background: #fff; color: #1B1B1B; max-width: 794px; margin: 1rem auto 3rem; padding: 30px 34px; box-shadow: 0 2px 14px rgba(0,0,0,.18); font-size: 15px; line-height: 1.55; }
+  .dl-brand { color: var(--gold); font-weight: 600; font-size: .85rem; letter-spacing: .02em; }
+  .dl-page h1 { font-family: var(--serif, inherit); color: var(--green); font-size: 1.7rem; line-height: 1.2; margin: .15rem 0 .1rem; }
+  .dl-sub { color: #555; margin: 0 0 .9rem; }
+  .dl-page h2 { color: var(--green); font-size: 1.05rem; margin: 1rem 0 .3rem; padding-bottom: .15rem; border-bottom: 2px solid var(--gold-soft); break-after: avoid; }
+  .dl-page ol, .dl-page ul { margin: .2rem 0 .4rem 1.2rem; padding: 0; }
+  .dl-page li { margin: .12rem 0; }
+  .dl-info { width: 100%; border-collapse: collapse; margin: .2rem 0 .3rem; }
+  .dl-info th { text-align: left; width: 9.5rem; font-weight: 600; color: var(--green); vertical-align: top; padding: .3rem .4rem .3rem 0; }
+  .dl-info td { padding: .3rem 0; border-bottom: 1px dotted #bbb; word-break: break-all; }
+  .dl-line { display: inline-block; border-bottom: 1.5px solid #333; height: 1.15em; vertical-align: baseline; }
+  .dl-key { border: 2.5px solid var(--green); border-radius: 12px; padding: .7rem 1rem .8rem; margin: .8rem 0; background: #FBFAF3; break-inside: avoid; }
+  .dl-key h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
+  .dl-boxes { display: inline-flex; align-items: center; gap: 6px; margin: .3rem 0 .2rem; }
+  .dl-boxes i { display: inline-block; width: 2.3rem; height: 3rem; border: 2px solid #222; border-radius: 6px; background: #fff; }
+  .dl-boxes b { font-size: 1.6rem; padding: 0 .3rem; }
+  .dl-step { break-inside: avoid; }
+  .dl-warn { background: var(--gold-soft); border-radius: 8px; padding: .45rem .7rem; margin: .5rem 0; break-inside: avoid; }
+  .dl-foot { margin-top: .9rem; font-size: .82rem; color: #555; }
+  @media print {
+    body > *:not(#doclayer) { display: none !important; }
+    #doclayer { position: static; background: #fff; overflow: visible; }
+    .dl-bar { display: none !important; }
+    html, body { background: #fff !important; }
+    .dl-page { box-shadow: none; margin: 0; max-width: none; padding: 0; font-size: 12.2px; line-height: 1.4; }
+    .dl-page h2 { margin: .7rem 0 .2rem; }
+    .dl-key { margin: .55rem 0; padding: .5rem .9rem .6rem; }
+    .dl-page h1 { font-size: 1.5rem; }
+    .dl-boxes i { width: 2rem; height: 2.6rem; }
+    @page { size: A4; margin: 11mm 13mm; }
+  }
   .srcbadge { display: inline-block; font-size: .72rem; font-weight: 600; border-radius: 999px; padding: .08rem .55rem; white-space: nowrap; background: var(--gold-soft); color: #7A5F26; }
   .srcbadge.s-owner { background: var(--green-soft); color: var(--green); }
   .srcbadge.s-yui { background: var(--gold-soft); color: #7A5F26; }
@@ -1088,7 +1124,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 05:40 · ศูนย์บริการ + รหัสกู้คืน": "App version 20 Oct 05:40 · Service center + recovery code",
+"เวอร์ชันแอป 20 ต.ค. 06:10 · คู่มือต่องาน + ตั้งรหัสเอง": "App version 20 Oct 06:10 · Manual per screen + set your own code",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1119,6 +1155,18 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ออกเอกสาร": "Issue manual",
+"เอกสารคู่มือ 1 ชุดต่อ 1 งาน: ปุ่ม \"ออกเอกสาร\" ในแต่ละบัญชีใส่อีเมลให้เอง มีช่องว่างให้เขียนเลขรหัสกู้คืนด้วยมือ · หรือเปิดฉบับว่าง:": "One manual per screen: the \"Issue manual\" button on each account fills in the email and leaves boxes to write the recovery code by hand · or open a blank copy:",
+"งานคุณยุ้ย": "Khun Yui's screen",
+"งานหลังร้าน": "Back office",
+"ตั้งเลข 8 หลักเอง (เช่นเลขที่คุณฟารีดาจะเขียนลงเอกสาร) หรือกด \"สุ่มให้\" ให้ระบบสุ่มเลขให้": "Type an 8-digit number yourself (for example the one you will write on the manual) or tap \"Randomize\" and the system picks one.",
+"เลขรหัสกู้คืน (8 หลัก)": "Recovery code (8 digits)",
+"บัญชีนี้มีรหัสกู้คืนอยู่แล้ว ออกใหม่จะทำให้รหัสเดิมใช้ไม่ได้อีก": "This account already has a recovery code. Issuing a new one makes the old one stop working.",
+"ตั้งตามเลขที่ใส่": "Set the number I typed",
+"สุ่มให้": "Randomize",
+"พิมพ์ / บันทึกเป็น PDF": "Print / Save as PDF",
+"แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · เขียนลงในช่องของเอกสาร (กด \"ออกเอกสาร\") แล้วส่งให้เจ้าของบัญชีเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้": "Shown once; you will not see it again after closing this. Write it in the box on the manual (tap \"Issue manual\") and give it to the account owner to keep (it is not the password). Single use; 5 wrong tries lock it for 30 minutes. Do not keep a screenshot.",
+"เลขนี้ง่ายเกินไป (ซ้ำกันหมดหรือเรียงกัน) เลือกเลขอื่น": "That number is too easy to guess (all the same or in a row). Pick another.",
 "ส่งคำขอไปศูนย์บริการ": "Send request to the service center",
 "มีรหัสกู้คืนส่วนตัว (คีย์ลัด)": "I have a personal recovery code (shortcut)",
 "ตั้งรหัสใหม่ด้วยรหัสกู้คืน": "Set a new password with a recovery code",
@@ -1130,7 +1178,7 @@ Object.assign(EN, {
 "กรอกผิดหลายครั้ง ล็อกไว้ชั่วคราว รอ {0} นาที หรือขอผ่านศูนย์บริการ IMCB2Help": "Too many wrong tries, temporarily locked. Wait {0} minutes or ask through the IMCB2Help service center.",
 "อีเมลหรือรหัสกู้คืนไม่ถูกต้อง · เหลืออีก {0} ครั้งก่อนล็อก": "Email or recovery code is wrong · {0} tries left before it locks",
 "อีเมลหรือรหัสกู้คืนไม่ถูกต้อง หรือยังไม่ได้รับรหัสกู้คืน": "Email or recovery code is wrong, or no recovery code has been issued",
-"รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น": "Personal recovery code (8 digits): issued to the owner in advance. When they forget their password they enter their email + this code on the sign-in page and set a new password at once. Single use; 5 wrong tries lock it for 30 minutes; a new one can only be asked through Khun Fareeda.",
+"รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น · ตั้งเลขเองได้ หรือให้ระบบสุ่ม": "Personal recovery code (8 digits): issued to the owner in advance. When they forget their password they enter their email + this code on the sign-in page and set a new password at once. Single use; 5 wrong tries lock it for 30 minutes; a new one can only be asked through Khun Fareeda. You can type the number yourself or let the system randomize it.",
 "รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)": "Recovery code locked (too many wrong tries)",
 "มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}": "Has a recovery code · issued {0}",
 "ยังไม่มีรหัสกู้คืน": "No recovery code yet",
@@ -1721,7 +1769,7 @@ function trAttrs(el) { if (el.nodeType !== 1) return; for (const a of ['aria-lab
 function trTree(root) {
   if (!isEn() || !root) return;
   if (root.nodeType === 3) { if (TH_RE.test(root.data)) { const o = trStr(root.data); if (o !== root.data) root.data = o; } return; }
-  if (root.nodeType !== 1 || ['SCRIPT', 'STYLE', 'TEXTAREA'].includes(root.tagName)) return;
+  if (root.nodeType !== 1 || ['SCRIPT', 'STYLE', 'TEXTAREA'].includes(root.tagName) || (root.closest && root.closest('[data-notr]'))) return;
   trAttrs(root);
   root.querySelectorAll('[aria-label],[placeholder],[title],[alt]').forEach(trAttrs);
   const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (['SCRIPT', 'STYLE', 'TEXTAREA'].includes(n.parentElement && n.parentElement.tagName) || !TH_RE.test(n.data)) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
@@ -1765,6 +1813,8 @@ const ERR = {
   'Error sending recovery email': 'ส่งอีเมลไม่สำเร็จ (ตัวส่งอีเมลของระบบอาจยังไม่ได้ตั้งค่า) กรุณาแจ้งผู้บริหาร',
   account_not_found: 'ไม่พบบัญชีอีเมลนี้',
   too_many_requests: 'มีคำขอเข้ามามากเกินไป รอสักครู่แล้วลองใหม่',
+  weak_code: 'เลขนี้ง่ายเกินไป (ซ้ำกันหมดหรือเรียงกัน) เลือกเลขอื่น',
+  bad_code: 'รหัสกู้คืนต้องเป็นเลข 8 หลัก',
   request_not_pending: 'คำขอนี้ถูกจัดการไปแล้ว',
   request_not_found: 'ไม่พบคำขอนี้แล้ว',
   bad_email: 'อีเมลไม่ถูกต้อง',
@@ -2554,9 +2604,10 @@ V.exec = () => {
     req: reqRoom,
     acc: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">อีเมลผู้บริหาร</h2><div class="kv"><span>${esc(S.exec.email)}<br><span class="muted">บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง</span></span></div></div>${(S.exec.accounts || []).length ? `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">บัญชีของร้าน · ตั้งรหัสชั่วคราวเอง</h2>
       <p class="muted" style="margin:0 0 .5rem">ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า</p>
-      ${S.exec.recovery ? '<p class="muted" style="margin:0 0 .5rem">รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น</p>' : ''}
-      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email); return `<div class="kv"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
-        <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button>${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
+      <p class="muted" style="margin:0 0 .5rem">เอกสารคู่มือ 1 ชุดต่อ 1 งาน: ปุ่ม "ออกเอกสาร" ในแต่ละบัญชีใส่อีเมลให้เอง มีช่องว่างให้เขียนเลขรหัสกู้คืนด้วยมือ · หรือเปิดฉบับว่าง: <button class="back" data-act="exec-doc" data-kind="yui">งานคุณยุ้ย</button> · <button class="back" data-act="exec-doc" data-kind="owner">งานหลังร้าน</button></p>
+      ${S.exec.recovery ? '<p class="muted" style="margin:0 0 .5rem">รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านคุณฟารีดาเท่านั้น · ตั้งเลขเองได้ หรือให้ระบบสุ่ม</p>' : ''}
+      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email); return `<div class="kv accrow"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
+        <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${esc(a.email)}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
     icons: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ชุดไอคอนชุดที่ 1</h2>
       <p class="muted" style="margin:0 0 .6rem">ไอคอนชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เริ่มใช้ 20 ต.ค. · เก็บไว้ให้ใช้ซ้ำกับป้าย เมนู และสื่อของร้าน · เส้นหนา 2 มุมมน สีเขียวร้าน</p>
       <button class="btn sm" data-act="icon-dl-all">${I.box} โหลดทั้งชุดเป็นไฟล์เดียว</button>
@@ -3193,7 +3244,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 05:40 · ศูนย์บริการ + รหัสกู้คืน';
+const APP_VERSION = '20 ต.ค. 06:10 · คู่มือต่องาน + ตั้งรหัสเอง';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3209,6 +3260,68 @@ function askSheet(cli, email) {
     <label class="field"><span>อีเมลของบัญชีที่ลืมรหัส</span><input id="fp-email" type="email" inputmode="email" autocomplete="username" value="${esc(email || '')}"></label>
     <div class="actions"><button class="btn" style="flex:1" data-act="fp-ask" data-cli="${cli}">ส่งคำขอไปศูนย์บริการ</button><button class="btn ghost" data-act="close">ปิด</button></div>
     <button class="back" style="display:block;margin:.8rem auto 0" data-act="fp-rec" data-cli="${cli}">มีรหัสกู้คืนส่วนตัว (คีย์ลัด)</button>`);
+}
+// ---- Printable manual, one set per work (Khun Yui's screen / back office). Thai only; the blank boxes are filled in by hand by the executive.
+const DOCS = {
+  yui: { title: 'งานคุณยุ้ย', sub: 'จอคุณยุ้ย · ดูบอร์ดออเดอร์สดและยอดวันนี้', hash: '#/yui', owner: 'คุณยุ้ย',
+    what: 'หน้าจอนี้ดูอย่างเดียว เห็นออเดอร์ที่เข้ามาแบบสด ยอดวันนี้ และรายการอาหารที่ขายวันนี้ แก้เมนูหรือราคาไม่ได้',
+    pwPath: 'เลื่อนลงล่างสุดของหน้าจอ กดปุ่ม <b>เปลี่ยนรหัสผ่าน</b>' },
+  owner: { title: 'งานหลังร้าน', sub: 'เจ้าของร้าน · ออเดอร์ เมนู สรุปวัน ประวัติรายได้', hash: '#/owner', owner: 'เจ้าของร้าน',
+    what: 'หน้าจอนี้ใช้รับออเดอร์ เปิด-ปิดร้าน จัดการเมนูและราคา ดูสรุปวันและประวัติรายได้',
+    pwPath: 'กดแท็บ <b>โปรไฟล์</b> (ล่างสุด ขวามือ) แล้วกด <b>เปลี่ยนรหัสผ่าน</b>' }
+};
+function docHtml(kind, email) {
+  const D = DOCS[kind], url = location.origin.replace('null', '') + location.pathname + D.hash;
+  const line = (w) => `<span class="dl-line" style="min-width:${w}"></span>`;
+  const boxes = '<span class="dl-boxes">' + '<i></i>'.repeat(4) + '<b>–</b>' + '<i></i>'.repeat(4) + '</span>';
+  return `<div class="dl-page" lang="th">
+    <div class="dl-brand">ร้านส้มตำครกระเบิด คุณยุ้ย · ตลาดคุณยิ้ม สาขาอุดมสุข</div>
+    <h1>คู่มือใช้งาน · ${D.title}</h1>
+    <p class="dl-sub">${D.sub}</p>
+    <p style="margin:.2rem 0 .5rem">${D.what}</p>
+    <h2>ข้อมูลบัญชีของคุณ</h2>
+    <table class="dl-info">
+      <tr><th>ชื่องาน</th><td>${D.title} (${D.owner})</td></tr>
+      <tr><th>อีเมลเข้าใช้งาน</th><td>${email ? '<b>' + esc(email) + '</b>' : line('16rem')}</td></tr>
+      <tr><th>ลิงก์เข้าใช้งาน</th><td>${esc(url)}</td></tr>
+      <tr><th>รหัสผ่าน</th><td>คุณฟารีดาแจ้งให้ทางโทรหรือไลน์ (ไม่เขียนไว้ในเอกสารนี้)</td></tr>
+    </table>
+    <h2>1. เข้าใช้งาน</h2>
+    <ol class="dl-step"><li>เปิดลิงก์ด้านบนในมือถือ (ใช้ Chrome หรือ Safari)</li>
+      <li>ใส่อีเมลและรหัสผ่าน แล้วกด <b>เข้าสู่ระบบ</b></li>
+      <li>เพิ่มลงหน้าจอหลักจะเปิดสะดวก: iPhone กดปุ่มแชร์ แล้ว <b>เพิ่มไปยังหน้าจอโฮม</b> · Android กดเมนู ⋮ แล้ว <b>ติดตั้งแอป</b></li></ol>
+    <h2>2. เปลี่ยนรหัสผ่านเอง (ตอนที่ยังจำรหัสเดิมได้)</h2>
+    <ol class="dl-step"><li>${D.pwPath}</li>
+      <li>ใส่รหัสเดิม แล้วใส่รหัสใหม่ 2 ครั้ง (อย่างน้อย 8 ตัว)</li>
+      <li>เปลี่ยนต่อเนื่องได้ 3 ครั้ง ครบแล้วต้องรอ 30 นาทีจึงเปลี่ยนได้อีก</li></ol>
+    <h2>3. ลืมรหัสผ่าน (มี 2 ทาง)</h2>
+    <p style="margin:.1rem 0"><b>ทาง ก · ใช้รหัสกู้คืนส่วนตัว (เร็วที่สุด)</b> ใช้เมื่อมีเลข 8 หลักในกล่องข้อ 4</p>
+    <ol class="dl-step"><li>ที่หน้าเข้าสู่ระบบ กด <b>ลืมรหัสผ่าน?</b></li>
+      <li>กด <b>มีรหัสกู้คืนส่วนตัว (คีย์ลัด)</b></li>
+      <li>ใส่อีเมล เลข 8 หลักจากกล่องข้อ 4 และรหัสผ่านใหม่ 2 ครั้ง แล้วกด <b>ตั้งรหัสใหม่</b></li>
+      <li>เข้าระบบได้ทันที · เลขนี้ใช้ได้ครั้งเดียว ใช้แล้วต้องขอเลขใหม่จากคุณฟารีดา</li></ol>
+    <p style="margin:.3rem 0 .1rem"><b>ทาง ข · ส่งคำขอไปศูนย์บริการ IMCB2Help</b> ใช้เมื่อไม่มีเลขหรือเลขหาย</p>
+    <ol class="dl-step"><li>ที่หน้าเข้าสู่ระบบ กด <b>ลืมรหัสผ่าน?</b> ใส่อีเมล แล้วกด <b>ส่งคำขอไปศูนย์บริการ</b></li>
+      <li>หน้าจอจะขึ้นเลข 6 หลัก ให้โทรหรือไลน์บอกเลขนี้กับคุณฟารีดา เพื่อยืนยันว่าเป็นคุณ</li>
+      <li>คุณฟารีดากดส่ง รหัสชั่วคราวจะขึ้นบนหน้าจอคุณเอง (ภายในไม่กี่วินาที) กด <b>เข้าสู่ระบบด้วยรหัสนี้</b></li>
+      <li>แอปให้ตั้งรหัสผ่านใหม่ของคุณเองทันที · คำขออยู่ได้ 10 นาที หมดแล้วกดขอใหม่</li></ol>
+    <div class="dl-key">
+      <h2>4. รหัสกู้คืนส่วนตัวของ${D.owner} (ผู้ออกเอกสารเขียนเอง)</h2>
+      ${boxes}
+      <div>วันที่ออกรหัส ${line('3.5rem')} / ${line('3.5rem')} / ${line('4.5rem')} &nbsp; ผู้ออก คุณฟารีดา (ศูนย์บริการ IMCB2Help)</div>
+    </div>
+    <div class="dl-warn"><b>ข้อควรจำ</b>
+      <ul><li>เก็บเอกสารนี้ไว้ที่ปลอดภัย อย่าถ่ายรูปส่งต่อ และอย่าบอกเลขกับคนอื่น</li>
+        <li>ใส่เลขผิด 5 ครั้งจะถูกล็อก 30 นาที · ใช้เลขสำเร็จแล้วเลขนั้นหมดอายุทันที</li>
+        <li>ศูนย์บริการไม่ขอรหัสผ่านของคุณทางโทรหรือไลน์ ขอแค่เลข 6 หลักที่ขึ้นบนจอตอนส่งคำขอ</li></ul></div>
+    <div class="dl-foot">ติดต่อศูนย์บริการ IMCB2Help (คุณฟารีดา) โทร/ไลน์ ${line('11rem')}</div>
+  </div>`;
+}
+function docOpen(kind, email) {
+  closeModal(); const old = document.getElementById('doclayer'); if (old) old.remove();
+  const el = document.createElement('div'); el.id = 'doclayer'; el.setAttribute('data-notr', ''); el.setAttribute('lang', 'th');
+  el.innerHTML = `<div class="dl-bar"><button class="btn sm" data-act="doc-print">พิมพ์ / บันทึกเป็น PDF</button><button class="btn ghost sm" data-act="doc-close">ปิด</button><span>กดพิมพ์ แล้วเลือก "บันทึกเป็น PDF" เพื่อส่งให้ทางไลน์ได้</span></div>${docHtml(kind, email)}`;
+  document.body.appendChild(el); el.scrollTop = 0;
 }
 // Shortcut: the owner enters the personal recovery code the executive issued earlier (8 digits, single use) and sets a new password at once.
 function recSheet(cli, email) {
@@ -3658,18 +3771,28 @@ document.addEventListener('click', async (e) => {
       });
       break; }
     case 'exec-rc-issue': {
-      if (d.has === '1' && !window.confirm(`ออกรหัสกู้คืนใหม่ให้ ${d.email} ?\nรหัสกู้คืนเดิมจะใช้ไม่ได้อีก`)) break;
-      await act(async () => {
-        const { data, error } = await sbx.rpc('exec_issue_recovery_code', { p_email: d.email });
-        if (error) throw error;
-        const c = String(data.code), shown = c.slice(0, 4) + ' ' + c.slice(4);
-        openModal(`<h3>รหัสกู้คืนของ ${esc(data.email)}</h3>
-          <div style="font:600 2rem/1.2 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-align:center;padding:.9rem;border:2px dashed var(--green);border-radius:12px;margin:.6rem 0;user-select:all">${esc(shown)}</div>
-          <p class="muted">แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · บอกเจ้าของบัญชีให้จดเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ตอนลืมรหัสผ่านให้กด "มีรหัสกู้คืนส่วนตัว" ที่หน้าลืมรหัส · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้</p>
-          <div class="actions"><button class="btn ghost" style="flex:1" data-act="copy-tmp" data-v="${esc(c)}">คัดลอกรหัส</button><button class="btn" data-act="close">ปิด</button></div>`);
-        await loadExec(); render('exec');
-      });
+      openModal(`<h3>รหัสกู้คืนของ ${esc(d.email)}</h3>
+        <p class="muted" style="margin-top:0">ตั้งเลข 8 หลักเอง (เช่นเลขที่คุณฟารีดาจะเขียนลงเอกสาร) หรือกด "สุ่มให้" ให้ระบบสุ่มเลขให้</p>
+        <label class="field"><span>เลขรหัสกู้คืน (8 หลัก)</span><input id="rc-set" inputmode="numeric" autocomplete="off" maxlength="12" placeholder="0000 0000"></label>
+        ${d.has === '1' ? '<p class="muted" style="margin:0 0 .6rem">บัญชีนี้มีรหัสกู้คืนอยู่แล้ว ออกใหม่จะทำให้รหัสเดิมใช้ไม่ได้อีก</p>' : ''}
+        <div class="actions"><button class="btn" style="flex:1" data-act="exec-rc-go" data-mode="set" data-email="${esc(d.email)}">ตั้งตามเลขที่ใส่</button><button class="btn ghost" data-act="exec-rc-go" data-mode="rand" data-email="${esc(d.email)}">สุ่มให้</button></div>
+        <button class="back" style="display:block;margin:.8rem auto 0" data-act="close">ยกเลิก</button>`);
       break; }
+    case 'exec-rc-go': await act(async () => {
+      let code = null;
+      if (d.mode === 'set') { code = (($('#rc-set') || {}).value || '').replace(/\D/g, ''); if (code.length !== 8) throw new Error('bad_code'); }
+      const { data, error } = await sbx.rpc('exec_issue_recovery_code', { p_email: d.email, p_code: code });
+      if (error) throw error;
+      const c = String(data.code), shown = c.slice(0, 4) + ' ' + c.slice(4), acc = (S.exec.accounts || []).find(x => x.email === data.email);
+      openModal(`<h3>รหัสกู้คืนของ ${esc(data.email)}</h3>
+        <div style="font:600 2rem/1.2 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-align:center;padding:.9rem;border:2px dashed var(--green);border-radius:12px;margin:.6rem 0;user-select:all">${esc(shown)}</div>
+        <p class="muted">แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · เขียนลงในช่องของเอกสาร (กด "ออกเอกสาร") แล้วส่งให้เจ้าของบัญชีเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้</p>
+        <div class="actions"><button class="btn" style="flex:1" data-act="exec-doc" data-email="${esc(data.email)}" data-kind="${acc && acc.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button><button class="btn ghost" data-act="copy-tmp" data-v="${esc(c)}">คัดลอกรหัส</button><button class="btn ghost" data-act="close">ปิด</button></div>`);
+      await loadExec(); render('exec');
+    }); break;
+    case 'exec-doc': docOpen(d.kind === 'owner' ? 'owner' : 'yui', d.email || ''); break;
+    case 'doc-print': window.print(); break;
+    case 'doc-close': { const el = document.getElementById('doclayer'); if (el) el.remove(); break; }
     case 'exec-rc-revoke': {
       if (!window.confirm(`ยกเลิกรหัสกู้คืนของ ${d.email} ?`)) break;
       await act(async () => { const { error } = await sbx.rpc('exec_revoke_recovery_code', { p_email: d.email }); if (error) throw error; await loadExec(); render('exec'); }, 'ยกเลิกรหัสกู้คืนแล้ว');
