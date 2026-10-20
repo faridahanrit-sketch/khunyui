@@ -1225,7 +1225,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 20:15 · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 21:00 · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -2427,7 +2427,7 @@ const canReorder = (o) => o && o.status === 'cancelled' && o.cancel_source === '
 
 // ---------------- router ----------------
 const route = () => (location.hash.replace(/^#\/?/, '').split('?')[0] || '').split('/').filter(Boolean);
-const go = (h) => { if (location.hash === h) show(); else location.hash = h; };
+const go = (h) => { if (location.hash.split('?')[0] === h.split('?')[0] && !h.includes('?')) show(); else location.hash = h; };
 window.addEventListener('hashchange', () => show());
 
 // ---- Door lock: a home-screen app opens with ?door=exec | shop | yui. From then on this window stays in that work:
@@ -2453,8 +2453,17 @@ function applyIdentity(r0) {
   if (document.title !== x.t) document.title = x.t;
 }
 
+// iPhone saves the address that is open when 'Add to Home Screen' is tapped, so the work's tag (?door=) must stay in the address on every page of that work.
+function stampDoor(r0) {
+  try {
+    if (!DOOR_LOCK || !['exec', 'owner', 'yui'].includes(r0) || doorParam() === DOOR_LOCK) return;
+    const h = location.hash.replace(/([?&])door=[A-Za-z]*&?/, '$1').replace(/[?&]$/, '');
+    history.replaceState(history.state, '', location.pathname + location.search + h + (h.includes('?') ? '&' : '?') + 'door=' + DOOR_LOCK);
+  } catch (_) {}
+}
 async function show() {
-  const r = route(); applyIdentity(r[0]); closeModal(); { const sl = document.getElementById('simlayer'); if (sl) sl.remove(); }
+  { const q = doorParam(); if (q !== null) setDoorLock(q); }
+  const r = route(); stampDoor(r[0]); applyIdentity(r[0]); closeModal(); { const sl = document.getElementById('simlayer'); if (sl) sl.remove(); }
   // the layout width is chosen in CSS from this marker (phone column by default; wider panels on laptops)
   document.documentElement.dataset.view = ({ owner: 'owner', exec: 'exec', yui: 'yui', login: 'yui' })[r[0]] || (r[0] ? 'cust' : 'yui');
   if (r[0] !== 'yui') leaveYui();
@@ -4038,7 +4047,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 20:15 · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 21:00 · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
