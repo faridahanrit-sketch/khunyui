@@ -514,6 +514,11 @@
   details.hq { border-bottom: 1px solid var(--line); padding: .55rem 0; } details.hq p { margin: .4rem 0 0; font-size: .92rem; line-height: 1.55; }
   .vchip { display: inline-flex; align-items: center; gap: .25rem; font-size: .75rem; border-radius: 999px; padding: .08rem .55rem; margin-left: .3rem; background: var(--gold-soft); color: #7A5F26; vertical-align: middle; }
   .vchip.on { background: #E1EFE5; color: #0E6B3D; } .vchip svg { width: .95rem; height: .95rem; }
+  .gate-head { text-align: center; padding: 2.4rem 1rem 1rem; }
+  .gate-head .bmark { width: 88px; height: 88px; display: block; margin: 0 auto .7rem; }
+  .gate-head .gname { font-family: "Taviraj", serif; font-weight: 600; font-size: 2rem; color: var(--green); letter-spacing: .01em; }
+  .gate-hint { text-wrap: balance; text-align: center; margin: .9rem 1rem 0; font-size: .85rem; color: var(--muted, #6b6b5f); line-height: 1.6; }
+  .gate-hint b { color: var(--green); font-weight: 600; }
   .chathead { display: flex; align-items: center; gap: .65rem; margin: -.2rem 0 .7rem; padding-bottom: .6rem; border-bottom: 1px solid var(--line); }
   .chathead .av { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font: 700 .7rem/1 system-ui, sans-serif; letter-spacing: .02em; flex: none; }
   .chathead b { display: block; font-size: 1.02rem; } .chathead small { color: var(--muted, #6b6b5f); font-size: .8rem; }
@@ -1148,7 +1153,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 08:40 · ไม่เอ่ยชื่อจริง ใช้ชื่อศูนย์บริการแทน": "App version 20 Oct 08:40 · Real name removed, service-center name used instead",
+"เวอร์ชันแอป 20 ต.ค. 09:10 · ออกจากระบบกลับหน้า IMCB2Help ทางเข้าเดียว": "App version 20 Oct 09:10 · Sign-out returns to the single IMCB2Help door",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1179,6 +1184,13 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ศูนย์บริการ · เข้าสู่ระบบ": "Service center · Sign in",
+"ใช้อีเมลและรหัสผ่านของคุณ ระบบพาไปงานของบัญชีนั้นให้เอง": "Use your email and password. The system takes you to the work of that account.",
+"งานบริหาร": "Executive work",
+"บัญชีนี้ยังไม่ได้รับสิทธิ์เข้าใช้งาน ติดต่อศูนย์บริการ IMCB2Help": "This account has no access yet. Contact the IMCB2Help service center.",
+"เข้างานคุณยุ้ยไม่ได้ ลองใหม่อีกครั้ง": "Could not open Khun Yui's work. Please try again.",
+"เข้างานคุณยุ้ย": "Opening Khun Yui's work",
+"เข้างานหลังร้าน": "Opening back-of-shop work",
 "ศูนย์บริการ IMCB2Help": "IMCB2Help service center",
 "ห้องขอรหัสกู้คืน · ดูแลโดย IMCB2Help": "Recovery-code room · looked after by IMCB2Help",
 "ห้องขอรหัสกู้คืน · ผู้บริหาร": "Recovery-code room · executive",
@@ -2256,11 +2268,12 @@ window.addEventListener('hashchange', () => show());
 async function show() {
   const r = route(); closeModal();
   // the layout width is chosen in CSS from this marker (phone column by default; wider panels on laptops)
-  document.documentElement.dataset.view = ({ owner: 'owner', exec: 'exec', yui: 'yui' })[r[0]] || (r[0] ? 'cust' : 'home');
+  document.documentElement.dataset.view = ({ owner: 'owner', exec: 'exec', yui: 'yui', login: 'yui' })[r[0]] || (r[0] ? 'cust' : 'home');
   if (r[0] !== 'yui') leaveYui();
   try {
     if (r[0] === 'owner') return await showOwner(r[1] || 'orders', r[2]);
     if (r[0] === 'exec') return await showExec();
+    if (r[0] === 'login') return await showGate();
     if (r[0] === 'yui') return await showYui();
     if (!r[0]) { render(); return; }
     await ensureCustomer();
@@ -2965,6 +2978,25 @@ async function ownerMember() {
   const { data } = await sb.from('store_members').select('role, is_active').eq('store_id', CONFIG.store).eq('user_id', user.id).maybeSingle();
   return data && data.is_active ? { ...data, email: user.email } : null;
 }
+// ---- one front door: IMCB2Help sign-in. Every sign-out comes back here; the account decides which work opens (admin -> บริหาร, owner -> หลังร้าน, monitor -> คุณยุ้ย). ----
+const BRAND_MARK = '<svg class="bmark" viewBox="0 0 64 64" role="img" aria-label="IMCB2Help"><circle cx="32" cy="32" r="30" fill="#06412A"/><path d="M32 47C17 37 15 26 21.5 21c4.5-3.4 8.5-1 10.5 3 2-4 6-6.4 10.5-3C49 26 47 37 32 47Z" fill="#F9F8EF"/><path d="M11.500 30A21 21 0 0 1 32 11" fill="none" stroke="#B89A5A" stroke-width="3" stroke-linecap="round"/><path d="M52.500 34A21 21 0 0 1 32 53" fill="none" stroke="#B89A5A" stroke-width="3" stroke-linecap="round"/></svg>';
+async function toYuiIfMonitor() {
+  try {
+    const { data: { session } } = await sb.auth.getSession(); if (!session) return false;
+    const { error } = await sby.auth.setSession({ access_token: session.access_token, refresh_token: session.refresh_token });
+    if (error) return false;
+    await sb.auth.signOut({ scope: 'local' }); S.owner.denied = false;
+    go('#/yui'); return true;
+  } catch (_) { return false; }
+}
+async function gateGo() {
+  if (await toExecIfAdmin(sb)) return;
+  const m = await ownerMember();
+  if (!m) { await hardSignOut(sb, 'khunyui-auth'); throw new Error('บัญชีนี้ยังไม่ได้รับสิทธิ์เข้าใช้งาน ติดต่อศูนย์บริการ IMCB2Help'); }
+  if (m.role === 'monitor') { if (await toYuiIfMonitor()) { toast('เข้างานคุณยุ้ย'); return; } throw new Error('เข้างานคุณยุ้ยไม่ได้ ลองใหม่อีกครั้ง'); }
+  S.owner.denied = false; unlistenAll(); toast('เข้างานหลังร้าน'); go('#/owner/orders');
+}
+async function showGate() { render('gate'); }
 async function showOwner(tab, arg) {
   if (tab === 'login') { render('login'); return; }
   $('#app').innerHTML = '<div class="login-head" style="padding-top:30vh"><div class="serif" style="font-size:1.4rem">คุณยุ้ย</div><div class="spinner"></div><p class="muted">กำลังตรวจสิทธิ์เจ้าของร้าน…</p></div>';
@@ -3060,6 +3092,15 @@ async function loadArchive() {
   }
 }
 
+V.gate = () => `
+  <div class="gate-head">${BRAND_MARK}<div class="gname">IMCB2Help</div><p class="muted" style="margin:.2rem 0 0">ศูนย์บริการ · เข้าสู่ระบบ</p></div>
+  <div class="card">
+    <label class="field"><span>อีเมล</span><input id="gemail" type="email" autocomplete="username" inputmode="email"></label>
+    <label class="field"><span>รหัสผ่าน</span><input id="gpass" type="password" autocomplete="current-password"></label>
+    <button class="btn block" data-act="gate-login">เข้าสู่ระบบ</button>
+    <button class="back" style="display:block;margin:.8rem auto 0" data-act="forgot" data-cli="g">ลืมรหัสผ่าน?</button>
+  </div>
+  <p class="gate-hint">ใช้อีเมลและรหัสผ่านของคุณ ระบบพาไปงานของบัญชีนั้นให้เอง<br><b>งานบริหาร</b> · <b>งานหลังร้าน</b> · <b>งานคุณยุ้ย</b></p>${verLine()}`;
 V.login = () => `
   <div class="topbar"><button class="back" data-go="#/">${I.back} หน้าแรก</button><span></span></div>
   <div class="login-head"><div class="serif">คุณยุ้ย<br>ส้มตำครกระเบิด</div><p class="muted">สำหรับเจ้าของร้าน</p></div>
@@ -3405,7 +3446,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 08:40 · ไม่เอ่ยชื่อจริง ใช้ชื่อศูนย์บริการแทน';
+const APP_VERSION = '20 ต.ค. 09:10 · ออกจากระบบกลับหน้า IMCB2Help ทางเข้าเดียว';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3829,11 +3870,11 @@ document.addEventListener('click', async (e) => {
     case 'exec-login': await act(async () => {
       const { error } = await sbx.auth.signInWithPassword({ email: $('#xemail').value.trim(), password: $('#xpass').value });
       if (error) throw error; await showExec(); }); break;
-    case 'exec-logout': clearInterval(S.exec.t); clearInterval(S.exec.rt); await hardSignOut(sbx, 'khunyui-exec'); S.exec = { state: 'login', data: [], history: [], audit: [], accounts: [], email: '', at: null, t: null, rt: null, room: 'home', reqs: null, reqErr: '', reqSig: '', reqSeen: false, pbusy: false, ctx: null }; await showExec(); break;
+    case 'exec-logout': clearInterval(S.exec.t); clearInterval(S.exec.rt); await hardSignOut(sbx, 'khunyui-exec'); S.exec = { state: 'login', data: [], history: [], audit: [], accounts: [], email: '', at: null, t: null, rt: null, room: 'home', reqs: null, reqErr: '', reqSig: '', reqSeen: false, pbusy: false, ctx: null }; go('#/login'); break;
     case 'yui-login': await act(async () => {
       const { error } = await sby.auth.signInWithPassword({ email: $('#yemail').value.trim(), password: $('#ypass').value });
       if (error) throw error; if (await toExecIfAdmin(sby)) return; SND.unlock(); await showYui(); }); break;
-    case 'yui-logout': leaveYui(); await hardSignOut(sby, 'khunyui-yui'); S.yui = { ...S.yui, state: 'login', board: null, orders: [], email: '', alerts: [], feed: [], fresh: null, live: null, seen: new Set(), at: null }; await showYui(); break;
+    case 'yui-logout': leaveYui(); await hardSignOut(sby, 'khunyui-yui'); S.yui = { ...S.yui, state: 'login', board: null, orders: [], email: '', alerts: [], feed: [], fresh: null, live: null, seen: new Set(), at: null }; go('#/login'); break;
     case 'snd-toggle': { const sc = d.surface, v = !SND.on(sc); SND.set(sc, v); SND.unlock();
       document.querySelectorAll(`.sndbtn[data-surface="${sc}"]`).forEach(b => b.outerHTML = sndBtn(sc)); trTree($('#app'));
       if (v) { SND.play(sc === 'cust' ? 'status' : sc === 'exec' ? 'request' : 'order', sc); toast('เปิดเสียงแจ้งเตือนแล้ว'); } else toast('ปิดเสียงแจ้งเตือนแล้ว'); break; }
@@ -3901,11 +3942,11 @@ document.addEventListener('click', async (e) => {
       if (si.error) throw si.error;
       S.fp = null; S.must = { o: false, y: false }; S.owner.denied = false;
       closeModal(); toast('ตั้งรหัสใหม่แล้ว · เครื่องอื่นของบัญชีนี้ออกจากระบบแล้ว');
-      await show();
+      if (d.cli === 'g') await gateGo(); else await show();
     }); break;
     case 'fp-use': {
       const w = S.fp || {}; closeModal();
-      const ids = w.cli === 'y' ? ['#yemail', '#ypass', '[data-act=yui-login]'] : ['#email', '#password', '[data-act=login]'];
+      const ids = w.cli === 'y' ? ['#yemail', '#ypass', '[data-act=yui-login]'] : w.cli === 'g' ? ['#gemail', '#gpass', '[data-act=gate-login]'] : ['#email', '#password', '[data-act=login]'];
       if ($(ids[0]) && w.tmp) { $(ids[0]).value = w.email; $(ids[1]).value = w.tmp; const b = $(ids[2]); S.fp = null; if (b) b.click(); }
       break; }
     case 'icon-dl': { const [nm, svg] = iconKey(d.k); if (svg) { const ok = iconSave(iconFile(d.k) + '.svg', iconSvg(svg), 'image/svg+xml'); toast(ok ? 'โหลดไฟล์ ' + iconFile(d.k) + '.svg แล้ว' : 'โหลดไม่ได้ ลองเปิดแอปในเบราว์เซอร์'); } break; }
@@ -3953,7 +3994,7 @@ document.addEventListener('click', async (e) => {
       try { localStorage.removeItem(RESET_KEY); } catch (_) {}
       S.fp = null; S.must = { o: false, y: false }; S.owner.denied = false;
       closeModal(); toast('ตั้งรหัสใหม่แล้ว · เครื่องอื่นของบัญชีนี้ออกจากระบบแล้ว');
-      await show();
+      if (d.cli === 'g') await gateGo(); else await show();
     }); break;
     case 'exec-reset': {
       if (!window.confirm(`ตั้งรหัสชั่วคราวให้ ${d.email} ?\nบัญชีนี้จะถูกออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้าใช้งาน`)) break;
@@ -4101,6 +4142,10 @@ document.addEventListener('click', async (e) => {
     }
     case 'cust-cancel': await act(async () => { await rpc('cancel_order', { p_order_id: d.id, p_cancel_reason: null }); await loadMyOrders(); render(); }, 'ยกเลิกออเดอร์แล้ว'); break;
 
+    case 'gate-login': await act(async () => {
+      const { error } = await sb.auth.signInWithPassword({ email: $('#gemail').value.trim(), password: $('#gpass').value });
+      if (error) throw error; SND.unlock(); await gateGo();
+    }); break;
     case 'login': await act(async () => {
       const { error } = await sb.auth.signInWithPassword({ email: $('#email').value.trim(), password: $('#password').value });
       if (error) throw error; if (await toExecIfAdmin(sb)) return; S.owner.denied = false; unlistenAll(); go('#/owner/orders');
@@ -4228,7 +4273,7 @@ document.addEventListener('click', async (e) => {
       }, 'บันทึกแล้ว · ลูกค้าเห็นทันที');
       break;
     }
-    case 'logout': await hardSignOut(sb, 'khunyui-auth'); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/owner'); break;
+    case 'logout': await hardSignOut(sb, 'khunyui-auth'); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/login'); break;
     case 'close': case 'scrim': closeModal(); if (route()[0] === 'owner' && S.owner.tab === 'menu') render('owner'); break;
   }
 });
