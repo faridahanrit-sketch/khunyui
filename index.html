@@ -811,6 +811,13 @@
   .accsteps { margin-top: .5rem; } .accsteps .secrow:last-child { border-bottom: 0; }
   .acct-f { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: .6rem; padding-top: .6rem; border-top: 1px dashed var(--line); }
   .docrow { padding: .6rem 0; border-top: 1px solid var(--line); display: grid; gap: .15rem; } .docrow:first-of-type { border-top: 0; }
+  .evl-f { display: flex; flex-wrap: wrap; gap: .3rem; margin: .4rem 0 .6rem; } .evl-f button { font: inherit; font-size: .78rem; border: 1px solid var(--line); background: #fff; color: var(--green); border-radius: 999px; padding: .15rem .65rem; cursor: pointer; } .evl-f button.on { background: var(--green); color: #fff; border-color: var(--green); }
+  .evl-d { margin: .8rem 0 .2rem; font-weight: 600; color: var(--green); font-size: .9rem; }
+  .evl-r { padding: .5rem 0; border-top: 1px solid var(--line); display: grid; gap: .15rem; } .evl-d + .evl-r { border-top: 0; }
+  .evl-h { display: flex; flex-wrap: wrap; gap: .3rem .4rem; align-items: baseline; } .evl-h b { font-weight: 600; } .evl-t { font-size: .78rem; color: var(--muted); }
+  .evl-lv { font-size: .7rem; border-radius: 999px; padding: .05rem .5rem; background: var(--green-soft); color: var(--green); white-space: nowrap; } .evl-lv.real { background: var(--green); color: #fff; } .evl-lv.unverified { background: var(--gold-soft); color: #7A5F26; } .evl-lv.simulated { background: #E8EEF3; color: #3B566B; }
+  .evl-e { font-size: .84rem; word-break: break-word; } .evl-fix { font-size: .74rem; color: var(--muted); }
+  .evl-tb { width: 100%; border-collapse: collapse; font-size: .92em; } .evl-tb th, .evl-tb td { text-align: left; vertical-align: top; padding: .3rem .4rem .3rem 0; border-bottom: 1px dotted #bbb; } .evl-tb th { color: var(--green); }
   .dr-h { display: flex; flex-wrap: wrap; gap: .3rem .4rem; align-items: center; } .dr-a { word-break: break-all; } .dr-m { font-size: .85rem; padding: .1rem 0; word-break: break-all; }
 </style>
 </head>
@@ -1234,7 +1241,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 22:50 · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 23:50 · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 23:50 · Work evidence timeline in the history room (file 046) · Printed manuals with recovery number and document number + manual register · Accounts room as easy step cards · Work code in every link (iPhone install opens the right work) · Links room with 4 works · Separate icons and installers for 4 works · Work locked by the code in the link (?door=) · Scan help sheet with 3 steps + \"scan not working\" page · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · Menu styles · 3 QR designs · Customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1270,6 +1277,38 @@ Object.assign(EN, {
 "ทุกครั้งที่กด \"ออกเอกสาร\" ให้บัญชีหนึ่ง ระบบจดไว้ว่างานอะไร ตลาดไหน สาขาไหน และใครอยู่ในร้านนั้น · ไม่เก็บตัวเลขรหัสกู้คืน": "Each time you tap \"Issue manual\" for an account, the system records which work, which market, which branch and who is in that shop · the recovery number itself is never stored",
 "ยังไม่ได้ติดตั้งไฟล์ 045 ในฐานข้อมูล ระบบจึงยังไม่เก็บทะเบียนเอกสาร": "File 045 is not installed in the database yet, so the register is not kept",
 "ยังไม่มีเอกสารที่ออก": "No manuals issued yet",
+"ไทม์ไลน์หลักฐานงาน": "Work evidence timeline",
+"ว่าเราทำอะไรกันมาแล้วบ้าง บอกระดับหลักฐานทุกแถว · เพิ่มต่อท้ายอย่างเดียว แก้หรือลบไม่ได้ · ที่ตรวจไม่ได้เขียนว่า \"ยังยืนยันไม่ได้\" ไม่เดา": "What we have done so far, with an evidence level on every row · append-only, rows cannot be edited or deleted · anything that cannot be checked says \"Not verified\" and is never guessed",
+"เพิ่มหลักฐาน": "Add evidence",
+"พิมพ์": "Print",
+"ทำแล้ว": "Delivered",
+"ติดตั้งแล้ว": "Installed",
+"ทดสอบจำลอง": "Simulated test",
+"ยืนยันบนเครื่องจริง": "Confirmed on a real device",
+"ยังยืนยันไม่ได้": "Not verified",
+"แก้ไขแถว:": "Corrects row:",
+"ย้อนหลังจากเอกสาร": "Back-filled from the evidence document",
+"บันทึกโดย": "Recorded by",
+"แก้ไขโดยเพิ่มแถวใหม่": "Correct by adding a new row",
+"ไม่มีรายการในระดับนี้": "No rows at this level",
+"ยังไม่ได้ติดตั้งไฟล์ 046 ในฐานข้อมูล ระบบจึงยังไม่เก็บทะเบียนหลักฐานงาน": "File 046 is not installed in the database, so the evidence register is not kept yet",
+"ประวัติและหลักฐานงาน": "History and work evidence",
+"ไทม์ไลน์หลักฐานงาน ทะเบียนเอกสาร และใครทำอะไร เมื่อไหร่": "Work evidence timeline, manual register, and who did what when",
+"แถวเดิม:": "Original row:",
+"แถวเดิมไม่ถูกลบ แถวใหม่จะบอกว่าแก้ไขแถวนี้": "The original row is not deleted; the new row says it corrects this one",
+"เพิ่มได้อย่างเดียว บันทึกแล้วแก้หรือลบไม่ได้ ถ้าผิดให้เพิ่มแถวแก้ไข": "Add only. Once saved it cannot be edited or deleted. If it is wrong, add a correcting row",
+"วันที่": "Date",
+"เวลา (ไม่ใส่ก็ได้ เช่น 16:43)": "Time (optional, e.g. 16:43)",
+"ทำหรือยืนยันอะไร": "What was done or confirmed",
+"ระดับหลักฐาน": "Evidence level",
+"หลักฐานที่อ้าง (ชื่อไฟล์ ผลตรวจ หรือใครยืนยัน)": "Evidence cited (file name, check result, or who confirmed)",
+"ตรวจหลักฐานไม่ได้ ให้เลือก \"ยังยืนยันไม่ได้\" แทนการเดา": "If the evidence cannot be checked, choose \"Not verified\" instead of guessing",
+"บันทึกหลักฐานแล้ว": "Evidence saved",
+"ใส่วันที่ก่อน": "Enter the date first",
+"ใส่ว่าทำหรือยืนยันอะไรก่อน": "Enter what was done or confirmed first",
+"เลือกระดับหลักฐานก่อน": "Choose an evidence level first",
+"ไม่พบแถวที่จะแก้ไข": "The row to correct was not found",
+"ทะเบียนหลักฐานแก้หรือลบแถวเดิมไม่ได้ ให้เพิ่มแถวแก้ไขแทน": "The evidence register cannot edit or delete existing rows; add a correcting row instead",
 "มีเลขรหัสพิมพ์ลงเอกสาร": "Recovery number printed on the manual",
 "ไม่มีเลขรหัส (เขียนมือ)": "No number printed (write by hand)",
 "ออกโดย": "Issued by",
@@ -2122,6 +2161,11 @@ const ERR = {
   too_many_requests: 'มีคำขอเข้ามามากเกินไป รอสักครู่แล้วลองใหม่',
   weak_code: 'เลขนี้ง่ายเกินไป (ซ้ำกันหมดหรือเรียงกัน) เลือกเลขอื่น',
   bad_code: 'รหัสกู้คืนต้องเป็นเลข 8 หลัก',
+  bad_date: 'ใส่วันที่ก่อน',
+  bad_title: 'ใส่ว่าทำหรือยืนยันอะไรก่อน',
+  bad_level: 'เลือกระดับหลักฐานก่อน',
+  corrects_not_found: 'ไม่พบแถวที่จะแก้ไข',
+  'append-only': 'ทะเบียนหลักฐานแก้หรือลบแถวเดิมไม่ได้ ให้เพิ่มแถวแก้ไขแทน',
   request_not_pending: 'คำขอนี้ถูกจัดการไปแล้ว',
   request_not_found: 'ไม่พบคำขอนี้แล้ว',
   bad_email: 'อีเมลไม่ถูกต้อง',
@@ -2848,6 +2892,7 @@ async function loadExec() {
   try { const r = await sbx.rpc('exec_list_contacts'); S.exec.contacts = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.contacts = null; }
   try { const r = await sbx.rpc('exec_list_recovery'); S.exec.recovery = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.recovery = null; }   // null = SQL 038 not installed yet
   await loadDocs();
+  await loadEvid();
 }
 // Two-tone chime + vibration when a new reset request arrives (the badge and banner always show; sound needs one tap on the page first)
 function xChime() { SND.play('request', 'exec'); }
@@ -2900,7 +2945,7 @@ const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอร
 const XTITLE = { home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
   icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
-  acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติการแก้ไข', 'ใครทำอะไร เมื่อไหร่'] };
+  acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติและหลักฐานงาน', 'ไทม์ไลน์หลักฐานงาน ทะเบียนเอกสาร และใครทำอะไร เมื่อไหร่'] };
 const RQ_SCREEN = { owner: 'หลังร้าน', yui: 'จอคุณยุ้ย', exec: 'ผู้บริหาร' };
 const RQ_STATE = { not_found: 'ไม่พบอีเมลนี้ในระบบ อาจพิมพ์ผิดหรือเป็นคนอื่นลองขอ · ยังส่งรหัสให้ไม่ได้', admin: 'เป็นบัญชีผู้บริหาร ตั้งรหัสชั่วคราวให้ไม่ได้', not_member: 'อีเมลนี้ไม่ได้เป็นสมาชิกของร้าน · ยังส่งรหัสให้ไม่ได้' };
 const RQ_ST = { pending: 'รออนุมัติ', approved: 'ส่งแล้ว รอหน้าจอรับ', delivered: 'ส่งถึงหน้าจอแล้ว', denied: 'ปฏิเสธ', cancelled: 'ผู้ขอยกเลิก', expired: 'หมดอายุ' };
@@ -3053,7 +3098,11 @@ V.exec = () => {
     money: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">รายได้ย้อนหลัง 30 วัน</h2>
       ${hist.length ? hist.map(h => `<div class="kv"><span>${thDate(ymd(h.business_date))}${stores.length > 1 ? ' · ' + esc(h.store_name) : ''}<br><span class="muted">${n(h.orders_total)} ออเดอร์ · คนสแกน ${n(h.visits_total)}${h.revision > 1 ? ' · แก้ไข ' + (h.revision - 1) : ''}</span></span><b>${baht(h.net_satang)}</b></div>`).join('')
         : '<p class="muted" style="margin:0">ยังไม่มีการสรุปยอด</p>'}</div>`,
-    log: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ทะเบียนเอกสารที่ออก</h2>
+    log: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ไทม์ไลน์หลักฐานงาน</h2>
+      <p class="muted" style="margin:0 0 .4rem">ว่าเราทำอะไรกันมาแล้วบ้าง บอกระดับหลักฐานทุกแถว · เพิ่มต่อท้ายอย่างเดียว แก้หรือลบไม่ได้ · ที่ตรวจไม่ได้เขียนว่า "ยังยืนยันไม่ได้" ไม่เดา</p>
+      <div class="actions" style="margin:0 0 .2rem"><button class="btn sm" data-act="exec-ev-add">เพิ่มหลักฐาน</button><button class="btn ghost sm" data-act="exec-ev-print">พิมพ์</button></div>
+      ${evHtml()}</div>
+      <div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ทะเบียนเอกสารที่ออก</h2>
       <p class="muted" style="margin:0 0 .5rem">ทุกครั้งที่กด "ออกเอกสาร" ให้บัญชีหนึ่ง ระบบจดไว้ว่างานอะไร ตลาดไหน สาขาไหน และใครอยู่ในร้านนั้น · ไม่เก็บตัวเลขรหัสกู้คืน</p>
       ${!Array.isArray(S.exec.docs) ? '<p class="muted" style="margin:0">ยังไม่ได้ติดตั้งไฟล์ 045 ในฐานข้อมูล ระบบจึงยังไม่เก็บทะเบียนเอกสาร</p>'
         : S.exec.docs.length ? S.exec.docs.map(dr => `<div class="docrow"><div class="dr-h"><span class="rq-hcode" data-notr>${esc(dr.doc_no)}</span><span class="chip-s">${esc(dr.work_title)}</span><span class="chip-s ${dr.code_included ? '' : 'wait'}">${dr.code_included ? 'มีเลขรหัสพิมพ์ลงเอกสาร' : 'ไม่มีเลขรหัส (เขียนมือ)'}</span></div>
@@ -4115,7 +4164,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 22:50 · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 23:50 · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4235,6 +4284,48 @@ async function docOpen(kind, email, code) {
 async function loadDocs() {
   try { const r = await sbx.rpc('exec_list_documents', { p_limit: 100 }); S.exec.docs = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.docs = null; }   // null = SQL 045 not installed yet
   if (route()[0] === 'exec' && S.exec.room === 'log' && !document.getElementById('doclayer')) render('exec');
+}
+const EV_LV = [['done', 'ทำแล้ว'], ['installed', 'ติดตั้งแล้ว'], ['simulated', 'ทดสอบจำลอง'], ['real', 'ยืนยันบนเครื่องจริง'], ['unverified', 'ยังยืนยันไม่ได้']];
+const evLabel = (k) => (EV_LV.find(x => x[0] === k) || [k, k])[1];
+async function loadEvid() {
+  try { const r = await sbx.rpc('exec_list_evidence', { p_limit: 500 }); S.exec.evid = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.evid = null; }   // null = SQL 046 not installed yet
+}
+const todayBkk = () => { try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Bangkok' }).format(new Date()); } catch (_) { return new Date().toISOString().slice(0, 10); } };
+function evRows() { const all = Array.isArray(S.exec.evid) ? S.exec.evid : [], f = S.exec.evLv || 'all'; return f === 'all' ? all : all.filter(e => e.level === f); }
+function evHtml() {
+  if (!Array.isArray(S.exec.evid)) return '<p class="muted" style="margin:0">ยังไม่ได้ติดตั้งไฟล์ 046 ในฐานข้อมูล ระบบจึงยังไม่เก็บทะเบียนหลักฐานงาน</p>';
+  const f = S.exec.evLv || 'all', rows = evRows(), byId = {}; S.exec.evid.forEach(e => { byId[e.id] = e; });
+  let last = '';
+  const body = rows.length ? rows.map(e => { const hd = e.happened_on !== last ? `<div class="evl-d">${thDate(ymd(e.happened_on))}</div>` : ''; last = e.happened_on;
+    const c = e.corrects_id && byId[e.corrects_id];
+    return `${hd}<div class="evl-r"><div class="evl-h"><span class="evl-lv ${esc(e.level)}">${esc(evLabel(e.level))}</span>${e.happened_at ? `<span class="evl-t" data-notr>${esc(e.happened_at)}</span>` : ''}<b data-notr>${esc(e.title)}</b></div>
+      ${e.evidence ? `<div class="evl-e muted" data-notr>${esc(e.evidence)}</div>` : ''}
+      ${e.corrects_id ? `<div class="evl-fix"><span>แก้ไขแถว:</span> <span data-notr>${c ? esc(c.title) : ''}</span></div>` : ''}
+      <div class="evl-fix">${e.source === 'backfill' ? '<span>ย้อนหลังจากเอกสาร</span>' : '<span>บันทึกโดย</span> <span data-notr>' + esc(e.recorder_email || '') + '</span>'} · <button class="back" data-act="exec-ev-add" data-corr="${esc(e.id)}">แก้ไขโดยเพิ่มแถวใหม่</button></div></div>`; }).join('')
+    : '<p class="muted" style="margin:0">ไม่มีรายการในระดับนี้</p>';
+  return `<div class="evl-f" role="group" aria-label="กรองตามระดับหลักฐาน"><button class="${f === 'all' ? 'on' : ''}" data-act="exec-ev-filter" data-lv="all"><span>ทั้งหมด</span> <span>${S.exec.evid.length}</span></button>${EV_LV.map(([k, l]) => `<button class="${f === k ? 'on' : ''}" data-act="exec-ev-filter" data-lv="${k}"><span>${l}</span> <span>${S.exec.evid.filter(e => e.level === k).length}</span></button>`).join('')}</div>${body}`;
+}
+function evPrint() {
+  const rows = evRows(); const old = document.getElementById('doclayer'); if (old) old.remove();
+  const el = document.createElement('div'); el.id = 'doclayer'; el.setAttribute('data-notr', ''); el.setAttribute('lang', 'th');
+  const f = S.exec.evLv || 'all';
+  el.innerHTML = `<div class="dl-bar"><button class="btn sm" data-act="doc-print">พิมพ์ / บันทึกเป็น PDF</button><button class="btn ghost sm" data-act="doc-close">ปิด</button><span>${rows.length} รายการ${f === 'all' ? '' : ' · เฉพาะ: ' + esc(evLabel(f))}</span></div>
+    <div class="dl-page"><div class="dl-brand">ศูนย์บริการ IMCB2Help</div><h1>ทะเบียนหลักฐานงาน KHUNYUI</h1><p class="dl-sub">พิมพ์เมื่อ ${thDate(new Date())} ${thTime(new Date())} · ${rows.length} รายการ${f === 'all' ? '' : ' (เฉพาะ: ' + esc(evLabel(f)) + ')'} · เพิ่มต่อท้ายอย่างเดียว แก้หรือลบแถวเดิมไม่ได้</p>
+    <table class="evl-tb"><thead><tr><th>วันที่</th><th>ระดับ</th><th>งาน</th><th>หลักฐาน</th></tr></thead><tbody>${rows.map(e => `<tr><td>${thDate(ymd(e.happened_on))}${e.happened_at ? '<br>' + esc(e.happened_at) : ''}</td><td>${esc(evLabel(e.level))}</td><td>${esc(e.title)}${e.corrects_id ? ' (แก้ไขแถวก่อนหน้า)' : ''}</td><td>${esc(e.evidence || '')}</td></tr>`).join('')}</tbody></table>
+    <p class="dl-foot">ระดับหลักฐาน: ทำแล้ว = มีไฟล์ส่งมอบ · ติดตั้งแล้ว = ตรวจเจอในฐานข้อมูล · ทดสอบจำลอง = ใช้ข้อมูลจำลอง · ยืนยันบนเครื่องจริง = ผู้ใช้ยืนยัน · ยังยืนยันไม่ได้ = ตรวจหลักฐานไม่ได้ ไม่เดา</p></div>`;
+  document.body.appendChild(el); el.scrollTop = 0;
+}
+function evSheet(corr) {
+  const c = corr && (S.exec.evid || []).find(e => e.id === corr);
+  openModal(`<h3>${c ? 'แก้ไขโดยเพิ่มแถวใหม่' : 'เพิ่มหลักฐาน'}</h3>
+    <p class="muted" style="margin-top:0">${c ? '<span>แถวเดิม:</span> <span data-notr>' + esc(c.title) + '</span> · <span>แถวเดิมไม่ถูกลบ แถวใหม่จะบอกว่าแก้ไขแถวนี้</span>' : 'เพิ่มได้อย่างเดียว บันทึกแล้วแก้หรือลบไม่ได้ ถ้าผิดให้เพิ่มแถวแก้ไข'}</p>
+    <label class="field"><span>วันที่</span><input id="ev-date" type="date" value="${esc(c ? c.happened_on : todayBkk())}"></label>
+    <label class="field"><span>เวลา (ไม่ใส่ก็ได้ เช่น 16:43)</span><input id="ev-time" maxlength="20" value="${esc(c && c.happened_at || '')}"></label>
+    <label class="field"><span>ทำหรือยืนยันอะไร</span><input id="ev-title" maxlength="300" value="${esc(c ? c.title : '')}"></label>
+    <label class="field"><span>ระดับหลักฐาน</span><select id="ev-level">${EV_LV.map(([k, l]) => `<option value="${k}" ${c && c.level === k ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+    <label class="field"><span>หลักฐานที่อ้าง (ชื่อไฟล์ ผลตรวจ หรือใครยืนยัน)</span><textarea id="ev-evidence" rows="3" maxlength="1000">${esc(c && c.evidence || '')}</textarea></label>
+    <p class="muted" style="margin:0 0 .6rem">ตรวจหลักฐานไม่ได้ ให้เลือก "ยังยืนยันไม่ได้" แทนการเดา</p>
+    <div class="actions"><button class="btn" style="flex:1" data-act="exec-ev-save" data-corr="${esc(corr || '')}">บันทึก</button><button class="btn ghost" data-act="close">ยกเลิก</button></div>`);
 }
 // Shortcut: the owner enters the personal recovery code the executive issued earlier (8 digits, single use) and sets a new password at once.
 function recSheet(cli, email) {
@@ -4728,6 +4819,16 @@ document.addEventListener('click', async (e) => {
         <div class="actions"><button class="btn" style="flex:1" data-act="exec-doc" data-code="${esc(c)}" data-email="${esc(data.email)}" data-kind="${acc && acc.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสารพร้อมเลขนี้</button><button class="btn ghost" data-act="copy-tmp" data-v="${esc(c)}">คัดลอกรหัส</button><button class="btn ghost" data-act="close">ปิด</button></div>`);
       await loadExec(); render('exec');
     }); break;
+    case 'exec-ev-filter': S.exec.evLv = d.lv || 'all'; render('exec'); break;
+    case 'exec-ev-print': evPrint(); break;
+    case 'exec-ev-add': evSheet(d.corr || ''); break;
+    case 'exec-ev-save': await act(async () => {
+      const title = (($('#ev-title') || {}).value || '').trim(), date = ($('#ev-date') || {}).value || '';
+      if (!date) throw new Error('bad_date'); if (!title) throw new Error('bad_title');
+      const { error } = await sbx.rpc('exec_add_evidence', { p_date: date, p_time: (($('#ev-time') || {}).value || '').trim() || null, p_title: title, p_level: ($('#ev-level') || {}).value || 'unverified', p_evidence: (($('#ev-evidence') || {}).value || '').trim() || null, p_corrects: d.corr || null });
+      if (error) throw error;
+      closeModal(); await loadEvid(); render('exec');
+    }, 'บันทึกหลักฐานแล้ว'); break;
     case 'exec-doc': docOpen(d.kind === 'owner' ? 'owner' : 'yui', d.email || '', d.code || ''); break;
     case 'doc-print': window.print(); break;
     case 'doc-close': { const el = document.getElementById('doclayer'); if (el) el.remove(); break; }
