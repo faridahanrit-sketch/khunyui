@@ -736,6 +736,9 @@
   [data-mtheme="midnight"] .app { box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 0 60px rgba(0,0,0,.5); }
 
   /* การ์ดเลือกสไตล์ (หน้าโปรไฟล์เจ้าของ) */
+  .door { display: grid; gap: .1rem; width: 100%; min-height: 64px; text-align: left; padding: .65rem .9rem; margin: 0 0 .55rem; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+  .door b { font-family: "Taviraj", serif; font-size: 1.1rem; color: var(--green); } .door small { color: var(--muted); }
+  .door:disabled { opacity: .55; cursor: not-allowed; }
   .themes { display: grid; gap: .5rem; margin: .6rem 0; }
   .theme { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .75rem; text-align: left; width: 100%; min-height: 56px;
     padding: .55rem .75rem; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
@@ -1209,7 +1212,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 16:12 · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 16:12 · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 16:50 · เลือกงานหลังเข้าสู่ระบบ · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 16:50 · Choose work after sign-in · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1240,6 +1243,13 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"เข้าสู่ระบบแล้ว ·": "Signed in ·",
+"เลือกเข้างานไหน": "Which work do you want to open?",
+"ภาพรวมทุกร้าน บัญชี คำขอรหัสผ่าน": "All-shop overview, accounts, password requests",
+"ออเดอร์ เมนู แดชบอร์ด ตั้งค่า": "Orders, menu, dashboard, settings",
+"จอรับออเดอร์และเรียกคิว": "Order screen and queue calling",
+"บัญชีนี้ยังไม่ได้เป็นสมาชิกของร้านนี้": "This account is not a member of this shop",
+"เข้างานบริหารไม่ได้ ลองใหม่อีกครั้ง": "Could not open executive work, please try again",
 "สไตล์หน้าเมนู": "Menu style",
 "สไตล์หน้าเมนู ": "Menu style",
 "เลือกสีและบุคลิกของหน้าเมนูที่ลูกค้าเห็น · เลือกได้เฉพาะเจ้าของร้าน · ใช้อยู่ตอนนี้:": "Choose the colours and feel of the menu page customers see · only the shop owner can choose · in use now:",
@@ -3367,8 +3377,15 @@ async function toYuiIfMonitor() {
     go('#/yui'); return true;
   } catch (_) { return false; }
 }
+// The platform-admin account sees three doors after signing in and picks which work to open; every other account goes straight to its own work.
 async function gateGo() {
-  if (await toExecIfAdmin(sb)) return;
+  let isAdmin = false;
+  try { const { data } = await sb.rpc('is_platform_admin'); isAdmin = !!data; } catch (_) {}
+  if (isAdmin) {
+    const { data: { user } } = await sb.auth.getUser(), m = await ownerMember();
+    S.choose = { email: (user && user.email) || '', owner: !!(m && m.role === 'owner'), member: !!m };
+    render('choose'); return;
+  }
   const m = await ownerMember();
   if (!m) { await hardSignOut(sb, 'khunyui-auth'); throw new Error('บัญชีนี้ยังไม่ได้รับสิทธิ์เข้าใช้งาน ติดต่อศูนย์บริการ IMCB2Help'); }
   if (m.role === 'monitor') { if (await toYuiIfMonitor()) { toast('เข้างานคุณยุ้ย'); return; } throw new Error('เข้างานคุณยุ้ยไม่ได้ ลองใหม่อีกครั้ง'); }
@@ -3482,6 +3499,13 @@ async function loadArchive() {
   }
 }
 
+V.choose = () => { const c = S.choose || {}, door = (act, name, sub, on) => `<button type="button" class="door" data-act="${act}" ${on ? '' : 'disabled'}><b>${name}</b><small>${on ? sub : 'บัญชีนี้ยังไม่ได้เป็นสมาชิกของร้านนี้'}</small></button>`;
+  return `<div class="gate-head">${BRAND_MARK}<div class="gname">IMCB2Help</div><p class="muted" style="margin:.2rem 0 0">เข้าสู่ระบบแล้ว · ${esc(c.email || '')}</p></div>
+  <div class="card"><h3 style="margin:0 0 .6rem">เลือกเข้างานไหน</h3>
+    ${door('pick-exec', 'งานบริหาร', 'ภาพรวมทุกร้าน บัญชี คำขอรหัสผ่าน', true)}
+    ${door('pick-owner', 'งานหลังร้าน', 'ออเดอร์ เมนู แดชบอร์ด ตั้งค่า', c.owner)}
+    ${door('pick-yui', 'งานคุณยุ้ย', 'จอรับออเดอร์และเรียกคิว', c.member)}
+    <button class="back" style="display:block;margin:.8rem auto 0" data-act="choose-out">ออกจากระบบ</button></div>${verLine()}`; };
 V.gate = () => `
   <div class="gate-head">${BRAND_MARK}<div class="gname">IMCB2Help</div><p class="muted" style="margin:.2rem 0 0">ศูนย์บริการ · เข้าสู่ระบบ</p></div>
   <div class="card">
@@ -3838,7 +3862,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 16:12 · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 16:50 · เลือกงานหลังเข้าสู่ระบบ · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4236,6 +4260,10 @@ document.addEventListener('click', async (e) => {
   if (t.dataset.act === 'scrim' && e.target !== t) return;
   const d = t.dataset;
   if (d.act && d.act.startsWith('sim-')) return simAct(d);
+  if (d.act === 'pick-exec') return act(async () => { if (!(await toExecIfAdmin(sb))) throw new Error('เข้างานบริหารไม่ได้ ลองใหม่อีกครั้ง'); });
+  if (d.act === 'pick-owner') { S.owner.denied = false; unlistenAll(); S.choose = null; return go('#/owner/orders'); }
+  if (d.act === 'pick-yui') return act(async () => { if (!(await toYuiIfMonitor())) throw new Error('เข้างานคุณยุ้ยไม่ได้ ลองใหม่อีกครั้ง'); });
+  if (d.act === 'choose-out') return act(async () => { await hardSignOut(sb, 'khunyui-auth'); S.choose = null; render('gate'); });
   if (d.act === 'theme-pick') { S.themePick = d.t; return render('owner'); }
   if (d.act === 'theme-save') return themeSave(d.t || S.themePick || themeCode());
   if (d.act === 'qr-kind') return qrShow(d.k);
