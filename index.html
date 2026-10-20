@@ -1153,7 +1153,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 09:10 · ออกจากระบบกลับหน้า IMCB2Help ทางเข้าเดียว": "App version 20 Oct 09:10 · Sign-out returns to the single IMCB2Help door",
+"เวอร์ชันแอป 20 ต.ค. 15:20 · แจ้งเตือนออเดอร์ใหม่ถึงมือถือจริง (Web Push)": "App version 20 Oct 15:20 · Real new-order phone alerts (Web Push)",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1184,6 +1184,23 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"แจ้งเตือนออเดอร์ใหม่ที่เครื่องนี้": "New-order alerts on this device",
+"ยังไม่ได้ติดตั้งระบบแจ้งเตือนฝั่งฐานข้อมูล (SQL 042)": "Alert system not installed in the database yet (SQL 042)",
+"iPhone: ต้องเพิ่มแอปไปยังหน้าจอโฮมก่อน แล้วเปิดจากไอคอนคุณยุ้ย จึงจะเปิดแจ้งเตือนได้ (iOS 16.4 ขึ้นไป)": "iPhone: add the app to the Home Screen first, then open it from the Khun Yui icon to turn alerts on (iOS 16.4 or newer)",
+"เบราว์เซอร์นี้ยังไม่รองรับการแจ้งเตือน ลองใช้ Chrome บน Android หรือติดตั้งแอปลงหน้าจอโฮม": "This browser does not support alerts. Try Chrome on Android, or install the app on the Home Screen",
+"เครื่องนี้ปิดการแจ้งเตือนไว้ ไปที่ตั้งค่าเบราว์เซอร์ แล้วเปิดอนุญาตการแจ้งเตือนของเว็บนี้": "Alerts are blocked on this device. Open the browser settings and allow notifications for this site",
+"เปิดอยู่ · เครื่องนี้จะเด้งเตือนเมื่อมีออเดอร์ใหม่ แม้ปิดแอป": "On · this device will pop up an alert for each new order, even when the app is closed",
+"เด้งเตือนที่มือถือเมื่อมีออเดอร์ใหม่ แม้ปิดแอปอยู่": "Pop up an alert on your phone for each new order, even when the app is closed",
+"ส่งทดสอบ": "Send a test",
+"เปิดแจ้งเตือนแล้ว": "Alerts turned on",
+"ปิดแจ้งเตือนเครื่องนี้แล้ว": "Alerts turned off on this device",
+"ส่งทดสอบแล้ว · ดูที่แถบแจ้งเตือนของเครื่อง": "Test sent · check this device's notifications",
+"ยังไม่มีเครื่องที่รับแจ้งเตือน": "No device is receiving alerts yet",
+"ไม่ได้รับอนุญาตแจ้งเตือน · เปิดอนุญาตในตั้งค่าเบราว์เซอร์แล้วลองใหม่": "Alerts not allowed · allow them in the browser settings and try again",
+"ยังไม่ได้ตั้งกุญแจแจ้งเตือน (SQL 043)": "Alert key not set yet (SQL 043)",
+"ยังไม่ได้ติดตั้งฟังก์ชันส่งแจ้งเตือน (push-order)": "The alert-sending function is not installed yet (push-order)",
+"เปิดแจ้งเตือนครบ 10 เครื่องแล้ว ปิดเครื่องที่ไม่ใช้ก่อน": "10 devices already have alerts on · turn one off first",
+"ยังไม่ได้ติดตั้งระบบแจ้งเตือน (SQL 042)": "Alert system not installed yet (SQL 042)",
 "ศูนย์บริการ · เข้าสู่ระบบ": "Service center · Sign in",
 "ใช้อีเมลและรหัสผ่านของคุณ ระบบพาไปงานของบัญชีนั้นให้เอง": "Use your email and password. The system takes you to the work of that account.",
 "งานบริหาร": "Executive work",
@@ -1906,6 +1923,12 @@ const PAYS = { pending: 'รอชำระ', confirmed: 'ชำระแล้�
 const REFUND = { required: 'ต้องคืนเงิน', processing: 'กำลังคืน', completed: 'คืนแล้ว', failed: 'คืนไม่สำเร็จ' };
 const METHOD = { cash: 'เงินสด', promptpay_qr: 'สแกนจ่ายหน้าร้าน' };
 const ERR = {
+  push_denied: 'ไม่ได้รับอนุญาตแจ้งเตือน · เปิดอนุญาตในตั้งค่าเบราว์เซอร์แล้วลองใหม่',
+  push_nokey: 'ยังไม่ได้ตั้งกุญแจแจ้งเตือน (SQL 043)',
+  push_nofn: 'ยังไม่ได้ติดตั้งฟังก์ชันส่งแจ้งเตือน (push-order)',
+  too_many_devices: 'เปิดแจ้งเตือนครบ 10 เครื่องแล้ว ปิดเครื่องที่ไม่ใช้ก่อน',
+  get_push_public_key: 'ยังไม่ได้ติดตั้งระบบแจ้งเตือน (SQL 042)',
+  save_push_subscription: 'ยังไม่ได้ติดตั้งระบบแจ้งเตือน (SQL 042)',
   'should be different from the old password': 'รหัสใหม่ต้องไม่ซ้ำกับรหัสเดิม',
   'Password should be at least': 'รหัสผ่านต้องยาวอย่างน้อย 8 ตัว',
   'Auth session missing': 'หมดเวลาเข้าใช้งาน กรุณาล็อกอินใหม่แล้วลองอีกครั้ง',
@@ -2825,6 +2848,7 @@ async function showYui() {
   await loadContact(sby, 'y');
   await sby.realtime.setAuth(session.access_token);
   yListen();
+  pushRefresh('y');
   await loadYui(); S.yui.state = 'ready'; render('yui'); yWake();
   S.yui.t = setInterval(async () => {
     if (route()[0] !== 'yui') return clearInterval(S.yui.t);
@@ -2923,6 +2947,7 @@ V.yui = () => {
       <span style="display:flex;gap:.4rem">${sndBtn('yui')}<button class="btn ghost sm" data-act="yui-logout">ออก</button></span></div>
     ${secBanner('yui', 'y')}${contactBanner('y')}
     ${sndBanner('yui')}
+    ${pushShow('y') ? `<div class="card" style="margin-top:.6rem">${pushRow('y')}</div>` : ''}
     ${alerts.map(({ a, o }) => `<div class="yalert" role="alert"><div><b>ออเดอร์ใหม่ ${esc(a.code || (o && o.queue_code) || '')}</b>
         <span>${o ? `${o.order_items.length} รายการ · ${baht(o.total_satang)} · ${o.fulfillment_type === 'dine_in' ? 'ทานที่ร้าน' : 'กลับบ้าน'}` : 'กำลังโหลดรายละเอียด…'}</span></div>
       <button class="btn sm" data-act="yui-ack" data-id="${a.id}">รับทราบ</button></div>`).join('')}
@@ -2970,6 +2995,97 @@ function yuiSheet(o) {
     <p class="muted" style="margin:0 0 .6rem">ดูอย่างเดียว · ให้พนักงานหลังร้านเป็นผู้เปลี่ยนสถานะ</p>
     <button class="btn ghost block" data-act="close">ปิด</button>`);
 }
+
+// ---------------- Web Push: new-order alerts that reach the phone even when the app is closed ----------------
+// Needs SQL 042 + 043 and the push-order function. Each device opts in with its own switch; "o" = back office (sb), "y" = Khun Yui (sby).
+S.push = { o: null, y: null };
+const PUSHCL = (k) => (k === 'y' ? sby : sb);
+const PUSH = {
+  supported: () => 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window,
+  ios: () => /iPad|iPhone|iPod/.test(navigator.userAgent || '') || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1),
+  standalone: () => { try { return !!(navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)); } catch (_) { return false; } }
+};
+const swReady = () => Promise.race([navigator.serviceWorker.ready, new Promise((_, rej) => setTimeout(() => rej(new Error('sw_timeout')), 3000))]);
+const b64uToU8 = (s64) => { const p = (s64 + '='.repeat((4 - s64.length % 4) % 4)).replace(/-/g, '+').replace(/_/g, '/'); const r = atob(p); return Uint8Array.from(r, c => c.charCodeAt(0)); };
+async function pushState(cl) {
+  const st = { supported: PUSH.supported(), ios: PUSH.ios(), installed: PUSH.standalone(), perm: 'default', on: false, nosql: false };
+  if (!st.supported) return st;
+  st.perm = Notification.permission;
+  try {
+    const reg = await swReady(); const sub = await reg.pushManager.getSubscription();
+    if (sub && st.perm === 'granted') {
+      const { data, error } = await cl.rpc('has_push_subscription', { p_endpoint: sub.endpoint });
+      if (error) st.nosql = /has_push_subscription|schema cache|does not exist/i.test(error.message || '');
+      else if (data) { // the server knows this device; it only counts if the browser's subscription belongs to the CURRENT key (a replaced key means the old subscription is dead)
+        const k = await cl.rpc('get_push_public_key', { p_store_id: CONFIG.store });
+        if (k.error || !k.data) st.on = true;
+        else { const cur = sub.options && sub.options.applicationServerKey ? new Uint8Array(sub.options.applicationServerKey) : null, want = b64uToU8(k.data); st.on = !!cur && cur.length === want.length && cur.every((v, i) => v === want[i]); }
+      }
+    } else if (!sub) {
+      const { error } = await cl.rpc('get_push_public_key', { p_store_id: CONFIG.store });
+      if (error && /get_push_public_key|schema cache|does not exist/i.test(error.message || '')) st.nosql = true;
+    }
+  } catch (_) { /* leave defaults: switch shows off */ }
+  return st;
+}
+// the check runs in the background: the page never waits for the browser's service worker (it can take seconds, or never come up)
+function pushRefresh(k) {
+  pushState(PUSHCL(k)).then((st) => {
+    const before = pushRow(k); S.push[k] = st;
+    if (pushRow(k) === before) return;
+    if (k === 'o' && route()[0] === 'owner' && S.owner.tab === 'profile') render('owner'); else if (k === 'y') paintYui();
+  }).catch(() => {});
+}
+const pushShow = (k) => { const p = S.push[k]; return !(p && p.nosql) && (PUSH.supported() || PUSH.ios()); };
+async function pushEnable(cl) {
+  const perm = await Notification.requestPermission();      // must stay the first await: it needs the tap
+  if (perm !== 'granted') throw new Error('push_denied');
+  const key = await (async () => { const { data, error } = await cl.rpc('get_push_public_key', { p_store_id: CONFIG.store }); if (error) throw error; return data; })();
+  if (!key) throw new Error('push_nokey');
+  const reg = await swReady(); const want = b64uToU8(key);
+  let sub = await reg.pushManager.getSubscription();
+  if (sub) { // a subscription made with another key can never receive our messages: replace it
+    const cur = sub.options && sub.options.applicationServerKey ? new Uint8Array(sub.options.applicationServerKey) : null;
+    if (!cur || cur.length !== want.length || cur.some((v, i) => v !== want[i])) { await sub.unsubscribe(); sub = null; }
+  }
+  if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: want });
+  const j = sub.toJSON();
+  const { error } = await cl.rpc('save_push_subscription', { p_store_id: CONFIG.store, p_endpoint: j.endpoint, p_p256dh: j.keys.p256dh, p_auth: j.keys.auth, p_user_agent: (navigator.userAgent || '').slice(0, 200) });
+  if (error) throw error;
+}
+async function pushDisable(cl) {
+  const reg = await swReady(); const sub = await reg.pushManager.getSubscription();
+  if (sub) { const { error } = await cl.rpc('remove_push_subscription', { p_endpoint: sub.endpoint }); if (error) throw error; await sub.unsubscribe(); }
+}
+// signing out removes this device from the account, so a phone passed to someone else never keeps getting the old account's alerts
+async function pushForget(cl) {
+  try {
+    if (!PUSH.supported()) return;
+    const reg = await Promise.race([navigator.serviceWorker.getRegistration(), new Promise(r => setTimeout(() => r(null), 800))]);   // never hold up signing out
+    if (!reg) return; const sub = await reg.pushManager.getSubscription(); if (!sub) return;
+    await Promise.race([cl.rpc('remove_push_subscription', { p_endpoint: sub.endpoint }), new Promise(r => setTimeout(r, 1500))]);
+    await sub.unsubscribe();
+  } catch (_) {}
+}
+async function pushTest(cl) {
+  const { data, error } = await cl.functions.invoke('push-order', { body: { action: 'test' } });
+  if (error) {
+    const st = error.context && error.context.status;
+    if (st === 503) throw new Error('push_nokey');
+    throw new Error('push_nofn');
+  }
+  return data;
+}
+const pushRow = (k) => {
+  const p = S.push[k] || { supported: PUSH.supported(), ios: PUSH.ios(), installed: PUSH.standalone(), perm: 'default', on: false };
+  let note, can = true;
+  if (p.nosql) { note = 'ยังไม่ได้ติดตั้งระบบแจ้งเตือนฝั่งฐานข้อมูล (SQL 042)'; can = false; }
+  else if (!p.supported) { can = false; note = p.ios && !p.installed ? 'iPhone: ต้องเพิ่มแอปไปยังหน้าจอโฮมก่อน แล้วเปิดจากไอคอนคุณยุ้ย จึงจะเปิดแจ้งเตือนได้ (iOS 16.4 ขึ้นไป)' : 'เบราว์เซอร์นี้ยังไม่รองรับการแจ้งเตือน ลองใช้ Chrome บน Android หรือติดตั้งแอปลงหน้าจอโฮม'; }
+  else if (p.perm === 'denied') note = 'เครื่องนี้ปิดการแจ้งเตือนไว้ ไปที่ตั้งค่าเบราว์เซอร์ แล้วเปิดอนุญาตการแจ้งเตือนของเว็บนี้';
+  else note = p.on ? 'เปิดอยู่ · เครื่องนี้จะเด้งเตือนเมื่อมีออเดอร์ใหม่ แม้ปิดแอป' : 'เด้งเตือนที่มือถือเมื่อมีออเดอร์ใหม่ แม้ปิดแอปอยู่';
+  return `<div class="setting"><span>แจ้งเตือนออเดอร์ใหม่ที่เครื่องนี้<br><span class="muted">${note}</span></span><label class="switch"><input type="checkbox" data-act="push-toggle" data-cli="${k}" ${p.on ? 'checked' : ''} ${can ? '' : 'disabled'} aria-label="แจ้งเตือนออเดอร์ใหม่"><span></span></label></div>
+    ${p.on ? `<div class="actions" style="margin:.1rem 0 .5rem"><button class="btn sm ghost" data-act="push-test" data-cli="${k}">ส่งทดสอบ</button></div>` : ''}`;
+};
 
 // ---------------- owner ----------------
 async function ownerMember() {
@@ -3045,6 +3161,7 @@ async function loadTab() {
     ]);
     const seen = new Set(); S.owner.closings = (c.data || []).filter(x => !seen.has(x.business_date) && seen.add(x.business_date));
     S.owner.ownerSettings = o.data;
+    pushRefresh('o');
   }
 }
 
@@ -3296,6 +3413,7 @@ T.profile = () => {
       <div class="actions"><button class="btn sm" data-act="save-settings">บันทึก</button></div></div>
     <div class="card"><h3>แจ้งเตือนในแอป</h3>
       ${S.csec.o ? '' : contactRow('o')}
+      ${pushRow('o')}
       <div class="setting"><span>เสียงเมื่อมีออเดอร์ใหม่ (ขณะเปิดแอป)</span><label class="switch"><input type="checkbox" data-act="sound" ${os.sound_new_order ? 'checked' : ''} aria-label="เสียงแจ้งเตือน"><span></span></label></div>
       <details style="margin-top:.4rem"><summary class="muted" style="cursor:pointer">วิธีติดตั้งแอปจากเว็บ</summary>
         <p class="muted"><b>iPhone:</b> เปิดใน Safari → ปุ่มแชร์ → เพิ่มไปยังหน้าจอโฮม → เปิดจากไอคอนคุณยุ้ย<br><b>Android:</b> เปิดใน Chrome → เมนู ⋮ → ติดตั้งแอป → เปิดจากไอคอนคุณยุ้ย</p></details></div>
@@ -3446,7 +3564,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 09:10 · ออกจากระบบกลับหน้า IMCB2Help ทางเข้าเดียว';
+const APP_VERSION = '20 ต.ค. 15:20 · แจ้งเตือนออเดอร์ใหม่ถึงมือถือจริง (Web Push)';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3874,7 +3992,7 @@ document.addEventListener('click', async (e) => {
     case 'yui-login': await act(async () => {
       const { error } = await sby.auth.signInWithPassword({ email: $('#yemail').value.trim(), password: $('#ypass').value });
       if (error) throw error; if (await toExecIfAdmin(sby)) return; SND.unlock(); await showYui(); }); break;
-    case 'yui-logout': leaveYui(); await hardSignOut(sby, 'khunyui-yui'); S.yui = { ...S.yui, state: 'login', board: null, orders: [], email: '', alerts: [], feed: [], fresh: null, live: null, seen: new Set(), at: null }; go('#/login'); break;
+    case 'yui-logout': leaveYui(); await pushForget(sby); await hardSignOut(sby, 'khunyui-yui'); S.yui = { ...S.yui, state: 'login', board: null, orders: [], email: '', alerts: [], feed: [], fresh: null, live: null, seen: new Set(), at: null }; go('#/login'); break;
     case 'snd-toggle': { const sc = d.surface, v = !SND.on(sc); SND.set(sc, v); SND.unlock();
       document.querySelectorAll(`.sndbtn[data-surface="${sc}"]`).forEach(b => b.outerHTML = sndBtn(sc)); trTree($('#app'));
       if (v) { SND.play(sc === 'cust' ? 'status' : sc === 'exec' ? 'request' : 'order', sc); toast('เปิดเสียงแจ้งเตือนแล้ว'); } else toast('ปิดเสียงแจ้งเตือนแล้ว'); break; }
@@ -4273,7 +4391,8 @@ document.addEventListener('click', async (e) => {
       }, 'บันทึกแล้ว · ลูกค้าเห็นทันที');
       break;
     }
-    case 'logout': await hardSignOut(sb, 'khunyui-auth'); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/login'); break;
+    case 'push-test': await act(async () => { const r = await pushTest(PUSHCL(d.cli)); toast(r && r.sent ? 'ส่งทดสอบแล้ว · ดูที่แถบแจ้งเตือนของเครื่อง' : 'ยังไม่มีเครื่องที่รับแจ้งเตือน'); }); break;
+    case 'logout': await pushForget(sb); await hardSignOut(sb, 'khunyui-auth'); unlistenAll(); S.owner = { tab: 'orders', orders: [], filter: 'all', dash: null, closings: [], bell: 0 }; go('#/login'); break;
     case 'close': case 'scrim': closeModal(); if (route()[0] === 'owner' && S.owner.tab === 'menu') render('owner'); break;
   }
 });
@@ -4331,6 +4450,17 @@ document.addEventListener('change', async (e) => {
   }
   if (t.dataset.act === 'accepting') await act(async () => { await rpc('set_store_accepting_orders', { p_store_id: CONFIG.store, p_is_accepting_orders: t.checked }); await loadSettings(); render('owner'); },
     t.checked ? 'เปิดร้านแล้ว · รับออเดอร์ได้' : 'ปิดรับออเดอร์แล้ว');
+  if (t.dataset.act === 'push-toggle') {
+    const k = t.dataset.cli === 'y' ? 'y' : 'o', want = t.checked;
+    await act(async () => {
+      try { if (want) await pushEnable(PUSHCL(k)); else await pushDisable(PUSHCL(k)); }
+      finally {
+        S.push[k] = await pushState(PUSHCL(k));
+        if (k === 'o' && route()[0] === 'owner' && S.owner.tab === 'profile') render('owner'); else if (k === 'y' && route()[0] === 'yui') render('yui');
+      }
+    }, want ? 'เปิดแจ้งเตือนแล้ว' : 'ปิดแจ้งเตือนเครื่องนี้แล้ว');
+    return;
+  }
   if (t.dataset.act === 'sound') await act(async () => {
     await rpc('update_store_owner_settings', { p_store_id: CONFIG.store, p_notify_new_order: true, p_sound_new_order: t.checked }); S.owner.ownerSettings.sound_new_order = t.checked; }, 'บันทึกแล้ว');
 });
