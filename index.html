@@ -532,7 +532,7 @@
   .dl-key { border: 2.5px solid var(--green); border-radius: 12px; padding: .7rem 1rem .8rem; margin: .8rem 0; background: #FBFAF3; break-inside: avoid; }
   .dl-key h2 { border: 0; margin: 0 0 .3rem; padding: 0; }
   .dl-boxes { display: inline-flex; align-items: center; gap: 6px; margin: .3rem 0 .2rem; }
-  .dl-boxes i { display: inline-block; width: 2.3rem; height: 3rem; border: 2px solid #222; border-radius: 6px; background: #fff; }
+  .dl-boxes i { display: inline-block; width: 2.3rem; height: 3rem; border: 2px solid #222; border-radius: 6px; background: #fff; font: 600 1.7rem/2.75rem ui-monospace, Menlo, monospace; font-style: normal; text-align: center; color: #111; }
   .dl-boxes b { font-size: 1.6rem; padding: 0 .3rem; }
   .dl-step { break-inside: avoid; }
   .dl-warn { background: var(--gold-soft); border-radius: 8px; padding: .45rem .7rem; margin: .5rem 0; break-inside: avoid; }
@@ -810,6 +810,8 @@
   .chip-s.wait { background: var(--gold-soft); color: #7A5F26; }
   .accsteps { margin-top: .5rem; } .accsteps .secrow:last-child { border-bottom: 0; }
   .acct-f { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: .6rem; padding-top: .6rem; border-top: 1px dashed var(--line); }
+  .docrow { padding: .6rem 0; border-top: 1px solid var(--line); display: grid; gap: .15rem; } .docrow:first-of-type { border-top: 0; }
+  .dr-h { display: flex; flex-wrap: wrap; gap: .3rem .4rem; align-items: center; } .dr-a { word-break: break-all; } .dr-m { font-size: .85rem; padding: .1rem 0; word-break: break-all; }
 </style>
 </head>
 <body>
@@ -1232,7 +1234,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 21:30 · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 22:50 · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1263,6 +1265,18 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"บัญชี {0} (ไม่แสดงเลข)": "Account {0} (number not shown)",
+"ทะเบียนเอกสารที่ออก": "Register of issued manuals",
+"ทุกครั้งที่กด \"ออกเอกสาร\" ให้บัญชีหนึ่ง ระบบจดไว้ว่างานอะไร ตลาดไหน สาขาไหน และใครอยู่ในร้านนั้น · ไม่เก็บตัวเลขรหัสกู้คืน": "Each time you tap \"Issue manual\" for an account, the system records which work, which market, which branch and who is in that shop · the recovery number itself is never stored",
+"ยังไม่ได้ติดตั้งไฟล์ 045 ในฐานข้อมูล ระบบจึงยังไม่เก็บทะเบียนเอกสาร": "File 045 is not installed in the database yet, so the register is not kept",
+"ยังไม่มีเอกสารที่ออก": "No manuals issued yet",
+"มีเลขรหัสพิมพ์ลงเอกสาร": "Recovery number printed on the manual",
+"ไม่มีเลขรหัส (เขียนมือ)": "No number printed (write by hand)",
+"ออกโดย": "Issued by",
+"ใครอยู่ในร้านนี้ ({0} บัญชี)": "Who is in this shop ({0} accounts)",
+"ออกเอกสารพร้อมเลขนี้": "Issue manual with this number",
+"ใส่/แก้อีเมลติดต่อ": "Contact email set/changed",
+"ยืนยันอีเมลติดต่อ": "Contact email confirmed",
 "ยืนยันอีเมล": "Confirm email",
 "ใช้อีเมลนี้กับรหัสผ่านที่หน้าเข้าสู่ระบบ ระบบพาเข้าหน้าผู้บริหารเอง": "Use this email and your password on the sign-in page; the system takes you to the executive page by itself",
 "แต่ละบัญชีมีขั้นตอนความปลอดภัย 3 ข้อ · ปุ่มสีเขียวคือขั้นถัดไปที่ทำได้เลย": "Each account has 3 security steps · the green button is the next step you can do now",
@@ -1452,7 +1466,7 @@ Object.assign(EN, {
 "ตั้งตามเลขที่ใส่": "Set the number I typed",
 "สุ่มให้": "Randomize",
 "พิมพ์ / บันทึกเป็น PDF": "Print / Save as PDF",
-"แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · เขียนลงในช่องของเอกสาร (กด \"ออกเอกสาร\") แล้วส่งให้เจ้าของบัญชีเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้": "Shown once; you will not see it again after closing this. Write it in the box on the manual (tap \"Issue manual\") and give it to the account owner to keep (it is not the password). Single use; 5 wrong tries lock it for 30 minutes. Do not keep a screenshot.",
+"แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · กด \"ออกเอกสารพร้อมเลขนี้\" ให้ระบบพิมพ์เลขลงเอกสาร (ระบบไม่เก็บตัวเลข) แล้วส่งให้เจ้าของบัญชีเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้": "Shown once; you will not see it again after closing this. Tap \"Issue manual with this number\" to have the system print the number on the manual (the number is not stored) and give it to the account owner to keep (it is not the password). Single use; 5 wrong tries lock it for 30 minutes. Do not keep a screenshot.",
 "เลขนี้ง่ายเกินไป (ซ้ำกันหมดหรือเรียงกัน) เลือกเลขอื่น": "That number is too easy to guess (all the same or in a row). Pick another.",
 "ส่งคำขอไปศูนย์บริการ": "Send request to the service center",
 "มีรหัสกู้คืนส่วนตัว 8 หลัก (คีย์ลัด)": "I have a personal recovery code (shortcut)",
@@ -2771,7 +2785,7 @@ const AUD = { advance_order_status: 'เปลี่ยนสถานะออ�
   void_payment_on_cancel: 'ยกเลิกการชำระ', complete_refund: 'บันทึกคืนเงิน', set_menu_availability: 'เปิด/ปิดขายเมนู', update_menu_item: 'แก้เมนู', create_menu_item: 'เพิ่มเมนู',
   set_menu_archived: 'เก็บเมนูเข้าคลัง/เรียกกลับ', delete_menu_item: 'ลบเมนู', save_menu_option_value: 'แก้ราคา/ชื่อท็อปปิ้ง-มิกซ์', set_menu_option_value_availability: 'เปิด/ปิดตัวเลือก', set_menu_recommended: 'ตั้งเมนูแนะนำ', set_store_accepting_orders: 'เปิด/ปิดรับออเดอร์',
   set_store_settings: 'แก้ตั้งค่าร้าน', set_store_hero_image: 'เปลี่ยนภาพปก', update_store_owner_settings: 'แก้ตั้งค่าแจ้งเตือน', close_business_day: 'สรุปยอดวัน',
-  auto_reopen_new_day: 'ร้านเปิดรับเองวันใหม่ (ระบบเดิม)', auto_close_new_day: 'ร้านรอเจ้าของกดเปิด (วันใหม่)', report_sold_out: 'แจ้งสินค้าหมด', clear_test_data: 'ล้างข้อมูลทดสอบ', reset_password: 'ผู้บริหารตั้งรหัสชั่วคราวให้บัญชี', recover_password: 'ตั้งรหัสใหม่ผ่านรหัสจากอีเมล', change_password: 'เปลี่ยนรหัสผ่าน' };
+  auto_reopen_new_day: 'ร้านเปิดรับเองวันใหม่ (ระบบเดิม)', auto_close_new_day: 'ร้านรอเจ้าของกดเปิด (วันใหม่)', report_sold_out: 'แจ้งสินค้าหมด', clear_test_data: 'ล้างข้อมูลทดสอบ', reset_password: 'ผู้บริหารตั้งรหัสชั่วคราวให้บัญชี', recover_password: 'ตั้งรหัสใหม่ผ่านรหัสจากอีเมล', change_password: 'เปลี่ยนรหัสผ่าน', issue_recovery_code: 'ออกรหัสกู้คืน', revoke_recovery_code: 'ยกเลิกรหัสกู้คืน', set_contact_email: 'ใส่/แก้อีเมลติดต่อ', verify_contact_email: 'ยืนยันอีเมลติดต่อ', unverify_contact_email: 'ยกเลิกการยืนยันอีเมล', issue_document: 'ออกเอกสาร' };
 function audDetail(a) {
   const b = a.before || {}, n = a.after || {};
   if (a.action === 'update_menu_item') { const bits = [n.name]; if (b.price_satang !== n.price_satang) bits.push(`ราคา ${baht(b.price_satang)} → ${baht(n.price_satang)}`); if (b.image_path !== n.image_path) bits.push(n.image_path ? 'เปลี่ยนรูป' : 'เอารูปออก'); return bits.filter(Boolean).join(' · '); }
@@ -2780,6 +2794,9 @@ function audDetail(a) {
   if (a.action === 'set_menu_availability') return n.is_available ? 'กลับมาขาย' : 'หมดชั่วคราว';
   if (a.action === 'close_business_day') return `${n.business_date || ''} ฉบับที่ ${n.revision || 1}`;
   if (a.action === 'change_password') return `บัญชี ${n.email || ''} (ไม่แสดงรหัส)`;
+  if (a.action === 'issue_recovery_code' || a.action === 'revoke_recovery_code') return `บัญชี ${n.email || ''} (ไม่แสดงเลข)`;
+  if (a.action === 'set_contact_email') return n.contact_email || '';
+  if (a.action === 'issue_document') return `${n.doc_no || ''} · ${n.email || ''}${n.code_included ? ' · มีเลขรหัสพิมพ์ลงเอกสาร' : ''}`;
   if (a.action === 'clear_test_data') return `ลบออเดอร์ ${Number(b.orders || 0)} · คนสแกน ${Number(b.queue_sessions || 0)} · สรุปยอด ${Number(b.daily_closings || 0)}`;
   if (a.action === 'cancel_order') return `${n.source === 'owner' ? 'ร้านยกเลิก' : 'ลูกค้ายกเลิก'}${n.reason ? ' · ' + n.reason : ''}`;
   if (a.action === 'advance_order_status') return `${STATUS[b.status] || b.status} → ${STATUS[n.status] || n.status}`;
@@ -2830,6 +2847,7 @@ async function loadExec() {
   try { const r = await sbx.rpc('exec_list_accounts'); S.exec.accounts = (!r.error && Array.isArray(r.data)) ? r.data : []; } catch (_) { S.exec.accounts = []; }
   try { const r = await sbx.rpc('exec_list_contacts'); S.exec.contacts = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.contacts = null; }
   try { const r = await sbx.rpc('exec_list_recovery'); S.exec.recovery = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.recovery = null; }   // null = SQL 038 not installed yet
+  await loadDocs();
 }
 // Two-tone chime + vibration when a new reset request arrives (the badge and banner always show; sound needs one tap on the page first)
 function xChime() { SND.play('request', 'exec'); }
@@ -3035,7 +3053,16 @@ V.exec = () => {
     money: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">รายได้ย้อนหลัง 30 วัน</h2>
       ${hist.length ? hist.map(h => `<div class="kv"><span>${thDate(ymd(h.business_date))}${stores.length > 1 ? ' · ' + esc(h.store_name) : ''}<br><span class="muted">${n(h.orders_total)} ออเดอร์ · คนสแกน ${n(h.visits_total)}${h.revision > 1 ? ' · แก้ไข ' + (h.revision - 1) : ''}</span></span><b>${baht(h.net_satang)}</b></div>`).join('')
         : '<p class="muted" style="margin:0">ยังไม่มีการสรุปยอด</p>'}</div>`,
-    log: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">ประวัติการแก้ไข (ใครทำอะไร)</h2>
+    log: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ทะเบียนเอกสารที่ออก</h2>
+      <p class="muted" style="margin:0 0 .5rem">ทุกครั้งที่กด "ออกเอกสาร" ให้บัญชีหนึ่ง ระบบจดไว้ว่างานอะไร ตลาดไหน สาขาไหน และใครอยู่ในร้านนั้น · ไม่เก็บตัวเลขรหัสกู้คืน</p>
+      ${!Array.isArray(S.exec.docs) ? '<p class="muted" style="margin:0">ยังไม่ได้ติดตั้งไฟล์ 045 ในฐานข้อมูล ระบบจึงยังไม่เก็บทะเบียนเอกสาร</p>'
+        : S.exec.docs.length ? S.exec.docs.map(dr => `<div class="docrow"><div class="dr-h"><span class="rq-hcode" data-notr>${esc(dr.doc_no)}</span><span class="chip-s">${esc(dr.work_title)}</span><span class="chip-s ${dr.code_included ? '' : 'wait'}">${dr.code_included ? 'มีเลขรหัสพิมพ์ลงเอกสาร' : 'ไม่มีเลขรหัส (เขียนมือ)'}</span></div>
+          <div class="dr-a"><b data-notr>${esc(dr.account_email)}</b> · ${({ owner: 'เจ้าของ', staff: 'พนักงาน', monitor: 'ดูอย่างเดียว' })[dr.account_role] || ''}</div>
+          <small class="muted">${esc(dr.market_name || '')} · ${esc(dr.store_name || '')} · ${esc(dr.branch_name || '')}</small>
+          <small class="muted">${thDate(new Date(dr.issued_at))} ${thTime(dr.issued_at)} · ออกโดย <span data-notr>${esc(dr.issuer_email || '')}</span></small>
+          <details class="why"><summary>${t('ใครอยู่ในร้านนี้ ({0} บัญชี)', (dr.members || []).length)}</summary>${(dr.members || []).map(m => `<div class="dr-m"><span data-notr>${esc(m.email)}</span> <span class="muted">${({ owner: 'เจ้าของ', staff: 'พนักงาน', monitor: 'ดูอย่างเดียว' })[m.role] || ''}</span></div>`).join('')}</details></div>`).join('')
+        : '<p class="muted" style="margin:0">ยังไม่มีเอกสารที่ออก</p>'}</div>
+      <div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">ประวัติการแก้ไข (ใครทำอะไร)</h2>
       ${aud.length ? aud.map(a => `<div class="arow"><span class="t">${thDate(new Date(a.at))}<br>${thTime(a.at)}</span>
         <span class="w"><b>${esc(AUD[a.action] || a.action)}</b>${audDetail(a) ? ' · ' + esc(audDetail(a)) : ''}<small>${esc(a.actor)}${a.role ? ' (' + (a.role === 'owner' ? 'เจ้าของ' : 'พนักงาน') + ')' : ''}${stores.length > 1 ? ' · ' + esc(a.store_name) : ''}</small></span></div>`).join('')
         : '<p class="muted" style="margin:0">ยังไม่มีประวัติ</p>'}</div>`
@@ -4088,7 +4115,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 21:30 · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 22:50 · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4135,10 +4162,15 @@ const DOCS = {
     what: 'หน้าจอนี้ใช้รับออเดอร์ เปิด-ปิดร้าน จัดการเมนูและราคา ดูสรุปวันและประวัติรายได้',
     pwPath: 'กดแท็บ <b>โปรไฟล์</b> (ล่างสุด ขวามือ) แล้วกด <b>เปลี่ยนรหัสผ่าน</b>' }
 };
-function docHtml(kind, email) {
-  const D = DOCS[kind], url = location.origin.replace('null', '') + location.pathname + D.hash;
+const DOC_MARKET = { name: 'ตลาดคุณยิ้ม', branch: 'สาขาอุดมสุข' };
+const thDateParts = (iso) => { try { const p = new Intl.DateTimeFormat('th-TH-u-ca-buddhist', { timeZone: 'Asia/Bangkok', day: 'numeric', month: 'numeric', year: 'numeric' }).formatToParts(new Date(iso)), g = (t) => (p.find(x => x.type === t) || {}).value; return [g('day'), g('month'), g('year')]; } catch (_) { return null; } };
+// x = { code: '12345678' (only when issued from the one-time code sheet; never stored), led: row returned by exec_log_document }
+function docHtml(kind, email, x = {}) {
+  const D = DOCS[kind], led = x.led || null, code = /^\d{8}$/.test(x.code || '') ? x.code : '', url = location.origin.replace('null', '') + location.pathname + D.hash;
   const line = (w) => `<span class="dl-line" style="min-width:${w}"></span>`;
-  const boxes = '<span class="dl-boxes">' + '<i></i>'.repeat(4) + '<b>–</b>' + '<i></i>'.repeat(4) + '</span>';
+  const dg = (n) => code ? `<i>${code[n]}</i>` : '<i></i>';
+  const boxes = '<span class="dl-boxes">' + [0, 1, 2, 3].map(dg).join('') + '<b>–</b>' + [4, 5, 6, 7].map(dg).join('') + '</span>';
+  const dp = led && thDateParts(led.issued_at), dateHtml = dp ? `<b>${dp[0]}</b> / <b>${dp[1]}</b> / <b>${dp[2]}</b>` : `${line('3.5rem')} / ${line('3.5rem')} / ${line('4.5rem')}`;
   return `<div class="dl-page" lang="th">
     <div class="dl-brand">ร้านส้มตำครกระเบิด คุณยุ้ย · ตลาดคุณยิ้ม สาขาอุดมสุข</div>
     <h1>คู่มือใช้งาน · ${D.title}</h1>
@@ -4146,7 +4178,10 @@ function docHtml(kind, email) {
     <p style="margin:.2rem 0 .5rem">${D.what}</p>
     <h2>ข้อมูลบัญชีของคุณ</h2>
     <table class="dl-info">
+      <tr><th>เลขที่เอกสาร</th><td>${led ? '<b>' + esc(led.doc_no) + '</b>' : line('10rem')}</td></tr>
       <tr><th>ชื่องาน</th><td>${D.title} (${D.owner})</td></tr>
+      <tr><th>ตลาด · สาขา</th><td>${esc((led && led.market_name) || DOC_MARKET.name)} · ${esc((led && led.branch_name) || DOC_MARKET.branch)}</td></tr>
+      ${led && led.store_name ? `<tr><th>ร้าน</th><td>${esc(led.store_name)}</td></tr>` : ''}
       <tr><th>อีเมลเข้าใช้งาน</th><td>${email ? '<b>' + esc(email) + '</b>' : line('16rem')}</td></tr>
       <tr><th>ลิงก์เข้าใช้งาน</th><td>${esc(url)}</td></tr>
       <tr><th>รหัสผ่าน</th><td>ศูนย์บริการแจ้งให้ทางโทรหรือไลน์ (ไม่เขียนไว้ในเอกสารนี้)</td></tr>
@@ -4171,9 +4206,9 @@ function docHtml(kind, email) {
       <li>ศูนย์บริการกดส่ง รหัสชั่วคราวจะขึ้นบนหน้าจอคุณเอง (ภายในไม่กี่วินาที) กด <b>เข้าสู่ระบบด้วยรหัสนี้</b></li>
       <li>แอปให้ตั้งรหัสผ่านใหม่ของคุณเองทันที · คำขออยู่ได้ 10 นาที หมดแล้วกดขอใหม่</li></ol>
     <div class="dl-key">
-      <h2>4. รหัสกู้คืนส่วนตัวของ${D.owner} (ผู้ออกเอกสารเขียนเอง)</h2>
+      <h2>4. รหัสกู้คืนส่วนตัวของ${D.owner} (${code ? 'พิมพ์จากระบบตอนออกรหัส' : 'ผู้ออกเอกสารเขียนเอง'})</h2>
       ${boxes}
-      <div>วันที่ออกรหัส ${line('3.5rem')} / ${line('3.5rem')} / ${line('4.5rem')} &nbsp; ผู้ออก ศูนย์บริการ IMCB2Help</div>
+      <div>วันที่ออกรหัส ${dateHtml} &nbsp; ผู้ออก ศูนย์บริการ IMCB2Help</div>
     </div>
     <div class="dl-warn"><b>ข้อควรจำ</b>
       <ul><li>เก็บเอกสารนี้ไว้ที่ปลอดภัย อย่าถ่ายรูปส่งต่อ และอย่าบอกเลขกับคนอื่น</li>
@@ -4182,11 +4217,24 @@ function docHtml(kind, email) {
     <div class="dl-foot">ติดต่อศูนย์บริการ IMCB2Help โทร/ไลน์ ${line('11rem')}</div>
   </div>`;
 }
-function docOpen(kind, email) {
+async function docOpen(kind, email, code) {
   closeModal(); const old = document.getElementById('doclayer'); if (old) old.remove();
+  let led = null, note = 'กดพิมพ์ แล้วเลือก "บันทึกเป็น PDF" เพื่อส่งให้ทางไลน์ได้';
+  if (email) {   // a copy made for one account is written to the register; a blank copy is not
+    try {
+      const r = await sbx.rpc('exec_log_document', { p_email: email, p_kind: kind, p_market: DOC_MARKET.name, p_code_included: /^\d{8}$/.test(code || '') });
+      if (r.error) throw r.error; led = r.data;
+      note = `บันทึกลงทะเบียนเอกสารแล้ว · เลขที่ ${led.doc_no}` + (code ? ' · เลขรหัสพิมพ์จากหน้าจอนี้ครั้งเดียว ระบบไม่เก็บตัวเลข' : '');
+      loadDocs();
+    } catch (e) { note = /Could not find the function|schema cache/i.test((e && e.message) || '') ? 'ยังไม่ได้บันทึกลงทะเบียน: ยังไม่ได้ติดตั้งไฟล์ 045 ในฐานข้อมูล (พิมพ์เอกสารได้ตามปกติ)' : 'ยังไม่ได้บันทึกลงทะเบียน: ' + ((e && e.message) || 'ผิดพลาด') + ' (พิมพ์เอกสารได้ตามปกติ)'; }
+  }
   const el = document.createElement('div'); el.id = 'doclayer'; el.setAttribute('data-notr', ''); el.setAttribute('lang', 'th');
-  el.innerHTML = `<div class="dl-bar"><button class="btn sm" data-act="doc-print">พิมพ์ / บันทึกเป็น PDF</button><button class="btn ghost sm" data-act="doc-close">ปิด</button><span>กดพิมพ์ แล้วเลือก "บันทึกเป็น PDF" เพื่อส่งให้ทางไลน์ได้</span></div>${docHtml(kind, email)}`;
+  el.innerHTML = `<div class="dl-bar"><button class="btn sm" data-act="doc-print">พิมพ์ / บันทึกเป็น PDF</button><button class="btn ghost sm" data-act="doc-close">ปิด</button><span>${esc(note)}</span></div>${docHtml(kind, email, { code, led })}`;
   document.body.appendChild(el); el.scrollTop = 0;
+}
+async function loadDocs() {
+  try { const r = await sbx.rpc('exec_list_documents', { p_limit: 100 }); S.exec.docs = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.docs = null; }   // null = SQL 045 not installed yet
+  if (route()[0] === 'exec' && S.exec.room === 'log' && !document.getElementById('doclayer')) render('exec');
 }
 // Shortcut: the owner enters the personal recovery code the executive issued earlier (8 digits, single use) and sets a new password at once.
 function recSheet(cli, email) {
@@ -4676,11 +4724,11 @@ document.addEventListener('click', async (e) => {
       const c = String(data.code), shown = c.slice(0, 4) + ' ' + c.slice(4), acc = (S.exec.accounts || []).find(x => x.email === data.email);
       openModal(`<h3>รหัสกู้คืนของ ${esc(data.email)}</h3>
         <div style="font:600 2rem/1.2 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-align:center;padding:.9rem;border:2px dashed var(--green);border-radius:12px;margin:.6rem 0;user-select:all">${esc(shown)}</div>
-        <p class="muted">แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · เขียนลงในช่องของเอกสาร (กด "ออกเอกสาร") แล้วส่งให้เจ้าของบัญชีเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้</p>
-        <div class="actions"><button class="btn" style="flex:1" data-act="exec-doc" data-email="${esc(data.email)}" data-kind="${acc && acc.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button><button class="btn ghost" data-act="copy-tmp" data-v="${esc(c)}">คัดลอกรหัส</button><button class="btn ghost" data-act="close">ปิด</button></div>`);
+        <p class="muted">แสดงครั้งเดียว ปิดหน้านี้แล้วจะไม่เห็นอีก · กด "ออกเอกสารพร้อมเลขนี้" ให้ระบบพิมพ์เลขลงเอกสาร (ระบบไม่เก็บตัวเลข) แล้วส่งให้เจ้าของบัญชีเก็บไว้เอง (ไม่ใช่รหัสผ่าน) · ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที · อย่าถ่ายภาพหน้าจอเก็บไว้</p>
+        <div class="actions"><button class="btn" style="flex:1" data-act="exec-doc" data-code="${esc(c)}" data-email="${esc(data.email)}" data-kind="${acc && acc.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสารพร้อมเลขนี้</button><button class="btn ghost" data-act="copy-tmp" data-v="${esc(c)}">คัดลอกรหัส</button><button class="btn ghost" data-act="close">ปิด</button></div>`);
       await loadExec(); render('exec');
     }); break;
-    case 'exec-doc': docOpen(d.kind === 'owner' ? 'owner' : 'yui', d.email || ''); break;
+    case 'exec-doc': docOpen(d.kind === 'owner' ? 'owner' : 'yui', d.email || '', d.code || ''); break;
     case 'doc-print': window.print(); break;
     case 'doc-close': { const el = document.getElementById('doclayer'); if (el) el.remove(); break; }
     case 'exec-rc-revoke': {
