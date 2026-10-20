@@ -1212,7 +1212,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 16:50 · เลือกงานหลังเข้าสู่ระบบ · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 16:50 · Choose work after sign-in · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 17:05 · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:05 · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1243,6 +1243,10 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"งานหลังร้าน (ดูอย่างเดียว)": "Back-of-shop work (view only)",
+"ดูออเดอร์ เมนู แดชบอร์ด · แก้ไขไม่ได้": "View orders, menu, dashboard · cannot edit",
+"โหมดดูอย่างเดียว · บัญชีนี้ดูได้แต่แก้ไขไม่ได้": "View-only mode · this account can look but not edit",
+"บัญชีนี้ดูอย่างเดียว แก้ไขไม่ได้": "This account is view-only and cannot edit",
 "เข้าสู่ระบบแล้ว ·": "Signed in ·",
 "เลือกเข้างานไหน": "Which work do you want to open?",
 "ภาพรวมทุกร้าน บัญชี คำขอรหัสผ่าน": "All-shop overview, accounts, password requests",
@@ -3378,14 +3382,18 @@ async function toYuiIfMonitor() {
   } catch (_) { return false; }
 }
 // The platform-admin account sees three doors after signing in and picks which work to open; every other account goes straight to its own work.
+const RO_OK = new Set(['logout', 'bell', 'close', 'scrim', 'reload-app', 'snd-unlock', 'pw-open', 'pw-save', 'search', 'more', 'menu-qr', 'qr-kind', 'qr-share', 'doc-close', 'doc-print']);
+const roOk = (a) => !!a && (RO_OK.has(a) || a.startsWith('sim-'));
 async function gateGo() {
   let isAdmin = false;
   try { const { data } = await sb.rpc('is_platform_admin'); isAdmin = !!data; } catch (_) {}
   if (isAdmin) {
     const { data: { user } } = await sb.auth.getUser(), m = await ownerMember();
-    S.choose = { email: (user && user.email) || '', owner: !!(m && m.role === 'owner'), member: !!m };
+    S.choose = { kind: 'admin', email: (user && user.email) || '', owner: !!m, member: !!m };
     render('choose'); return;
   }
+  { const m = await ownerMember();
+    if (m && m.role === 'monitor') { const { data: { user } } = await sb.auth.getUser(); S.choose = { kind: 'monitor', email: (user && user.email) || '', owner: true, member: true }; render('choose'); return; } }
   const m = await ownerMember();
   if (!m) { await hardSignOut(sb, 'khunyui-auth'); throw new Error('บัญชีนี้ยังไม่ได้รับสิทธิ์เข้าใช้งาน ติดต่อศูนย์บริการ IMCB2Help'); }
   if (m.role === 'monitor') { if (await toYuiIfMonitor()) { toast('เข้างานคุณยุ้ย'); return; } throw new Error('เข้างานคุณยุ้ยไม่ได้ ลองใหม่อีกครั้ง'); }
@@ -3397,7 +3405,13 @@ async function showGate() {
   try {
     for (const [cli, dest] of [[sbx, '#/exec'], [sby, '#/yui']]) {
       const { data: { session } } = await cli.auth.getSession();
-      if (session && session.user && !session.user.is_anonymous && route()[0] === 'login') { go(dest); return; }
+      if (!(session && session.user && !session.user.is_anonymous && route()[0] === 'login')) continue;
+      let admin = false; try { const { data } = await cli.rpc('is_platform_admin'); admin = !!data; } catch (_) {}
+      if (admin) { // the executive account always gets the three doors: bring its session back to the door client, then ask
+        const { error } = await sb.auth.setSession({ access_token: session.access_token, refresh_token: session.refresh_token });
+        if (!error) { await cli.auth.signOut({ scope: 'local' }); await gateGo(); return; }
+      }
+      go(dest); return;
     }
     const { data: { session } } = await sb.auth.getSession();
     if (session && session.user && !session.user.is_anonymous && route()[0] === 'login') await gateGo();
@@ -3408,7 +3422,7 @@ async function showOwner(tab, arg) {
   $('#app').innerHTML = '<div class="login-head" style="padding-top:30vh"><div class="serif" style="font-size:1.4rem">คุณยุ้ย</div><div class="spinner"></div><p class="muted">กำลังตรวจสิทธิ์เจ้าของร้าน…</p></div>';
   const m = await ownerMember();
   if (!m) { if (await toExecIfAdmin(sb)) return; const { data: { user } } = await sb.auth.getUser(); S.owner.denied = !!(user && !user.is_anonymous); return render('login'); }
-  if (m.role === 'monitor') { S.owner.denied = 'monitor'; return render('login'); }
+  S.owner.denied = false; S.owner.readonly = m.role === 'monitor'; // the view-only account may look at the back-of-shop work; the database refuses its writes and the screen blocks the buttons
   await loadMust(sb, 'o'); if (S.must.o) return render('ownermust');
   await loadContact(sb, 'o');
   S.owner.member = m; S.owner.tab = ['menu', 'orders', 'dash', 'profile', 'archive', 'inbox'].includes(tab) ? tab : 'orders';
@@ -3502,8 +3516,8 @@ async function loadArchive() {
 V.choose = () => { const c = S.choose || {}, door = (act, name, sub, on) => `<button type="button" class="door" data-act="${act}" ${on ? '' : 'disabled'}><b>${name}</b><small>${on ? sub : 'บัญชีนี้ยังไม่ได้เป็นสมาชิกของร้านนี้'}</small></button>`;
   return `<div class="gate-head">${BRAND_MARK}<div class="gname">IMCB2Help</div><p class="muted" style="margin:.2rem 0 0">เข้าสู่ระบบแล้ว · ${esc(c.email || '')}</p></div>
   <div class="card"><h3 style="margin:0 0 .6rem">เลือกเข้างานไหน</h3>
-    ${door('pick-exec', 'งานบริหาร', 'ภาพรวมทุกร้าน บัญชี คำขอรหัสผ่าน', true)}
-    ${door('pick-owner', 'งานหลังร้าน', 'ออเดอร์ เมนู แดชบอร์ด ตั้งค่า', c.owner)}
+    ${c.kind === 'monitor' ? '' : door('pick-exec', 'งานบริหาร', 'ภาพรวมทุกร้าน บัญชี คำขอรหัสผ่าน', true)}
+    ${door('pick-owner', c.kind === 'monitor' ? 'งานหลังร้าน (ดูอย่างเดียว)' : 'งานหลังร้าน', c.kind === 'monitor' ? 'ดูออเดอร์ เมนู แดชบอร์ด · แก้ไขไม่ได้' : 'ออเดอร์ เมนู แดชบอร์ด ตั้งค่า', c.owner)}
     ${door('pick-yui', 'งานคุณยุ้ย', 'จอรับออเดอร์และเรียกคิว', c.member)}
     <button class="back" style="display:block;margin:.8rem auto 0" data-act="choose-out">ออกจากระบบ</button></div>${verLine()}`; };
 V.gate = () => `
@@ -3831,7 +3845,7 @@ const mustView = (cli, out) => `
     <button class="btn ghost block" style="margin-top:.6rem" data-act="${out}">ออกจากระบบ</button></div>`;
 V.ownermust = () => mustView('o', 'logout');
 V.yuimust = () => mustView('y', 'yui-logout');
-V.owner = () => ownerHead() + secBanner('owner', 'o') + contactBanner('o') + T[S.owner.tab]() + tabbar();
+V.owner = () => ownerHead() + (S.owner.readonly ? '<div class="banner" role="status">โหมดดูอย่างเดียว · บัญชีนี้ดูได้แต่แก้ไขไม่ได้</div>' : '') + secBanner('owner', 'o') + contactBanner('o') + T[S.owner.tab]() + tabbar();
 
 function render(view) {
   const r = route();
@@ -3862,7 +3876,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 16:50 · เลือกงานหลังเข้าสู่ระบบ · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 17:05 · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4259,6 +4273,7 @@ document.addEventListener('click', async (e) => {
   if (!t || t.disabled) return;
   if (t.dataset.act === 'scrim' && e.target !== t) return;
   const d = t.dataset;
+  if (S.owner.readonly && route()[0] === 'owner' && (d.edit || (d.act && !roOk(d.act)))) return toast('บัญชีนี้ดูอย่างเดียว แก้ไขไม่ได้');
   if (d.act && d.act.startsWith('sim-')) return simAct(d);
   if (d.act === 'pick-exec') return act(async () => { if (!(await toExecIfAdmin(sb))) throw new Error('เข้างานบริหารไม่ได้ ลองใหม่อีกครั้ง'); });
   if (d.act === 'pick-owner') { S.owner.denied = false; unlistenAll(); S.choose = null; return go('#/owner/orders'); }
@@ -4697,6 +4712,7 @@ document.addEventListener('click', async (e) => {
 });
 document.addEventListener('change', async (e) => {
   const t = e.target;
+  if (S.owner.readonly && route()[0] === 'owner' && (t.dataset.act || t.dataset.upload || t.dataset.import || t.id === 'hold' || t.id === 'cutoff') && !roOk(t.dataset.act)) { if (t.type === 'checkbox') t.checked = !t.checked; return toast('บัญชีนี้ดูอย่างเดียว แก้ไขไม่ได้'); }
   if (t.dataset.impReplace !== undefined) { const imp = S.owner.imp; imp.replace = t.checked; imp.plan = planImport(imp.entries, imp.replace); importSheet(); return; }
   if (t.dataset.import && !t.files?.length) { toast('ไม่พบไฟล์ที่เลือก เครื่องอาจไม่ส่งไฟล์นี้กลับมา ลองเลือกไฟล์อื่นหรือย้ายไฟล์มาไว้ในเครื่องก่อน'); return; }
   if (t.dataset.import && t.files?.length) {
