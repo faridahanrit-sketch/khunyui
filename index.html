@@ -53,19 +53,6 @@
   .pad { padding: 0 1rem; }
   .with-bar { padding-bottom: calc(var(--bar-h) + 1.5rem + env(safe-area-inset-bottom, 0px)); }
 
-  .landing { height: 100dvh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .sign { position: relative; container-type: inline-size; aspect-ratio: 958 / 1642; width: min(100%, calc(100dvh * 958 / 1642)); }
-  .sign img { display: block; width: 100%; height: 100%; }
-  .sign .lock { position: absolute; left: 67%; top: 3.6%; transform: translate(-50%, -50%);
-    width: max(40px, 10.5cqw); height: max(40px, 10.5cqw); display: grid; place-items: center;
-    background: color-mix(in srgb, var(--cream) 85%, transparent); border: 1px solid var(--gold); border-radius: 50%; color: var(--green); }
-  .sign .lock svg { width: 45%; height: 45%; }
-  .sign .order { position: absolute; left: 50%; top: 87%; transform: translate(-50%, -50%);
-    width: 44%; min-height: max(44px, 12.3cqw); display: flex; align-items: center; justify-content: center; gap: .5em;
-    background: var(--green); color: var(--cream); border: 0; border-radius: 999px;
-    font-family: "Taviraj", serif; font-weight: 600; font-size: clamp(15px, 4.6cqw, 24px);
-    box-shadow: 0 0 0 2px var(--cream), 0 0 0 3px var(--gold), 0 4px 12px rgba(6,65,42,.25); }
-  .sign .order svg { width: 1.15em; height: 1.15em; }
 
   .topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: .5rem;
     padding: .7rem 1rem; background: color-mix(in srgb, var(--cream) 92%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
@@ -82,12 +69,12 @@
   .hero img { width: 100%; height: 100%; object-fit: cover; }
   .cats { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; padding: .95rem 1rem .1rem; }
   .catcard { display: flex; align-items: center; gap: .65rem; text-align: left; background: var(--card); border: 1.5px solid var(--line); border-radius: 16px; padding: .5rem .65rem .5rem .5rem; min-height: 62px; }
-  .catcard.on { border-color: #0E6B3D; background: #E1EFE5; }
+  .catcard.on { border-color: var(--on, #0E6B3D); background: var(--on-soft, #E1EFE5); }
   .catcard:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .catcard .ct { width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center; flex: none; }
-  .catcard .ct svg { width: 28px; height: 28px; color: #F9F8EF; }
-  .ct.red { background: linear-gradient(145deg, #A3342B, #7A211B); }
-  .ct.green { background: linear-gradient(145deg, #0F7343, #06412A); }
+  .catcard .ct svg { width: 28px; height: 28px; color: var(--ct-ink, #F9F8EF); }
+  .ct.red { background: linear-gradient(145deg, var(--ct-r1, #A3342B), var(--ct-r2, #7A211B)); }
+  .ct.green { background: linear-gradient(145deg, var(--ct-g1, #0F7343), var(--ct-g2, #06412A)); }
   .catcard b { display: block; font-size: .95rem; line-height: 1.2; }
   .catcard small { color: var(--muted); font-size: .75rem; }
   .hero-text { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: .1rem; text-align: center; padding: 0 24%; color: #F9F8EF; pointer-events: none; text-shadow: 0 2px 16px rgba(0,0,0,.45); }
@@ -111,7 +98,6 @@
     font: 700 .85rem "IBM Plex Sans Thai", sans-serif; cursor: pointer; white-space: nowrap; }
   .tr { display: flex; align-items: center; gap: .45rem; }
   .langfloat { display: flex; justify-content: flex-end; padding: .6rem 1rem 0; }
-  .sign .langbtn { position: absolute; left: 6%; top: 3.6%; transform: translateY(-50%); }
   .mtop { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: .5rem;
     padding: .65rem 1rem; background: color-mix(in srgb, var(--cream) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
   .mtop .mt { text-align: center; line-height: 1.2; min-width: 0; }
@@ -157,7 +143,7 @@
   .dish .row { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
   .price { font-family: "Taviraj", serif; font-weight: 600; color: var(--green); }
   .plus { width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: var(--cream); display: grid; place-items: center; font-size: 1.1rem; line-height: 1; }
-  .soldout { position: absolute; inset: 0; background: rgba(249,248,239,.75); display: grid; place-items: center; font-weight: 600; color: var(--red); }
+  .soldout { position: absolute; inset: 0; background: var(--soldout, rgba(249,248,239,.75)); display: grid; place-items: center; font-weight: 600; color: var(--red); }
   .tag { font-size: .72rem; color: var(--gold); }
   .empty { margin: 1rem; padding: 1rem; border: 1px dashed var(--gold); border-radius: 12px; color: var(--muted); text-align: center; }
   .banner { margin: .75rem 1rem 0; padding: .6rem .9rem; border-radius: 10px; background: var(--red-soft); color: var(--red); font-size: .9rem; }
@@ -190,7 +176,7 @@
   .seg label:has(input:checked) { background: var(--green); color: var(--cream); border-color: var(--green); }
   .field { display: block; margin-bottom: .8rem; }
   .field span { display: block; font-size: .85rem; color: var(--muted); margin-bottom: .25rem; }
-  .field input, .field select, .field textarea { width: 100%; border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: .65rem .8rem; }
+  .field input, .field select, .field textarea { width: 100%; border: 1px solid var(--line); background: var(--field, #fff); border-radius: 10px; padding: .65rem .8rem; }
   .line { display: flex; justify-content: space-between; gap: .75rem; padding: .55rem 0; border-bottom: 1px solid var(--line); }
   .line:last-child { border-bottom: 0; }
   .muted { color: var(--muted); font-size: .85rem; }
@@ -515,7 +501,7 @@
   .vchip { display: inline-flex; align-items: center; gap: .25rem; font-size: .75rem; border-radius: 999px; padding: .08rem .55rem; margin-left: .3rem; background: var(--gold-soft); color: #7A5F26; vertical-align: middle; }
   .vchip.on { background: #E1EFE5; color: #0E6B3D; } .vchip svg { width: .95rem; height: .95rem; }
   .gate-head { text-align: center; padding: 2.4rem 1rem 1rem; }
-  .gate-head .bmark { width: 88px; height: 88px; display: block; margin: 0 auto .7rem; }
+  .gate-head .bmark { width: 96px; height: 96px; display: block; margin: 0 auto .8rem; border-radius: 22%; box-shadow: 0 6px 18px rgba(33,20,35,.28); }
   .gate-head .gname { font-family: "Taviraj", serif; font-weight: 600; font-size: 2rem; color: var(--green); letter-spacing: .01em; }
   .gate-hint { text-wrap: balance; text-align: center; margin: .9rem 1rem 0; font-size: .85rem; color: var(--muted, #6b6b5f); line-height: 1.6; }
   .gate-hint b { color: var(--green); font-weight: 600; }
@@ -732,6 +718,76 @@
   .secalert b { font-size: .95rem; }
   .secalert span { font-size: .85rem; color: var(--ink); }
   .secalert .btn { justify-self: start; }
+
+  /* ===== สไตล์หน้าเมนู (เจ้าของเลือก) — ใช้ชื่อตัวแปรสีชุดเดียวกับ :root ===== */
+  [data-mtheme="royal"] { --cream: #F6F3EA; --card: #FFFFFF; --ink: #16213A; --muted: #5F6677; --line: #DDD8C8; --green: #14264A; --green-2: #1F3866; --green-soft: #E3E8F2;
+    --gold: #A67F2A; --gold-soft: #F3EAD2; --red: #A63A2A; --red-soft: #F6E4DF; --on: #1F3866; --on-soft: #E3E8F2; --ct-g1: #2A4A86; --ct-g2: #14264A; --ct-r1: #B8923A; --ct-r2: #8A6A22; }
+  [data-mtheme="midnight"] { --cream: #15110E; --card: #211B16; --ink: #F2EADB; --muted: #B3A892; --line: #3A3128; --green: #D6AF5C; --green-2: #E4C27A; --green-soft: #2E261B;
+    --gold: #D6AF5C; --gold-soft: #2E261B; --red: #EE8B77; --red-soft: #3A211B; --on: #D6AF5C; --on-soft: #2E261B; --field: #2A231C; --soldout: rgba(21,17,14,.78);
+    --ct-g1: #E4C27A; --ct-g2: #B8923A; --ct-r1: #EE8B77; --ct-r2: #C0604C; --ct-ink: #15110E; color-scheme: dark; }
+  [data-mtheme="fairy"] { --cream: #FCF4F0; --card: #FFFBF8; --ink: #3A2A2E; --muted: #76636A; --line: #EBD9D5; --green: #A24059; --green-2: #B8556D; --green-soft: #F6E1E4;
+    --gold: #6F8F6C; --gold-soft: #E6EEE3; --red: #B3402F; --red-soft: #F8E3DE; --on: #A24059; --on-soft: #F6E1E4; --ct-g1: #B8556D; --ct-g2: #A24059; --ct-r1: #8DAA8A; --ct-r2: #6F8F6C; }
+  [data-mtheme="local"] { --cream: #F7F7F5; --card: #FFFFFF; --ink: #161616; --muted: #666666; --line: #D9D9D6; --green: #1C1C1C; --green-2: #333333; --green-soft: #ECECEA;
+    --gold: #7C7C78; --gold-soft: #EEEEEC; --red: #B33A2B; --red-soft: #F6E4DF; --on: #1C1C1C; --on-soft: #ECECEA; --ct-g1: #444444; --ct-g2: #1C1C1C; --ct-r1: #8E8E8A; --ct-r2: #5C5C58; }
+  [data-mtheme="quiet"] { --cream: #F4EFE6; --card: #FBF8F1; --ink: #2E241D; --muted: #74685C; --line: #E2D9C9; --green: #4A3426; --green-2: #5D4434; --green-soft: #EBE2D3;
+    --gold: #8F7B62; --gold-soft: #EDE4D6; --red: #A63A2A; --red-soft: #F6E4DF; --on: #5D4434; --on-soft: #EBE2D3; --ct-g1: #6B5040; --ct-g2: #4A3426; --ct-r1: #A58F76; --ct-r2: #7A6850; }
+  [data-mtheme="market"] { --cream: #F6F9F1; --card: #FFFFFF; --ink: #1E2B1D; --muted: #5F6E5D; --line: #DCE6D4; --green: #2E7D32; --green-2: #3B913F; --green-soft: #E1F0DE;
+    --gold: #B96A12; --gold-soft: #FBEBD5; --red: #C0392B; --red-soft: #F8E1DD; --on: #2E7D32; --on-soft: #E1F0DE; --ct-g1: #3B913F; --ct-g2: #2E7D32; --ct-r1: #E08A2E; --ct-r2: #B96A12; }
+  [data-mtheme="midnight"] .app { box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 0 60px rgba(0,0,0,.5); }
+
+  /* การ์ดเลือกสไตล์ (หน้าโปรไฟล์เจ้าของ) */
+  .themes { display: grid; gap: .5rem; margin: .6rem 0; }
+  .theme { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .75rem; text-align: left; width: 100%; min-height: 56px;
+    padding: .55rem .75rem; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+  .theme.on { border-color: var(--green); box-shadow: 0 0 0 2px var(--green) inset; }
+  .theme .sw { display: inline-flex; border-radius: 10px; overflow: hidden; border: 1px solid rgba(0,0,0,.12); width: 66px; height: 38px; }
+  .theme .sw i { flex: 1; }
+  .theme .tn b { display: block; font-size: .98rem; } .theme .tn small { display: block; color: var(--muted); font-size: .82rem; line-height: 1.35; }
+  .theme em { font-style: normal; font-size: .74rem; font-weight: 600; background: var(--green-soft); color: var(--green); border-radius: 999px; padding: .1rem .6rem; white-space: nowrap; }
+
+  /* ตัวจำลองฝั่งลูกค้า (เจ้าของดูเฉย ๆ ไม่มีออเดอร์จริง) */
+  #simlayer { position: fixed; inset: 0; z-index: 80; background: #E6E2D3; overflow: auto; -webkit-overflow-scrolling: touch; color: #1D2A22; padding-bottom: 2rem; }
+  .sim-bar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: .6rem; padding: .6rem 1rem; background: #F9F8EF; border-bottom: 1px solid #E6E0CF; }
+  .sim-bar b { font-family: "Taviraj", serif; font-size: 1.05rem; }
+  .sim-note { max-width: 880px; margin: .8rem auto 0; padding: .55rem .9rem; background: #F1EAD8; border: 1px solid #B89A5A; border-radius: 12px; font-size: .88rem; }
+  .sim-wrap { max-width: 880px; margin: .9rem auto 0; padding: 0 1rem; display: grid; gap: 1.2rem; grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 760px) { .sim-wrap { grid-template-columns: 372px minmax(0, 1fr); align-items: start; } }
+  .sim-steps { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .8rem; }
+  .sim-steps button { flex: 1; min-width: 74px; min-height: 44px; border: 1px solid #B89A5A; background: #FFFEF9; border-radius: 12px; font-weight: 600; color: #06412A; padding: .3rem .4rem; font-size: .88rem; }
+  .sim-steps button.on { background: #06412A; color: #F9F8EF; border-color: #06412A; }
+  .sim-info h3 { margin: 0 0 .4rem; font-family: "Taviraj", serif; font-size: 1.25rem; color: #06412A; }
+  #simlayer .sim-info .muted { color: #4F554D; }
+  .sim-info ul { margin: 0; padding-left: 1.2rem; line-height: 1.7; } .sim-info li { margin: .25rem 0; }
+  .sim-info .box { background: #FFFEF9; border: 1px solid #E6E0CF; border-radius: 14px; padding: .8rem 1rem; margin-bottom: .8rem; }
+  .simphone { width: 100%; max-width: 372px; height: 680px; margin: 0 auto; border: 10px solid #1d1d1f; border-radius: 38px; overflow: hidden; display: flex; flex-direction: column;
+    background: var(--cream); color: var(--ink); box-shadow: 0 14px 40px rgba(0,0,0,.28); position: relative; }
+  .simscr { flex: 1; overflow: auto; -webkit-overflow-scrolling: touch; }
+  .simphone .mtop { position: static; }
+  .simbar { padding: .6rem .8rem; border-top: 1px solid var(--line); background: var(--card); display: flex; gap: .5rem; align-items: center; justify-content: space-between; }
+  .simbar .btn { flex: 1; }
+  .sim-cam { min-height: 100%; background: #0c0f0d; color: #E8E6DA; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; padding: 1.2rem; text-align: center; }
+  .sim-qrbox { position: relative; width: 210px; padding: 10px; border: 3px solid #F1D98F; border-radius: 18px; background: #fff; overflow: hidden; }
+  .sim-qrbox img { display: block; width: 100%; }
+  .sim-line { position: absolute; left: 0; right: 0; height: 3px; background: #46E08A; box-shadow: 0 0 12px 3px rgba(70,224,138,.7); animation: simscan 2.2s ease-in-out infinite; }
+  @keyframes simscan { 0% { top: 6%; } 50% { top: 92%; } 100% { top: 6%; } }
+  .sim-link { background: rgba(255,255,255,.1); border-radius: 12px; padding: .6rem .8rem; font-size: .8rem; word-break: break-all; display: grid; gap: .5rem; width: 100%; }
+  .sim-qcode { font-family: "Taviraj", serif; font-size: 3rem; font-weight: 600; color: var(--green); line-height: 1.1; }
+  .sim-stage { display: grid; gap: .5rem; margin: .8rem 1rem; }
+  .sim-stage div { display: flex; align-items: center; gap: .6rem; padding: .55rem .8rem; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--muted); }
+  .sim-stage div.done { color: var(--ink); border-color: var(--green); } .sim-stage div.done b { color: var(--green); }
+  .sim-themes { display: flex; flex-wrap: wrap; gap: .4rem; margin: .9rem 0 .2rem; }
+  .sim-themes button { display: inline-flex; align-items: center; gap: .4rem; min-height: 40px; padding: .2rem .7rem; border: 1px solid #B89A5A; border-radius: 999px; background: #FFFEF9; color: #1D2A22; font-size: .85rem; }
+  .sim-themes button.on { background: #06412A; color: #F9F8EF; border-color: #06412A; }
+  .sim-themes button i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,.25); display: inline-block; }
+  .sim-cartline { display: grid; grid-template-columns: 1fr auto; gap: .5rem; align-items: center; padding: .6rem 1rem; border-bottom: 1px solid var(--line); }
+  .sim-qty { display: inline-flex; align-items: center; gap: .4rem; } .sim-qty button { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--ink); font-size: 1.1rem; }
+
+  /* ป้าย QR 3 แบบ */
+  .qrtabs { display: flex; gap: .35rem; margin: .2rem 0 .6rem; flex-wrap: wrap; }
+  .qrtabs button { flex: 1; min-width: 96px; min-height: 44px; border: 1px solid var(--gold); background: var(--card); border-radius: 12px; font-weight: 600; font-size: .85rem; color: var(--green); padding: .25rem .4rem; line-height: 1.25; }
+  .qrtabs button.on { background: var(--green); color: var(--cream); border-color: var(--green); }
+  .qrprev { min-height: 220px; display: grid; place-items: center; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .qrprev img { display: block; width: 100%; max-width: 340px; }
 </style>
 </head>
 <body>
@@ -1153,7 +1209,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 15:20 · แจ้งเตือนออเดอร์ใหม่ถึงมือถือจริง (Web Push)": "App version 20 Oct 15:20 · Real new-order phone alerts (Web Push)",
+"เวอร์ชันแอป 20 ต.ค. 16:12 · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 16:12 · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1184,6 +1240,30 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"สไตล์หน้าเมนู": "Menu style",
+"สไตล์หน้าเมนู ": "Menu style",
+"เลือกสีและบุคลิกของหน้าเมนูที่ลูกค้าเห็น · เลือกได้เฉพาะเจ้าของร้าน · ใช้อยู่ตอนนี้:": "Choose the colours and feel of the menu page customers see · only the shop owner can choose · in use now:",
+"เขียว–ทอง–ครีม แบบที่ใช้อยู่ตอนนี้": "Green–gold–cream, the look used now",
+"กรมท่า–ทอง หรูแบบร้านอาหารพรีเมียม": "Navy–gold, premium restaurant feel",
+"พื้นเข้ม ตัวอักษรทอง ดูหรูตอนกลางคืน": "Dark background, gold accents, a night-time luxury look",
+"ชมพูอ่อน เขียวเซจ หวานนุ่ม": "Soft pink and sage green, gentle and sweet",
+"ขาว–เทาเงิน–ดำ เส้นบาง ทันสมัย": "White–silver–black, thin lines, modern",
+"ขาวอุ่น หินเทา น้ำตาลเอสเปรสโซ": "Warm white, stone grey, espresso brown",
+"เขียวสด ส้มป้าย เหมาะร้านตลาด": "Fresh green with orange accent, made for market stalls",
+"ใช้อยู่": "In use",
+"ดูตัวอย่างในตัวจำลอง": "Preview in the simulator",
+"ใช้สไตล์นี้กับลูกค้า": "Use this style for customers",
+"ยังเลือกสไตล์ไม่ได้ เพราะฐานข้อมูลยังไม่ได้ติดตั้งไฟล์": "Styles cannot be chosen yet because the database has not installed the file",
+"(ให้ศูนย์บริการรันไฟล์นี้ครั้งเดียว) · ระหว่างนี้ลูกค้าเห็นสไตล์เดิม": "(the service center runs it once) · until then customers see the original style",
+"สแกนแล้วเข้าหน้าเมนูทันที · ได้เลขคิวทันทีที่เปิด · เลือกบันทึกได้ 3 แบบ: QR ล้วน (แบบเดิม) และป้ายภาพสวย ๆ อีก 2 ป้าย": "Scanning opens the menu at once · the queue number is given as soon as it opens · save it 3 ways: plain QR (as before) or two picture posters",
+"ลองดูแบบลูกค้า (ตัวจำลอง)": "Try the customer view (simulator)",
+"แบบเดิม · QR ล้วน": "As before · plain QR",
+"ป้ายที่ 1 · ครกส้มตำ": "Poster 1 · mortar",
+"ป้ายที่ 2 · สาวน้อยตำส้มตำ": "Poster 2 · little cook",
+"กำลังสร้างรูป…": "Making the picture…",
+"บน iPhone: กดค้างที่รูปแล้วเลือก “บันทึกลงในรูปภาพ” หรือกด “แชร์ / บันทึก” · ถ้าย้ายเว็บไปที่อยู่ใหม่ ต้องทำ QR ใหม่ (ป้ายที่พิมพ์ไปแล้วจะสแกนไม่เข้า)": "On iPhone: press and hold the picture and choose “Save to Photos”, or tap “Share / Save” · if the website moves to a new address you must make a new QR (printed posters will no longer scan)",
+"แชร์ / บันทึก": "Share / Save",
+"สร้างรูปไม่ได้ ลองกดแบบอื่นหรือเปิดใหม่อีกครั้ง": "Could not make the picture. Try another design or open again",
 "แจ้งเตือนออเดอร์ใหม่ที่เครื่องนี้": "New-order alerts on this device",
 "ยังไม่ได้ติดตั้งระบบแจ้งเตือนฝั่งฐานข้อมูล (SQL 042)": "Alert system not installed in the database yet (SQL 042)",
 "iPhone: ต้องเพิ่มแอปไปยังหน้าจอโฮมก่อน แล้วเปิดจากไอคอนคุณยุ้ย จึงจะเปิดแจ้งเตือนได้ (iOS 16.4 ขึ้นไป)": "iPhone: add the app to the Home Screen first, then open it from the Khun Yui icon to turn alerts on (iOS 16.4 or newer)",
@@ -2181,8 +2261,9 @@ function secBanner(key, cli) {
   }).join('');
 }
 async function loadSettings() {
-  const { data, error } = await sb.from('store_public_settings')
-    .select('is_accepting_orders, closed_for_date, queue_hold_minutes, day_cutoff, hero_image_path').eq('store_id', CONFIG.store).maybeSingle();
+  const cols = 'is_accepting_orders, closed_for_date, queue_hold_minutes, day_cutoff, hero_image_path';
+  let { data, error } = await sb.from('store_public_settings').select(cols + (THEME_COL ? ', menu_theme' : '')).eq('store_id', CONFIG.store).maybeSingle();
+  if (error && THEME_COL && /menu_theme/.test(error.message || '')) { THEME_COL = false; ({ data, error } = await sb.from('store_public_settings').select(cols).eq('store_id', CONFIG.store).maybeSingle()); }
   if (error) throw error; S.settings = data || {};
   // "Open" means the owner pressed open for TODAY's business day (not just a leftover switch from yesterday).
   try { S.open = await rpc('get_store_open_state', { p_store_id: CONFIG.store }); }
@@ -2289,18 +2370,20 @@ const go = (h) => { if (location.hash === h) show(); else location.hash = h; };
 window.addEventListener('hashchange', () => show());
 
 async function show() {
-  const r = route(); closeModal();
+  const r = route(); closeModal(); { const sl = document.getElementById('simlayer'); if (sl) sl.remove(); }
   // the layout width is chosen in CSS from this marker (phone column by default; wider panels on laptops)
-  document.documentElement.dataset.view = ({ owner: 'owner', exec: 'exec', yui: 'yui', login: 'yui' })[r[0]] || (r[0] ? 'cust' : 'home');
+  document.documentElement.dataset.view = ({ owner: 'owner', exec: 'exec', yui: 'yui', login: 'yui' })[r[0]] || (r[0] ? 'cust' : 'yui');
   if (r[0] !== 'yui') leaveYui();
+  applyMenuTheme(!!r[0] && !['owner', 'exec', 'yui', 'login'].includes(r[0]));
   try {
     if (r[0] === 'owner') return await showOwner(r[1] || 'orders', r[2]);
     if (r[0] === 'exec') return await showExec();
     if (r[0] === 'login') return await showGate();
     if (r[0] === 'yui') return await showYui();
-    if (!r[0]) { render(); return; }
+    if (!r[0]) { location.replace('#/login'); return; }
     await ensureCustomer();
     if (!S.settings) await loadSettings();
+    applyMenuTheme(true);
     if (!S.cats.length) await loadMenu(false);
     if (r[0] === 'menu' || r[0] === 'cart' || r[0] === 'review') {
       if (S.reorder) { S.queue = { queue_code: S.reorder.queue_code }; S.queueErr = null; S.closedStore = false; }
@@ -2309,7 +2392,7 @@ async function show() {
         catch (e) { S.queue = null; S.queueErr = nice(e); S.closedStore = /store_not_accepting_orders/.test((e && e.message) || ''); }
       }
       listen(`store:${CONFIG.store}:menu`, async () => { await loadMenu(false); if (route()[0] !== 'owner') render(); });
-      listen(`store:${CONFIG.store}:status`, async () => { await loadSettings(); await signImages(); if (route()[0] !== 'owner') show(); });
+      listen(`store:${CONFIG.store}:status`, async () => { await loadSettings(); await signImages(); applyMenuTheme(!['owner', 'exec', 'yui', 'login'].includes(route()[0])); if (route()[0] !== 'owner') show(); });
       await loadMyOrders();
     }
     if (r[0] === 'item') {
@@ -2324,13 +2407,7 @@ async function show() {
 
 // ---------------- customer views ----------------
 const V = {};
-V[''] = () => `
-  <div class="landing"><div class="sign">
-    <img src="sign.jpg" alt="${t('คุณยุ้ย ส้มตำครกระเบิด — ส้มตำ ยำ — ฮาลาล')}">
-    ${langBtn()}
-    <button class="lock" data-go="#/owner" aria-label="${t('เข้าสู่ระบบสำหรับเจ้าของร้าน')}">${I.lock}</button>
-    <button class="order" data-go="#/menu">${I.cart} ${t('สั่งอาหารเลย')}</button>
-  </div></div>`;
+V[''] = () => V.gate();
 
 function menuBlock(owner, extra = '') {
   const q = S.q.trim();
@@ -2400,7 +2477,7 @@ function custMenu(extra = '') {
 }
 const activeMine = () => S.myOrders.filter(o => !['completed', 'cancelled'].includes(o.status));
 V.closedshop = () => `
-  <div class="topbar"><button class="back" data-go="#/">${I.back} ${t('หน้าแรก')}</button><span class="tr">${langBtn()}</span></div>
+  <div class="topbar"><span></span><span class="tr">${langBtn()}</span></div>
   <div class="login-head"><div class="serif">${t('คุณยุ้ย')}<br>${t('ส้มตำครกระเบิด')}</div></div>
   <div class="card closedcard">
     <div class="moon" aria-hidden="true">${I.leaf}</div>
@@ -3087,6 +3164,191 @@ const pushRow = (k) => {
     ${p.on ? `<div class="actions" style="margin:.1rem 0 .5rem"><button class="btn sm ghost" data-act="push-test" data-cli="${k}">ส่งทดสอบ</button></div>` : ''}`;
 };
 
+// ---------------- สไตล์หน้าเมนู · ป้าย QR 3 แบบ · ตัวจำลองฝั่งลูกค้า ----------------
+// สไตล์เก็บในช่อง store_public_settings.menu_theme (SQL 044) — เจ้าของเปลี่ยนได้คนเดียว (ฟังก์ชัน set_menu_theme ตรวจ role = owner ที่ฐานข้อมูล)
+let THEME_COL = true; // false = ยังไม่ได้รัน SQL 044 แอปใช้สไตล์เดิม (signature) และการ์ดเลือกสไตล์จะแจ้งให้รัน
+const THEMES = [
+  ['signature', 'Signature House', 'เขียว–ทอง–ครีม แบบที่ใช้อยู่ตอนนี้', ['#F9F8EF', '#06412A', '#B89A5A']],
+  ['royal', 'Royal Story Dining', 'กรมท่า–ทอง หรูแบบร้านอาหารพรีเมียม', ['#F6F3EA', '#14264A', '#A67F2A']],
+  ['midnight', 'Midnight Gold', 'พื้นเข้ม ตัวอักษรทอง ดูหรูตอนกลางคืน', ['#15110E', '#D6AF5C', '#211B16']],
+  ['fairy', 'Fairy Table', 'ชมพูอ่อน เขียวเซจ หวานนุ่ม', ['#FCF4F0', '#A24059', '#6F8F6C']],
+  ['local', 'Local Modern', 'ขาว–เทาเงิน–ดำ เส้นบาง ทันสมัย', ['#F7F7F5', '#1C1C1C', '#7C7C78']],
+  ['quiet', 'Quiet Local', 'ขาวอุ่น หินเทา น้ำตาลเอสเปรสโซ', ['#F4EFE6', '#4A3426', '#8F7B62']],
+  ['market', 'Modern Market', 'เขียวสด ส้มป้าย เหมาะร้านตลาด', ['#F6F9F1', '#2E7D32', '#B96A12']],
+];
+const themeOf = (c) => THEMES.find(x => x[0] === c) || THEMES[0];
+const themeCode = () => themeOf(S.settings && S.settings.menu_theme)[0];
+// customers (and the preview) get the colours; back office / exec / Khun Yui screens keep the house look
+function applyMenuTheme(on) {
+  const h = document.documentElement, c = on ? themeCode() : '';
+  if (c) h.dataset.mtheme = c; else delete h.dataset.mtheme;
+  const m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', c ? themeOf(c)[3][0] : '#F9F8EF');
+}
+function themeCard() {
+  if (!S.owner.member || S.owner.member.role !== 'owner') return '';
+  if (!THEME_COL) return `<div class="card"><h3>สไตล์หน้าเมนู</h3><p class="muted" style="margin:0">ยังเลือกสไตล์ไม่ได้ เพราะฐานข้อมูลยังไม่ได้ติดตั้งไฟล์ <b>044_khunyui_menu_theme.sql</b> (ให้ศูนย์บริการรันไฟล์นี้ครั้งเดียว) · ระหว่างนี้ลูกค้าเห็นสไตล์เดิม</p></div>`;
+  const cur = themeCode(), pick = S.themePick || cur;
+  return `<div class="card"><h3>สไตล์หน้าเมนู</h3>
+    <p class="muted" style="margin:0 0 .3rem">เลือกสีและบุคลิกของหน้าเมนูที่ลูกค้าเห็น · เลือกได้เฉพาะเจ้าของร้าน · ใช้อยู่ตอนนี้: <b>${esc(themeOf(cur)[1])}</b></p>
+    <div class="themes" role="radiogroup" aria-label="สไตล์หน้าเมนู">${THEMES.map(([c, n, ds, sw]) => `
+      <button type="button" class="theme ${pick === c ? 'on' : ''}" role="radio" aria-checked="${pick === c}" data-act="theme-pick" data-t="${c}">
+        <span class="sw" aria-hidden="true">${sw.map(x => `<i style="background:${x}"></i>`).join('')}</span>
+        <span class="tn"><b>${n}</b><small>${ds}</small></span>${cur === c ? '<em>ใช้อยู่</em>' : ''}</button>`).join('')}</div>
+    <div class="actions"><button class="btn ghost sm" data-act="sim-open" data-t="${pick}">ดูตัวอย่างในตัวจำลอง</button>
+      <button class="btn sm" data-act="theme-save" ${pick === cur ? 'disabled' : ''}>ใช้สไตล์นี้กับลูกค้า</button></div></div>`;
+}
+async function themeSave(code) {
+  if (!THEMES.some(x => x[0] === code)) return;
+  try {
+    await rpc('set_menu_theme', { p_store_id: CONFIG.store, p_theme: code });
+    S.settings = { ...(S.settings || {}), menu_theme: code }; S.themePick = null;
+    toast('เปลี่ยนสไตล์เมนูแล้ว · ลูกค้าเห็นสีใหม่ทันที');
+    if (route()[0] === 'owner') render('owner'); if ($('#simlayer')) simPaint();
+  } catch (e) {
+    if (/set_menu_theme|menu_theme|does not exist|schema cache/i.test((e && e.message) || '') && !/owner_required/.test((e && e.message) || '')) { THEME_COL = false; toast('ยังไม่ได้ติดตั้ง SQL 044 ในฐานข้อมูล'); if (route()[0] === 'owner') render('owner'); }
+    else toast(nice(e));
+  }
+}
+
+// ---- ป้าย QR: แบบเดิม + ป้ายภาพ 2 แบบ (วาง QR จริงของร้านลงบนภาพ) ----
+const POSTERS = {
+  p1: { src: 'poster-qr-1.jpg', cover: [232, 612, 390, 340], center: [427, 782], avail: 350, bg: [225, 700] },
+  p2: { src: 'poster-qr-2.jpg', cover: [240, 508, 390, 380], center: [427, 692], avail: 370, bg: [226, 700] },
+};
+const QR_KINDS = [['plain', 'แบบเดิม · QR ล้วน'], ['p1', 'ป้ายที่ 1 · ครกส้มตำ'], ['p2', 'ป้ายที่ 2 · สาวน้อยตำส้มตำ']];
+const QRC = {};
+function drawQr(g, text, cx, cy, avail, bg = '#fff') {
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  const n = q.getModuleCount(), sc = Math.max(2, Math.floor(avail / (n + 4))), size = sc * (n + 4), x0 = Math.round(cx - size / 2), y0 = Math.round(cy - size / 2);
+  g.fillStyle = bg; g.fillRect(x0, y0, size, size); g.fillStyle = '#111';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (q.isDark(y, x)) g.fillRect(x0 + (x + 2) * sc, y0 + (y + 2) * sc, sc, sc);
+}
+const loadImg = (src) => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error('poster_load_failed')); i.src = src; });
+async function posterPng(key) {
+  const P = POSTERS[key], im = await loadImg(P.src);
+  const cv = document.createElement('canvas'); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+  const g = cv.getContext('2d'); g.drawImage(im, 0, 0);
+  const k = cv.width / 853;                              // ตำแหน่งวัดบนภาพกว้าง 853 · ถ้าเปลี่ยนเป็นไฟล์ใหญ่กว่า ขยายตามอัตโนมัติ
+  const px = g.getImageData(P.bg[0] * k, P.bg[1] * k, 1, 1).data, bg = `rgb(${px[0]},${px[1]},${px[2]})`; // สีขาวของแผงในภาพ (กันเห็นขอบสี่เหลี่ยมซ้อน)
+  g.scale(k, k);
+  g.fillStyle = bg; g.fillRect(...P.cover);              // ปิด QR ตัวอย่างที่ติดมากับภาพ
+  drawQr(g, menuUrl(), P.center[0], P.center[1], P.avail, bg);
+  return cv.toDataURL('image/jpeg', 0.93);
+}
+async function qrImage(kind) {
+  const key = kind + '|' + menuUrl();
+  if (!QRC[key]) QRC[key] = kind === 'plain' ? qrPng(menuUrl()) : await posterPng(kind);
+  return QRC[key];
+}
+const qrFile = (kind) => kind === 'plain' ? 'khunyui-qr-menu.png' : `khunyui-qr-poster-${kind.slice(1)}.jpg`;
+async function qrShow(kind) {
+  S.qrKind = kind;
+  openModal(`<h3>QR ให้ลูกค้าสแกน</h3>
+    <div class="qrtabs" role="tablist" aria-label="แบบป้าย QR">${QR_KINDS.map(([k, n]) => `<button type="button" role="tab" aria-selected="${k === kind}" class="${k === kind ? 'on' : ''}" data-act="qr-kind" data-k="${k}">${n}</button>`).join('')}</div>
+    <div class="qrprev"><img id="qrimg" alt="QR สแกนเพื่อสั่งอาหาร คุณยุ้ย" style="display:none"><span class="muted" id="qrwait">กำลังสร้างรูป…</span></div>
+    <p class="muted" style="word-break:break-all;text-align:center;margin:.5rem 0 0">${esc(menuUrl())}</p>
+    <p class="muted">บน iPhone: กดค้างที่รูปแล้วเลือก “บันทึกลงในรูปภาพ” หรือกด “แชร์ / บันทึก” · ถ้าย้ายเว็บไปที่อยู่ใหม่ ต้องทำ QR ใหม่ (ป้ายที่พิมพ์ไปแล้วจะสแกนไม่เข้า)</p>
+    <div class="actions"><a class="btn" id="qrdl" style="flex:1;text-decoration:none" download="${qrFile(kind)}" href="#" aria-disabled="true">ดาวน์โหลดรูป</a>
+      ${navigator.canShare ? '<button class="btn ghost" data-act="qr-share">แชร์ / บันทึก</button>' : ''}<button class="btn ghost" data-act="close">ปิด</button></div>`);
+  try {
+    const url = await qrImage(kind); if (S.qrKind !== kind || !$('#qrimg')) return;
+    const im = $('#qrimg'); im.src = url; im.style.display = 'block'; const w = $('#qrwait'); if (w) w.remove();
+    const a = $('#qrdl'); a.href = url; a.download = qrFile(kind); a.removeAttribute('aria-disabled');
+  } catch (_) { const w = $('#qrwait'); if (w) w.textContent = 'สร้างรูปไม่ได้ ลองกดแบบอื่นหรือเปิดใหม่อีกครั้ง'; }
+}
+async function qrShare() {
+  const kind = S.qrKind || 'plain';
+  try {
+    const url = await qrImage(kind), blob = await (await fetch(url)).blob(), f = new File([blob], qrFile(kind), { type: blob.type });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) await navigator.share({ files: [f], title: 'QR คุณยุ้ย ส้มตำครกระเบิด' });
+    else toast('เครื่องนี้แชร์รูปไม่ได้ ใช้ปุ่มดาวน์โหลดแทน');
+  } catch (e) { if (!e || e.name !== 'AbortError') toast('แชร์ไม่สำเร็จ ลองปุ่มดาวน์โหลดแทน'); }
+}
+
+// ---- ตัวจำลองฝั่งลูกค้า: สแกน → เมนู → สั่ง → รอคิว · ไม่มีออเดอร์จริง ไม่กินเลขคิว ไม่แจ้งเตือนร้าน ----
+const SIM = { step: 0, theme: 'signature', cart: {}, stage: 0, cat: null, ful: 'dine', qr: '' };
+const SIM_STEPS = [
+  ['1 สแกน', 'ลูกค้าสแกน QR', ['เปิดกล้องมือถือ (iPhone และ Android ส่วนใหญ่ใช้แอปกล้องธรรมดาได้เลย)', 'ส่องที่ป้าย QR หน้าร้าน แล้วแตะลิงก์ที่เด้งขึ้นมา', 'ไม่ต้องโหลดแอป ไม่ต้องสมัครสมาชิก', 'ถ้ากล้องไม่อ่าน QR: ใช้ Google Lens หรือแอปสแกน QR อะไรก็ได้']],
+  ['2 เมนู', 'เลือกเมนู', ['หน้านี้คือหน้าที่ลูกค้าเห็นจริง สีตามสไตล์ที่เลือก (เปลี่ยนสไตล์ด้านล่างเพื่อลองดู)', 'แตะ + เพิ่มลงตะกร้า · เมนูที่มีตัวเลือก เช่น ความเผ็ด จะถามก่อนเพิ่ม (ในตัวจำลองข้ามส่วนนี้)', 'เมนูที่หมดชั่วคราวจะไม่แสดงในตัวจำลอง']],
+  ['3 สั่ง', 'สั่งอาหาร', ['ลูกค้าเลือกทานที่ร้านหรือกลับบ้าน ตรวจตะกร้า แล้วกดส่งออเดอร์', 'ไม่ต้องจ่ายในแอป — จ่ายที่เคาน์เตอร์ตอนรับอาหาร (เงินสดหรือสแกนจ่าย)']],
+  ['4 รอคิว', 'รอเรียกคิว', ['ลูกค้าได้เลขคิวทันที และเห็นสถานะ รับออเดอร์ → กำลังทำ → พร้อมรับ', 'ร้านกดสถานะที่หน้าออเดอร์ ฝั่งลูกค้าเปลี่ยนเอง มีเสียงและแจ้งเตือนเมื่ออาหารพร้อม', 'ปุ่ม “ร้านกดสถานะถัดไป” ในจอจำลองแทนการกดของร้านจริง']],
+];
+async function simOpen(theme) {
+  try { if (!S.items.length) await loadMenu(true); else await signImages(); } catch (_) {}
+  Object.assign(SIM, { step: 0, theme: themeOf(theme || themeCode())[0], cart: {}, stage: 0, cat: null, ful: 'dine' });
+  try { SIM.qr = qrPng(menuUrl()); } catch (_) { SIM.qr = ''; }
+  simPaint(true);
+}
+const simItems = () => S.items.filter(d => !d.is_archived && d.is_available);
+const simCount = () => Object.values(SIM.cart).reduce((a, b) => a + b, 0);
+const simTotal = () => Object.entries(SIM.cart).reduce((a, [id, q]) => { const it = S.items.find(x => x.id === id); return a + (it ? it.price_satang * q : 0); }, 0);
+function simScreen() {
+  if (SIM.step === 0) return `<div class="sim-cam"><b>ส่องกล้องที่ QR ของร้าน</b>
+    <div class="sim-qrbox"><img src="${SIM.qr}" alt="QR ของร้าน"><i class="sim-line"></i></div>
+    <div class="sim-link"><span>🔗 ${esc(menuUrl())}</span><button class="btn sm" data-act="sim-go" data-s="1">แตะลิงก์เพื่อเปิดเมนู</button></div></div>`;
+  if (SIM.step === 1) {
+    const list = simItems().filter(d => SIM.cat ? d.category_id === SIM.cat : d.is_recommended).slice(0, 8);
+    const nm = SIM.cat ? (S.cats.find(c => c.id === SIM.cat) || {}).name : 'แนะนำ';
+    return `<div class="mtop"><span></span><div class="mt"><b>เมนู${esc(nm || '')}</b><small>${esc(S.storeName || '')}</small></div><span class="tr"><button class="icon-btn" data-act="sim-go" data-s="2" aria-label="ตะกร้า">${I.cart}${simCount() ? `<span class="dot">${simCount()}</span>` : ''}</button></span></div>
+      <div class="mtabs" role="tablist"><button class="mtab ${!SIM.cat ? 'on' : ''}" data-act="sim-cat" data-c="">★ แนะนำ</button>${S.cats.map(c => `<button class="mtab ${SIM.cat === c.id ? 'on' : ''}" data-act="sim-cat" data-c="${c.id}">${esc(c.name)}</button>`).join('')}</div>
+      <div class="grid">${list.map(d => `<div class="dish"><div class="dish-open"><div class="pic">${d.image_path && S.urls[d.image_path] ? imgTag(S.urls[d.image_path]) : catIcon(catCode(d))}</div>
+        <div class="body" style="padding-bottom:.3rem">${d.is_recommended ? '<span class="tag">★ แนะนำ</span>' : ''}<span class="name">${esc(d.name)}</span></div></div>
+        <div class="foot"><span class="price">${baht(d.price_satang)}</span><button class="plus" data-act="sim-add" data-id="${d.id}" aria-label="เพิ่ม ${esc(d.name)}">+</button></div></div>`).join('')}</div>
+      ${list.length ? '' : '<div class="empty">ยังไม่มีเมนูในหมวดนี้</div>'}`;
+  }
+  if (SIM.step === 2) {
+    const lines = Object.entries(SIM.cart).map(([id, q]) => [S.items.find(x => x.id === id), q]).filter(x => x[0]);
+    return `<div class="mtop"><button class="icon-btn" data-act="sim-go" data-s="1" aria-label="กลับ">${I.back}</button><div class="mt"><b>ตะกร้า</b><small>${esc(S.storeName || '')}</small></div><span></span></div>
+      ${lines.length ? lines.map(([it, q]) => `<div class="sim-cartline"><div><b>${esc(it.name)}</b><br><span class="muted">${baht(it.price_satang)}</span></div>
+        <span class="sim-qty"><button data-act="sim-qty" data-id="${it.id}" data-d="-1" aria-label="ลด">−</button><b>${q}</b><button data-act="sim-qty" data-id="${it.id}" data-d="1" aria-label="เพิ่ม">+</button></span></div>`).join('')
+        + `<div class="pad"><div class="actions" style="margin:.8rem 0 0"><button class="btn ${SIM.ful === 'dine' ? '' : 'ghost'} sm" data-act="sim-ful" data-f="dine">ทานที่ร้าน</button><button class="btn ${SIM.ful === 'take' ? '' : 'ghost'} sm" data-act="sim-ful" data-f="take">กลับบ้าน</button></div>
+          <p class="muted">จ่ายที่เคาน์เตอร์ตอนรับอาหาร (เงินสด / สแกนจ่าย)</p></div>`
+        : '<div class="empty">ตะกร้าว่าง · กลับไปเลือกเมนูก่อน</div>'}`;
+  }
+  const code = 'A001';
+  return `<div class="mtop"><span></span><div class="mt"><b>ออเดอร์ของฉัน</b><small>${esc(S.storeName || '')}</small></div><span></span></div>
+    <div style="text-align:center;padding:1.2rem 1rem .2rem"><span class="muted">เลขคิวของคุณ (ตัวอย่าง)</span><div class="sim-qcode">${code}</div><span class="muted">${SIM.ful === 'dine' ? 'ทานที่ร้าน' : 'กลับบ้าน'} · ${simCount()} รายการ · ${baht(simTotal())}</span></div>
+    <div class="sim-stage">${['รับออเดอร์แล้ว', 'กำลังทำ', 'พร้อมรับแล้ว · มารับที่เคาน์เตอร์'].map((s, i) => `<div class="${SIM.stage >= i ? 'done' : ''}"><b>${SIM.stage >= i ? '✓' : '○'}</b> ${s}</div>`).join('')}</div>`;
+}
+function simBar() {
+  if (SIM.step === 1) return `<div class="simbar"><button class="btn" data-act="sim-go" data-s="2" ${simCount() ? '' : 'disabled'}>ดูตะกร้า (${simCount()}) · ${baht(simTotal())}</button></div>`;
+  if (SIM.step === 2) return `<div class="simbar"><button class="btn" data-act="sim-send" ${simCount() ? '' : 'disabled'}>ส่งออเดอร์ (จำลอง) · ${baht(simTotal())}</button></div>`;
+  if (SIM.step === 3) return `<div class="simbar">${SIM.stage < 2 ? '<button class="btn" data-act="sim-stage">ร้านกดสถานะถัดไป</button>' : '<button class="btn" data-act="sim-reset">เล่นใหม่ตั้งแต่ต้น</button>'}</div>`;
+  return '';
+}
+function simPaint(first) {
+  let el = $('#simlayer');
+  if (!el) { el = document.createElement('div'); el.id = 'simlayer'; el.setAttribute('data-notr', ''); el.setAttribute('lang', 'th'); document.body.appendChild(el); }
+  const old = el.querySelector('.simscr'), top = old && !first ? old.scrollTop : 0;
+  const [, title, pts] = SIM_STEPS[SIM.step], cur = themeCode();
+  el.innerHTML = `<div class="sim-bar"><b>ตัวจำลองฝั่งลูกค้า</b><button class="btn ghost sm" data-act="sim-close">ปิด</button></div>
+    <div class="sim-note"><b>โหมดจำลอง</b> · ไม่มีออเดอร์จริง ไม่กินเลขคิว ไม่ส่งแจ้งเตือนไปที่ร้าน · ปิดแล้วทุกอย่างหายไป</div>
+    <div class="sim-wrap"><div><div class="simphone" data-mtheme="${SIM.theme}"><div class="simscr">${simScreen()}</div>${simBar()}</div>
+      <div class="sim-themes" role="radiogroup" aria-label="ลองสไตล์">${THEMES.map(([c, n, , sw]) => `<button type="button" class="${SIM.theme === c ? 'on' : ''}" role="radio" aria-checked="${SIM.theme === c}" data-act="sim-theme" data-t="${c}"><i style="background:${sw[1]}"></i>${n}</button>`).join('')}</div>
+      ${THEME_COL && SIM.theme !== cur ? `<div class="actions" style="margin-top:.6rem"><button class="btn sm" data-act="theme-save" data-t="${SIM.theme}" style="flex:1">ใช้สไตล์ “${esc(themeOf(SIM.theme)[1])}” กับลูกค้าจริง</button></div>` : ''}</div>
+      <div class="sim-info"><div class="sim-steps" role="tablist">${SIM_STEPS.map((s, i) => `<button type="button" role="tab" aria-selected="${SIM.step === i}" class="${SIM.step === i ? 'on' : ''}" data-act="sim-go" data-s="${i}">${s[0]}</button>`).join('')}</div>
+      <div class="box"><h3>${title}</h3><ul>${pts.map(p => `<li>${p}</li>`).join('')}</ul></div>
+      <p class="muted" style="font-size:.85rem">ลูกค้าจริงเปิดหน้านี้จาก QR ที่เมนูโปรไฟล์ → “เปิด QR / บันทึกรูป” · ลูกค้าเปลี่ยนสไตล์ไม่ได้ เห็นตามที่เจ้าของเลือกเท่านั้น</p></div></div>`;
+  trTree(el);
+  const n = el.querySelector('.simscr'); if (n) n.scrollTop = top;
+}
+function simAct(d) {
+  switch (d.act) {
+    case 'sim-open': simOpen(d.t); return;
+    case 'sim-close': { const el = $('#simlayer'); if (el) el.remove(); return; }
+    case 'sim-go': SIM.step = Math.max(0, Math.min(3, Number(d.s) || 0)); if (SIM.step === 3 && !simCount()) SIM.step = 1; break;
+    case 'sim-theme': SIM.theme = themeOf(d.t)[0]; break;
+    case 'sim-cat': SIM.cat = d.c || null; break;
+    case 'sim-add': SIM.cart[d.id] = (SIM.cart[d.id] || 0) + 1; break;
+    case 'sim-qty': { const q = (SIM.cart[d.id] || 0) + Number(d.d); if (q <= 0) delete SIM.cart[d.id]; else SIM.cart[d.id] = Math.min(q, 20); break; }
+    case 'sim-ful': SIM.ful = d.f === 'take' ? 'take' : 'dine'; break;
+    case 'sim-send': if (!simCount()) return; SIM.step = 3; SIM.stage = 0; break;
+    case 'sim-stage': SIM.stage = Math.min(2, SIM.stage + 1); break;
+    case 'sim-reset': Object.assign(SIM, { step: 0, cart: {}, stage: 0, cat: null, ful: 'dine' }); break;
+  }
+  simPaint();
+}
+
 // ---------------- owner ----------------
 async function ownerMember() {
   const { data: { user } } = await sb.auth.getUser();
@@ -3095,7 +3357,7 @@ async function ownerMember() {
   return data && data.is_active ? { ...data, email: user.email } : null;
 }
 // ---- one front door: IMCB2Help sign-in. Every sign-out comes back here; the account decides which work opens (admin -> บริหาร, owner -> หลังร้าน, monitor -> คุณยุ้ย). ----
-const BRAND_MARK = '<svg class="bmark" viewBox="0 0 64 64" role="img" aria-label="IMCB2Help"><circle cx="32" cy="32" r="30" fill="#06412A"/><path d="M32 47C17 37 15 26 21.5 21c4.5-3.4 8.5-1 10.5 3 2-4 6-6.4 10.5-3C49 26 47 37 32 47Z" fill="#F9F8EF"/><path d="M11.500 30A21 21 0 0 1 32 11" fill="none" stroke="#B89A5A" stroke-width="3" stroke-linecap="round"/><path d="M52.500 34A21 21 0 0 1 32 53" fill="none" stroke="#B89A5A" stroke-width="3" stroke-linecap="round"/></svg>';
+const BRAND_MARK = '<img class="bmark" src="imcb2help-mark.png" width="96" height="96" alt="IMCB2Help">';
 async function toYuiIfMonitor() {
   try {
     const { data: { session } } = await sb.auth.getSession(); if (!session) return false;
@@ -3112,7 +3374,18 @@ async function gateGo() {
   if (m.role === 'monitor') { if (await toYuiIfMonitor()) { toast('เข้างานคุณยุ้ย'); return; } throw new Error('เข้างานคุณยุ้ยไม่ได้ ลองใหม่อีกครั้ง'); }
   S.owner.denied = false; unlistenAll(); toast('เข้างานหลังร้าน'); go('#/owner/orders');
 }
-async function showGate() { render('gate'); }
+// Opening the app lands here. If this device is still signed in, go straight to that account's work (no need to type again).
+async function showGate() {
+  render('gate');
+  try {
+    for (const [cli, dest] of [[sbx, '#/exec'], [sby, '#/yui']]) {
+      const { data: { session } } = await cli.auth.getSession();
+      if (session && session.user && !session.user.is_anonymous && route()[0] === 'login') { go(dest); return; }
+    }
+    const { data: { session } } = await sb.auth.getSession();
+    if (session && session.user && !session.user.is_anonymous && route()[0] === 'login') await gateGo();
+  } catch (e) { toast(nice(e)); }
+}
 async function showOwner(tab, arg) {
   if (tab === 'login') { render('login'); return; }
   $('#app').innerHTML = '<div class="login-head" style="padding-top:30vh"><div class="serif" style="font-size:1.4rem">คุณยุ้ย</div><div class="spinner"></div><p class="muted">กำลังตรวจสิทธิ์เจ้าของร้าน…</p></div>';
@@ -3219,7 +3492,7 @@ V.gate = () => `
   </div>
   <p class="gate-hint">ใช้อีเมลและรหัสผ่านของคุณ ระบบพาไปงานของบัญชีนั้นให้เอง<br><b>งานบริหาร</b> · <b>งานหลังร้าน</b> · <b>งานคุณยุ้ย</b></p>${verLine()}`;
 V.login = () => `
-  <div class="topbar"><button class="back" data-go="#/">${I.back} หน้าแรก</button><span></span></div>
+  <div class="topbar"><button class="back" data-go="#/login">${I.back} หน้าเข้าสู่ระบบ</button><span></span></div>
   <div class="login-head"><div class="serif">คุณยุ้ย<br>ส้มตำครกระเบิด</div><p class="muted">สำหรับเจ้าของร้าน</p></div>
   ${S.owner.denied ? `<div class="banner">${S.owner.denied === 'monitor' ? 'บัญชีนี้เป็นบัญชีดูอย่างเดียว ใช้เข้าหลังร้านไม่ได้' : 'บัญชีนี้ไม่มีสิทธิ์เข้าหลังร้าน'}</div>` : ''}
   <div class="card">
@@ -3417,9 +3690,10 @@ T.profile = () => {
       <div class="setting"><span>เสียงเมื่อมีออเดอร์ใหม่ (ขณะเปิดแอป)</span><label class="switch"><input type="checkbox" data-act="sound" ${os.sound_new_order ? 'checked' : ''} aria-label="เสียงแจ้งเตือน"><span></span></label></div>
       <details style="margin-top:.4rem"><summary class="muted" style="cursor:pointer">วิธีติดตั้งแอปจากเว็บ</summary>
         <p class="muted"><b>iPhone:</b> เปิดใน Safari → ปุ่มแชร์ → เพิ่มไปยังหน้าจอโฮม → เปิดจากไอคอนคุณยุ้ย<br><b>Android:</b> เปิดใน Chrome → เมนู ⋮ → ติดตั้งแอป → เปิดจากไอคอนคุณยุ้ย</p></details></div>
+    ${themeCard()}
     <div class="card"><h3>QR ให้ลูกค้าสแกน</h3>
-      <p class="muted" style="margin:0 0 .6rem">สแกนแล้วเข้าหน้าเมนูทันที ไม่ผ่านหน้าป้าย · ได้เลขคิวทันทีที่เปิด</p>
-      <div class="actions"><button class="btn sm" data-act="menu-qr">เปิด QR / บันทึกรูป</button></div></div>
+      <p class="muted" style="margin:0 0 .6rem">สแกนแล้วเข้าหน้าเมนูทันที · ได้เลขคิวทันทีที่เปิด · เลือกบันทึกได้ 3 แบบ: QR ล้วน (แบบเดิม) และป้ายภาพสวย ๆ อีก 2 ป้าย</p>
+      <div class="actions"><button class="btn sm" data-act="menu-qr">เปิด QR / บันทึกรูป</button><button class="btn ghost sm" data-act="sim-open">ลองดูแบบลูกค้า (ตัวจำลอง)</button></div></div>
     <div class="card" style="padding:0"><button class="day-row" style="border-top:0;grid-template-columns:1fr auto" data-go="#/owner/inbox">
       <span><b>กล่องข้อความ</b><br><span class="muted">ข้อความที่ส่งถึงลูกค้า · ยกเลิกและสินค้าหมด</span></span><span class="price" aria-hidden="true">›</span></button></div>
     <div class="card" style="padding:0"><button class="day-row" style="border-top:0;grid-template-columns:1fr auto" data-go="#/owner/archive">
@@ -3564,7 +3838,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 15:20 · แจ้งเตือนออเดอร์ใหม่ถึงมือถือจริง (Web Push)';
+const APP_VERSION = '20 ต.ค. 16:12 · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -3961,6 +4235,11 @@ document.addEventListener('click', async (e) => {
   if (!t || t.disabled) return;
   if (t.dataset.act === 'scrim' && e.target !== t) return;
   const d = t.dataset;
+  if (d.act && d.act.startsWith('sim-')) return simAct(d);
+  if (d.act === 'theme-pick') { S.themePick = d.t; return render('owner'); }
+  if (d.act === 'theme-save') return themeSave(d.t || S.themePick || themeCode());
+  if (d.act === 'qr-kind') return qrShow(d.k);
+  if (d.act === 'qr-share') return qrShare();
   if (d.go) return go(d.go);
   if (d.ord) {
     const o = S.owner.orders.find(x => x.id === d.ord); if (!o) return;
@@ -4333,15 +4612,7 @@ document.addEventListener('click', async (e) => {
     case 'save-settings': await act(async () => {
       await rpc('set_store_settings', { p_store_id: CONFIG.store, p_promptpay_id: null, p_queue_hold_minutes: Number($('#hold').value), p_day_cutoff: $('#cutoff').value || '00:00' });
       await reloadOwner(); }, 'บันทึกแล้ว'); break;
-    case 'menu-qr': {
-      const png = qrPng(menuUrl());
-      openModal(`<h3>QR ให้ลูกค้าสแกน</h3>
-        <img src="${png}" alt="QR สแกนเพื่อสั่งอาหาร คุณยุ้ย" style="width:100%;max-width:340px;display:block;margin:0 auto;border:1px solid var(--line);border-radius:12px">
-        <p class="muted" style="word-break:break-all;text-align:center">${esc(menuUrl())}</p>
-        <p class="muted">บน iPhone: กดค้างที่รูปแล้วเลือก “บันทึกลงในรูปภาพ” · ถ้าย้ายเว็บไปที่อยู่ใหม่ ต้องทำ QR ใหม่</p>
-        <div class="actions"><a class="btn" style="flex:1;text-decoration:none" href="${png}" download="khunyui-qr-menu.png">ดาวน์โหลดรูป</a><button class="btn ghost" data-act="close">ปิด</button></div>`);
-      break;
-    }
+    case 'menu-qr': await qrShow('plain'); break;
     case 'rm-pic': await act(async () => { S.edit.image_path = null; if (S.edit.id) await saveDishImage(S.edit.id, null); paintEditPic(null); }, S.edit?.id ? 'เอารูปออกแล้ว' : ''); break;
     case 'new-dish': editSheet(null); break;
     case 'opt-edit': { const g = S.links.map(l => l.menu_option_groups).find(x => x && x.id === d.g); const v = g && (g.menu_option_values || []).find(x => x.id === d.id); if (g && v) optSheet(g, v); break; }
