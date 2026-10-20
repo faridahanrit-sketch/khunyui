@@ -799,6 +799,10 @@
   .sh-step h3 { margin: 0; font-size: 1.08rem; color: var(--green); } .sh-step p { margin: .15rem 0 0; color: var(--muted); font-size: .92rem; line-height: 1.5; }
   .sh-art { grid-column: 1 / -1; display: grid; place-items: center; } .sh-art svg { width: 100%; max-width: 230px; height: auto; }
   .sh-backup { margin: 0 1rem; background: var(--gold-soft); border-color: var(--gold); }
+  /* ห้องลิงก์ (ผู้บริหาร) */
+  .lk h2 { margin: 0 0 .15rem; font-family: "Taviraj", serif; font-size: 1.1rem; color: var(--green); }
+  .lkurl { word-break: break-all; background: var(--gold-soft); border: 1px solid var(--line); border-radius: 10px; padding: .5rem .7rem; font-size: .84rem; margin: .5rem 0; user-select: all; }
+  .lkwho { display: grid; gap: .1rem; margin: .4rem 0; } .lkmail { font-weight: 600; word-break: break-all; }
 </style>
 </head>
 <body>
@@ -855,6 +859,7 @@ const I = {
   bellOn: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v1"/><path d="M17 10a5 5 0 0 0-10 0c0 5-2 6-2 8h14c0-2-2-3-2-8Z"/><path d="M10 21h4"/><path d="M3 9c-1 1-1 3 0 4M21 9c1 1 1 3 0 4"/></svg>',
   bellOff: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7a5.5 5.5 0 0 1 10 3c0 5 2 6 2 8H5c0-1 .9-2.3 1.4-4"/><path d="M10 21h4M12 3v1"/><path d="M3 3 21 21"/></svg>',
   bellRing: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="1"/><path d="M5 17a7 7 0 0 1 14 0"/><path d="M3 19h18"/><path d="m5 9-2-2m16 2 2-2"/></svg>',
+  link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07L11.5 4.5"/><path d="M14 11a5 5 0 0 0-7.07 0L4.1 13.83a5 5 0 0 0 7.07 7.07L12.5 19.5"/></svg>',
   clipboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><path d="M9 3h6v4H9z"/><path d="M9 12h6M9 16h6"/></svg>',
   cash: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/><circle cx="12" cy="12" r="3"/><path d="M5 10h1M18 14h1"/></svg>',
   paid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 7.2a5 5 0 0 0-7.1-1L12 7.3l-1.1-1.1a5 5 0 0 0-7.1 7.1L12 21l8.2-7.7a5 5 0 0 0 0-6.1Z"/><path d="m8.7 13 2.4 2.4 4.5-4.8"/></svg>',
@@ -1220,7 +1225,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 19:55 · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 20:15 · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1251,6 +1256,23 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ลิงก์": "Links",
+"ลิงก์ของแต่ละงาน": "Links for each work",
+"ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น": "To open or install each work · copy and send to whoever has an account for that work",
+"เปิดหลายงานในหน้าต่างเดียวกันไม่ได้ งานแรกจะล็อกหน้าต่างนั้นไว้ · ให้เปิดแต่ละงานในหน้าต่างใหม่ หรือกดติดตั้งแยกกัน · อีเมลที่แสดงมาจากรายชื่อบัญชีในระบบ ไม่ได้เขียนตายไว้ในแอป": "You cannot open several works in one window: the first one locks that window · open each work in a new window, or install them separately · the emails shown come from the account list in the system, not written into the app",
+"เฉพาะบัญชีผู้บริหาร": "Executive account only",
+"ยังไม่มีบัญชีเจ้าของร้าน": "No owner account yet",
+"บัญชีดูอย่างเดียวเข้างานนี้ได้แบบดูอย่างเดียว": "The view-only account can open this work in view-only mode",
+"บอร์ดคุณยุ้ย": "Khun Yui board",
+"ดูคิวและยอดของร้านวันนี้ (ดูอย่างเดียว)": "View today's queue and sales (view-only)",
+"ยังไม่มีบัญชีคุณยุ้ย": "No Khun Yui account yet",
+"บัญชีเจ้าของร้านก็เข้าจอนี้ได้": "The owner account can open this screen too",
+"หน้าเมนูสั่งอาหารของลูกค้า": "The customer's ordering menu",
+"ไม่ต้องมีบัญชี": "No account needed",
+"ถ้าร้านเปิดรับออเดอร์อยู่ การเปิดลิงก์นี้จะกินเลขคิว 1 ใบ · ลูกค้าจริงเข้าจาก QR ที่ห้องคิวอาร์ (โปรไฟล์ร้าน)": "If the shop is open, opening this link uses up 1 queue number · real customers come in from the QR in the QR room (shop profile)",
+"บัญชีที่เข้าได้": "Accounts that can sign in",
+"คัดลอกลิงก์": "Copy link",
+"เปิดในแท็บใหม่": "Open in new tab",
 "ใบบอกทางสแกน": "Scan guide",
 "ใบบอกทางสแกน 3 ขั้นตอน": "Scan guide · 3 steps",
 "พิมพ์ใบนี้วางข้างป้าย QR · ส่งลิงก์หน้าแนะนำให้ลูกค้าทางไลน์ได้:": "Print this sheet and put it next to the QR poster · you can send customers the help-page link on LINE:",
@@ -2821,8 +2843,9 @@ const iconTiles = () => {
   return `<h3 class="igh">ไอคอนใช้งานในแอป (${Object.keys(ICON_NAMES).length})</h3><div class="igrid">${Object.keys(ICON_NAMES).map(k => tile('I:' + k, ICON_NAMES[k], I[k], ICON_TEMP[k])).join('')}</div>
     <h3 class="igh">ไอคอนหมวดอาหาร (${Object.keys(ICON_CATS).length})</h3><div class="igrid">${Object.keys(ICON_CATS).map(k => tile('C:' + k, ICON_CATS[k], IC[k], false)).join('')}</div>`;
 };
-const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf]];
+const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf], ['links', 'ลิงก์', I.link]];
 const XTITLE = { home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
+  links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
   icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
   acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติการแก้ไข', 'ใครทำอะไร เมื่อไหร่'] };
 const RQ_SCREEN = { owner: 'หลังร้าน', yui: 'จอคุณยุ้ย', exec: 'ผู้บริหาร' };
@@ -2941,6 +2964,20 @@ V.exec = () => {
       ${S.exec.recovery ? '<p class="muted" style="margin:0 0 .5rem">รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านศูนย์บริการเท่านั้น · ตั้งเลขเองได้ หรือให้ระบบสุ่ม</p>' : ''}
       ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email), ct = (S.exec.contacts || []).find(x => x.email === a.email); return `<div class="kv accrow"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.contacts ? `<br><span class="muted">${ct ? t('อีเมลติดต่อ') + ': ' + esc(ct.contact_email) + (ct.verified === undefined ? '' : ' · ' + t(ct.verified ? 'ยืนยันแล้ว' : 'ยังไม่ยืนยัน')) : t('ยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
         <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${esc(a.email)}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${ct && ct.verified !== undefined ? `<button class="btn ghost sm" data-act="exec-verify" data-email="${esc(a.email)}" data-contact="${esc(ct.contact_email)}" data-v="${ct.verified ? 0 : 1}">${ct.verified ? 'ยกเลิกการยืนยันอีเมล' : 'ยืนยันอีเมลแล้ว'}</button>` : ''}${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
+    links: () => {
+      const base = location.origin + location.pathname, accs = S.exec.accounts || [];
+      const mails = (list, none) => list.length ? list.map(a => `<span class="lkmail" data-notr>${esc(a.email)}</span>`).join('') : `<span class="muted">${none}</span>`;
+      const row = (name, sub, url, who, note) => `<div class="xcard lk"><h2>${name}</h2><p class="muted" style="margin:0">${sub}</p>
+        <div class="lkurl" data-notr>${esc(url)}</div>
+        <div class="lkwho"><span class="muted">บัญชีที่เข้าได้</span>${who}</div>
+        ${note ? `<p class="muted" style="margin:.2rem 0 .4rem">${note}</p>` : ''}
+        <div class="actions"><button class="btn sm" data-act="copy-link" data-v="${esc(url)}">คัดลอกลิงก์</button><a class="btn ghost sm" href="${esc(url)}" target="_blank" rel="noopener" style="text-decoration:none">เปิดในแท็บใหม่</a></div></div>`;
+      return `<div class="xcard"><p class="muted" style="margin:0">เปิดหลายงานในหน้าต่างเดียวกันไม่ได้ งานแรกจะล็อกหน้าต่างนั้นไว้ · ให้เปิดแต่ละงานในหน้าต่างใหม่ หรือกดติดตั้งแยกกัน · อีเมลที่แสดงมาจากรายชื่อบัญชีในระบบ ไม่ได้เขียนตายไว้ในแอป</p></div>`
+        + row('งานบริหาร', 'ภาพรวมทุกร้าน บัญชี คำขอรหัสผ่าน', base + '#/login?door=exec', mails(S.exec.email ? [{ email: S.exec.email }] : [], 'ยังไม่มี'), 'เฉพาะบัญชีผู้บริหาร')
+        + row('งานหลังร้าน', 'ออเดอร์ เมนู แดชบอร์ด ตั้งค่า', base + '#/login?door=shop', mails(accs.filter(a => a.role !== 'monitor'), 'ยังไม่มีบัญชีเจ้าของร้าน'), 'บัญชีดูอย่างเดียวเข้างานนี้ได้แบบดูอย่างเดียว')
+        + row('บอร์ดคุณยุ้ย', 'ดูคิวและยอดของร้านวันนี้ (ดูอย่างเดียว)', base + '#/login?door=yui', mails(accs.filter(a => a.role === 'monitor'), 'ยังไม่มีบัญชีคุณยุ้ย'), 'บัญชีเจ้าของร้านก็เข้าจอนี้ได้')
+        + row('ลูกค้า', 'หน้าเมนูสั่งอาหารของลูกค้า', base + '#/menu', '<span class="muted">ไม่ต้องมีบัญชี</span>', 'ถ้าร้านเปิดรับออเดอร์อยู่ การเปิดลิงก์นี้จะกินเลขคิว 1 ใบ · ลูกค้าจริงเข้าจาก QR ที่ห้องคิวอาร์ (โปรไฟล์ร้าน)');
+    },
     icons: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">ชุดไอคอนชุดที่ 1</h2>
       <p class="muted" style="margin:0 0 .6rem">ไอคอนชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เริ่มใช้ 20 ต.ค. · เก็บไว้ให้ใช้ซ้ำกับป้าย เมนู และสื่อของร้าน · เส้นหนา 2 มุมมน สีเขียวร้าน</p>
       <button class="btn sm" data-act="icon-dl-all">${I.box} โหลดทั้งชุดเป็นไฟล์เดียว</button>
@@ -4001,7 +4038,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 19:55 · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 20:15 · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4601,6 +4638,7 @@ document.addEventListener('click', async (e) => {
       await act(async () => { const { error } = await sbx.rpc('exec_revoke_recovery_code', { p_email: d.email }); if (error) throw error; await loadExec(); render('exec'); }, 'ยกเลิกรหัสกู้คืนแล้ว');
       break; }
     case 'rq-filter': S.exec.rqf = d.f || ''; render('exec'); break;
+    case 'copy-link': try { await navigator.clipboard.writeText(d.v); toast('คัดลอกลิงก์แล้ว'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่ลิงก์ค้างไว้แล้วเลือกคัดลอก'); } break;
     case 'copy-tmp': try { await navigator.clipboard.writeText(d.v); toast('คัดลอกแล้ว'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่รหัสค้างไว้เพื่อคัดลอก'); } break;
     case 'pw-save': await act(async () => {
       const cl = d.cli === 'y' ? sby : sb;
