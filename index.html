@@ -803,6 +803,13 @@
   .lk h2 { margin: 0 0 .15rem; font-family: "Taviraj", serif; font-size: 1.1rem; color: var(--green); }
   .lkurl { word-break: break-all; background: var(--gold-soft); border: 1px solid var(--line); border-radius: 10px; padding: .5rem .7rem; font-size: .84rem; margin: .5rem 0; user-select: all; }
   .lkwho { display: grid; gap: .1rem; margin: .4rem 0; } .lkmail { font-weight: 600; word-break: break-all; }
+  .secrow.accstep.next { background: var(--gold-soft); margin: 0 -.5rem; padding-left: .5rem; padding-right: .5rem; border-radius: 10px; border-bottom-color: transparent; }
+  .accintro { margin: 1rem 1rem .2rem; } .accintro h2 { margin: 0; color: var(--green); font-size: 1.1rem; } .accintro p { margin: .15rem 0 .4rem; font-size: .9rem; }
+  .acct-h { display: flex; align-items: center; gap: .7rem; } .acct-id { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; gap: .25rem .4rem; align-items: center; } .acct-id b { flex-basis: 100%; word-break: break-all; font-weight: 600; }
+  .acct-av { flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; font: 600 1.05rem "Taviraj", serif; }
+  .chip-s.wait { background: var(--gold-soft); color: #7A5F26; }
+  .accsteps { margin-top: .5rem; } .accsteps .secrow:last-child { border-bottom: 0; }
+  .acct-f { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: .6rem; padding-top: .6rem; border-top: 1px dashed var(--line); }
 </style>
 </head>
 <body>
@@ -1225,7 +1232,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 21:00 · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 21:30 · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1256,6 +1263,25 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ยืนยันอีเมล": "Confirm email",
+"ใช้อีเมลนี้กับรหัสผ่านที่หน้าเข้าสู่ระบบ ระบบพาเข้าหน้าผู้บริหารเอง": "Use this email and your password on the sign-in page; the system takes you to the executive page by itself",
+"แต่ละบัญชีมีขั้นตอนความปลอดภัย 3 ข้อ · ปุ่มสีเขียวคือขั้นถัดไปที่ทำได้เลย": "Each account has 3 security steps · the green button is the next step you can do now",
+"ขั้นตอนเหล่านี้ใช้ทำอะไร": "What are these steps for?",
+"ใช้เมื่อเจ้าของลืมรหัสและไม่ต้องรอคำขอ ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่องและต้องตั้งรหัสใหม่เอง": "Use it when the owner forgot the password and you do not need to wait for a request. The system makes a random password and shows it once; the account is signed out everywhere and must set its own new password.",
+"คุณตรวจกับเจ้าของทางโทรหรือไลน์ว่าอีเมลเป็นของเขาจริง แล้วกดยืนยัน": "You check with the owner by phone or LINE that the email is really theirs, then tap confirm.",
+"เลข 8 หลัก ใช้ได้ครั้งเดียว ตอนลืมรหัสเจ้าของกรอกอีเมลกับเลขนี้แล้วตั้งรหัสใหม่ได้ทันที ผิด 5 ครั้งล็อก 30 นาที": "An 8-digit number, usable once. When they forget the password, the owner enters their email and this number and can set a new password at once. 5 wrong tries lock it for 30 minutes.",
+"คู่มือ 1 ชุดต่อ 1 งาน ใส่อีเมลให้เอง มีช่องเขียนรหัสกู้คืนด้วยมือ": "One manual per work, with the email filled in and a blank for the recovery number to write by hand",
+"คู่มือฉบับว่าง:": "Blank manual:",
+"ดูอย่างเดียว · เข้าบอร์ดคุณยุ้ย": "View only · opens Khun Yui board",
+"เจ้าของบัญชียังไม่ได้ใส่ · เขาใส่เองได้ในหน้าของเขา": "The account owner has not added it yet · they can add it on their own page",
+"ตรวจกับเจ้าของทางโทรหรือไลน์ก่อน แล้วค่อยกดยืนยัน": "Check with the owner by phone or LINE first, then tap confirm",
+"ต้องมีอีเมลติดต่อก่อน": "A contact email is needed first",
+"รหัสกู้คืนส่วนตัว": "Personal recovery number",
+"ถูกล็อกชั่วคราว (กรอกผิดเกินกำหนด) · ออกใหม่ได้": "Temporarily locked (too many wrong tries) · you can issue a new one",
+"ยังไม่มี · ออกให้เจ้าของเก็บไว้ล่วงหน้า": "None yet · issue one for the owner to keep in advance",
+"ออกใหม่": "Issue new",
+"ออกรหัส": "Issue number",
+"รอตั้งรหัสใหม่เอง": "Waiting for new password",
 "ลิงก์": "Links",
 "ลิงก์ของแต่ละงาน": "Links for each work",
 "ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น": "To open or install each work · copy and send to whoever has an account for that work",
@@ -2967,12 +2993,27 @@ V.exec = () => {
   const rooms = {
     home: homeRoom,
     req: reqRoom,
-    acc: () => `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">อีเมลผู้บริหาร</h2><div class="kv"><span>${esc(S.exec.email)}<br><span class="muted">บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง</span></span></div></div>${(S.exec.accounts || []).length ? `<div class="xcard"><h2 class="serif" style="margin:0 0 .4rem;color:var(--green);font-size:1.1rem">บัญชีของร้าน · ตั้งรหัสชั่วคราวเอง</h2>
-      <p class="muted" style="margin:0 0 .5rem">ใช้เมื่อไม่ต้องรอคำขอ (เช่น โทรมาบอกแล้ว) ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้า</p>
-      <p class="muted" style="margin:0 0 .5rem">เอกสารคู่มือ 1 ชุดต่อ 1 งาน: ปุ่ม "ออกเอกสาร" ในแต่ละบัญชีใส่อีเมลให้เอง มีช่องว่างให้เขียนเลขรหัสกู้คืนด้วยมือ · หรือเปิดฉบับว่าง: <button class="back" data-act="exec-doc" data-kind="yui">งานคุณยุ้ย</button> · <button class="back" data-act="exec-doc" data-kind="owner">งานหลังร้าน</button></p>
-      ${S.exec.recovery ? '<p class="muted" style="margin:0 0 .5rem">รหัสกู้คืนส่วนตัว (เลข 8 หลัก): ออกให้เจ้าของเก็บไว้ล่วงหน้า ตอนลืมรหัสเขากรอกอีเมล + รหัสนี้ที่หน้าล็อกอินแล้วตั้งรหัสใหม่ได้ทันที ใช้ได้ครั้งเดียว ผิด 5 ครั้งล็อก 30 นาที ต้องขอใหม่ผ่านศูนย์บริการเท่านั้น · ตั้งเลขเองได้ หรือให้ระบบสุ่ม</p>' : ''}
-      ${S.exec.accounts.map(a => { const rc = (S.exec.recovery || []).find(x => x.email === a.email), ct = (S.exec.contacts || []).find(x => x.email === a.email); return `<div class="kv accrow"><span>${esc(a.email)}<br><span class="muted">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าจอคุณยุ้ย'}${a.must_change ? ' · รอตั้งรหัสใหม่เอง' : ''}</span>${S.exec.contacts ? `<br><span class="muted">${ct ? t('อีเมลติดต่อ') + ': ' + esc(ct.contact_email) + (ct.verified === undefined ? '' : ' · ' + t(ct.verified ? 'ยืนยันแล้ว' : 'ยังไม่ยืนยัน')) : t('ยังไม่ได้ใส่อีเมลติดต่อ')}</span>` : ''}${S.exec.recovery ? `<br><span class="muted">${rc ? (rc.locked ? 'รหัสกู้คืนถูกล็อก (กรอกผิดเกินกำหนด)' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มีรหัสกู้คืน'}</span>` : ''}</span>
-        <span class="rcbtns"><button class="btn ghost sm" data-act="exec-reset" data-email="${esc(a.email)}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${esc(a.email)}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${ct && ct.verified !== undefined ? `<button class="btn ghost sm" data-act="exec-verify" data-email="${esc(a.email)}" data-contact="${esc(ct.contact_email)}" data-v="${ct.verified ? 0 : 1}">${ct.verified ? 'ยกเลิกการยืนยันอีเมล' : 'ยืนยันอีเมลแล้ว'}</button>` : ''}${S.exec.recovery ? `<button class="btn ghost sm" data-act="exec-rc-issue" data-email="${esc(a.email)}" data-has="${rc ? 1 : 0}">${rc ? 'ออกรหัสกู้คืนใหม่' : 'ออกรหัสกู้คืน'}</button>${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${esc(a.email)}">ยกเลิกรหัสกู้คืน</button>` : ''}` : ''}</span></div>`; }).join('')}</div>` : ''}`,
+    acc: () => {
+      const accs = S.exec.accounts || [], ini = (e) => esc((e || '?').trim().charAt(0).toUpperCase());
+      const step = (st, title, sub, btn) => `<div class="secrow accstep ${st}">${secTick(st === 'done')}<span class="sectx"><b>${title}</b><small>${sub}</small></span>${btn || ''}</div>`;
+      const card = (a) => {
+        const rc = (S.exec.recovery || []).find(x => x.email === a.email), ct = (S.exec.contacts || []).find(x => x.email === a.email);
+        const filled = !!(ct && ct.contact_email), ver = !!(ct && ct.verified), hasRc = !!rc && !rc.locked;
+        const showC = !!S.exec.contacts, showV = !!(ct && ct.verified !== undefined), showR = !!S.exec.recovery;
+        const total = (showC ? 1 : 0) + (showV ? 1 : 0) + (showR ? 1 : 0), done = (showC && filled ? 1 : 0) + (showV && ver ? 1 : 0) + (showR && hasRc ? 1 : 0);
+        const em = esc(a.email);
+        const steps = (showC ? step(filled ? 'done' : 'todo', 'อีเมลติดต่อ', filled ? `<span data-notr>${esc(ct.contact_email)}</span>` : 'เจ้าของบัญชียังไม่ได้ใส่ · เขาใส่เองได้ในหน้าของเขา') : '')
+          + (showV ? step(ver ? 'done' : filled ? 'next' : 'todo', 'ยืนยันอีเมล', ver ? 'ยืนยันแล้ว' : filled ? 'ตรวจกับเจ้าของทางโทรหรือไลน์ก่อน แล้วค่อยกดยืนยัน' : 'ต้องมีอีเมลติดต่อก่อน', filled && !ver ? `<button class="btn sm" data-act="exec-verify" data-email="${em}" data-contact="${esc(ct.contact_email)}" data-v="1">ยืนยันแล้ว</button>` : '') : '')
+          + (showR ? step(hasRc ? 'done' : 'todo', 'รหัสกู้คืนส่วนตัว', rc ? (rc.locked ? 'ถูกล็อกชั่วคราว (กรอกผิดเกินกำหนด) · ออกใหม่ได้' : t('มีรหัสกู้คืนแล้ว · ออกเมื่อ {0}', thDate(new Date(rc.issued_at)))) : 'ยังไม่มี · ออกให้เจ้าของเก็บไว้ล่วงหน้า', `<button class="btn ${rc ? 'ghost ' : ''}sm" data-act="exec-rc-issue" data-email="${em}" data-has="${rc ? 1 : 0}">${rc ? 'ออกใหม่' : 'ออกรหัส'}</button>`) : '');
+        return `<div class="xcard acct"><div class="acct-h"><span class="acct-av" aria-hidden="true">${ini(a.email)}</span><span class="acct-id"><b data-notr>${em}</b><span class="chip-s">${a.role === 'owner' ? 'เจ้าของ · เข้าหลังร้าน' : 'ดูอย่างเดียว · เข้าบอร์ดคุณยุ้ย'}</span>${a.must_change ? '<span class="chip-s wait">รอตั้งรหัสใหม่เอง</span>' : ''}</span>${total ? `<span class="secscore">${done}/${total}</span>` : ''}</div>
+          ${steps ? `<div class="accsteps">${steps}</div>` : ''}
+          <div class="acct-f"><button class="btn ghost sm" data-act="exec-reset" data-email="${em}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${em}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${showV && ver ? `<button class="back sm" data-act="exec-verify" data-email="${em}" data-contact="${esc(ct.contact_email)}" data-v="0">ยกเลิกการยืนยันอีเมล</button>` : ''}${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${em}">ยกเลิกรหัสกู้คืน</button>` : ''}</div></div>`;
+      };
+      return `<div class="xcard acct"><div class="acct-h"><span class="acct-av" aria-hidden="true">${ini(S.exec.email)}</span><span class="acct-id"><b data-notr>${esc(S.exec.email)}</b><span class="chip-s">ผู้บริหาร</span></span></div><p class="muted" style="margin:.5rem 0 0">ใช้อีเมลนี้กับรหัสผ่านที่หน้าเข้าสู่ระบบ ระบบพาเข้าหน้าผู้บริหารเอง</p></div>`
+        + (accs.length ? `<div class="accintro"><h2 class="serif">บัญชีของร้าน</h2><p class="muted">แต่ละบัญชีมีขั้นตอนความปลอดภัย 3 ข้อ · ปุ่มสีเขียวคือขั้นถัดไปที่ทำได้เลย</p>
+          <details class="why"><summary>ขั้นตอนเหล่านี้ใช้ทำอะไร</summary><ul class="whyl"><li><b>ตั้งรหัสชั่วคราว</b> ใช้เมื่อเจ้าของลืมรหัสและไม่ต้องรอคำขอ ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่องและต้องตั้งรหัสใหม่เอง</li><li><b>ยืนยันอีเมล</b> คุณตรวจกับเจ้าของทางโทรหรือไลน์ว่าอีเมลเป็นของเขาจริง แล้วกดยืนยัน</li><li><b>รหัสกู้คืนส่วนตัว</b> เลข 8 หลัก ใช้ได้ครั้งเดียว ตอนลืมรหัสเจ้าของกรอกอีเมลกับเลขนี้แล้วตั้งรหัสใหม่ได้ทันที ผิด 5 ครั้งล็อก 30 นาที</li><li><b>ออกเอกสาร</b> คู่มือ 1 ชุดต่อ 1 งาน ใส่อีเมลให้เอง มีช่องเขียนรหัสกู้คืนด้วยมือ</li></ul></details>
+          <p class="muted" style="margin:.5rem 0 0">คู่มือฉบับว่าง: <button class="back" data-act="exec-doc" data-kind="yui">งานคุณยุ้ย</button> · <button class="back" data-act="exec-doc" data-kind="owner">งานหลังร้าน</button></p></div>${accs.map(card).join('')}` : '');
+    },
     links: () => {
       const base = location.origin + location.pathname, accs = S.exec.accounts || [];
       const mails = (list, none) => list.length ? list.map(a => `<span class="lkmail" data-notr>${esc(a.email)}</span>`).join('') : `<span class="muted">${none}</span>`;
@@ -4047,7 +4088,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 21:00 · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 21:30 · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
