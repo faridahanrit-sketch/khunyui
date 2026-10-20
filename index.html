@@ -791,6 +791,14 @@
   .qrtabs button.on { background: var(--green); color: var(--cream); border-color: var(--green); }
   .qrprev { min-height: 220px; display: grid; place-items: center; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
   .qrprev img { display: block; width: 100%; max-width: 340px; }
+
+  /* หน้า "สแกนไม่ขึ้น? ทำตามนี้" (#/scan-help) */
+  .sh-steps { display: grid; gap: .7rem; margin: .9rem 1rem; }
+  .sh-step { display: grid; grid-template-columns: auto 1fr; gap: .3rem .8rem; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: .8rem .9rem; }
+  .sh-num { width: 38px; height: 38px; border-radius: 50%; background: var(--green); color: var(--cream); display: grid; place-items: center; font: 600 1.1rem "Taviraj", serif; }
+  .sh-step h3 { margin: 0; font-size: 1.08rem; color: var(--green); } .sh-step p { margin: .15rem 0 0; color: var(--muted); font-size: .92rem; line-height: 1.5; }
+  .sh-art { grid-column: 1 / -1; display: grid; place-items: center; } .sh-art svg { width: 100%; max-width: 230px; height: auto; }
+  .sh-backup { margin: 0 1rem; background: var(--gold-soft); border-color: var(--gold); }
 </style>
 </head>
 <body>
@@ -1212,7 +1220,7 @@ Object.assign(EN, {
 "· แก้ไข": "· revised",
 "ยังไม่มีการสรุปยอด": "No day summary yet",
 "ลืมรหัสผ่าน · ตั้งรหัสชั่วคราว": "Forgot password · set temporary password",
-"เวอร์ชันแอป 20 ต.ค. 17:25 · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
+"เวอร์ชันแอป 20 ต.ค. 18:05 · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า": "App version 20 Oct 17:25 · Login icon built into the single file · Choose work after sign-in (executive 3 works · view-only account 2 works) · Login as first page · menu styles · 3 QR designs · customer simulator",
 "อีเมลผู้บริหาร": "Executive email",
 "บัญชีผู้บริหาร · ใส่อีเมลนี้กับรหัสที่ถูกต้องที่หน้าล็อกอินไหนก็ได้ ระบบพาเข้าหน้าผู้บริหารเอง": "Executive account · sign in with this email and the correct password on any login screen and you are taken to the executive page",
 "เจ้าของ · เข้าหลังร้าน": "Owner · opens the back office",
@@ -1243,6 +1251,23 @@ Object.assign(EN, {
 "ไอคอน": "Icons",
 "ตลาดคุณยิ้ม": "Khun Yim Market",
 "สาขาอุดมสุข": "Udomsuk branch",
+"ใบบอกทางสแกน": "Scan guide",
+"ใบบอกทางสแกน 3 ขั้นตอน": "Scan guide · 3 steps",
+"พิมพ์ใบนี้วางข้างป้าย QR · ส่งลิงก์หน้าแนะนำให้ลูกค้าทางไลน์ได้:": "Print this sheet and put it next to the QR poster · you can send customers the help-page link on LINE:",
+"สแกนไม่ขึ้น?": "Can't scan?",
+"ทำตามนี้ 3 ขั้นตอน": "Follow these 3 steps",
+"เปิดแอป “กล้อง”": "Open the “Camera” app",
+"อยู่ที่หน้า “ถ่ายภาพ” ก็พอ": "Just stay on the “Photo” mode",
+"ไม่ต้องหาปุ่มสแกน": "No need to look for a scan button",
+"เล็งที่ QR นิ่ง ๆ": "Hold steady at the QR",
+"ถือค้างไว้สักครู่": "Keep it there for a moment",
+"จะมีลิงก์หรือแถบเด้งขึ้นมา": "A link or banner will pop up",
+"แตะลิงก์": "Tap the link",
+"เมนูของร้านจะเปิดขึ้นมา": "The shop's menu will open",
+"เลือกอาหารแล้วสั่งได้เลย": "Pick your food and order",
+"ถ้ายังไม่ขึ้น ลองสแกนด้วย Google Lens หรือไลน์": "Still nothing? Try scanning with Google Lens or LINE",
+"Google Lens: เปิดแอป Google แล้วแตะไอคอนกล้อง · ไลน์: แตะไอคอนสแกนที่ช่องค้นหา": "Google Lens: open the Google app and tap the camera icon · LINE: tap the scan icon in the search bar",
+"ไปที่หน้าเมนูสั่งอาหาร": "Go to the ordering menu",
 "งานหลังร้าน (ดูอย่างเดียว)": "Back-of-shop work (view only)",
 "ดูออเดอร์ เมนู แดชบอร์ด · แก้ไขไม่ได้": "View orders, menu, dashboard · cannot edit",
 "โหมดดูอย่างเดียว · บัญชีนี้ดูได้แต่แก้ไขไม่ได้": "View-only mode · this account can look but not edit",
@@ -2394,6 +2419,7 @@ async function show() {
     if (r[0] === 'exec') return await showExec();
     if (r[0] === 'login') return await showGate();
     if (r[0] === 'yui') return await showYui();
+    if (r[0] === 'scan-help') { render('scan-help'); window.scrollTo(0, 0); return; }
     if (!r[0]) { location.replace('#/login'); return; }
     await ensureCustomer();
     if (!S.settings) await loadSettings();
@@ -3229,7 +3255,7 @@ const POSTERS = {
   p1: { src: 'poster-qr-1.jpg', cover: [232, 612, 390, 340], center: [427, 782], avail: 350, bg: [225, 700] },
   p2: { src: 'poster-qr-2.jpg', cover: [240, 508, 390, 380], center: [427, 692], avail: 370, bg: [226, 700] },
 };
-const QR_KINDS = [['plain', 'แบบเดิม · QR ล้วน'], ['p1', 'ป้ายที่ 1 · ครกส้มตำ'], ['p2', 'ป้ายที่ 2 · สาวน้อยตำส้มตำ']];
+const QR_KINDS = [['plain', 'แบบเดิม · QR ล้วน'], ['p1', 'ป้ายที่ 1 · ครกส้มตำ'], ['p2', 'ป้ายที่ 2 · สาวน้อยตำส้มตำ'], ['guide', 'ใบบอกทางสแกน']];
 const QRC = {};
 function drawQr(g, text, cx, cy, avail, bg = '#fff') {
   const q = qrcode(0, 'M'); q.addData(text); q.make();
@@ -3251,16 +3277,17 @@ async function posterPng(key) {
 }
 async function qrImage(kind) {
   const key = kind + '|' + menuUrl();
-  if (!QRC[key]) QRC[key] = kind === 'plain' ? qrPng(menuUrl()) : await posterPng(kind);
+  if (!QRC[key]) QRC[key] = kind === 'plain' ? qrPng(menuUrl()) : kind === 'guide' ? await guidePng() : await posterPng(kind);
   return QRC[key];
 }
-const qrFile = (kind) => kind === 'plain' ? 'khunyui-qr-menu.png' : `khunyui-qr-poster-${kind.slice(1)}.jpg`;
+const qrFile = (kind) => kind === 'plain' ? 'khunyui-qr-menu.png' : kind === 'guide' ? 'khunyui-scan-guide.png' : `khunyui-qr-poster-${kind.slice(1)}.jpg`;
 async function qrShow(kind) {
   S.qrKind = kind;
   openModal(`<h3>QR ให้ลูกค้าสแกน</h3>
     <div class="qrtabs" role="tablist" aria-label="แบบป้าย QR">${QR_KINDS.map(([k, n]) => `<button type="button" role="tab" aria-selected="${k === kind}" class="${k === kind ? 'on' : ''}" data-act="qr-kind" data-k="${k}">${n}</button>`).join('')}</div>
-    <div class="qrprev"><img id="qrimg" alt="QR สแกนเพื่อสั่งอาหาร คุณยุ้ย" style="display:none"><span class="muted" id="qrwait">กำลังสร้างรูป…</span></div>
+    <div class="qrprev"><img id="qrimg" alt="${kind === 'guide' ? 'ใบบอกทางสแกน 3 ขั้นตอน' : 'QR สแกนเพื่อสั่งอาหาร คุณยุ้ย'}" style="display:none"><span class="muted" id="qrwait">กำลังสร้างรูป…</span></div>
     <p class="muted" style="word-break:break-all;text-align:center;margin:.5rem 0 0">${esc(menuUrl())}</p>
+    ${kind === 'guide' ? `<p class="muted" style="margin:.5rem 0 0">พิมพ์ใบนี้วางข้างป้าย QR · ส่งลิงก์หน้าแนะนำให้ลูกค้าทางไลน์ได้:</p><p class="muted" style="word-break:break-all;margin:.2rem 0 0" data-notr>${esc(helpUrl())}</p>` : ''}
     <p class="muted">บน iPhone: กดค้างที่รูปแล้วเลือก “บันทึกลงในรูปภาพ” หรือกด “แชร์ / บันทึก” · ถ้าย้ายเว็บไปที่อยู่ใหม่ ต้องทำ QR ใหม่ (ป้ายที่พิมพ์ไปแล้วจะสแกนไม่เข้า)</p>
     <div class="actions"><a class="btn" id="qrdl" style="flex:1;text-decoration:none" download="${qrFile(kind)}" href="#" aria-disabled="true">ดาวน์โหลดรูป</a>
       ${navigator.canShare ? '<button class="btn ghost" data-act="qr-share">แชร์ / บันทึก</button>' : ''}<button class="btn ghost" data-act="close">ปิด</button></div>`);
@@ -3279,10 +3306,82 @@ async function qrShare() {
   } catch (e) { if (!e || e.name !== 'AbortError') toast('แชร์ไม่สำเร็จ ลองปุ่มดาวน์โหลดแทน'); }
 }
 
+// ---- ใบบอกทางสแกน 3 ข้อ (รูปแบบที่ 4 ในห้องคิวอาร์ + หน้า #/scan-help ที่ส่งลิงก์ให้ลูกค้าได้) ----
+const helpUrl = () => location.origin + location.pathname + '#/scan-help';
+const SCAN_STEPS = [
+  ['เปิดแอป “กล้อง”', ['อยู่ที่หน้า “ถ่ายภาพ” ก็พอ', 'ไม่ต้องหาปุ่มสแกน']],
+  ['เล็งที่ QR นิ่ง ๆ', ['ถือค้างไว้สักครู่', 'จะมีลิงก์หรือแถบเด้งขึ้นมา']],
+  ['แตะลิงก์', ['เมนูของร้านจะเปิดขึ้นมา', 'เลือกอาหารแล้วสั่งได้เลย']],
+];
+const SCAN_BACKUP = 'ถ้ายังไม่ขึ้น ลองสแกนด้วย Google Lens หรือไลน์';
+// รูปประกอบ: วาดด้วยรูปทรงล้วน (ไม่มีตัวหนังสือ) ใช้ทั้งในหน้าเว็บและวาดลงใบพิมพ์
+function scanArt(n, w = 300) {
+  const gold = '#F1D98F', green = '#06412A';
+  const finder = (x, y) => `<rect x="${x}" y="${y}" width="14" height="14" fill="#111"/><rect x="${x + 3}" y="${y + 3}" width="8" height="8" fill="#fff"/><rect x="${x + 5}" y="${y + 5}" width="4" height="4" fill="#111"/>`;
+  const qr = (x, y, s, op) => `<g opacity="${op}"><rect x="${x}" y="${y}" width="${s}" height="${s}" rx="3" fill="#fff"/>${finder(x + 4, y + 4)}${finder(x + s - 18, y + 4)}${finder(x + 4, y + s - 18)}
+    <rect x="${x + 24}" y="${y + 26}" width="6" height="6" fill="#111"/><rect x="${x + 33}" y="${y + 32}" width="6" height="6" fill="#111"/><rect x="${x + 25}" y="${y + 38}" width="6" height="6" fill="#111"/><rect x="${x + 36}" y="${y + 24}" width="6" height="6" fill="#111"/></g>`;
+  const phone = (inner) => `<rect x="95" y="6" width="110" height="248" rx="20" fill="#1d1d1f"/><clipPath id="scr"><rect x="102" y="18" width="96" height="224" rx="12"/></clipPath><g clip-path="url(#scr)">${inner}</g>`;
+  let body = '';
+  if (n === 0) {
+    body = phone(`<rect x="102" y="18" width="96" height="152" fill="#3d5247"/><rect x="102" y="170" width="96" height="72" fill="#101412"/>
+      <rect x="112" y="182" width="22" height="14" rx="7" fill="#55605a"/><rect x="139" y="181" width="26" height="16" rx="8" fill="${gold}"/><rect x="170" y="182" width="22" height="14" rx="7" fill="#55605a"/>
+      <circle cx="150" cy="220" r="13" fill="none" stroke="#fff" stroke-width="3"/><circle cx="150" cy="220" r="9" fill="#fff"/>`)
+      + `<rect x="135" y="176" width="34" height="26" rx="13" fill="none" stroke="#B89A5A" stroke-width="2.5"/>
+      <rect x="18" y="104" width="62" height="46" rx="10" fill="${green}"/><rect x="30" y="96" width="20" height="10" rx="3" fill="${green}"/><circle cx="49" cy="127" r="14" fill="#F9F8EF"/><circle cx="49" cy="127" r="8" fill="${green}"/>
+      <line x1="262" y1="189" x2="222" y2="189" stroke="#B89A5A" stroke-width="5" stroke-linecap="round"/><polygon points="206,189 222,180 222,198" fill="#B89A5A"/>`;
+  } else if (n === 1) {
+    body = phone(`<rect x="102" y="18" width="96" height="224" fill="#3d5247"/>${qr(125, 95, 50, 1)}<rect x="118" y="118" width="64" height="3" fill="#46E08A"/>`)
+      + `<g fill="none" stroke="${gold}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M115 99V85H129"/><path d="M171 85H185V99"/><path d="M185 141V155H171"/><path d="M129 155H115V141"/></g>
+      <circle cx="49" cy="130" r="26" fill="none" stroke="${green}" stroke-width="5"/><path d="M49 130V114M49 130L60 137" fill="none" stroke="${green}" stroke-width="5" stroke-linecap="round"/>`;
+  } else {
+    body = phone(`<rect x="102" y="18" width="96" height="224" fill="#3d5247"/>${qr(125, 110, 50, .45)}
+      <rect x="107" y="28" width="86" height="30" rx="15" fill="#F9F8EF"/>
+      <rect x="116" y="37" width="11" height="7" rx="3.5" fill="none" stroke="${green}" stroke-width="2"/><rect x="122" y="42" width="11" height="7" rx="3.5" fill="none" stroke="${green}" stroke-width="2"/>
+      <rect x="140" y="37" width="44" height="4" rx="2" fill="#8a8f88"/><rect x="140" y="45" width="30" height="4" rx="2" fill="#c7c9c2"/>`)
+      + `<circle cx="165" cy="43" r="22" fill="none" stroke="#B89A5A" stroke-width="3" opacity=".85"/><circle cx="165" cy="43" r="32" fill="none" stroke="#B89A5A" stroke-width="2.5" opacity=".45"/>
+      <path d="M236 150L172 54" stroke="#C98F63" stroke-width="22" stroke-linecap="round"/><path d="M236 150L172 54" stroke="#E8B88E" stroke-width="17" stroke-linecap="round"/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 260" width="${w}" height="${Math.round(w * 260 / 300)}" aria-hidden="true" focusable="false">${body}</svg>`;
+}
+async function guidePng() {
+  const W = 1080, H = 1640, cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const g = cv.getContext('2d'), SANS = '"IBM Plex Sans Thai","Noto Sans Thai","Leelawadee UI",Tahoma,sans-serif', SERIF = '"Taviraj","Noto Serif Thai",serif';
+  try { await Promise.all([['600', 'Taviraj'], ['600', 'IBM Plex Sans Thai'], ['400', 'IBM Plex Sans Thai']].map(([w, f]) => document.fonts.load(`${w} 40px "${f}"`, 'กาเสแกน'))); } catch (_) {}
+  const arts = await Promise.all([0, 1, 2].map(n => loadImg('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(scanArt(n, 720)))));
+  const rr = (x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+  const tx = (s, x, y, font, color, align = 'left', max) => { g.font = font; g.fillStyle = color; g.textAlign = align; g.textBaseline = 'alphabetic'; if (max) g.fillText(s, x, y, max); else g.fillText(s, x, y); };
+  g.fillStyle = '#F9F8EF'; g.fillRect(0, 0, W, H);
+  g.fillStyle = '#06412A'; g.fillRect(0, 0, W, 200);
+  tx('สแกนสั่งอาหาร ง่าย ๆ 3 ขั้นตอน', W / 2, 105, `600 60px ${SERIF}`, '#F9F8EF', 'center', 980);
+  tx('คุณยุ้ย ส้มตำครกระเบิด · ไม่ต้องโหลดแอป', W / 2, 163, `400 31px ${SANS}`, '#F1D98F', 'center', 980);
+  SCAN_STEPS.forEach(([h, ls], i) => {
+    const y = 235 + i * 300;
+    rr(50, y, 980, 270, 28); g.fillStyle = '#FFFEF9'; g.fill(); g.lineWidth = 3; g.strokeStyle = '#E6E0CF'; g.stroke();
+    g.beginPath(); g.arc(125, y + 135, 50, 0, Math.PI * 2); g.fillStyle = '#06412A'; g.fill();
+    tx(String(i + 1), 125, y + 157, `600 64px ${SERIF}`, '#F9F8EF', 'center');
+    tx(h, 205, y + 110, `600 50px ${SANS}`, '#06412A', 'left', 480);
+    ls.forEach((l, j) => tx(l, 205, y + 168 + j * 50, `400 33px ${SANS}`, '#3a463f', 'left', 480));
+    g.drawImage(arts[i], 700, y + 5, 300, 260);
+  });
+  rr(50, 1150, 980, 120, 28); g.fillStyle = '#F1EAD8'; g.fill(); g.lineWidth = 3; g.strokeStyle = '#B89A5A'; g.stroke();
+  tx(SCAN_BACKUP, W / 2, 1226, `600 38px ${SANS}`, '#06412A', 'center', 930);
+  g.fillStyle = '#fff'; rr(60, 1320, 330, 290, 24); g.fill(); g.lineWidth = 3; g.strokeStyle = '#E6E0CF'; g.stroke();
+  drawQr(g, menuUrl(), 225, 1465, 300, '#fff');
+  tx('หรือสแกน QR นี้เลย', 430, 1440, `600 48px ${SANS}`, '#06412A', 'left', 600);
+  tx('ส่องด้วยกล้อง ไม่ต้องโหลดแอป', 430, 1500, `400 33px ${SANS}`, '#3a463f', 'left', 600);
+  return cv.toDataURL('image/png');
+}
+V['scan-help'] = () => `
+  <div class="topbar"><span></span><span class="tr">${langBtn()}</span></div>
+  <div class="login-head"><div class="serif">${t('สแกนไม่ขึ้น?')}<br>${t('ทำตามนี้ 3 ขั้นตอน')}</div></div>
+  <div class="sh-steps">${SCAN_STEPS.map(([h, ls], i) => `<div class="sh-step"><span class="sh-num">${i + 1}</span><div><h3>${t(h)}</h3><p>${ls.map(l => t(l)).join('<br>')}</p></div><div class="sh-art">${scanArt(i)}</div></div>`).join('')}</div>
+  <div class="card sh-backup"><b>${t(SCAN_BACKUP)}</b><p class="muted" style="margin:.3rem 0 0">${t('Google Lens: เปิดแอป Google แล้วแตะไอคอนกล้อง · ไลน์: แตะไอคอนสแกนที่ช่องค้นหา')}</p></div>
+  <div style="margin:1rem"><button class="btn block" data-go="#/menu">${t('ไปที่หน้าเมนูสั่งอาหาร')}</button></div>`;
+
 // ---- ตัวจำลองฝั่งลูกค้า: สแกน → เมนู → สั่ง → รอคิว · ไม่มีออเดอร์จริง ไม่กินเลขคิว ไม่แจ้งเตือนร้าน ----
 const SIM = { step: 0, theme: 'signature', cart: {}, stage: 0, cat: null, ful: 'dine', qr: '' };
 const SIM_STEPS = [
-  ['1 สแกน', 'ลูกค้าสแกน QR', ['เปิดกล้องมือถือ (iPhone และ Android ส่วนใหญ่ใช้แอปกล้องธรรมดาได้เลย)', 'ส่องที่ป้าย QR หน้าร้าน แล้วแตะลิงก์ที่เด้งขึ้นมา', 'ไม่ต้องโหลดแอป ไม่ต้องสมัครสมาชิก', 'ถ้ากล้องไม่อ่าน QR: ใช้ Google Lens หรือแอปสแกน QR อะไรก็ได้']],
+  ['1 สแกน', 'ลูกค้าสแกน QR', ['เปิดกล้องมือถือ (iPhone และ Android ส่วนใหญ่ใช้แอปกล้องธรรมดาได้เลย)', 'ส่องที่ป้าย QR หน้าร้าน แล้วแตะลิงก์ที่เด้งขึ้นมา', 'ไม่ต้องโหลดแอป ไม่ต้องสมัครสมาชิก', 'ถ้าไม่มีปุ่มสแกน: เปิดกล้องที่หน้า “ถ่ายภาพ” แล้วเล็งที่ QR รอให้ลิงก์ขึ้นมา · ยังไม่ขึ้นลอง Google Lens หรือสแกนในไลน์']],
   ['2 เมนู', 'เลือกเมนู', ['หน้านี้คือหน้าที่ลูกค้าเห็นจริง สีตามสไตล์ที่เลือก (เปลี่ยนสไตล์ด้านล่างเพื่อลองดู)', 'แตะ + เพิ่มลงตะกร้า · เมนูที่มีตัวเลือก เช่น ความเผ็ด จะถามก่อนเพิ่ม (ในตัวจำลองข้ามส่วนนี้)', 'เมนูที่หมดชั่วคราวจะไม่แสดงในตัวจำลอง']],
   ['3 สั่ง', 'สั่งอาหาร', ['ลูกค้าเลือกทานที่ร้านหรือกลับบ้าน ตรวจตะกร้า แล้วกดส่งออเดอร์', 'ไม่ต้องจ่ายในแอป — จ่ายที่เคาน์เตอร์ตอนรับอาหาร (เงินสดหรือสแกนจ่าย)']],
   ['4 รอคิว', 'รอเรียกคิว', ['ลูกค้าได้เลขคิวทันที และเห็นสถานะ รับออเดอร์ → กำลังทำ → พร้อมรับ', 'ร้านกดสถานะที่หน้าออเดอร์ ฝั่งลูกค้าเปลี่ยนเอง มีเสียงและแจ้งเตือนเมื่ออาหารพร้อม', 'ปุ่ม “ร้านกดสถานะถัดไป” ในจอจำลองแทนการกดของร้านจริง']],
@@ -3876,7 +3975,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 17:25 · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '20 ต.ค. 18:05 · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
