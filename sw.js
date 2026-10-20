@@ -7,9 +7,12 @@ self.addEventListener('fetch', () => {});
 self.addEventListener('push', (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch (_) { d = { title: 'คุณยุ้ย', body: e.data && e.data.text() }; }
+  const url = d.url || './#/owner/orders';
+  // the notification wears the icon of the work it belongs to (customer / back-of-shop / Khun Yui's board / executive)
+  const icon = /#\/yui/.test(url) ? 'icon-yui-192.png' : /#\/exec/.test(url) ? 'icon-exec-192.png' : /#\/owner/.test(url) ? 'icon-shop-192.png' : 'icon-customer-192.png';
   e.waitUntil(self.registration.showNotification(d.title || 'ออเดอร์ใหม่', {
-    body: d.body || '', icon: 'icon-192.png', badge: 'icon-192.png', tag: d.tag || 'khunyui-order',
-    data: { url: d.url || './#/owner/orders' }
+    body: d.body || '', icon, badge: icon, tag: d.tag || 'khunyui-order',
+    data: { url }
   }));
 });
 self.addEventListener('notificationclick', (e) => {

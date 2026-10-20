@@ -1,0 +1,32 @@
+{
+  "id": "./?app=yui",
+  "name": "บอร์ดคุณยุ้ย",
+  "short_name": "บอร์ดคุณยุ้ย",
+  "description": "ดูคิวและยอดของร้านวันนี้ (ดูอย่างเดียว)",
+  "lang": "th",
+  "start_url": "./#/login?door=yui",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#A83A2A",
+  "theme_color": "#F9F8EF",
+  "icons": [
+    {
+      "src": "icon-yui-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-yui-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-yui-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
