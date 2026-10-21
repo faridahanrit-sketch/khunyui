@@ -2911,7 +2911,7 @@ async function showExec() {
   S.exec.email = session.user.email || '';
   const { data: ok, error } = await sbx.rpc('is_platform_admin');
   if (error || !ok) { S.exec.state = 'denied'; return render('execdenied'); }
-  try { const rm = localStorage.getItem('khunyui-exec-room'); if (rm && XROOMS.some(x => x[0] === rm)) S.exec.room = rm; } catch (_) {}
+  try { const rm = localStorage.getItem('khunyui-exec-room'); if (rm && XROOMS.some(x => x[0] === rm) && !XSIDE.includes(rm)) S.exec.room = rm; else if (XSIDE.includes(S.exec.room)) S.exec.room = 'home'; } catch (_) {}   // the big overview always opens first; side rooms (fashion, characters, AI) show only when she taps into them
   await loadExec(); S.exec.state = 'ready'; await pollReqs(); render('exec');
   S.exec.rt = setInterval(pollReqs, 2000);   // reset requests: checked every 2 seconds while this page is open
   S.exec.t = setInterval(async () => {
@@ -3023,6 +3023,7 @@ const sesCard = () => {
     ${list || '<p class="muted" style="margin:.4rem 0 0">ตอนนี้ไม่มีเครื่องไหนเข้าสู่ระบบอยู่</p>'}</div>`;
 };
 const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf], ['links', 'ลิงก์', I.link], ['fash', 'แฟชั่น', I.hanger], ['chr', 'ตัวละคร', I.chars], ['ai', 'เอไอ', I.spark]];
+const XSIDE = ['fash', 'chr', 'ai'];   // rooms entered on purpose: never remembered as "the room to open on"
 // ---- AI room: a note-pad of questions, each tagged with the work (door) and room it is about, copyable for any AI chat.
 // Kept on THIS device only (localStorage) — nothing about the questions goes into the public file or the database.
 const AIW = { exec: ['งานบริหาร', ['ภาพรวม', 'คำขอรหัส', 'บัญชีร้าน', 'รายได้', 'ประวัติ', 'ไอคอน', 'ลิงก์', 'ครีเอเตอร์แฟชั่น', 'ตัวละคร LHROY25', 'เอไอ']], owner: ['งานหลังร้าน', ['ออเดอร์', 'เมนู', 'แดชบอร์ด', 'ตั้งค่า']], yui: ['บอร์ดคุณยุ้ย', ['คิวและยอดวันนี้']], cust: ['ลูกค้า',['เมนู', 'ตะกร้า', 'ติดตามสถานะ']], other: ['งานอื่นนอกแอปนี้', []] };
@@ -4373,7 +4374,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '22 ต.ค. 01:05 · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '22 ต.ค. 01:20 · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4956,7 +4957,7 @@ document.addEventListener('click', async (e) => {
       const ok = iconSave('khunyui-icons-set1.svg', `<svg xmlns="http://www.w3.org/2000/svg" color="#06412A" style="display:none">\n${syms}\n</svg>\n`, 'image/svg+xml');
       toast(ok ? 'โหลดชุดไอคอนทั้งหมดแล้ว (33 ตัว)' : 'โหลดไม่ได้ ลองเปิดแอปในเบราว์เซอร์'); break; }
     case 'xnav': { const l = Number(d.l) || 0; S.exec.nav = { l, sid: l >= 2 ? (d.sid || (S.exec.nav || {}).sid || null) : null, part: l === 3 ? (d.part || (S.exec.nav || {}).part || null) : null }; render('exec'); window.scrollTo(0, 0); break; }
-    case 'exec-room': if (d.room === 'home' && S.exec.room === 'home') S.exec.nav = { l: 0 }; S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
+    case 'exec-room': if (d.room === 'home' && S.exec.room === 'home') S.exec.nav = { l: 0 }; S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', XSIDE.includes(d.room) ? 'home' : d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
     case 'rq-approve': await act(async () => { const { error } = await sbx.rpc('exec_approve_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ส่งรหัสไปที่หน้าจอเขาแล้ว'); break;
     case 'rq-deny': await act(async () => { const { error } = await sbx.rpc('exec_deny_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ปฏิเสธคำขอแล้ว'); break;
     case 'fp-copy': {
