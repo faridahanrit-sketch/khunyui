@@ -3104,30 +3104,44 @@ function fashRoomHtml() {
 // Notes per character are kept on THIS device only (localStorage).
 const CHR_KEY = 'khunyui-chr';
 const CHR = [
-  { id: 'kaye', n: 'KAYE', fam: 'KAYE FAMILY', look: 'ผมสีเขียว หูและตัวลายจุดขาวดำ (ดูจากภาพ)' },
-  { id: 'loumi', n: 'LOUMI', fam: 'LOUMI FAMILY', look: 'สีขาว ผมฟ้า สวมหมวกเบเร่ต์ดำ ท่าทางคล้ายโคอาลา (ดูจากภาพ)' },
-  { id: 'rugi', n: 'RUGI', fam: 'RUGI FAMILY', look: 'ตัวสีดำ ท่าทางคล้ายกอริลลาน้อย โบว์ดอกไม้ดำ (ดูจากภาพ)' },
-  { id: 'roye', n: 'ROYÉ', fam: 'Royé family', look: 'เด็กผมดำ มงกุฎเล็กและโบว์น้ำเงิน (ดูจากภาพ)' },
-  { id: 'kaii', n: 'KAII', fam: 'KAII-KIRA FAMILY (ในรายการ FAREEDA รวมกับ KIRA)', look: 'แพนด้าดำขาว' },
-  { id: 'kira', n: 'KIRA', fam: 'KAII-KIRA FAMILY (ในรายการ FAREEDA รวมกับ KAII)', look: 'แพนด้าขาวชมพู' },
+  { id: 'kaye', n: 'KAYE', fam: 'KAYE FAMILY', look: 'เสือหิมะ ผมสีเขียว', s: 'elegant independent',
+    a: 'คุณหนูเสือหิมะที่สง่า แต่มีความเป็นตัวเองสูง ฉลาด ช่างสังเกต สุขุมกว่าที่หน้าตาน่ารักบอก ภายนอกดูเรียบร้อยและมีรสนิยม แต่ข้างในมีความดื้อเงียบ กล้าตัดสินใจ และไม่ชอบให้ใครบังคับง่ายๆ มีความผูกพันกับธรรมชาติและรายละเอียดสวยงาม',
+    c: 'Cream + Emerald + Antique Gold ดูแพงแต่ไม่ฟุ่มเฟือย ใช้ลายพฤกษา ของสะสมละเอียด งานไม้/ผ้าเนื้อดี และพื้นที่สงบสำหรับอ่านหรืออยู่คนเดียว สีเขียวเหมาะกับ mood ที่สงบแต่ยังมีบุคลิกชัด' },
+  { id: 'loumi', n: 'LOUMI', fam: 'LOUMI FAMILY', look: 'โคอาลา สีขาว ผมฟ้า หมวกเบเร่ต์ดำ', s: 'gentle introspective',
+    a: 'เด็กโคอาลาสายสงบ อ่อนโยน และมีโลกส่วนตัว เป็นคนฟังมากกว่าพูด มีความละเอียดอ่อน ชอบความสบาย ความเงียบ และสิ่งที่คุ้นเคย ดูนิ่งแต่รับรู้อารมณ์คนรอบตัวเก่ง มีความอบอุ่นแบบไม่ต้องแสดงออกเยอะ',
+    c: 'Warm Ivory + Cream + Black + Pale Blue ห้องต้องนุ่ม เงียบ เป็นระเบียบ แสงอ่อน มีมุมอ่านหนังสือ/พักผ่อน ผ้าถัก ลูกไม้ และไม้สีเข้มเล็กน้อย ฟ้าอ่อนใช้เป็นเอกลักษณ์ ไม่ทำห้องฟ้าทั้งหมด' },
+  { id: 'rugi', n: 'RUGI', fam: 'RUGI FAMILY', look: 'กอริลลา ตัวสีดำ', s: 'determined loyal',
+    a: 'เด็กกอริลลาที่หน้าดูบึ้งแต่หัวใจอบอุ่น มีความมุ่งมั่น ดื้อแบบมีเหตุผล ปกป้องคนของตัวเอง ไม่ชอบทำอะไรตามกระแส เป็นคนจริงจัง ตรง และอาจดูเข้าถึงยากในตอนแรก แต่เมื่อไว้ใจแล้วจะซื่อสัตย์มาก',
+    c: 'Deep Brown + Forest Green + Cream + Muted Gold ห้องหนักแน่น อบอุ่น มีหนังสือ งานไม้ ของจากครอบครัว และพื้นที่ทำกิจกรรม ไม่ควรหวานหรือเด็กเกินไป ให้รู้สึกว่าเป็นห้องของเด็กที่มีบุคลิกแข็งแรง' },
+  { id: 'roye', n: 'ROYÉ', fam: 'Royé family', look: 'เจ้าหญิง ผมดำ มงกุฎเล็ก', s: 'warm natural leader',
+    a: 'เจ้าหญิงแกนกลางของกลุ่ม มีความอ่อนโยนแต่มีภาวะผู้นำ สุภาพ รับฟังคนอื่น มีความรับผิดชอบและความมั่นใจตามธรรมชาติ ไม่จำเป็นต้องเสียงดังเพื่อให้คนสนใจ มีความกล้าหาญ แต่ยังมีด้านขี้เล่นและเป็นเด็กอยู่ ไม่ใช่เจ้าหญิงที่ถูกเลี้ยงให้สมบูรณ์แบบจนไม่มีความเป็นตัวเอง',
+    c: 'Deep Navy + Warm Ivory + Antique Gold หรูแบบราชวงศ์แต่ไม่แข็ง ใช้ดอกไม้ navy-gold, crown details แบบ restrained, หนังสือ ศิลปะ และพื้นที่เล่นที่ซ่อนอยู่ในความเรียบร้อย เพื่อให้รู้ว่าเธอเป็นทั้งเจ้าหญิงและเด็กจริงๆ' },
+  { id: 'kaii', n: 'KAII', fam: 'KAII-KIRA FAMILY (ในรายการ FAREEDA รวมกับ KIRA)', look: 'แพนด้าดำขาว', s: 'curious stubborn playful',
+    a: 'เด็กแพนด้าสายกวน ดื้อ มึน และอยากรู้อยากเห็น ทำหน้าเหมือนไม่สนใจแต่จริงๆ สังเกตทุกอย่าง ชอบทดลอง ชอบจับของ ชอบหาคำตอบเอง มีพลังแบบเด็กที่ทำให้บ้านวุ่นได้โดยไม่ได้ตั้งใจ ความตลกของเขามาจากสีหน้าและการตอบสนองตรงๆ ไม่ใช่ตัวตลก',
+    c: 'Black + Warm Ivory + Dark Wood + Antique Gold ห้องมีกราฟิกขาวดำ ของเล่นเชิงกล/ประกอบ มุมทดลอง มุมปีนหรือเล่น และของสะสมแปลกๆ ต้องมีความ playful มากกว่าห้อง KIRA แต่ยังคง old-money panda mansion DNA' },
+  { id: 'kira', n: 'KIRA', fam: 'KAII-KIRA FAMILY (ในรายการ FAREEDA รวมกับ KAII)', look: 'แพนด้าขาวชมพู', s: 'expressive charming confident',
+    a: 'เด็กแพนด้าสาวสายหวานที่แสดงออกชัดและมีเสน่ห์สูง รักสวยรักงาม ชอบความสนใจ มีอารมณ์และสีหน้าชัด เจ้าเสน่ห์ ขี้อ้อน และอาจมีความ dramatic เล็กๆ แต่ไม่ได้อ่อนแอ เธอรู้ว่าตัวเองชอบอะไรและกล้าบอก ความอ่อนหวานจึงอยู่คู่กับความมั่นใจ',
+    c: 'Blush Pink + Warm Cream + Pearl + Antique Gold โรแมนติก มีหัวใจ ดอกไม้ pearl/tweed แต่ต้องดูแพงไม่ใช่พลาสติกเด็ก ใช้หลาย texture ช่วยให้ห้องมีบุคลิกมากกว่าหวานอย่างเดียว' },
 ];
+const chrVal = (c, k) => { const n = chrS().notes[c.id]; return n && typeof n[k] === 'string' ? n[k] : (c[k] || ''); };
 const chrLoad = () => { try { const v = JSON.parse(localStorage.getItem(CHR_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (_) { return {}; } };
 const chrS = () => { if (!S.exec.chr) { const v = chrLoad(); S.exec.chr = { c: CHR.some(x => x.id === v.c) ? v.c : CHR[0].id, notes: (v.notes && typeof v.notes === 'object') ? v.notes : {} }; } return S.exec.chr; };
 const chrSave = () => { try { const s = chrS(); localStorage.setItem(CHR_KEY, JSON.stringify({ c: s.c, notes: s.notes })); return true; } catch (_) { return false; } };
 function chrRoomHtml() {
-  const s = chrS(), c = CHR.find(x => x.id === s.c) || CHR[0], nt = s.notes[c.id] || {};
+  const s = chrS(), c = CHR.find(x => x.id === s.c) || CHR[0];
   const h2 = (t) => `<h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">${t}</h2>`;
-  const filled = (x) => { const n = s.notes[x.id] || {}; return !!((n.a || '').trim() || (n.b || '').trim()); };
+  const edited = (x) => !!s.notes[x.id];
   return `<div data-notr id="chr-form">
   <div class="xcard">${h2('LHROY25 · ROYÉ Generation')}
-    <p class="muted" style="margin:0 0 .6rem">โลกตัวละคร ตุ๊กตา งานออกแบบ · ไม่ใช่เสื้อผ้า · ผลิตจริงหรือพร้อมส่งยังไม่ยืนยัน<br>ตัวละคร 6 ตัว แยกห้องรายตัว แตะชื่อเพื่อเข้าห้อง (จุด = มีบันทึกแล้ว)</p>
-    <div class="rqf" role="group" aria-label="เลือกตัวละคร">${CHR.map(x => `<button class="${x.id === c.id ? 'on' : ''}" data-act="chr-pick" data-id="${x.id}" aria-pressed="${x.id === c.id}">${esc(x.n)}${filled(x) ? ' ●' : ''}</button>`).join('')}</div></div>
+    <p class="muted" style="margin:0 0 .6rem">โลกตัวละคร ตุ๊กตา งานออกแบบ · ไม่ใช่เสื้อผ้า · ผลิตจริงหรือพร้อมส่งยังไม่ยืนยัน<br>ตัวละคร 6 ตัว แยกห้องรายตัว แตะชื่อเพื่อเข้าห้อง (● = คุณแก้หรือบันทึกแล้ว)</p>
+    <div class="rqf" role="group" aria-label="เลือกตัวละคร">${CHR.map(x => `<button class="${x.id === c.id ? 'on' : ''}" data-act="chr-pick" data-id="${x.id}" aria-pressed="${x.id === c.id}">${esc(x.n)}${edited(x) ? ' ●' : ''}</button>`).join('')}</div></div>
   <div class="xcard">${h2('ห้อง ' + esc(c.n))}
-    <p class="muted" style="margin:0 0 .6rem">ครอบครัว: ${esc(c.fam)}<br>ลักษณะ: ${esc(c.look)}${c.id === 'kaii' || c.id === 'kira' ? '<br>KAII และ KIRA แยกห้องกัน แม้ในรายการ FAREEDA จะเป็นครอบครัวเดียวกัน' : ''}</p>
-    <label class="field"><span>ตัวตนและนิสัยของ ${esc(c.n)}</span><textarea id="chr-a" rows="4" maxlength="1500" placeholder="ยังไม่ได้ใส่ · พิมพ์ได้เลย">${esc(nt.a || '')}</textarea></label>
-    <label class="field"><span>สินค้าหรืองานออกแบบของ ${esc(c.n)}</span><textarea id="chr-b" rows="4" maxlength="1500" placeholder="ยังไม่ได้ใส่ · เช่น ตุ๊กตา ลาย ชุด (ถ้ายังไม่ยืนยันให้เขียนว่ายังไม่ยืนยัน)">${esc(nt.b || '')}</textarea></label>
+    <p class="muted" style="margin:0 0 .6rem">ครอบครัว: ${esc(c.fam)}<br>ลักษณะ: ${esc(c.look)}<br>สรุปบุคลิก: ${esc(c.s)}${c.id === 'kaii' || c.id === 'kira' ? '<br>KAII และ KIRA แยกห้องกัน แม้ในรายการ FAREEDA จะเป็นครอบครัวเดียวกัน' : ''}</p>
+    <label class="field"><span>ตัวตนและนิสัยของ ${esc(c.n)}</span><textarea id="chr-a" rows="6" maxlength="1500">${esc(chrVal(c, 'a'))}</textarea></label>
+    <label class="field"><span>ภาษาห้องของ ${esc(c.n)} (สี วัสดุ ของตกแต่ง)</span><textarea id="chr-c" rows="5" maxlength="1500">${esc(chrVal(c, 'c'))}</textarea></label>
+    <label class="field"><span>สินค้าหรืองานออกแบบของ ${esc(c.n)}</span><textarea id="chr-b" rows="3" maxlength="1500" placeholder="ยังไม่ได้ใส่ · เช่น ตุ๊กตา ลาย ชุด (ถ้ายังไม่ยืนยันให้เขียนว่ายังไม่ยืนยัน)">${esc(chrVal(c, 'b'))}</textarea></label>
     <div class="actions"><button class="btn" style="flex:1" data-act="chr-save">บันทึกห้อง ${esc(c.n)}</button></div>
-    <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">เก็บในเครื่องนี้เท่านั้น · ยังไม่มีภาพในห้องนี้ (ไฟล์แอปเป็นไฟล์สาธารณะ จึงยังไม่ฝังภาพตัวละคร)</p></div></div>`;
+    <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">ข้อความตั้งต้นของตัวตนนิสัยและภาษาห้องมาจากไฟล์ที่ส่งมา (22 ต.ค. 00:19) และอยู่ในไฟล์แอปซึ่งเป็นไฟล์สาธารณะ · ส่วนที่คุณแก้เก็บในเครื่องนี้เท่านั้น · ยังไม่มีภาพตัวละครในห้องนี้</p></div></div>`;
 }
 const XTITLE = { chr: ['ตัวละคร LHROY25', 'ตัวละคร 6 ตัว แยกห้องรายตัว · KAII และ KIRA แยกห้องกัน'], fash: ['ครีเอเตอร์แฟชั่น', 'แบรนด์ของเรา และผังหน้าร้านของแต่ละแบรนด์ · จัดหน้าร้านก่อน เติมสินค้าทีหลัง'], ai: ['หมวดเอไอ', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
@@ -4357,7 +4371,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '22 ต.ค. 00:30 · ห้องตัวละคร LHROY25: 6 ตัว แยกห้อง (KAII/KIRA แยก) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '22 ต.ค. 00:50 · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -5038,9 +5052,9 @@ document.addEventListener('click', async (e) => {
       await act(async () => { const { error } = await sbx.rpc('exec_revoke_recovery_code', { p_email: d.email }); if (error) throw error; await loadExec(); render('exec'); }, 'ยกเลิกรหัสกู้คืนแล้ว');
       break; }
     case 'rq-filter': S.exec.rqf = d.f || ''; render('exec'); break;
-    case 'chr-pick': { const s = chrS(); if (CHR.some(x => x.id === d.id)) { const a = document.getElementById('chr-a'), b = document.getElementById('chr-b'); if (a && b) { const o = s.notes[s.c] || {}; if (a.value !== (o.a || '') || b.value !== (o.b || '')) { s.notes[s.c] = { a: a.value, b: b.value }; chrSave(); } } s.c = d.id; chrSave(); } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
-    case 'chr-save': { const s = chrS(), a = document.getElementById('chr-a'), b = document.getElementById('chr-b'); if (!a || !b) break;
-      s.notes[s.c] = { a: a.value.trim(), b: b.value.trim() }; if (!s.notes[s.c].a && !s.notes[s.c].b) delete s.notes[s.c];
+    case 'chr-pick': { const s = chrS(); if (CHR.some(x => x.id === d.id)) { const cur = CHR.find(x => x.id === s.c), g = (k) => document.getElementById('chr-' + k); if (cur && g('a') && g('b') && g('c') && (g('a').value !== chrVal(cur, 'a') || g('b').value !== chrVal(cur, 'b') || g('c').value !== chrVal(cur, 'c'))) { s.notes[s.c] = { a: g('a').value.trim(), b: g('b').value.trim(), c: g('c').value.trim() }; } s.c = d.id; chrSave(); } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'chr-save': { const s = chrS(), g = (k) => document.getElementById('chr-' + k); if (!g('a') || !g('b') || !g('c')) break;
+      s.notes[s.c] = { a: g('a').value.trim(), b: g('b').value.trim(), c: g('c').value.trim() };
       const ok = chrSave(), y = window.scrollY; render('exec'); window.scrollTo(0, y); toast(ok ? 'บันทึกแล้ว (เครื่องนี้เท่านั้น)' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ)'); break; }
     case 'fash-brand': { const f = fashS(); if (FASH_BR.some(x => x.id === d.id)) { f.b = d.id; f.from = 'all'; fashSave(); } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
     case 'fash-from': { fashS().from = d.k || 'all'; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
