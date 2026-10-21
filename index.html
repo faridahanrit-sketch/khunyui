@@ -565,6 +565,20 @@
   .fpage { background: #f4efe6; color: #16140f; padding: .8rem 1rem; font-size: .9rem; line-height: 1.5; } .fpage span { color: #6b6457; font-size: .8rem; }
   .fdoors { display: flex; flex-wrap: wrap; gap: .4rem; padding: .6rem 1rem .9rem; background: #f4efe6; } .fdoors span { border: 1px solid #16140f; border-radius: 999px; padding: .15rem .7rem; font-size: .78rem; color: #16140f; }
   .chimg { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; border: 2px solid var(--line); float: right; margin: 0 0 .4rem .7rem; }
+  .fpad { padding-left: 1rem; padding-right: 1rem; }
+  .fhead { text-align: center; padding: .4rem .5rem .8rem; } .fmark { font-size: 1.5rem; letter-spacing: .4em; padding-left: .4em; color: var(--ink, #14120e); }
+  .fkick { font-size: .68rem; letter-spacing: .14em; color: var(--green); margin-top: .2rem; } .ftitle { margin: .5rem 0 0; font-size: 1.45rem; color: var(--ink, #14120e); }
+  .fq { display: flex; align-items: center; gap: .5rem; border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: .15rem 1rem; margin: 0 0 .7rem; } .fq span { color: var(--muted, #6b6457); font-size: 1.1rem; }
+  .fq input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; padding: .6rem 0; outline: none; }
+  .fcount { display: flex; justify-content: space-between; align-items: baseline; margin: .3rem 0 .5rem; } .fcount b { color: var(--green); font-size: .85rem; }
+  .fgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .7rem; } @media (min-width: 700px) { .fgrid { grid-template-columns: repeat(3, 1fr); } }
+  .fcard { position: relative; text-align: left; font: inherit; color: inherit; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: .8rem .8rem .9rem; min-height: 168px; display: flex; flex-direction: column; gap: .2rem; cursor: pointer; }
+  .fcard.hot { border-color: var(--green); box-shadow: 0 0 0 1px var(--green) inset; } .fcard:hover { border-color: var(--green); } .fcard[hidden] { display: none; }
+  .flab { font-size: .56rem; letter-spacing: .09em; color: var(--muted, #6b6457); text-align: right; line-height: 1.3; } .fcard .flab { align-self: flex-end; max-width: 70%; }
+  .fic { width: 34px; height: 34px; border-radius: 50%; background: var(--green-soft); color: var(--green); display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; margin: .1rem 0 .5rem; } .fic.big { width: 44px; height: 44px; font-size: 1.3rem; float: left; margin: 0 .7rem .3rem 0; }
+  .fname2 { font-size: 1.02rem; line-height: 1.25; } .fen { font-size: .62rem; letter-spacing: .1em; color: var(--muted, #6b6457); } .fwhat { font-size: .72rem; color: var(--muted, #6b6457); margin-top: auto; padding-top: .5rem; line-height: 1.4; }
+  .fback { border: 0; background: none; font: inherit; color: var(--green); padding: .2rem 0 .6rem; cursor: pointer; } .fback span { font-size: 1.3rem; vertical-align: -1px; margin-right: .2rem; }
+  .fid { overflow: hidden; } .fid .flab { text-align: left; display: block; }
   .fstep { margin: 0 0 .6rem; } .fstep b { color: var(--green); }
   .aiit { align-items: flex-start; gap: .6rem; } .aiit > span:first-child { flex: 1; min-width: 0; } .aiq { display: block; margin-top: .25rem; white-space: pre-wrap; word-break: break-word; }
   .aibtn { display: flex; flex-direction: column; gap: .3rem; align-items: flex-end; }
@@ -3060,27 +3074,44 @@ function aiRoomHtml() {
 const FASH_KEY = 'khunyui-fash';
 const FASH_DOORS = { all: 'รวม', shirt: 'เสื้อ', bag: 'กระเป๋า', shoes: 'รองเท้า', jewel: 'เครื่องประดับ' };
 const FASH_BR = [
-  { id: 'lh25', name: 'LUNCH HOUSE 105 · LH25', tag: 'แบรนด์แรก · มีแบบฟอร์มจองล่วงหน้า 25 ชุด รอแบรนด์ตอบรับ', what: 'เสื้อผ้าหญิง–ชาย ชุดแต่งตัวครบชุด กระเป๋า รองเท้า เครื่องประดับ', doors: ['all', 'shirt', 'bag', 'shoes', 'jewel'] },
-  { id: 'nadie', name: 'NADIÉ', tag: 'ต้องยืนยันก่อนว่ารับผลิตอยู่', what: 'กระเป๋าและเครื่องหนัง ชิ้นสะสม', doors: ['all', 'bag'] },
-  { id: 'belle', name: 'BELLE2001 COMPLETE DRESSING', tag: 'ยังไม่พร้อมเป็นรอบแรก', what: 'แนวทางแต่งตัวครบชุด (ยังไม่ยืนยันรายการสินค้า)', doors: ['all'] },
-  { id: 'lhroy', name: 'LHROY25 · ROYÉ Generation', tag: 'ไม่ใช่เสื้อผ้า · ผลิตจริงยังไม่ยืนยัน', what: 'โลกตัวละคร ตุ๊กตา งานออกแบบ', doors: ['all'] },
-  { id: 'mad', name: 'MADELEINE', tag: 'ยังไม่ใช่ร้าน', what: 'งานภาพแฟชั่นและสื่อบรรณาธิการ', doors: ['all'] },
+  { id: 'lh25', ic: '○', grp: 'first', en: 'FASHION & ACCESSORIES', lab: 'FIRST BRAND · PRE-ORDER', name: 'LUNCH HOUSE 105 · LH25', tag: 'แบรนด์แรก · มีแบบฟอร์มจองล่วงหน้า 25 ชุด รอแบรนด์ตอบรับ', what: 'เสื้อผ้าหญิง–ชาย ชุดแต่งตัวครบชุด กระเป๋า รองเท้า เครื่องประดับ', doors: ['all', 'shirt', 'bag', 'shoes', 'jewel'] },
+  { id: 'nadie', ic: '◇', grp: 'confirm', en: 'BAGS & LEATHER', lab: 'TO CONFIRM · MADE TO ORDER', name: 'NADIÉ', tag: 'ต้องยืนยันก่อนว่ารับผลิตอยู่', what: 'กระเป๋าและเครื่องหนัง ชิ้นสะสม', doors: ['all', 'bag'] },
+  { id: 'belle', ic: '△', grp: 'confirm', en: 'COMPLETE DRESSING', lab: 'TO CONFIRM · NOT READY', name: 'BELLE2001 COMPLETE DRESSING', tag: 'ยังไม่พร้อมเป็นรอบแรก', what: 'แนวทางแต่งตัวครบชุด (ยังไม่ยืนยันรายการสินค้า)', doors: ['all'] },
+  { id: 'lhroy', ic: '□', grp: 'world', en: 'CHARACTER WORLD', lab: 'NOT CLOTHING · 6 CHARACTERS', name: 'LHROY25 · ROYÉ Generation', tag: 'ไม่ใช่เสื้อผ้า · ผลิตจริงยังไม่ยืนยัน', what: 'โลกตัวละคร ตุ๊กตา งานออกแบบ', doors: ['all'] },
+  { id: 'mad', ic: '✦', grp: 'editorial', en: 'EDITORIAL', lab: 'NOT A SHOP YET', name: 'MADELEINE', tag: 'ยังไม่ใช่ร้าน', what: 'งานภาพแฟชั่นและสื่อบรรณาธิการ', doors: ['all'] },
 ];
+const FASH_GRP = [['', 'ทั้งหมด'], ['first', 'แบรนด์แรก'], ['confirm', 'ต้องยืนยัน'], ['world', 'งานตัวละคร'], ['editorial', 'งานภาพ']];
 const fashLoad = () => { try { const v = JSON.parse(localStorage.getItem(FASH_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (_) { return {}; } };
-const fashS = () => { if (!S.exec.fash) { const v = fashLoad(); S.exec.fash = { b: FASH_BR.some(x => x.id === v.b) ? v.b : 'lh25', from: 'all', vid: (v.vid && typeof v.vid === 'object') ? v.vid : {} }; } return S.exec.fash; };
+const fashS = () => { if (!S.exec.fash) { const v = fashLoad(); S.exec.fash = { view: 'list', q: '', g: '', b: FASH_BR.some(x => x.id === v.b) ? v.b : 'lh25', from: 'all', vid: (v.vid && typeof v.vid === 'object') ? v.vid : {} }; } return S.exec.fash; };
 const fashSave = () => { try { const f = fashS(); localStorage.setItem(FASH_KEY, JSON.stringify({ b: f.b, vid: f.vid })); return true; } catch (_) { return false; } };
 const fashUrl = (u) => /^https?:\/\/\S+$/i.test(String(u || '').trim()) ? String(u).trim() : '';
+const fashHit = (x, q, g) => (!g || x.grp === g) && (!q || [x.name, x.en, x.what, x.tag, x.lab].join(' ').toLowerCase().includes(q));
 function fashRoomHtml() {
-  const f = fashS(), br = FASH_BR.find(x => x.id === f.b) || FASH_BR[0];
+  const f = fashS(), esc2 = esc, h2 = (t) => `<h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">${t}</h2>`;
+  if (f.view !== 'brand') {
+    const q = (f.q || '').trim().toLowerCase(), shown = FASH_BR.filter(x => fashHit(x, q, f.g));
+    return `<div data-notr id="fash-form" class="fpad">
+    <div class="fhead"><div class="fmark serif">FAREEDA</div><div class="fkick">เครือหลัก · ห้องแฟชั่น</div>
+      <h2 class="serif ftitle">เลือกแบรนด์ในเครือ</h2>
+      <p class="muted" style="margin:.2rem 0 0">แต่ละแบรนด์มีหน้าและตัวตนของตัวเอง แตะเพื่อเข้าไปจัดหน้าร้านของแบรนด์นั้น</p></div>
+    <label class="fq"><span aria-hidden="true">⌕</span><input id="fash-q" type="search" maxlength="60" value="${esc(f.q || '')}" placeholder="ค้นหาแบรนด์: กระเป๋า เสื้อผ้า ตัวละคร..." aria-label="ค้นหาแบรนด์"></label>
+    <div class="rqf" role="group" aria-label="กรองแบรนด์">${FASH_GRP.map(([k, n]) => `<button class="${f.g === k ? 'on' : ''}" data-act="fash-grp" data-g="${k}" aria-pressed="${f.g === k}">${esc(n)}</button>`).join('')}</div>
+    <div class="fcount"><span class="muted">ในเครือ FAREEDA</span><b>${FASH_BR.length} แบรนด์</b></div>
+    <div class="fgrid">${FASH_BR.map(x => `<button class="fcard ${x.grp === 'first' ? 'hot' : ''}" data-act="fash-brand" data-id="${x.id}" data-s="${esc([x.name, x.en, x.what, x.tag, x.lab].join(' ').toLowerCase())}" data-g="${x.grp}" ${fashHit(x, q, f.g) ? '' : 'hidden'}>
+      <span class="flab">${esc(x.lab)}</span><span class="fic" aria-hidden="true">${x.ic}</span>
+      <span class="fname2 serif">${esc(x.name)}</span><span class="fen">${esc(x.en)}</span><span class="fwhat">${esc(x.what)}</span></button>`).join('')}</div>
+    <p class="muted fnone" ${shown.length ? 'hidden' : ''} style="text-align:center;margin:.8rem 0 0">ไม่พบแบรนด์ที่ตรงกับที่ค้นหา</p>
+    <p class="muted" style="margin:.8rem 0 0;font-size:.85rem">ชื่อแบรนด์และสถานะตามไฟล์ที่ส่งมา (21 ต.ค.) · สถานะที่ยังไม่ยืนยันยังไม่ถือว่าเปิดขาย</p></div>`;
+  }
+  const br = FASH_BR.find(x => x.id === f.b) || FASH_BR[0];
   if (!br.doors.includes(f.from)) f.from = br.doors[0];
   const vu = fashUrl(f.vid[br.id]), dn = (k) => FASH_DOORS[k];
   const vid = vu ? (/\.(mp4|webm)(\?|#|$)/i.test(vu) ? `<video src="${esc(vu)}" controls playsinline muted preload="metadata"></video>` : `<a href="${esc(vu)}" target="_blank" rel="noopener">เปิดวิดีโอแนะนำแบรนด์ ↗</a>`) : `<span>ที่ว่างสำหรับวิดีโอแนะนำแบรนด์ (นางแบบเดินโชว์)<br><small>ยังไม่มีวิดีโอ</small></span>`;
-  const h2 = (t) => `<h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">${t}</h2>`;
   return `<div data-notr id="fash-form">
-  <div class="xcard">${h2('แบรนด์ของเรา')}
-    <p class="muted" style="margin:0 0 .6rem">ชื่อตามไฟล์ที่ส่งมา · แตะเพื่อดูผังหน้าร้านของแบรนด์นั้น</p>
-    <div class="rqf" role="group" aria-label="เลือกแบรนด์">${FASH_BR.map(x => `<button class="${x.id === br.id ? 'on' : ''}" data-act="fash-brand" data-id="${x.id}" aria-pressed="${x.id === br.id}">${esc(x.name)}</button>`).join('')}</div>
-    <p style="margin:.2rem 0 0"><b>${esc(br.name)}</b><br><span class="muted">${esc(br.what)}<br>สถานะ: ${esc(br.tag)}</span></p>
+  <button class="fback fpad" data-act="fash-back" aria-label="กลับไปเลือกแบรนด์"><span aria-hidden="true">‹</span> FAREEDA · แบรนด์ในเครือ</button>
+  <div class="xcard fid"><span class="fic big" aria-hidden="true">${br.ic}</span><span class="flab">${esc(br.lab)}</span>
+    <h2 class="serif" style="margin:.2rem 0 0;font-size:1.25rem;color:var(--green)">${esc(br.name)}</h2><div class="fen">${esc(br.en)}</div>
+    <p class="muted" style="margin:.5rem 0 0">${esc(br.what)}<br>สถานะ: ${esc(br.tag)}</p>
     ${br.id === 'lhroy' ? '<div class="actions" style="margin-top:.6rem"><button class="btn ghost" data-act="exec-room" data-room="chr">เปิดห้องตัวละคร 6 ตัว</button></div>' : ''}</div>
   <div class="xcard">${h2('ผังหน้าร้านของแบรนด์นี้ (จัดระเบียบก่อน เติมสินค้าทีหลัง)')}
     <p class="fstep"><b>ขั้น 1 · หน้าเปิดร้าน</b> เปิดมาเจอวิดีโอแนะนำแบรนด์ก่อน ชื่อแบรนด์ แล้วค่อยมีทางเข้าไปหน้าสินค้า</p>
@@ -3100,7 +3131,7 @@ function fashRoomHtml() {
       <div class="fcue">วิดีโอเล่นก่อน แล้วเลื่อนเข้า “หน้า${dn(f.from)}”</div>
       <div class="fpage"><b>หน้า${dn(f.from)}</b><br><span>ยังไม่มีสินค้า · เติมทีหลัง</span></div>
       ${br.doors.length > 1 ? `<div class="fdoors">${br.doors.filter(k => k !== f.from).map(k => `<span>${dn(k)}</span>`).join('')}</div>` : ''}</div>
-    <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">นี่คือภาพจำลองในห้องนี้ · หน้าร้านจริงที่คนนอกเปิดได้ ยังไม่ได้ทำ (รอบถัดไป)</p></div></div>`;
+    <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">นี่คือภาพจำลองในห้องนี้ · หน้าร้านจริงของ LH25 อยู่ในไฟล์ lh25-shop แยกต่างหาก</p></div></div>`;
 }
 // ---- Character room (LHROY25): six characters, one room each (KAII and KIRA are separate rooms). Text only - no pictures are embedded in this public file.
 // Notes per character are kept on THIS device only (localStorage).
@@ -3146,7 +3177,7 @@ function chrRoomHtml() {
     <div class="actions"><button class="btn" style="flex:1" data-act="chr-save">บันทึกห้อง ${esc(c.n)}</button></div>
     <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">ข้อความตั้งต้นของตัวตนนิสัยและภาษาห้องมาจากไฟล์ที่ส่งมา (22 ต.ค. 00:19) และอยู่ในไฟล์แอปซึ่งเป็นไฟล์สาธารณะ · ส่วนที่คุณแก้เก็บในเครื่องนี้เท่านั้น · ภาพตัวละครเล็กๆ ฝังอยู่ในไฟล์แอปสาธารณะ ใครมีลิงก์แอปก็เปิดดูได้</p></div></div>`;
 }
-const XTITLE = { chr: ['ตัวละคร LHROY25', 'ตัวละคร 6 ตัว แยกห้องรายตัว · KAII และ KIRA แยกห้องกัน'], fash: ['ครีเอเตอร์แฟชั่น', 'แบรนด์ของเรา และผังหน้าร้านของแต่ละแบรนด์ · จัดหน้าร้านก่อน เติมสินค้าทีหลัง'], ai: ['หมวดเอไอ', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
+const XTITLE = { chr: ['ตัวละคร LHROY25', 'ตัวละคร 6 ตัว แยกห้องรายตัว · KAII และ KIRA แยกห้องกัน'], fash: ['ครีเอเตอร์แฟชั่น', 'เครือ FAREEDA · แบรนด์ของเรา แต่ละแบรนด์มีหน้าของตัวเอง'], ai: ['หมวดเอไอ', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
   icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
   acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติและหลักฐานงาน', 'ไทม์ไลน์หลักฐานงาน ทะเบียนเอกสาร และใครทำอะไร เมื่อไหร่'] };
@@ -4374,7 +4405,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '22 ต.ค. 01:20 · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '22 ต.ค. 02:15 · ห้องแฟชั่นจัดแบบเครือ FAREEDA: การ์ดแบรนด์ ค้นหา กรอง และหน้าของแต่ละแบรนด์ · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4957,7 +4988,7 @@ document.addEventListener('click', async (e) => {
       const ok = iconSave('khunyui-icons-set1.svg', `<svg xmlns="http://www.w3.org/2000/svg" color="#06412A" style="display:none">\n${syms}\n</svg>\n`, 'image/svg+xml');
       toast(ok ? 'โหลดชุดไอคอนทั้งหมดแล้ว (33 ตัว)' : 'โหลดไม่ได้ ลองเปิดแอปในเบราว์เซอร์'); break; }
     case 'xnav': { const l = Number(d.l) || 0; S.exec.nav = { l, sid: l >= 2 ? (d.sid || (S.exec.nav || {}).sid || null) : null, part: l === 3 ? (d.part || (S.exec.nav || {}).part || null) : null }; render('exec'); window.scrollTo(0, 0); break; }
-    case 'exec-room': if (d.room === 'home' && S.exec.room === 'home') S.exec.nav = { l: 0 }; S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', XSIDE.includes(d.room) ? 'home' : d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
+    case 'exec-room': if (d.room === 'home' && S.exec.room === 'home') S.exec.nav = { l: 0 }; if (d.room === 'fash' && S.exec.room !== 'fash') fashS().view = 'list'; S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', XSIDE.includes(d.room) ? 'home' : d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
     case 'rq-approve': await act(async () => { const { error } = await sbx.rpc('exec_approve_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ส่งรหัสไปที่หน้าจอเขาแล้ว'); break;
     case 'rq-deny': await act(async () => { const { error } = await sbx.rpc('exec_deny_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ปฏิเสธคำขอแล้ว'); break;
     case 'fp-copy': {
@@ -5059,7 +5090,9 @@ document.addEventListener('click', async (e) => {
     case 'chr-save': { const s = chrS(), g = (k) => document.getElementById('chr-' + k); if (!g('a') || !g('b') || !g('c')) break;
       s.notes[s.c] = { a: g('a').value.trim(), b: g('b').value.trim(), c: g('c').value.trim() };
       const ok = chrSave(), y = window.scrollY; render('exec'); window.scrollTo(0, y); toast(ok ? 'บันทึกแล้ว (เครื่องนี้เท่านั้น)' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ)'); break; }
-    case 'fash-brand': { const f = fashS(); if (FASH_BR.some(x => x.id === d.id)) { f.b = d.id; f.from = 'all'; fashSave(); } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'fash-brand': { const f = fashS(); if (FASH_BR.some(x => x.id === d.id)) { f.b = d.id; f.from = 'all'; f.view = 'brand'; fashSave(); } render('exec'); window.scrollTo(0, 0); break; }
+    case 'fash-back': { fashS().view = 'list'; render('exec'); window.scrollTo(0, 0); break; }
+    case 'fash-grp': { fashS().g = d.g || ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
     case 'fash-from': { fashS().from = d.k || 'all'; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
     case 'fash-vid': { const f = fashS(), el = document.getElementById('fash-vid'), v = el ? el.value.trim() : '';
       if (v && !fashUrl(v)) { toast('ลิงก์ต้องขึ้นต้นด้วย https://'); break; }
@@ -5381,6 +5414,9 @@ document.addEventListener('change', async (e) => {
     await rpc('update_store_owner_settings', { p_store_id: CONFIG.store, p_notify_new_order: true, p_sound_new_order: t.checked }); S.owner.ownerSettings.sound_new_order = t.checked; }, 'บันทึกแล้ว');
 });
 document.addEventListener('input', (e) => {
+  if (e.target.id === 'fash-q') { const f = fashS(); f.q = e.target.value; const q = f.q.trim().toLowerCase(); let n = 0;
+    document.querySelectorAll('#fash-form .fcard').forEach(c => { const hit = (!f.g || c.dataset.g === f.g) && (!q || (c.dataset.s || '').includes(q)); c.hidden = !hit; if (hit) n++; });
+    const no = document.querySelector('#fash-form .fnone'); if (no) no.hidden = n > 0; return; }
   if (e.target.closest && e.target.closest('#fash-form, #chr-form')) return;
   if (e.target.closest && e.target.closest('#ai-form')) {
     const a = aiRead();
