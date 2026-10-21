@@ -809,6 +809,9 @@
   .acct-av { flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--green-soft); color: var(--green); display: grid; place-items: center; font: 600 1.05rem "Taviraj", serif; }
   .chip-s.wait { background: var(--gold-soft); color: #7A5F26; }
   .accsteps { margin-top: .5rem; } .accsteps .secrow:last-child { border-bottom: 0; }
+  .sesacct { margin-top: .6rem; padding-top: .55rem; border-top: 1px dashed var(--line); } .sesacct:first-of-type { border-top: 0; padding-top: 0; }
+  .ses-h { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .5rem; } .ses-h b { flex-basis: 100%; word-break: break-all; font-weight: 600; } .ses-n { font-size: .8rem; flex: 1; }
+  .sesrow { display: flex; align-items: center; gap: .6rem; padding: .45rem 0; } .ses-d { flex: 1; min-width: 0; display: flex; flex-direction: column; } .ses-d small { color: var(--muted); font-size: .78rem; line-height: 1.35; word-break: break-word; }
   .acct-f { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: .6rem; padding-top: .6rem; border-top: 1px dashed var(--line); }
   .docrow { padding: .6rem 0; border-top: 1px solid var(--line); display: grid; gap: .15rem; } .docrow:first-of-type { border-top: 0; }
   .evl-f { display: flex; flex-wrap: wrap; gap: .3rem; margin: .4rem 0 .6rem; } .evl-f button { font: inherit; font-size: .78rem; border: 1px solid var(--line); background: #fff; color: var(--green); border-radius: 999px; padding: .15rem .65rem; cursor: pointer; } .evl-f button.on { background: var(--green); color: #fff; border-color: var(--green); }
@@ -2170,6 +2173,9 @@ const ERR = {
   request_not_found: 'ไม่พบคำขอนี้แล้ว',
   bad_email: 'อีเมลไม่ถูกต้อง',
   cannot_reset_self: 'ตั้งรหัสชั่วคราวให้บัญชีตัวเองไม่ได้',
+  cannot_sign_out_current: 'สั่งให้เครื่องที่กำลังใช้อยู่ออกไม่ได้ ให้กดปุ่ม "ออก" มุมบนแทน',
+  session_not_found: 'เครื่องนั้นออกจากระบบไปก่อนแล้ว',
+  account_not_found: 'ไม่พบบัญชีนี้',
   cannot_reset_admin: 'ตั้งรหัสชั่วคราวให้ผู้บริหารไม่ได้',
   not_a_store_member: 'บัญชีนี้ไม่ได้เป็นสมาชิกของร้าน',
   forbidden: 'บัญชีนี้ไม่มีสิทธิ์ทำรายการนี้',
@@ -2829,7 +2835,7 @@ const AUD = { advance_order_status: 'เปลี่ยนสถานะออ�
   void_payment_on_cancel: 'ยกเลิกการชำระ', complete_refund: 'บันทึกคืนเงิน', set_menu_availability: 'เปิด/ปิดขายเมนู', update_menu_item: 'แก้เมนู', create_menu_item: 'เพิ่มเมนู',
   set_menu_archived: 'เก็บเมนูเข้าคลัง/เรียกกลับ', delete_menu_item: 'ลบเมนู', save_menu_option_value: 'แก้ราคา/ชื่อท็อปปิ้ง-มิกซ์', set_menu_option_value_availability: 'เปิด/ปิดตัวเลือก', set_menu_recommended: 'ตั้งเมนูแนะนำ', set_store_accepting_orders: 'เปิด/ปิดรับออเดอร์',
   set_store_settings: 'แก้ตั้งค่าร้าน', set_store_hero_image: 'เปลี่ยนภาพปก', update_store_owner_settings: 'แก้ตั้งค่าแจ้งเตือน', close_business_day: 'สรุปยอดวัน',
-  auto_reopen_new_day: 'ร้านเปิดรับเองวันใหม่ (ระบบเดิม)', auto_close_new_day: 'ร้านรอเจ้าของกดเปิด (วันใหม่)', report_sold_out: 'แจ้งสินค้าหมด', clear_test_data: 'ล้างข้อมูลทดสอบ', reset_password: 'ผู้บริหารตั้งรหัสชั่วคราวให้บัญชี', recover_password: 'ตั้งรหัสใหม่ผ่านรหัสจากอีเมล', change_password: 'เปลี่ยนรหัสผ่าน', issue_recovery_code: 'ออกรหัสกู้คืน', revoke_recovery_code: 'ยกเลิกรหัสกู้คืน', set_contact_email: 'ใส่/แก้อีเมลติดต่อ', verify_contact_email: 'ยืนยันอีเมลติดต่อ', unverify_contact_email: 'ยกเลิกการยืนยันอีเมล', issue_document: 'ออกเอกสาร' };
+  auto_reopen_new_day: 'ร้านเปิดรับเองวันใหม่ (ระบบเดิม)', auto_close_new_day: 'ร้านรอเจ้าของกดเปิด (วันใหม่)', report_sold_out: 'แจ้งสินค้าหมด', clear_test_data: 'ล้างข้อมูลทดสอบ', reset_password: 'ผู้บริหารตั้งรหัสชั่วคราวให้บัญชี', recover_password: 'ตั้งรหัสใหม่ผ่านรหัสจากอีเมล', change_password: 'เปลี่ยนรหัสผ่าน', issue_recovery_code: 'ออกรหัสกู้คืน', revoke_recovery_code: 'ยกเลิกรหัสกู้คืน', set_contact_email: 'ใส่/แก้อีเมลติดต่อ', verify_contact_email: 'ยืนยันอีเมลติดต่อ', unverify_contact_email: 'ยกเลิกการยืนยันอีเมล', issue_document: 'ออกเอกสาร', sign_out_session: 'ผู้บริหารให้เครื่องหนึ่งออกจากระบบ', sign_out_account: 'ผู้บริหารให้บัญชีออกจากระบบทุกเครื่อง' };
 function audDetail(a) {
   const b = a.before || {}, n = a.after || {};
   if (a.action === 'update_menu_item') { const bits = [n.name]; if (b.price_satang !== n.price_satang) bits.push(`ราคา ${baht(b.price_satang)} → ${baht(n.price_satang)}`); if (b.image_path !== n.image_path) bits.push(n.image_path ? 'เปลี่ยนรูป' : 'เอารูปออก'); return bits.filter(Boolean).join(' · '); }
@@ -2838,6 +2844,7 @@ function audDetail(a) {
   if (a.action === 'set_menu_availability') return n.is_available ? 'กลับมาขาย' : 'หมดชั่วคราว';
   if (a.action === 'close_business_day') return `${n.business_date || ''} ฉบับที่ ${n.revision || 1}`;
   if (a.action === 'change_password') return `บัญชี ${n.email || ''} (ไม่แสดงรหัส)`;
+  if (a.action === 'sign_out_session' || a.action === 'sign_out_account') return `บัญชี ${n.email || ''} · ${n.sessions || 0} เครื่อง`;
   if (a.action === 'issue_recovery_code' || a.action === 'revoke_recovery_code') return `บัญชี ${n.email || ''} (ไม่แสดงเลข)`;
   if (a.action === 'set_contact_email') return n.contact_email || '';
   if (a.action === 'issue_document') return `${n.doc_no || ''} · ${n.email || ''}${n.code_included ? ' · มีเลขรหัสพิมพ์ลงเอกสาร' : ''}`;
@@ -2891,13 +2898,25 @@ async function loadExec() {
   try { const r = await sbx.rpc('exec_list_accounts'); S.exec.accounts = (!r.error && Array.isArray(r.data)) ? r.data : []; } catch (_) { S.exec.accounts = []; }
   try { const r = await sbx.rpc('exec_list_contacts'); S.exec.contacts = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.contacts = null; }
   try { const r = await sbx.rpc('exec_list_recovery'); S.exec.recovery = (!r.error && Array.isArray(r.data)) ? r.data : null; } catch (_) { S.exec.recovery = null; }   // null = SQL 038 not installed yet
+  await loadSessions();
   await loadDocs();
   await loadEvid();
 }
 // Two-tone chime + vibration when a new reset request arrives (the badge and banner always show; sound needs one tap on the page first)
 function xChime() { SND.play('request', 'exec'); }
+async function sesPoll() {
+  if (S.exec.sbusy) return; S.exec.sbusy = true;
+  try {
+    const before = JSON.stringify((S.exec.sessions || []).map(x => [x.session_id, x.last_at]));
+    await loadSessions();
+    const after = JSON.stringify((S.exec.sessions || []).map(x => [x.session_id, x.last_at]));
+    if (before !== after && route()[0] === 'exec' && S.exec.room === 'acc' && !document.querySelector('#modal .scrim')) { const y = window.scrollY; render('exec'); window.scrollTo(0, y); }
+  } catch (_) {} finally { S.exec.sbusy = false; }
+}
 async function pollReqs() {
   if (route()[0] !== 'exec' || S.exec.state !== 'ready') { if (route()[0] !== 'exec') clearInterval(S.exec.rt); return; }
+  S.exec.pn = (S.exec.pn || 0) + 1;
+  if (S.exec.pn % 5 === 0 && S.exec.room === 'acc' && Array.isArray(S.exec.sessions)) sesPoll();   // sign-in list refreshes itself every 10 s
   if (S.exec.pbusy) return; S.exec.pbusy = true;
   try {
     const r = await sbx.rpc('exec_list_reset_requests');
@@ -2940,6 +2959,39 @@ const iconTiles = () => {
   const tile = (k, nm, svg, temp) => `<button class="itile" data-act="icon-dl" data-k="${k}" aria-label="โหลดไอคอน ${nm}">${svg}<span>${nm}</span>${temp ? '<em>ตัวแทนชั่วคราว</em>' : ''}</button>`;
   return `<h3 class="igh">ไอคอนใช้งานในแอป (${Object.keys(ICON_NAMES).length})</h3><div class="igrid">${Object.keys(ICON_NAMES).map(k => tile('I:' + k, ICON_NAMES[k], I[k], ICON_TEMP[k])).join('')}</div>
     <h3 class="igh">ไอคอนหมวดอาหาร (${Object.keys(ICON_CATS).length})</h3><div class="igrid">${Object.keys(ICON_CATS).map(k => tile('C:' + k, ICON_CATS[k], IC[k], false)).join('')}</div>`;
+};
+// ---------------- Sign-in activity (SQL 048): who is signed in on which device; the executive can sign a device or a whole account out ----------------
+async function loadSessions() {
+  try { const r = await sbx.rpc('exec_list_sessions'); S.exec.sessions = (!r.error && Array.isArray(r.data)) ? r.data : null; S.exec.sesAt = new Date(); }   // null = SQL 048 not installed yet
+  catch (_) { S.exec.sessions = null; }
+}
+function uaLabel(ua) {
+  const s = String(ua || ''); if (!s) return 'ไม่ทราบเครื่อง';
+  const os = /iPhone/.test(s) ? 'iPhone' : /iPad/.test(s) ? 'iPad' : /Android/.test(s) ? 'Android' : /Windows/.test(s) ? 'Windows' : /Mac OS X|Macintosh/.test(s) ? 'Mac' : /CrOS/.test(s) ? 'Chromebook' : /Linux/.test(s) ? 'Linux' : '';
+  const br = /Edg\//.test(s) ? 'Edge' : /OPR\/|Opera/.test(s) ? 'Opera' : /SamsungBrowser/.test(s) ? 'Samsung Internet' : /FxiOS|Firefox\//.test(s) ? 'Firefox' : /CriOS|Chrome\//.test(s) ? 'Chrome' : /Safari\//.test(s) ? 'Safari' : '';
+  const m = /Android[^;)]*;\s*([^;)]+)/.exec(s), model = m && m[1].trim().length > 1 && !/^(Mobile|Tablet)$/i.test(m[1].trim()) ? m[1].trim() : '';
+  return [os + (model ? ' ' + model : ''), br].filter(Boolean).join(' · ') || 'ไม่ทราบเครื่อง';
+}
+function agoTh(iso) {
+  const sec = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+  if (sec < 90) return 'เมื่อกี้'; if (sec < 3600) return Math.round(sec / 60) + ' นาทีที่แล้ว';
+  if (sec < 86400) return Math.round(sec / 3600) + ' ชั่วโมงที่แล้ว'; return Math.round(sec / 86400) + ' วันที่แล้ว';
+}
+const SES_ROLE = { exec: 'ผู้บริหาร', owner: 'เจ้าของ · หลังร้าน', staff: 'พนักงาน', monitor: 'ดูอย่างเดียว · บอร์ดคุณยุ้ย' };
+const sesCard = () => {
+  const ss = S.exec.sessions;
+  const head = '<h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">การเข้าสู่ระบบตอนนี้</h2>';
+  if (!Array.isArray(ss)) return `<div class="xcard" id="ses-card">${head}<p class="muted" style="margin:0">ยังไม่ได้ติดตั้งไฟล์ 048 ในฐานข้อมูล ให้รัน <b>048_khunyui_exec_sessions.sql</b> ใน Supabase SQL Editor 1 ครั้ง แล้วกด "รีเฟรช"</p></div>`;
+  const by = {}; ss.forEach(x => { (by[x.email] = by[x.email] || []).push(x); });
+  const list = Object.keys(by).map(em => {
+    const rows = by[em], rl = SES_ROLE[rows[0].role] || '';
+    return `<div class="sesacct"><div class="ses-h"><b data-notr>${esc(em)}</b>${rl ? `<span class="chip-s">${rl}</span>` : ''}<span class="muted ses-n">${rows.length} เครื่อง</span><button class="btn ghost sm" data-act="exec-so-account" data-email="${esc(em)}">ให้ออกทุกเครื่อง</button></div>
+      ${rows.map(r => `<div class="sesrow"><span class="ses-d"><b>${esc(uaLabel(r.user_agent))}</b><small>IP <span data-notr>${esc(r.ip_short || '-')}</span> · เข้าเมื่อ ${thDate(new Date(r.signed_in_at))} ${thTime(r.signed_in_at)} · ต่อบัตรผ่านล่าสุด ${agoTh(r.last_at)}</small></span>${r.is_current ? '<span class="chip-s">เครื่องนี้</span>' : `<button class="btn ghost sm" data-act="exec-so-session" data-sid="${esc(r.session_id)}" data-email="${esc(em)}" data-dev="${esc(uaLabel(r.user_agent))}">ให้ออก</button>`}</div>`).join('')}</div>`;
+  }).join('');
+  return `<div class="xcard" id="ses-card">${head}
+    <p class="muted" style="margin:0 0 .5rem">เครื่องที่เข้าอยู่ของบัญชีร้านและผู้บริหาร (ไม่รวมลูกค้า) · หน้านี้เช็กใหม่เองทุก 10 วินาที${S.exec.sesAt ? ' · ล่าสุด ' + thTime(S.exec.sesAt) : ''}</p>
+    <details class="why"><summary>อ่านก่อนใช้ (ที่ตั้ง และเวลา)</summary><ul class="whyl"><li><b>ที่ตั้ง</b> ระบบรู้แค่ IP ของเครื่อง จึงแสดง IP แบบย่อ ไม่ใช่ตำแหน่งจริง (ไม่ขอ GPS)</li><li><b>เวลา</b> "ต่อบัตรผ่านล่าสุด" คือครั้งล่าสุดที่เครื่องนั้นต่ออายุการเข้าระบบ (ราวทุกชั่วโมง) ไม่ใช่เวลาที่กดใช้งานล่าสุดเสมอไป</li><li><b>ให้ออก</b> เครื่องนั้นถูกตัดการต่ออายุทันที และแอปบนเครื่องนั้นจะพากลับหน้าเข้าสู่ระบบเองภายในราว 15 วินาทีถ้าเปิดแอปอยู่ · ไม่เปลี่ยนรหัสผ่าน</li></ul></details>
+    ${list || '<p class="muted" style="margin:.4rem 0 0">ตอนนี้ไม่มีเครื่องไหนเข้าสู่ระบบอยู่</p>'}</div>`;
 };
 const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf], ['links', 'ลิงก์', I.link]];
 const XTITLE = { home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
@@ -3073,6 +3125,7 @@ V.exec = () => {
           <div class="acct-f"><button class="btn ghost sm" data-act="exec-reset" data-email="${em}">ตั้งรหัสชั่วคราว</button><button class="btn ghost sm" data-act="exec-doc" data-email="${em}" data-kind="${a.role === 'owner' ? 'owner' : 'yui'}">ออกเอกสาร</button>${showV && ver ? `<button class="back sm" data-act="exec-verify" data-email="${em}" data-contact="${esc(ct.contact_email)}" data-v="0">ยกเลิกการยืนยันอีเมล</button>` : ''}${rc ? `<button class="back sm" data-act="exec-rc-revoke" data-email="${em}">ยกเลิกรหัสกู้คืน</button>` : ''}</div></div>`;
       };
       return `<div class="xcard acct"><div class="acct-h"><span class="acct-av" aria-hidden="true">${ini(S.exec.email)}</span><span class="acct-id"><b data-notr>${esc(S.exec.email)}</b><span class="chip-s">ผู้บริหาร</span></span></div><p class="muted" style="margin:.5rem 0 0">ใช้อีเมลนี้กับรหัสผ่านที่หน้าเข้าสู่ระบบ ระบบพาเข้าหน้าผู้บริหารเอง</p></div>`
+        + sesCard()
         + (accs.length ? `<div class="accintro"><h2 class="serif">บัญชีของร้าน</h2><p class="muted">แต่ละบัญชีมีขั้นตอนความปลอดภัย 3 ข้อ · ปุ่มสีเขียวคือขั้นถัดไปที่ทำได้เลย</p>
           <details class="why"><summary>ขั้นตอนเหล่านี้ใช้ทำอะไร</summary><ul class="whyl"><li><b>ตั้งรหัสชั่วคราว</b> ใช้เมื่อเจ้าของลืมรหัสและไม่ต้องรอคำขอ ระบบสุ่มรหัสให้และแสดงครั้งเดียว บัญชีนั้นจะออกจากระบบทุกเครื่องและต้องตั้งรหัสใหม่เอง</li><li><b>ยืนยันอีเมล</b> คุณตรวจกับเจ้าของทางโทรหรือไลน์ว่าอีเมลเป็นของเขาจริง แล้วกดยืนยัน</li><li><b>รหัสกู้คืนส่วนตัว</b> เลข 8 หลัก ใช้ได้ครั้งเดียว ตอนลืมรหัสเจ้าของกรอกอีเมลกับเลขนี้แล้วตั้งรหัสใหม่ได้ทันที ผิด 5 ครั้งล็อก 30 นาที</li><li><b>ออกเอกสาร</b> คู่มือ 1 ชุดต่อ 1 งาน ใส่อีเมลให้เอง มีช่องเขียนรหัสกู้คืนด้วยมือ</li></ul></details>
           <p class="muted" style="margin:.5rem 0 0">คู่มือฉบับว่าง: <button class="back" data-act="exec-doc" data-kind="yui">งานคุณยุ้ย</button> · <button class="back" data-act="exec-doc" data-kind="owner">งานหลังร้าน</button></p></div>${accs.map(card).join('')}` : '');
@@ -4164,7 +4217,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '20 ต.ค. 23:50 · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '21 ต.ค. 22:10 · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4787,6 +4840,14 @@ document.addEventListener('click', async (e) => {
       closeModal(); toast('ตั้งรหัสใหม่แล้ว · เครื่องอื่นของบัญชีนี้ออกจากระบบแล้ว');
       if (d.cli === 'g') await gateGo(); else await show();
     }); break;
+    case 'exec-so-session': {
+      if (!window.confirm(`ให้เครื่อง "${d.dev}" ของ ${d.email} ออกจากระบบ ?\nเครื่องนั้นจะถูกพากลับหน้าเข้าสู่ระบบ (ไม่เปลี่ยนรหัสผ่าน)`)) break;
+      await act(async () => { const { error } = await sbx.rpc('exec_sign_out_session', { p_session_id: d.sid }); if (error) throw error; await loadSessions(); render('exec'); }, 'ให้เครื่องนั้นออกจากระบบแล้ว');
+      break; }
+    case 'exec-so-account': {
+      if (!window.confirm(`ให้ ${d.email} ออกจากระบบทุกเครื่อง ?\nไม่เปลี่ยนรหัสผ่าน เขาเข้าใหม่ได้ด้วยรหัสเดิม ถ้าสงสัยว่าคนอื่นรู้รหัส ให้กด "ตั้งรหัสชั่วคราว" ที่การ์ดบัญชีด้านล่างแทน`)) break;
+      await act(async () => { const { data, error } = await sbx.rpc('exec_sign_out_account', { p_email: d.email }); if (error) throw error; await loadSessions(); render('exec'); toast(t('ให้ {0} ออกจากระบบแล้ว {1} เครื่อง', d.email, (data && data.signed_out) || 0)); });
+      break; }
     case 'exec-reset': {
       if (!window.confirm(`ตั้งรหัสชั่วคราวให้ ${d.email} ?\nบัญชีนี้จะถูกออกจากระบบทุกเครื่อง และต้องตั้งรหัสใหม่เองหลังเข้าใช้งาน`)) break;
       await act(async () => {
@@ -5174,6 +5235,31 @@ if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catc
   await show();
   if (linkWho) forgotLinkSheet(linkWho);
 })();
+// ---------------- If an executive signs this device out (SQL 048), notice within ~15 s and sign out here too ----------------
+// Only the screen that is open is checked (executive / Khun Yui / shop). If the question fails (offline, SQL 048 not installed) nobody is kicked out.
+const ALIVE_MAP = { exec: [sbx, 'exec-logout'], yui: [sby, 'yui-logout'], owner: [sb, 'logout'] };
+const aliveSeen = {};
+let aliveBusy = false;
+function kickOut(act) {
+  toast('ผู้บริหารให้เครื่องนี้ออกจากระบบ กรุณาเข้าสู่ระบบใหม่');
+  const b = document.createElement('button'); b.hidden = true; b.dataset.act = act; document.body.appendChild(b); b.click(); b.remove();
+}
+async function aliveSweep() {
+  const who = route()[0], m = ALIVE_MAP[who];
+  if (!m || aliveBusy || document.visibilityState === 'hidden') return;
+  aliveBusy = true;
+  try {
+    const cl = m[0]; let session = null;
+    try { session = (await cl.auth.getSession()).data.session; } catch (_) { return; }
+    if (!session || !session.user || session.user.is_anonymous) { if (aliveSeen[who]) { aliveSeen[who] = false; kickOut(m[1]); } return; }
+    let r; try { r = await cl.rpc('my_session_alive'); } catch (_) { return; }
+    if (r.error) return;
+    if (r.data === false) { aliveSeen[who] = false; kickOut(m[1]); } else aliveSeen[who] = true;
+  } finally { aliveBusy = false; }
+}
+setInterval(aliveSweep, 15000);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') aliveSweep(); });
+window.addEventListener('online', aliveSweep);
 </script>
 </body>
 </html>
