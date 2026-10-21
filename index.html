@@ -447,6 +447,7 @@
     html[data-view="owner"] .tab:hover, html[data-view="exec"] .tab:hover { background: var(--cream); }
     html[data-view="owner"] .tab.on, html[data-view="exec"] .tab.on { background: var(--green-soft); }
     html[data-view="owner"] .with-bar, html[data-view="exec"] .with-bar { padding-bottom: 2rem; }
+    html[data-view="exec"] .aicomp { bottom: 0; }
     html[data-view="owner"] .toast { bottom: 1.5rem; }
     html[data-view="owner"] .with-bar:not(.ow-orders):not(.ow-dash):not(.ow-menu) { max-width: 780px; margin-left: auto; margin-right: auto; }
     .ow-orders { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); align-items: start; }
@@ -580,6 +581,22 @@
   .fback { border: 0; background: none; font: inherit; color: var(--green); padding: .2rem 0 .6rem; cursor: pointer; } .fback span { font-size: 1.3rem; vertical-align: -1px; margin-right: .2rem; }
   .fid { overflow: hidden; } .fid .flab { text-align: left; display: block; }
   .fstep { margin: 0 0 .6rem; } .fstep b { color: var(--green); }
+  .aiwrap { margin: .75rem 1rem; }
+  .aihead { display: flex; align-items: center; gap: .7rem; background: var(--green); color: #fff; border-radius: 16px 16px 0 0; padding: .7rem .9rem; }
+  .aiav { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.18); display: inline-flex; align-items: center; justify-content: center; flex: none; } .aiav svg { width: 20px; height: 20px; }
+  .aihd { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; } .aihd small { opacity: .85; font-size: .78rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .aigear { flex: none; border: 1px solid rgba(255,255,255,.6); background: none; color: #fff; border-radius: 999px; padding: .25rem .85rem; font-size: .8rem; cursor: pointer; }
+  .aiset { background: var(--card); border: 1px solid var(--line); border-top: 0; padding: .7rem .8rem; display: flex; flex-direction: column; gap: .35rem; font-size: .88rem; } .aiset .rqf { margin: 0; }
+  .aichat { background: #e9efe9; padding: .8rem .7rem; display: flex; flex-direction: column; gap: .45rem; min-height: 220px; }
+  .aib { display: flex; flex-direction: column; max-width: 90%; } .aib.me { align-self: flex-end; align-items: flex-end; } .aib.bot { align-self: flex-start; align-items: flex-start; }
+  .aibub { border-radius: 16px; padding: .55rem .75rem; font-size: .92rem; line-height: 1.5; word-break: break-word; } .me .aibub { background: var(--green); color: #fff; border-bottom-right-radius: 4px; } .bot .aibub { background: #fff; border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  .aiq { display: block; white-space: pre-wrap; } .aitag { display: block; font-size: .68rem; opacity: .75; margin-bottom: .15rem; letter-spacing: .02em; } .aitm { font-size: .68rem; color: var(--muted); margin: .1rem .3rem 0; }
+  .aibub .actions { margin-top: .5rem; display: flex; gap: .35rem; flex-wrap: wrap; } .aibub .actions .btn, .aibub .actions .back { text-decoration: none; } .aibub textarea { width: 100%; font: inherit; border: 1px solid var(--line); border-radius: 10px; padding: .5rem; }
+  .aiquick { display: flex; gap: .4rem; overflow-x: auto; padding: .5rem .7rem 0; background: var(--card); border-left: 1px solid var(--line); border-right: 1px solid var(--line); scrollbar-width: none; } .aiquick::-webkit-scrollbar { display: none; }
+  .aiquick button { flex: none; font: inherit; font-size: .82rem; border: 1px solid var(--line); background: #fff; color: var(--green); border-radius: 999px; padding: .25rem .8rem; cursor: pointer; } .aiquick button.on { background: var(--green); color: #fff; border-color: var(--green); }
+  .aicomp { position: sticky; bottom: calc(var(--bar-h, 56px) + env(safe-area-inset-bottom, 0px)); display: flex; gap: .5rem; align-items: flex-end; background: var(--card); border: 1px solid var(--line); border-radius: 0 0 16px 16px; padding: .55rem; z-index: 5; }
+  .aicomp textarea { flex: 1; min-width: 0; font: inherit; border: 1px solid var(--line); border-radius: 18px; padding: .5rem .8rem; resize: none; }
+  .aisend { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--green); color: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
   .aiit { align-items: flex-start; gap: .6rem; } .aiit > span:first-child { flex: 1; min-width: 0; } .aiq { display: block; margin-top: .25rem; white-space: pre-wrap; word-break: break-word; }
   .aibtn { display: flex; flex-direction: column; gap: .3rem; align-items: flex-end; }
   .rqf { display: flex; gap: .4rem; flex-wrap: wrap; margin: 0 0 .5rem; }
@@ -3041,33 +3058,56 @@ const XSIDE = ['fash', 'chr', 'ai'];   // rooms entered on purpose: never rememb
 // ---- AI room: a note-pad of questions, each tagged with the work (door) and room it is about, copyable for any AI chat.
 // Kept on THIS device only (localStorage) — nothing about the questions goes into the public file or the database.
 const AIW = { exec: ['งานบริหาร', ['ภาพรวม', 'คำขอรหัส', 'บัญชีร้าน', 'รายได้', 'ประวัติ', 'ไอคอน', 'ลิงก์', 'ครีเอเตอร์แฟชั่น', 'ตัวละคร LHROY25', 'เอไอ']], owner: ['งานหลังร้าน', ['ออเดอร์', 'เมนู', 'แดชบอร์ด', 'ตั้งค่า']], yui: ['บอร์ดคุณยุ้ย', ['คิวและยอดวันนี้']], cust: ['ลูกค้า',['เมนู', 'ตะกร้า', 'ติดตามสถานะ']], other: ['งานอื่นนอกแอปนี้', []] };
-const AI_KEY = 'khunyui-ai-q';
+const AI_KEY = 'khunyui-ai-q', AI_SET_KEY = 'khunyui-ai-set';
+// Which AI answers. The app itself does NOT answer: a question is copied (and the chosen AI is opened) and the answer is pasted back and kept here.
+const AI_ENG = { chatgpt: { n: 'ChatGPT', u: 'https://chatgpt.com/', q: '?q=' }, claude: { n: 'Claude', u: 'https://claude.ai/new', q: '?q=' }, gemini: { n: 'Gemini', u: 'https://gemini.google.com/app' }, copy: { n: 'คัดลอกอย่างเดียว' } };
 const aiLoad = () => { try { const v = JSON.parse(localStorage.getItem(AI_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (_) { return []; } };
 const aiStore = (items) => { try { localStorage.setItem(AI_KEY, JSON.stringify(items.slice(0, 200))); return true; } catch (_) { return false; } };
-const aiS = () => (S.exec.ai = S.exec.ai || { work: 'exec', room: '', other: '', q: '', f: '', items: aiLoad() });
+const aiSetLoad = () => { try { const v = JSON.parse(localStorage.getItem(AI_SET_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (_) { return {}; } };
+const aiS = () => { if (!S.exec.ai) { const v = aiSetLoad(); S.exec.ai = { work: 'exec', room: '', other: '', q: '', f: '', items: aiLoad(), ai: AI_ENG[v.ai] ? v.ai : 'chatgpt', att: v.att !== false, set: false, ans: null, ansSrc: '' }; } return S.exec.ai; };
+const aiSetSave = () => { try { const a = aiS(); localStorage.setItem(AI_SET_KEY, JSON.stringify({ ai: a.ai, att: a.att })); } catch (_) {} };
 const aiName = (w, o) => w === 'other' ? ((o || '').trim() || 'งานอื่น') : (AIW[w] || AIW.exec)[0];
-const aiMsg = (w, r, o, q) => `[งาน: ${aiName(w, o)}${w !== 'other' && r ? ' · ห้อง: ' + r : ''}]${w !== 'other' ? ' [แอปรุ่น ' + String(APP_VERSION).split(' · ')[0] + ']' : ''}\nคำถาม: ${String(q || '').trim()}\n(ตอบเฉพาะงานและห้องที่ระบุ · ถ้าไม่แน่ใจว่าหมายถึงตรงไหน ให้ถามกลับข้อเดียว)`;
-const aiRead = () => { const a = aiS(), g = (id) => document.getElementById(id); if (g('ai-work')) a.work = g('ai-work').value; if (g('ai-room')) a.room = g('ai-room').value; if (g('ai-other')) a.other = g('ai-other').value; if (g('ai-q')) a.q = g('ai-q').value; return a; };
-const aiPrev = () => { const a = aiS(), el = document.getElementById('ai-prev'); if (el) el.textContent = a.q.trim() ? aiMsg(a.work, a.room, a.other, a.q) : 'ข้อความที่จะคัดลอกจะขึ้นตรงนี้ เมื่อพิมพ์คำถาม'; };
+const aiMsg = (w, r, o, q, att) => `[งาน: ${aiName(w, o)}${w !== 'other' && r ? ' · ห้อง: ' + r : ''}]${w !== 'other' && att !== false ? ' [แอปรุ่น ' + String(APP_VERSION).split(' · ')[0] + ']' : ''}\nคำถาม: ${String(q || '').trim()}\n(ตอบเฉพาะงานและห้องที่ระบุ · ถ้าไม่แน่ใจว่าหมายถึงตรงไหน ให้ถามกลับข้อเดียว)`;
+const aiUrl = (k, msg) => { const e = AI_ENG[k]; if (!e || !e.u) return ''; if (!e.q) return e.u; const enc = encodeURIComponent(msg); return enc.length <= 1800 ? e.u + e.q + enc : e.u; };   // too long for a link: open the AI empty, the text is on the clipboard
+const aiRead = () => { const a = aiS(), g = (id) => document.getElementById(id); if (g('ai-other')) a.other = g('ai-other').value; if (g('ai-q')) a.q = g('ai-q').value; return a; };
+const aiCopy = async (text) => { try { await navigator.clipboard.writeText(text); return true; } catch (_) { return false; } };
 function aiRoomHtml() {
   const a = aiS(), isO = a.work === 'other', W = AIW[a.work] || AIW.exec;
   if (!isO && !W[1].includes(a.room)) a.room = W[1][0];
-  const list = a.items.filter(x => !a.f || x.work === a.f);
-  const chipF = [['', 'ทั้งหมด'], ...Object.keys(AIW).map(k => [k, AIW[k][0]])];
-  return `<div class="xcard" id="ai-form"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">จดคำถามให้เอไอรู้ว่าเป็นงานอะไร</h2>
-    <p class="muted" style="margin:0 0 .7rem">เลือกงานและห้อง พิมพ์คำถาม แล้วกดคัดลอกไปวางในแชทกับเอไอ เอไอจะรู้ทันทีว่าถามเรื่องงานไหน ห้องไหน และรุ่นแอปอะไร</p>
-    <label class="field"><span>งาน</span><select id="ai-work">${Object.keys(AIW).map(k => `<option value="${k}" ${k === a.work ? 'selected' : ''}>${esc(AIW[k][0])}</option>`).join('')}</select></label>
-    ${isO ? `<label class="field"><span>ชื่องาน</span><input id="ai-other" maxlength="60" value="${esc(a.other)}" placeholder="เช่น ร้านพรีออเดอร์แบรนด์แรก"></label>`
-          : `<label class="field"><span>ห้อง</span><select id="ai-room">${W[1].map(r => `<option value="${esc(r)}" ${r === a.room ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select></label>`}
-    <label class="field"><span>คำถาม</span><textarea id="ai-q" rows="4" maxlength="1000" placeholder="พิมพ์คำถามที่นี่">${esc(a.q)}</textarea></label>
-    <div class="aiprev" id="ai-prev" data-notr>${a.q.trim() ? esc(aiMsg(a.work, a.room, a.other, a.q)) : 'ข้อความที่จะคัดลอกจะขึ้นตรงนี้ เมื่อพิมพ์คำถาม'}</div>
-    <div class="actions"><button class="btn" style="flex:1" data-act="ai-copy">คัดลอกให้เอไอ</button><button class="btn ghost" data-act="ai-save">เก็บไว้ในเครื่องนี้</button></div></div>
-  <div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">คำถามที่เก็บไว้</h2>
-    <p class="muted" style="margin:0 0 .5rem;font-size:.85rem">เก็บไว้ในเครื่องนี้เท่านั้น ไม่ขึ้นฐานข้อมูล · ถ้าเปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์ รายการจะหาย</p>
-    <div class="rqf" role="group" aria-label="กรองตามงาน">${chipF.map(([k, n]) => `<button class="${a.f === k ? 'on' : ''}" data-act="ai-filter" data-f="${k}" aria-pressed="${a.f === k}">${esc(n)}</button>`).join('')}</div>
-    ${list.length ? list.map(x => `<div class="kv aiit"><span><span class="srcbadge s-owner" data-notr>${esc(aiName(x.work, x.other))}</span>${x.work !== 'other' && x.room ? ` <span class="srcbadge" data-notr>${esc(x.room)}</span>` : ''} <span class="muted">${thDate(new Date(x.at))} ${thTime(x.at)}</span><br><span class="aiq" data-notr>${esc(x.q)}</span></span>
-      <span class="aibtn"><button class="btn ghost sm" data-act="ai-copy-item" data-id="${esc(x.id)}">คัดลอก</button><button class="back sm" data-act="ai-del" data-id="${esc(x.id)}">ลบ</button></span></div>`).join('')
-      : '<p class="muted" style="margin:.3rem 0 0">ยังไม่มีคำถามที่เก็บไว้</p>'}</div>`;
+  const cat = aiName(a.work, a.other) + (isO ? '' : ' · ' + a.room), eng = (k) => (AI_ENG[k] || {}).n || 'AI';
+  const items = a.items.filter(x => !a.f || x.work === a.f).slice().reverse();   // oldest first, like a chat
+  const tag = (x) => `<span class="aitag">${esc(aiName(x.work, x.other))}${x.work !== 'other' && x.room ? ' · ' + esc(x.room) : ''}</span>`;
+  const when = (x) => `${thDate(new Date(x.at))} ${thTime(x.at)}`;
+  const askBtns = (x) => { const msg = aiMsg(x.work, x.room, x.other, x.q, a.att);
+    return ['chatgpt', 'claude', 'gemini'].map(k => `<a class="btn sm ${k === a.ai ? '' : 'ghost'}" href="${esc(aiUrl(k, msg))}" target="_blank" rel="noopener noreferrer" data-act="ai-ask" data-id="${esc(x.id)}" data-ai="${k}">ถาม ${esc(eng(k))}</a>`).join('')
+      + `<button class="btn ghost sm" data-act="ai-ask" data-id="${esc(x.id)}" data-ai="copy">คัดลอกข้อความ</button>`; };
+  const row = (x) => {
+    const me = `<div class="aib me"><div class="aibub">${tag(x)}<span class="aiq">${esc(x.q)}</span></div><span class="aitm">${when(x)}</span></div>`;
+    let bot;
+    if (a.ans === x.id) bot = `<div class="aib bot"><div class="aibub"><span class="aitag">วางคำตอบจาก AI ที่ถามไป</span><textarea id="ai-ans-t" rows="7" maxlength="6000" placeholder="วางคำตอบที่นี่">${esc(x.a || '')}</textarea>
+        <div class="rqf" role="group" aria-label="ตอบโดย" style="margin:.4rem 0 0">${['chatgpt', 'claude', 'gemini', 'copy'].map(k => `<button type="button" class="${(a.ansSrc || a.ai) === k ? 'on' : ''}" data-act="ai-ans-src" data-k="${k}">${k === 'copy' ? 'AI อื่น' : esc(eng(k))}</button>`).join('')}</div>
+        <div class="actions"><button class="btn sm" data-act="ai-ans-save" data-id="${esc(x.id)}">เก็บคำตอบ</button><button class="btn ghost sm" data-act="ai-ans-cancel">ยกเลิก</button></div></div></div>`;
+    else if (x.a) bot = `<div class="aib bot"><div class="aibub"><span class="aitag">ตอบโดย ${esc(x.via === 'copy' || !x.via ? 'AI' : eng(x.via))}</span><span class="aiq">${esc(x.a)}</span>
+        <div class="actions"><button class="btn ghost sm" data-act="ai-copy-ans" data-id="${esc(x.id)}">คัดลอกคำตอบ</button><button class="btn ghost sm" data-act="ai-ans-open" data-id="${esc(x.id)}">แก้คำตอบ</button><button class="back sm" data-act="ai-del" data-id="${esc(x.id)}">ลบ</button></div></div></div>`;
+    else bot = `<div class="aib bot"><div class="aibub"><span class="aitag">ยังไม่มีคำตอบ</span>แอปนี้ตอบเองไม่ได้ ส่งไปถาม AI ที่เลือก แล้วกด “วางคำตอบ” เพื่อเก็บคำตอบไว้ใต้คำถามนี้
+        <div class="actions">${askBtns(x)}<button class="btn sm" data-act="ai-ans-open" data-id="${esc(x.id)}" style="background:var(--green-soft);color:var(--green);border-color:var(--green-soft)">วางคำตอบ</button><button class="back sm" data-act="ai-del" data-id="${esc(x.id)}">ลบ</button></div></div></div>`;
+    return me + bot;
+  };
+  const chip = (act, attrs, label, on) => `<button class="${on ? 'on' : ''}" data-act="${act}" ${attrs} aria-pressed="${!!on}">${esc(label)}</button>`;
+  return `<div id="ai-form" data-notr class="aiwrap">
+  <div class="aihead"><span class="aiav">${I.spark}</span><span class="aihd"><b>ผู้ช่วยเอไอ</b><small>ประจำหมวด: ${esc(cat)}</small></span><button class="aigear" data-act="ai-set" aria-expanded="${!!a.set}">ตั้งค่า</button></div>
+  ${a.set ? `<div class="aiset"><b>ให้ AI ไหนตอบ</b><div class="rqf" role="group" aria-label="เลือก AI">${['chatgpt', 'claude', 'gemini', 'copy'].map(k => chip('ai-set-ai', `data-k="${k}"`, eng(k), a.ai === k)).join('')}</div>
+      <div class="rqf" style="margin-top:.2rem">${chip('ai-set-att', '', 'แนบรุ่นแอปไปกับข้อความ', a.att)}</div>
+      <b>ดูเฉพาะงาน</b><div class="rqf" role="group" aria-label="กรองตามงาน">${[['', 'ทั้งหมด'], ...Object.keys(AIW).map(k => [k, AIW[k][0]])].map(([k, n]) => chip('ai-filter', `data-f="${k}"`, n, a.f === k)).join('')}</div>
+      <p class="muted" style="margin:.2rem 0 0;font-size:.8rem">ข้อความไปถึง AI ที่เลือกเฉพาะตอนกดปุ่ม “ถาม” · ทุกอย่างที่คุยเก็บในเครื่องนี้เท่านั้น ไม่ขึ้นฐานข้อมูล เปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์แล้วจะหาย</p></div>` : ''}
+  <div class="aichat">
+    <div class="aib bot"><div class="aibub"><span class="aitag">ผู้ช่วยเอไอ</span>เลือกงานและห้องด้านล่าง พิมพ์คำถาม แล้วกดส่ง ระบบจะติดป้ายบอกว่าเป็นคำถามของงานไหน ห้องไหน จากนั้นเลือก AI ที่จะให้ตอบ</div></div>
+    ${items.length ? items.map(row).join('') : '<p class="muted" style="text-align:center;margin:.6rem 0 0;font-size:.85rem">ยังไม่มีคำถาม</p>'}
+  </div>
+  <div class="aiquick" role="group" aria-label="เลือกงาน">${Object.keys(AIW).map(k => chip('ai-work', `data-w="${k}"`, AIW[k][0], a.work === k)).join('')}</div>
+  ${isO ? `<div class="aiquick"><input id="ai-other" maxlength="60" value="${esc(a.other)}" placeholder="ชื่องาน เช่น ร้านพรีออเดอร์แบรนด์แรก" aria-label="ชื่องาน" style="flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;padding:.35rem .9rem;font:inherit;font-size:.85rem"></div>`
+        : `<div class="aiquick" role="group" aria-label="เลือกห้อง">${W[1].map(r => chip('ai-roomsel', `data-r="${esc(r)}"`, r, a.room === r)).join('')}</div>`}
+  <div class="aicomp"><textarea id="ai-q" rows="2" maxlength="1000" placeholder="พิมพ์คำถาม" aria-label="คำถาม">${esc(a.q)}</textarea><button class="aisend" data-act="ai-send" aria-label="ส่ง"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div></div>`;
 }
 // ---- Fashion creator room: our brands + a storefront plan per brand (opening page with video, doors by entry link, category pages, pre-order steps).
 // Structure only: no products, prices or sale claims. The video link is kept on THIS device only (localStorage). The public storefront page is NOT built yet.
@@ -3177,7 +3217,7 @@ function chrRoomHtml() {
     <div class="actions"><button class="btn" style="flex:1" data-act="chr-save">บันทึกห้อง ${esc(c.n)}</button></div>
     <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">ข้อความตั้งต้นของตัวตนนิสัยและภาษาห้องมาจากไฟล์ที่ส่งมา (22 ต.ค. 00:19) และอยู่ในไฟล์แอปซึ่งเป็นไฟล์สาธารณะ · ส่วนที่คุณแก้เก็บในเครื่องนี้เท่านั้น · ภาพตัวละครเล็กๆ ฝังอยู่ในไฟล์แอปสาธารณะ ใครมีลิงก์แอปก็เปิดดูได้</p></div></div>`;
 }
-const XTITLE = { chr: ['ตัวละคร LHROY25', 'ตัวละคร 6 ตัว แยกห้องรายตัว · KAII และ KIRA แยกห้องกัน'], fash: ['ครีเอเตอร์แฟชั่น', 'เครือ FAREEDA · แบรนด์ของเรา แต่ละแบรนด์มีหน้าของตัวเอง'], ai: ['หมวดเอไอ', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
+const XTITLE = { chr: ['ตัวละคร LHROY25', 'ตัวละคร 6 ตัว แยกห้องรายตัว · KAII และ KIRA แยกห้องกัน'], fash: ['ครีเอเตอร์แฟชั่น', 'เครือ FAREEDA · แบรนด์ของเรา แต่ละแบรนด์มีหน้าของตัวเอง'], ai: ['เอไอ', 'แชทถามเอไอ · ติดป้ายงานและห้อง เลือก AI ที่จะให้ตอบ แล้วเก็บคำตอบไว้'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
   icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
   acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติและหลักฐานงาน', 'ไทม์ไลน์หลักฐานงาน ทะเบียนเอกสาร และใครทำอะไร เมื่อไหร่'] };
@@ -4405,7 +4445,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '22 ต.ค. 02:15 · ห้องแฟชั่นจัดแบบเครือ FAREEDA: การ์ดแบรนด์ ค้นหา กรอง และหน้าของแต่ละแบรนด์ · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '22 ต.ค. 02:40 · ห้องเอไอเป็นหน้าแชท (เลือกงาน/ห้อง เลือก AI วางคำตอบกลับมาเก็บ) · ห้องแฟชั่นจัดแบบเครือ FAREEDA: การ์ดแบรนด์ ค้นหา กรอง และหน้าของแต่ละแบรนด์ · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -5099,16 +5139,27 @@ document.addEventListener('click', async (e) => {
       if (v) f.vid[f.b] = v; else delete f.vid[f.b];
       const ok = fashSave(); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast(ok ? 'ใส่ในหน้าเปิดแล้ว (เครื่องนี้เท่านั้น)' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ)'); break; }
     case 'fash-vid-clear': { const f = fashS(); delete f.vid[f.b]; fashSave(); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast('ล้างแล้ว'); break; }
-    case 'ai-filter': aiS().f = d.f || ''; aiRead(); render('exec'); break;
-    case 'ai-copy': { const a = aiRead(); if (!a.q.trim()) { toast('พิมพ์คำถามก่อน'); break; }
-      try { await navigator.clipboard.writeText(aiMsg(a.work, a.room, a.other, a.q)); toast('คัดลอกแล้ว วางในแชทเอไอได้เลย'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่กรอบข้อความค้างไว้แล้วเลือกคัดลอก'); } break; }
-    case 'ai-save': { const a = aiRead(); if (!a.q.trim()) { toast('พิมพ์คำถามก่อน'); break; }
+    case 'ai-filter': { const a = aiS(); a.f = d.f || ''; aiRead(); const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-work': { const a = aiRead(); if (AIW[d.w]) { a.work = d.w; a.room = ''; } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-roomsel': { const a = aiRead(); a.room = d.r || ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-set': { const a = aiRead(); a.set = !a.set; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-set-ai': { const a = aiRead(); if (AI_ENG[d.k]) { a.ai = d.k; aiSetSave(); } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-set-att': { const a = aiRead(); a.att = !a.att; aiSetSave(); const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-send': { const a = aiRead(); if (!a.q.trim()) { toast('พิมพ์คำถามก่อน'); break; }
       a.items.unshift({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), at: new Date().toISOString(), work: a.work, room: a.work === 'other' ? '' : a.room, other: a.work === 'other' ? a.other : '', q: a.q.trim() });
-      const ok = aiStore(a.items); a.q = ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y);
-      toast(ok ? 'เก็บแล้ว (เครื่องนี้เท่านั้น)' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ) ให้กดคัดลอกแทน'); break; }
-    case 'ai-copy-item': { const x = aiS().items.find(i => i.id === d.id); if (!x) break;
-      try { await navigator.clipboard.writeText(aiMsg(x.work, x.room, x.other, x.q)); toast('คัดลอกแล้ว วางในแชทเอไอได้เลย'); } catch (_) { toast('คัดลอกไม่ได้ ลองใหม่อีกครั้ง'); } break; }
-    case 'ai-del': { const a = aiRead(); a.items = a.items.filter(i => i.id !== d.id); aiStore(a.items); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast('ลบแล้ว'); break; }
+      const ok = aiStore(a.items); a.q = ''; render('exec'); window.scrollTo(0, document.documentElement.scrollHeight);
+      toast(ok ? 'ส่งเข้าแชทแล้ว · เลือก AI ที่จะให้ตอบได้เลย' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ) แต่ยังกดถาม AI ได้'); break; }
+    case 'ai-ask': { const a = aiS(), x = a.items.find(i => i.id === d.id); if (!x) break;   // a link (<a>) opens the AI by itself; here the text is copied
+      const okc = await aiCopy(aiMsg(x.work, x.room, x.other, x.q, a.att));
+      toast(d.ai === 'copy' ? (okc ? 'คัดลอกแล้ว ไปวางใน AI ที่ต้องการได้เลย' : 'คัดลอกไม่ได้ ให้กดค้างที่ข้อความแล้วเลือกคัดลอก') : (okc ? 'คัดลอกข้อความแล้ว และเปิด ' + AI_ENG[d.ai].n + ' ให้ · ถ้าช่องพิมพ์ยังว่าง ให้วางได้เลย' : 'เปิด ' + AI_ENG[d.ai].n + ' ให้แล้ว แต่คัดลอกข้อความไม่ได้ ให้กดปุ่ม “คัดลอกข้อความ”')); break; }
+    case 'ai-ans-open': { const a = aiRead(), x = a.items.find(i => i.id === d.id); if (!x) break; a.ans = x.id; a.ansSrc = x.via || a.ai; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-ans-src': { const a = aiS(); a.ansSrc = d.k; document.querySelectorAll('[data-act="ai-ans-src"]').forEach(b => { const on = b.dataset.k === d.k; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); }); break; }
+    case 'ai-ans-save': { const a = aiS(), x = a.items.find(i => i.id === d.id), el = document.getElementById('ai-ans-t'); if (!x || !el) break;
+      const v = el.value.trim(); if (v) { x.a = v; x.via = a.ansSrc || a.ai; } else { delete x.a; delete x.via; }
+      a.ans = null; aiStore(a.items); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast(v ? 'เก็บคำตอบแล้ว (เครื่องนี้เท่านั้น)' : 'ล้างคำตอบแล้ว'); break; }
+    case 'ai-ans-cancel': { aiS().ans = null; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'ai-copy-ans': { const x = aiS().items.find(i => i.id === d.id); if (!x || !x.a) break; toast((await aiCopy(x.a)) ? 'คัดลอกคำตอบแล้ว' : 'คัดลอกไม่ได้ ลองใหม่อีกครั้ง'); break; }
+    case 'ai-del': { const a = aiRead(); a.items = a.items.filter(i => i.id !== d.id); if (a.ans === d.id) a.ans = null; aiStore(a.items); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast('ลบแล้ว'); break; }
     case 'copy-link': try { await navigator.clipboard.writeText(d.v); toast('คัดลอกลิงก์แล้ว'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่ลิงก์ค้างไว้แล้วเลือกคัดลอก'); } break;
     case 'copy-tmp': try { await navigator.clipboard.writeText(d.v); toast('คัดลอกแล้ว'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่รหัสค้างไว้เพื่อคัดลอก'); } break;
     case 'pw-save': await act(async () => {
@@ -5418,11 +5469,7 @@ document.addEventListener('input', (e) => {
     document.querySelectorAll('#fash-form .fcard').forEach(c => { const hit = (!f.g || c.dataset.g === f.g) && (!q || (c.dataset.s || '').includes(q)); c.hidden = !hit; if (hit) n++; });
     const no = document.querySelector('#fash-form .fnone'); if (no) no.hidden = n > 0; return; }
   if (e.target.closest && e.target.closest('#fash-form, #chr-form')) return;
-  if (e.target.closest && e.target.closest('#ai-form')) {
-    const a = aiRead();
-    if (e.target.id === 'ai-work') { a.room = ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y); } else aiPrev();
-    return;
-  }
+  if (e.target.closest && e.target.closest('#ai-form')) { aiRead(); return; }   // typing is only remembered (no redraw, so the keyboard stays open)
   if (e.target.id === 'q') { S.q = e.target.value; S.more = 12; const p = e.target.selectionStart; render(); const el = $('#q'); if (el) { el.focus(); el.setSelectionRange(p, p); } }
 });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
