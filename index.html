@@ -552,6 +552,9 @@
   .srcbadge { display: inline-block; font-size: .72rem; font-weight: 600; border-radius: 999px; padding: .08rem .55rem; white-space: nowrap; background: var(--gold-soft); color: #7A5F26; }
   .srcbadge.s-owner { background: var(--green-soft); color: var(--green); }
   .srcbadge.s-yui { background: var(--gold-soft); color: #7A5F26; }
+  .aiprev { white-space: pre-wrap; word-break: break-word; background: var(--green-soft); color: var(--ink, inherit); border-radius: 10px; padding: .6rem .75rem; font-size: .85rem; line-height: 1.5; margin: 0 0 .7rem; }
+  .aiit { align-items: flex-start; gap: .6rem; } .aiit > span:first-child { flex: 1; min-width: 0; } .aiq { display: block; margin-top: .25rem; white-space: pre-wrap; word-break: break-word; }
+  .aibtn { display: flex; flex-direction: column; gap: .3rem; align-items: flex-end; }
   .rqf { display: flex; gap: .4rem; flex-wrap: wrap; margin: 0 0 .5rem; }
   .rqf button { font: inherit; font-size: .82rem; border: 1px solid var(--line); background: #fff; color: var(--green); border-radius: 999px; padding: .25rem .8rem; cursor: pointer; }
   .rqf button.on { background: var(--green); color: #fff; border-color: var(--green); }
@@ -863,7 +866,8 @@ const sby = supabase.createClient(CONFIG.url, CONFIG.key, {
 });
 
 const I = {
-  lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"/><path d="M7 10h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"/><path d="M12 15v2"/></svg>',
+  spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9L11 3Z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"/><path d="M7 10h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"/><path d="M12 15v2"/></svg>',
   cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h2l2.3 11h11.5L21 8H6"/><path d="M8 16h11"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>',
   bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v1"/><path d="M18 10a6 6 0 0 0-12 0c0 5.5-2 6.5-2 8h16c0-1.5-2-2.5-2-8Z"/><path d="M10 21h4"/></svg>',
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5.5 5.5"/></svg>',
@@ -969,6 +973,15 @@ const enName = (kind, id, thai) => (isEn() && S.en[kind] && S.en[kind][id]) || t
 const i18n = t; // alias: inside click handlers `t` is the clicked element
 const langBtn = () => `<button class="langbtn" data-act="lang" aria-label="${LANG === 'en' ? 'เปลี่ยนเป็นภาษาไทย' : 'Switch to English'}">${LANG === 'en' ? 'ไทย' : 'EN'}</button>`;
 const EN = {
+  // executive AI room
+  'เอไอ': 'AI', 'หมวดเอไอ': 'AI notes', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ': 'Write a question, tag the work and room it is about, then copy it for an AI',
+  'จดคำถามให้เอไอรู้ว่าเป็นงานอะไร': 'Note a question so the AI knows which work it is about',
+  'เลือกงานและห้อง พิมพ์คำถาม แล้วกดคัดลอกไปวางในแชทกับเอไอ เอไอจะรู้ทันทีว่าถามเรื่องงานไหน ห้องไหน และรุ่นแอปอะไร': 'Pick the work and room, type the question, then copy it into a chat with an AI. The AI will know which work, which room and which app version you mean.',
+  'งานอื่นนอกแอปนี้': 'Other work (outside this app)', 'ชื่องาน': 'Work name', 'พิมพ์คำถามที่นี่': 'Type the question here',
+  'คัดลอกให้เอไอ': 'Copy for the AI', 'เก็บไว้ในเครื่องนี้': 'Keep on this device', 'คำถามที่เก็บไว้': 'Saved questions',
+  'เก็บไว้ในเครื่องนี้เท่านั้น ไม่ขึ้นฐานข้อมูล · ถ้าเปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์ รายการจะหาย': 'Kept on this device only, not in the database. Changing device or clearing browser data removes the list.',
+  'ยังไม่มีคำถามที่เก็บไว้': 'No saved questions yet', 'ข้อความที่จะคัดลอกจะขึ้นตรงนี้ เมื่อพิมพ์คำถาม': 'The text to copy appears here once you type a question',
+  'พิมพ์คำถามก่อน': 'Type a question first', 'คัดลอกแล้ว วางในแชทเอไอได้เลย': 'Copied. Paste it into the AI chat', 'เก็บแล้ว (เครื่องนี้เท่านั้น)': 'Saved (this device only)', 'ลบแล้ว': 'Deleted',
   // landing / menu
   'คุณยุ้ย ส้มตำครกระเบิด — ส้มตำ ยำ — ฮาลาล': 'Khun Yui Som Tam Khrok Raboed — papaya salad & yum — Halal',
   'เข้าสู่ระบบสำหรับเจ้าของร้าน': 'Shop owner sign-in',
@@ -2111,11 +2124,11 @@ function trStr(s) {
 function trAttrs(el) { if (el.nodeType !== 1) return; for (const a of ['aria-label', 'placeholder', 'title', 'alt']) { const v = el.getAttribute(a); if (v && TH_RE.test(v)) { const o = trStr(v); if (o !== v) el.setAttribute(a, o); } } }
 function trTree(root) {
   if (!isEn() || !root) return;
-  if (root.nodeType === 3) { if (TH_RE.test(root.data)) { const o = trStr(root.data); if (o !== root.data) root.data = o; } return; }
+  if (root.nodeType === 3) { if (TH_RE.test(root.data) && !(root.parentElement && root.parentElement.closest('[data-notr]'))) { const o = trStr(root.data); if (o !== root.data) root.data = o; } return; }
   if (root.nodeType !== 1 || ['SCRIPT', 'STYLE', 'TEXTAREA'].includes(root.tagName) || (root.closest && root.closest('[data-notr]'))) return;
   trAttrs(root);
   root.querySelectorAll('[aria-label],[placeholder],[title],[alt]').forEach(trAttrs);
-  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (['SCRIPT', 'STYLE', 'TEXTAREA'].includes(n.parentElement && n.parentElement.tagName) || !TH_RE.test(n.data)) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (['SCRIPT', 'STYLE', 'TEXTAREA'].includes(n.parentElement && n.parentElement.tagName) || (n.parentElement && n.parentElement.closest('[data-notr]')) || !TH_RE.test(n.data)) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
   const nodes = []; let n; while ((n = w.nextNode())) nodes.push(n);
   nodes.forEach(x => { const o = trStr(x.data); if (o !== x.data) x.data = o; });
 }
@@ -2887,7 +2900,7 @@ async function showExec() {
   S.exec.rt = setInterval(pollReqs, 2000);   // reset requests: checked every 2 seconds while this page is open
   S.exec.t = setInterval(async () => {
     if (route()[0] !== 'exec') return clearInterval(S.exec.t);
-    try { await loadExec(); render('exec'); } catch (_) {}
+    try { await loadExec(); if (!(S.exec.room === 'ai' && document.activeElement && document.activeElement.closest && document.activeElement.closest('#ai-form'))) render('exec'); } catch (_) {}   // never redraw while she is typing in the AI room
   }, 30000);
 }
 async function loadExec() {
@@ -2993,8 +3006,39 @@ const sesCard = () => {
     <details class="why"><summary>อ่านก่อนใช้ (ที่ตั้ง และเวลา)</summary><ul class="whyl"><li><b>ที่ตั้ง</b> ระบบรู้แค่ IP ของเครื่อง จึงแสดง IP แบบย่อ ไม่ใช่ตำแหน่งจริง (ไม่ขอ GPS)</li><li><b>เวลา</b> "ต่อบัตรผ่านล่าสุด" คือครั้งล่าสุดที่เครื่องนั้นต่ออายุการเข้าระบบ (ราวทุกชั่วโมง) ไม่ใช่เวลาที่กดใช้งานล่าสุดเสมอไป</li><li><b>ให้ออก</b> เครื่องนั้นถูกตัดการต่ออายุทันที และแอปบนเครื่องนั้นจะพากลับหน้าเข้าสู่ระบบเองภายในราว 15 วินาทีถ้าเปิดแอปอยู่ · ไม่เปลี่ยนรหัสผ่าน</li></ul></details>
     ${list || '<p class="muted" style="margin:.4rem 0 0">ตอนนี้ไม่มีเครื่องไหนเข้าสู่ระบบอยู่</p>'}</div>`;
 };
-const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf], ['links', 'ลิงก์', I.link]];
-const XTITLE = { home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
+const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf], ['links', 'ลิงก์', I.link], ['ai', 'เอไอ', I.spark]];
+// ---- AI room: a note-pad of questions, each tagged with the work (door) and room it is about, copyable for any AI chat.
+// Kept on THIS device only (localStorage) — nothing about the questions goes into the public file or the database.
+const AIW = { exec: ['งานบริหาร', ['ภาพรวม', 'คำขอรหัส', 'บัญชีร้าน', 'รายได้', 'ประวัติ', 'ไอคอน', 'ลิงก์', 'เอไอ']], owner: ['งานหลังร้าน', ['ออเดอร์', 'เมนู', 'แดชบอร์ด', 'ตั้งค่า']], yui: ['บอร์ดคุณยุ้ย', ['คิวและยอดวันนี้']], cust: ['ลูกค้า',['เมนู', 'ตะกร้า', 'ติดตามสถานะ']], other: ['งานอื่นนอกแอปนี้', []] };
+const AI_KEY = 'khunyui-ai-q';
+const aiLoad = () => { try { const v = JSON.parse(localStorage.getItem(AI_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (_) { return []; } };
+const aiStore = (items) => { try { localStorage.setItem(AI_KEY, JSON.stringify(items.slice(0, 200))); return true; } catch (_) { return false; } };
+const aiS = () => (S.exec.ai = S.exec.ai || { work: 'exec', room: '', other: '', q: '', f: '', items: aiLoad() });
+const aiName = (w, o) => w === 'other' ? ((o || '').trim() || 'งานอื่น') : (AIW[w] || AIW.exec)[0];
+const aiMsg = (w, r, o, q) => `[งาน: ${aiName(w, o)}${w !== 'other' && r ? ' · ห้อง: ' + r : ''}]${w !== 'other' ? ' [แอปรุ่น ' + String(APP_VERSION).split(' · ')[0] + ']' : ''}\nคำถาม: ${String(q || '').trim()}\n(ตอบเฉพาะงานและห้องที่ระบุ · ถ้าไม่แน่ใจว่าหมายถึงตรงไหน ให้ถามกลับข้อเดียว)`;
+const aiRead = () => { const a = aiS(), g = (id) => document.getElementById(id); if (g('ai-work')) a.work = g('ai-work').value; if (g('ai-room')) a.room = g('ai-room').value; if (g('ai-other')) a.other = g('ai-other').value; if (g('ai-q')) a.q = g('ai-q').value; return a; };
+const aiPrev = () => { const a = aiS(), el = document.getElementById('ai-prev'); if (el) el.textContent = a.q.trim() ? aiMsg(a.work, a.room, a.other, a.q) : 'ข้อความที่จะคัดลอกจะขึ้นตรงนี้ เมื่อพิมพ์คำถาม'; };
+function aiRoomHtml() {
+  const a = aiS(), isO = a.work === 'other', W = AIW[a.work] || AIW.exec;
+  if (!isO && !W[1].includes(a.room)) a.room = W[1][0];
+  const list = a.items.filter(x => !a.f || x.work === a.f);
+  const chipF = [['', 'ทั้งหมด'], ...Object.keys(AIW).map(k => [k, AIW[k][0]])];
+  return `<div class="xcard" id="ai-form"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">จดคำถามให้เอไอรู้ว่าเป็นงานอะไร</h2>
+    <p class="muted" style="margin:0 0 .7rem">เลือกงานและห้อง พิมพ์คำถาม แล้วกดคัดลอกไปวางในแชทกับเอไอ เอไอจะรู้ทันทีว่าถามเรื่องงานไหน ห้องไหน และรุ่นแอปอะไร</p>
+    <label class="field"><span>งาน</span><select id="ai-work">${Object.keys(AIW).map(k => `<option value="${k}" ${k === a.work ? 'selected' : ''}>${esc(AIW[k][0])}</option>`).join('')}</select></label>
+    ${isO ? `<label class="field"><span>ชื่องาน</span><input id="ai-other" maxlength="60" value="${esc(a.other)}" placeholder="เช่น ร้านพรีออเดอร์แบรนด์แรก"></label>`
+          : `<label class="field"><span>ห้อง</span><select id="ai-room">${W[1].map(r => `<option value="${esc(r)}" ${r === a.room ? 'selected' : ''}>${esc(r)}</option>`).join('')}</select></label>`}
+    <label class="field"><span>คำถาม</span><textarea id="ai-q" rows="4" maxlength="1000" placeholder="พิมพ์คำถามที่นี่">${esc(a.q)}</textarea></label>
+    <div class="aiprev" id="ai-prev" data-notr>${a.q.trim() ? esc(aiMsg(a.work, a.room, a.other, a.q)) : 'ข้อความที่จะคัดลอกจะขึ้นตรงนี้ เมื่อพิมพ์คำถาม'}</div>
+    <div class="actions"><button class="btn" style="flex:1" data-act="ai-copy">คัดลอกให้เอไอ</button><button class="btn ghost" data-act="ai-save">เก็บไว้ในเครื่องนี้</button></div></div>
+  <div class="xcard"><h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">คำถามที่เก็บไว้</h2>
+    <p class="muted" style="margin:0 0 .5rem;font-size:.85rem">เก็บไว้ในเครื่องนี้เท่านั้น ไม่ขึ้นฐานข้อมูล · ถ้าเปลี่ยนเครื่องหรือล้างข้อมูลเบราว์เซอร์ รายการจะหาย</p>
+    <div class="rqf" role="group" aria-label="กรองตามงาน">${chipF.map(([k, n]) => `<button class="${a.f === k ? 'on' : ''}" data-act="ai-filter" data-f="${k}" aria-pressed="${a.f === k}">${esc(n)}</button>`).join('')}</div>
+    ${list.length ? list.map(x => `<div class="kv aiit"><span><span class="srcbadge s-owner" data-notr>${esc(aiName(x.work, x.other))}</span>${x.work !== 'other' && x.room ? ` <span class="srcbadge" data-notr>${esc(x.room)}</span>` : ''} <span class="muted">${thDate(new Date(x.at))} ${thTime(x.at)}</span><br><span class="aiq" data-notr>${esc(x.q)}</span></span>
+      <span class="aibtn"><button class="btn ghost sm" data-act="ai-copy-item" data-id="${esc(x.id)}">คัดลอก</button><button class="back sm" data-act="ai-del" data-id="${esc(x.id)}">ลบ</button></span></div>`).join('')
+      : '<p class="muted" style="margin:.3rem 0 0">ยังไม่มีคำถามที่เก็บไว้</p>'}</div>`;
+}
+const XTITLE = { ai: ['หมวดเอไอ', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
   icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
   acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติและหลักฐานงาน', 'ไทม์ไลน์หลักฐานงาน ทะเบียนเอกสาร และใครทำอะไร เมื่อไหร่'] };
@@ -3107,6 +3151,7 @@ V.exec = () => {
   };
   const rooms = {
     home: homeRoom,
+    ai: aiRoomHtml,
     req: reqRoom,
     acc: () => {
       const accs = S.exec.accounts || [], ini = (e) => esc((e || '?').trim().charAt(0).toUpperCase());
@@ -4217,7 +4262,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '21 ต.ค. 22:10 · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '21 ต.ค. 22:35 · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4898,6 +4943,16 @@ document.addEventListener('click', async (e) => {
       await act(async () => { const { error } = await sbx.rpc('exec_revoke_recovery_code', { p_email: d.email }); if (error) throw error; await loadExec(); render('exec'); }, 'ยกเลิกรหัสกู้คืนแล้ว');
       break; }
     case 'rq-filter': S.exec.rqf = d.f || ''; render('exec'); break;
+    case 'ai-filter': aiS().f = d.f || ''; aiRead(); render('exec'); break;
+    case 'ai-copy': { const a = aiRead(); if (!a.q.trim()) { toast('พิมพ์คำถามก่อน'); break; }
+      try { await navigator.clipboard.writeText(aiMsg(a.work, a.room, a.other, a.q)); toast('คัดลอกแล้ว วางในแชทเอไอได้เลย'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่กรอบข้อความค้างไว้แล้วเลือกคัดลอก'); } break; }
+    case 'ai-save': { const a = aiRead(); if (!a.q.trim()) { toast('พิมพ์คำถามก่อน'); break; }
+      a.items.unshift({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), at: new Date().toISOString(), work: a.work, room: a.work === 'other' ? '' : a.room, other: a.work === 'other' ? a.other : '', q: a.q.trim() });
+      const ok = aiStore(a.items); a.q = ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y);
+      toast(ok ? 'เก็บแล้ว (เครื่องนี้เท่านั้น)' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ) ให้กดคัดลอกแทน'); break; }
+    case 'ai-copy-item': { const x = aiS().items.find(i => i.id === d.id); if (!x) break;
+      try { await navigator.clipboard.writeText(aiMsg(x.work, x.room, x.other, x.q)); toast('คัดลอกแล้ว วางในแชทเอไอได้เลย'); } catch (_) { toast('คัดลอกไม่ได้ ลองใหม่อีกครั้ง'); } break; }
+    case 'ai-del': { const a = aiRead(); a.items = a.items.filter(i => i.id !== d.id); aiStore(a.items); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast('ลบแล้ว'); break; }
     case 'copy-link': try { await navigator.clipboard.writeText(d.v); toast('คัดลอกลิงก์แล้ว'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่ลิงก์ค้างไว้แล้วเลือกคัดลอก'); } break;
     case 'copy-tmp': try { await navigator.clipboard.writeText(d.v); toast('คัดลอกแล้ว'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่รหัสค้างไว้เพื่อคัดลอก'); } break;
     case 'pw-save': await act(async () => {
@@ -5203,6 +5258,11 @@ document.addEventListener('change', async (e) => {
     await rpc('update_store_owner_settings', { p_store_id: CONFIG.store, p_notify_new_order: true, p_sound_new_order: t.checked }); S.owner.ownerSettings.sound_new_order = t.checked; }, 'บันทึกแล้ว');
 });
 document.addEventListener('input', (e) => {
+  if (e.target.closest && e.target.closest('#ai-form')) {
+    const a = aiRead();
+    if (e.target.id === 'ai-work') { a.room = ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y); } else aiPrev();
+    return;
+  }
   if (e.target.id === 'q') { S.q = e.target.value; S.more = 12; const p = e.target.selectionStart; render(); const el = $('#q'); if (el) { el.focus(); el.setSelectionRange(p, p); } }
 });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
