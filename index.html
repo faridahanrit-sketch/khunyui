@@ -580,6 +580,36 @@
   .fname2 { font-size: 1.02rem; line-height: 1.25; } .fen { font-size: .62rem; letter-spacing: .1em; color: var(--muted, #6b6457); } .fwhat { font-size: .72rem; color: var(--muted, #6b6457); margin-top: auto; padding-top: .5rem; line-height: 1.4; }
   .fback { border: 0; background: none; font: inherit; color: var(--green); padding: .2rem 0 .6rem; cursor: pointer; } .fback span { font-size: 1.3rem; vertical-align: -1px; margin-right: .2rem; }
   .fid { overflow: hidden; } .fid .flab { text-align: left; display: block; }
+  /* layered pages (FAREEDA style): crumb / chips / hero / 2x2 cards / footer nav */
+  .lcr { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; padding: .1rem 1rem .6rem; font-size: .74rem; color: var(--muted, #6b6457); }
+  .lcr button { border: 0; background: none; font: inherit; color: inherit; padding: 0; cursor: pointer; } .lcr button:hover { color: var(--green); text-decoration: underline; } .lcr span { color: var(--ink, inherit); } .lcr i { font-style: normal; opacity: .6; }
+  .lchips, .lrow { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0 1rem; margin: 0 0 .7rem; }
+  .lchip { border: 1px solid var(--line); background: var(--card, #fff); border-radius: 10px; padding: .55rem .9rem; font: inherit; font-size: .88rem; color: inherit; cursor: pointer; } .lchip.on { border-color: var(--green); box-shadow: 0 0 0 1px var(--green) inset; } .lchip:disabled { opacity: .4; cursor: default; }
+  .lhero { display: flex; gap: 1.1rem; align-items: center; background: #2f332d; color: #f4efe6; border-radius: 12px; padding: 1.1rem; margin: .1rem 1rem .9rem; }
+  .lhimg { flex: none; width: 40%; max-width: 190px; aspect-ratio: 1; border-radius: 6px; overflow: hidden; background: #1d201c; display: flex; align-items: center; justify-content: center; } .lhimg img { width: 100%; height: 100%; object-fit: cover; } .lhico { font-size: 2.6rem; }
+  .lhk { font-size: .66rem; letter-spacing: .06em; opacity: .8; } .lhero h2 { margin: .3rem 0; font-size: 1.7rem; font-family: Georgia, 'Times New Roman', serif; font-weight: 400; letter-spacing: .04em; color: #fff; } .lhero p { margin: .3rem 0 0; font-size: .85rem; font-weight: 600; }
+  .lcards { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; padding: 0 1rem; margin: 0 0 .9rem; }
+  .lcard { border: 1px solid var(--line); background: var(--card, #fff); border-radius: 12px; padding: 1.4rem .6rem; text-align: center; font: inherit; color: inherit; cursor: pointer; display: flex; flex-direction: column; gap: .5rem; align-items: center; } .lcard b { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: 1.05rem; } .lcard small { font-size: .72rem; color: var(--muted, #6b6457); } .lcard:hover, .lwc:hover, .lmaprow:hover { border-color: var(--green); }
+  .lh1 { margin: .2rem 1rem .6rem; font-size: 1.5rem; font-family: Georgia, 'Times New Roman', serif; font-weight: 400; color: var(--ink, inherit); } .lh1s { font-size: .8rem; color: var(--muted, #6b6457); font-family: inherit; } .lbig2 { margin: .3rem 0 .6rem; font-size: 1.9rem; line-height: 1.25; }
+  .lh3 { margin: .5rem 1rem .5rem; font-size: 1.1rem; font-family: Georgia, 'Times New Roman', serif; font-weight: 400; } .lh3b { margin: .2rem 0 0; font-size: 1.25rem; color: var(--green); font-family: Georgia, serif; font-weight: 400; }
+  .lpanel { margin: 0 1rem .9rem; } .lpad { padding: 0 1rem; } .lpad .lh1 { margin-left: 0; margin-right: 0; } .lkick { font-size: .72rem; color: var(--muted, #6b6457); margin-top: .3rem; }
+  .lnote { margin: 0 1rem .6rem; font-size: .88rem; color: var(--muted, #6b6457); }
+  .lbox { background: var(--green-soft); border: 1px solid var(--line); border-radius: 8px; padding: .7rem .9rem; margin: .8rem 0; font-size: .88rem; }
+  .lfoot { display: flex; flex-wrap: wrap; gap: .5rem; padding: .8rem 1rem 0; margin: .4rem 0 0; border-top: 1px solid var(--line); }
+  .lfn { padding: 0 1rem; font-size: .75rem; color: var(--muted, #6b6457); margin: .7rem 0 0; }
+  .lwgrid { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; } @media (min-width: 700px) { .lwgrid { grid-template-columns: repeat(3, 1fr); } }
+  .lwc { border: 1px solid var(--line); background: var(--card, #fff); border-radius: 14px; overflow: hidden; padding: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; display: flex; flex-direction: column; } .lwc[hidden] { display: none; }
+  .lwi { background: #ece6d8; padding: 1rem; display: block; } .lwi img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 4px; }
+  .lwt { padding: .8rem .9rem 1rem; display: flex; flex-direction: column; gap: .35rem; } .lwt b { font-size: 1.25rem; font-weight: 400; } .lwt span { font-size: .85rem; } .lwt small { font-size: .75rem; }
+  .lgal { display: grid; grid-template-columns: 1fr; gap: .8rem; padding: 0 1rem .8rem; } @media (min-width: 600px) { .lgal { grid-template-columns: 1fr 1fr; align-items: start; } } .lbigimg { width: 100%; max-width: 360px; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: #fff; padding: .5rem; border: 1px solid var(--line); }
+  .lmaprow { display: flex; justify-content: space-between; gap: .6rem; width: 100%; text-align: left; border: 1px solid var(--line); background: var(--card, #fff); border-radius: 10px; padding: .7rem .9rem; margin: 0 0 .5rem; font: inherit; color: inherit; cursor: pointer; } .lmaprow span { font-size: .8rem; color: var(--muted, #6b6457); text-align: right; }
+  .verline details { margin-top: .4rem; font-size: .75rem; } .verline summary { cursor: pointer; } .verline details div { margin-top: .3rem; line-height: 1.5; text-align: left; }
+  @keyframes lyrfade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes lyrfwd { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }
+  @keyframes lyrback { from { opacity: 0; transform: translateX(-26px); } to { opacity: 1; transform: none; } }
+  .lyr-fade { animation: lyrfade .22s ease-out backwards; } .lyr-fwd { animation: lyrfwd .24s ease-out backwards; } .lyr-back { animation: lyrback .24s ease-out backwards; }
+  .fcard, .btn, .tab, .rqf button, .lbtn, .ltabs button { transition: background-color .15s, border-color .15s, color .15s, box-shadow .15s, transform .12s; } .fcard:active, .btn:active { transform: scale(.98); }
+  @media (prefers-reduced-motion: reduce) { .lyr-fade, .lyr-fwd, .lyr-back { animation: none; } .fcard, .btn, .tab, .rqf button, .lbtn, .ltabs button { transition: none; } }
   .fstep { margin: 0 0 .6rem; } .fstep b { color: var(--green); }
   .aiwrap { margin: .75rem 1rem; }
   .aihead { display: flex; align-items: center; gap: .7rem; background: var(--green); color: #fff; border-radius: 16px 16px 0 0; padding: .7rem .9rem; }
@@ -3125,53 +3155,91 @@ const fashLoad = () => { try { const v = JSON.parse(localStorage.getItem(FASH_KE
 const fashS = () => { if (!S.exec.fash) { const v = fashLoad(); S.exec.fash = { view: 'list', q: '', g: '', b: FASH_BR.some(x => x.id === v.b) ? v.b : 'lh25', from: 'all', vid: (v.vid && typeof v.vid === 'object') ? v.vid : {} }; } return S.exec.fash; };
 const fashSave = () => { try { const f = fashS(); localStorage.setItem(FASH_KEY, JSON.stringify({ b: f.b, vid: f.vid })); return true; } catch (_) { return false; } };
 const fashUrl = (u) => /^https?:\/\/\S+$/i.test(String(u || '').trim()) ? String(u).trim() : '';
+// ---- Layered pages (the FAREEDA way): world list -> room -> section pages, breadcrumb + chips + hero + 2x2 cards + footer nav with back/forward
+const NAV = {};
+const nv = (k) => NAV[k] || (NAV[k] = { h: ['w'], i: 0 });
+const nvLoc = (k) => { const n = nv(k); return n.h[n.i] || 'w'; };
+const nvGo = (k, loc) => { const n = nv(k); if (n.h[n.i] === loc) return false; n.h = n.h.slice(0, n.i + 1); n.h.push(loc); if (n.h.length > 40) n.h.shift(); n.i = n.h.length - 1; return true; };
+const nvReset = (k) => { NAV[k] = { h: ['w'], i: 0 }; };
+const lGo = (k, to, label, cls) => `<button class="lchip ${cls || ''}" data-act="lnav" data-k="${k}" data-to="${to}">${label}</button>`;
+const lCrumb = (k, parts) => `<nav class="lcr" aria-label="ตำแหน่งหน้า">${parts.map(([l, to]) => to ? `<button data-act="lnav" data-k="${k}" data-to="${to}">${l}</button>` : `<span aria-current="page">${l}</span>`).join('<i aria-hidden="true">›</i>')}</nav>`;
+const lTabs = (k, base, items, cur) => `<div class="lchips" role="tablist" aria-label="หน้าของห้อง">${items.map(([p, l]) => `<button role="tab" class="lchip ${p === cur ? 'on' : ''}" aria-selected="${p === cur}" data-act="lnav" data-k="${k}" data-to="${base}:${p}">${l}</button>`).join('')}</div>`;
+const lCards = (k, base, items) => `<div class="lcards">${items.map(([p, t, d]) => `<button class="lcard" data-act="lnav" data-k="${k}" data-to="${base}:${p}"><b>${t}</b><small>${d}</small></button>`).join('')}</div>`;
+const lHero = (media, kick, name, lines) => `<div class="lhero"><div class="lhimg">${media}</div><div class="lhtx"><div class="lhk">${kick}</div><h2>${name}</h2>${lines.map(x => `<p>${x}</p>`).join('')}</div></div>`;
+const lFoot = (k, extra) => { const n = nv(k); return `<div class="lfoot"><button class="lchip" data-act="lback" data-k="${k}" ${n.i > 0 ? '' : 'disabled'}>← กลับหน้าก่อน</button><button class="lchip" data-act="lfwd" data-k="${k}" ${n.i < n.h.length - 1 ? '' : 'disabled'}>ไปหน้าถัดไป →</button>${extra || ''}</div>`; };
+const lHome = '<button class="lchip" data-act="exec-room" data-room="home">กลับหน้ารวม</button>';
+let LYR = ''; const lyrTake = () => { const c = LYR ? 'lyr-' + LYR : ''; LYR = ''; return c; };
 const fashHit = (x, q, g) => (!g || x.grp === g) && (!q || [x.name, x.en, x.what, x.tag, x.lab].join(' ').toLowerCase().includes(q));
+const FASH_PG = [['home', 'หน้าห้อง'], ['id', 'ตัวตน'], ['open', 'หน้าเปิดร้าน'], ['shop', 'หน้าสินค้า'], ['pre', 'พรีออเดอร์']];
 function fashRoomHtml() {
-  const f = fashS(), esc2 = esc, h2 = (t) => `<h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">${t}</h2>`;
-  if (f.view !== 'brand') {
+  const f = fashS(), k = 'fash', [t, bid, pg0] = nvLoc(k).split(':');
+  if (t !== 'r') {
     const q = (f.q || '').trim().toLowerCase(), shown = FASH_BR.filter(x => fashHit(x, q, f.g));
-    return `<div data-notr id="fash-form" class="fpad">
-    <div class="fhead"><div class="fmark serif">FAREEDA</div><div class="fkick">เครือหลัก · ห้องแฟชั่น</div>
+    return `<div data-notr id="fash-form">
+    ${lCrumb(k, [['ครีเอเตอร์แฟชั่น', null]])}
+    <div class="fpad"><div class="fhead"><div class="fmark serif">FAREEDA</div><div class="fkick">เครือหลัก · ห้องแฟชั่น</div>
       <h2 class="serif ftitle">เลือกแบรนด์ในเครือ</h2>
       <p class="muted" style="margin:.2rem 0 0">แต่ละแบรนด์มีหน้าและตัวตนของตัวเอง แตะเพื่อเข้าไปจัดหน้าร้านของแบรนด์นั้น</p></div>
     <label class="fq"><span aria-hidden="true">⌕</span><input id="fash-q" type="search" maxlength="60" value="${esc(f.q || '')}" placeholder="ค้นหาแบรนด์: กระเป๋า เสื้อผ้า ตัวละคร..." aria-label="ค้นหาแบรนด์"></label>
-    <div class="rqf" role="group" aria-label="กรองแบรนด์">${FASH_GRP.map(([k, n]) => `<button class="${f.g === k ? 'on' : ''}" data-act="fash-grp" data-g="${k}" aria-pressed="${f.g === k}">${esc(n)}</button>`).join('')}</div>
+    <div class="rqf" role="group" aria-label="กรองแบรนด์">${FASH_GRP.map(([kk, n]) => `<button class="${f.g === kk ? 'on' : ''}" data-act="fash-grp" data-g="${kk}" aria-pressed="${f.g === kk}">${esc(n)}</button>`).join('')}</div>
     <div class="fcount"><span class="muted">ในเครือ FAREEDA</span><b>${FASH_BR.length} แบรนด์</b></div>
-    <div class="fgrid">${FASH_BR.map(x => `<button class="fcard ${x.grp === 'first' ? 'hot' : ''}" data-act="fash-brand" data-id="${x.id}" data-s="${esc([x.name, x.en, x.what, x.tag, x.lab].join(' ').toLowerCase())}" data-g="${x.grp}" ${fashHit(x, q, f.g) ? '' : 'hidden'}>
+    <div class="fgrid">${FASH_BR.map(x => `<button class="fcard ${x.grp === 'first' ? 'hot' : ''}" data-act="lnav" data-k="fash" data-to="r:${x.id}:home" data-s="${esc([x.name, x.en, x.what, x.tag, x.lab].join(' ').toLowerCase())}" data-g="${x.grp}" ${fashHit(x, q, f.g) ? '' : 'hidden'}>
       <span class="flab">${esc(x.lab)}</span><span class="fic" aria-hidden="true">${x.ic}</span>
       <span class="fname2 serif">${esc(x.name)}</span><span class="fen">${esc(x.en)}</span><span class="fwhat">${esc(x.what)}</span></button>`).join('')}</div>
     <p class="muted fnone" ${shown.length ? 'hidden' : ''} style="text-align:center;margin:.8rem 0 0">ไม่พบแบรนด์ที่ตรงกับที่ค้นหา</p>
-    <p class="muted" style="margin:.8rem 0 0;font-size:.85rem">ชื่อแบรนด์และสถานะตามไฟล์ที่ส่งมา (21 ต.ค.) · สถานะที่ยังไม่ยืนยันยังไม่ถือว่าเปิดขาย</p></div>`;
+    <p class="muted" style="margin:.8rem 0 0;font-size:.85rem">ชื่อแบรนด์และสถานะตามไฟล์ที่ส่งมา (21 ต.ค.) · สถานะที่ยังไม่ยืนยันยังไม่ถือว่าเปิดขาย</p></div>
+    ${lFoot(k, lHome)}</div>`;
   }
-  const br = FASH_BR.find(x => x.id === f.b) || FASH_BR[0];
+  const br = FASH_BR.find(x => x.id === bid) || FASH_BR[0], base = 'r:' + br.id;
+  const pg = ['home', 'id', 'open', 'shop', 'pre', 'edit', 'map'].includes(pg0) ? pg0 : 'home';
+  f.b = br.id;
   if (!br.doors.includes(f.from)) f.from = br.doors[0];
-  const vu = fashUrl(f.vid[br.id]), dn = (k) => FASH_DOORS[k];
+  const vu = fashUrl(f.vid[br.id]), dn = (x) => FASH_DOORS[x];
+  const names = { home: 'หน้าห้อง', id: 'ตัวตนแบรนด์', open: 'หน้าเปิดร้าน', shop: 'หน้าสินค้า', pre: 'พรีออเดอร์', edit: 'ตั้งค่า', map: 'ผังหน้าร้าน' };
+  const crumb = lCrumb(k, [['ครีเอเตอร์แฟชั่น', 'w'], [esc(br.name), base + ':home'], [names[pg], null]]);
+  const tabs = lTabs(k, base, FASH_PG, FASH_PG.some(x => x[0] === pg) ? pg : '');
+  const hd = (txt) => `<h2 class="lh1">${txt} <small class="lh1s">${esc(br.name)}</small></h2>`;
+  const panel = (x) => `<div class="lpanel">${x}</div>`;
   const vid = vu ? (/\.(mp4|webm)(\?|#|$)/i.test(vu) ? `<video src="${esc(vu)}" controls playsinline muted preload="metadata"></video>` : `<a href="${esc(vu)}" target="_blank" rel="noopener">เปิดวิดีโอแนะนำแบรนด์ ↗</a>`) : `<span>ที่ว่างสำหรับวิดีโอแนะนำแบรนด์ (นางแบบเดินโชว์)<br><small>ยังไม่มีวิดีโอ</small></span>`;
-  return `<div data-notr id="fash-form">
-  <button class="fback fpad" data-act="fash-back" aria-label="กลับไปเลือกแบรนด์"><span aria-hidden="true">‹</span> FAREEDA · แบรนด์ในเครือ</button>
-  <div class="xcard fid"><span class="fic big" aria-hidden="true">${br.ic}</span><span class="flab">${esc(br.lab)}</span>
-    <h2 class="serif" style="margin:.2rem 0 0;font-size:1.25rem;color:var(--green)">${esc(br.name)}</h2><div class="fen">${esc(br.en)}</div>
-    <p class="muted" style="margin:.5rem 0 0">${esc(br.what)}<br>สถานะ: ${esc(br.tag)}</p>
-    ${br.id === 'lhroy' ? '<div class="actions" style="margin-top:.6rem"><button class="btn ghost" data-act="exec-room" data-room="chr">เปิดห้องตัวละคร 6 ตัว</button></div>' : ''}</div>
-  <div class="xcard">${h2('ผังหน้าร้านของแบรนด์นี้ (จัดระเบียบก่อน เติมสินค้าทีหลัง)')}
-    <p class="fstep"><b>ขั้น 1 · หน้าเปิดร้าน</b> เปิดมาเจอวิดีโอแนะนำแบรนด์ก่อน ชื่อแบรนด์ แล้วค่อยมีทางเข้าไปหน้าสินค้า</p>
-    <label class="field"><span>ลิงก์วิดีโอแนะนำแบรนด์ (ถ้ามี)</span><input id="fash-vid" maxlength="400" inputmode="url" value="${esc(f.vid[br.id] || '')}" placeholder="https://... (ไฟล์ .mp4 จะเล่นในหน้าเปิดเลย ลิงก์อื่นจะขึ้นเป็นปุ่มเปิด)"></label>
-    <div class="actions"><button class="btn" style="flex:1" data-act="fash-vid">ใส่ในหน้าเปิด</button><button class="btn ghost" data-act="fash-vid-clear">ล้างวิดีโอ</button></div>
-    <p class="muted" style="margin:.3rem 0 .8rem;font-size:.85rem">เก็บในเครื่องนี้เท่านั้น · ระบบนี้ยังสร้างวิดีโอให้ไม่ได้ ต้องใช้วิดีโอที่คุณมี</p>
-    <p class="fstep"><b>ขั้น 2 · ทางเข้าตามลิงก์ที่คนกดมา</b> คนมาจากลิงก์ไหน เข้าหน้านั้นก่อน หลังวิดีโอจบ</p>
-    ${br.doors.map(k => `<div class="kv"><span>มาจากลิงก์ “${dn(k)}” <span class="muted">(รหัส from=${k})</span></span><b>เปิดหน้า${dn(k)}ก่อน</b></div>`).join('')}
-    ${br.doors.length < 2 ? '<p class="muted" style="margin:.4rem 0 0;font-size:.85rem">แบรนด์นี้ยังไม่ได้กำหนดหมวดสินค้า จึงมีแค่หน้ารวม</p>' : ''}
-    <p class="fstep" style="margin-top:.8rem"><b>ขั้น 3 · หน้าสินค้าแต่ละหมวด</b> ${br.doors.map(dn).join(' · ')} — ทุกหน้า <span class="muted">ยังไม่มีสินค้า เติมทีหลัง</span></p>
-    <p class="fstep"><b>ขั้น 4 · พรีออเดอร์ มาเป็นขั้น</b> (ยังไม่ทำ · ตอบใบตั้งร้านพรีออเดอร์ก่อน)</p>
-    <ol class="whyl" style="margin:0"><li>เปิดรอบ: ชื่อรอบ วันเปิด–ปิด</li><li>ชำระเงิน: มัดจำหรือเต็ม ตรวจสลิป</li><li>ปิดรอบ: ถึงขั้นต่ำหรือไม่</li><li>ผลิต และของถึงร้าน</li><li>จัดส่ง และลูกค้าได้รับ</li></ol></div>
-  <div class="xcard">${h2('ลองดูว่าคนมาจากลิงก์ไหน')}
-    <p class="muted" style="margin:0 0 .5rem">เลือกลิงก์ที่คนกดมา แล้วดูว่าหน้าไหนเปิดก่อน</p>
-    <div class="rqf" role="group" aria-label="ลิงก์ที่มา">${br.doors.map(k => `<button class="${k === f.from ? 'on' : ''}" data-act="fash-from" data-k="${k}" aria-pressed="${k === f.from}">มาจากลิงก์ ${dn(k)}</button>`).join('')}</div>
-    <div class="fland"><div class="fvid">${vid}</div><div class="fname">${esc(br.name)}</div>
-      <div class="fcue">วิดีโอเล่นก่อน แล้วเลื่อนเข้า “หน้า${dn(f.from)}”</div>
-      <div class="fpage"><b>หน้า${dn(f.from)}</b><br><span>ยังไม่มีสินค้า · เติมทีหลัง</span></div>
-      ${br.doors.length > 1 ? `<div class="fdoors">${br.doors.filter(k => k !== f.from).map(k => `<span>${dn(k)}</span>`).join('')}</div>` : ''}</div>
-    <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">นี่คือภาพจำลองในห้องนี้ · หน้าร้านจริงของ LH25 อยู่ในไฟล์ lh25-shop แยกต่างหาก</p></div></div>`;
+  let body = '';
+  if (pg === 'home') {
+    body = lHero(`<span class="lhico" aria-hidden="true">${br.ic}</span>`, esc(br.lab), esc(br.name), [esc(br.what), 'สถานะ: ' + esc(br.tag)]) +
+      lCards(k, base, [['id', 'ตัวตนแบรนด์', 'ชื่อ สถานะ และขอบเขต'], ['open', 'หน้าเปิดร้าน', 'วิดีโอ และทางเข้าตามลิงก์'], ['shop', 'หน้าสินค้า', 'ทุกหมวด · ยังไม่มีสินค้า'], ['pre', 'พรีออเดอร์', 'ขั้นตอนทีละขั้น · ยังไม่เปิด']]);
+  } else if (pg === 'id') {
+    body = hd('ตัวตนแบรนด์') + panel(`<div class="xcard"><div class="flab" style="text-align:left">${esc(br.lab)}</div><h3 class="lh3b">${esc(br.name)}</h3><div class="fen">${esc(br.en)}</div>
+      <p class="muted" style="margin:.5rem 0 0">${esc(br.what)}<br>สถานะ: ${esc(br.tag)}</p>
+      ${br.id === 'lhroy' ? '<div class="actions" style="margin-top:.6rem"><button class="btn ghost" data-act="exec-room" data-room="chr">เปิดห้องตัวละคร 6 ตัว</button></div>' : ''}</div>`);
+  } else if (pg === 'open') {
+    body = hd('หน้าเปิดร้าน') + panel(`<div class="xcard"><h3 class="lsec">ลองดูว่าคนมาจากลิงก์ไหน</h3>
+      <div class="rqf" role="group" aria-label="ลิงก์ที่มา">${br.doors.map(x => `<button class="${x === f.from ? 'on' : ''}" data-act="fash-from" data-k="${x}" aria-pressed="${x === f.from}">มาจากลิงก์ ${dn(x)}</button>`).join('')}</div>
+      <div class="fland"><div class="fvid">${vid}</div><div class="fname">${esc(br.name)}</div>
+        <div class="fcue">วิดีโอเล่นก่อน แล้วเลื่อนเข้า “หน้า${dn(f.from)}”</div>
+        <div class="fpage"><b>หน้า${dn(f.from)}</b><br><span>ยังไม่มีสินค้า · เติมทีหลัง</span></div>
+        ${br.doors.length > 1 ? `<div class="fdoors">${br.doors.filter(x => x !== f.from).map(x => `<span>${dn(x)}</span>`).join('')}</div>` : ''}</div>
+      <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">ภาพจำลองในห้องนี้ · หน้าร้านจริงของ LH25 อยู่ในไฟล์ lh25-shop แยกต่างหาก · ใส่วิดีโอที่ปุ่ม “ตั้งค่า”</p></div>
+      <div class="xcard"><h3 class="lsec">ทางเข้าตามลิงก์ที่คนกดมา</h3>
+      ${br.doors.map(x => `<div class="kv"><span>มาจากลิงก์ “${dn(x)}” <span class="muted">(รหัส from=${x})</span></span><b>เปิดหน้า${dn(x)}ก่อน</b></div>`).join('')}
+      ${br.doors.length < 2 ? '<p class="muted" style="margin:.4rem 0 0;font-size:.85rem">แบรนด์นี้ยังไม่ได้กำหนดหมวดสินค้า จึงมีแค่หน้ารวม</p>' : ''}</div>`);
+  } else if (pg === 'shop') {
+    body = hd('หน้าสินค้า') + panel(`<div class="xcard">${br.doors.map(x => `<div class="kv"><span>หน้า${dn(x)}</span><b>ยังไม่มีสินค้า · เติมทีหลัง</b></div>`).join('')}
+      <p class="muted" style="margin:.5rem 0 0;font-size:.85rem">จัดหน้าร้านให้เป็นระเบียบก่อน แล้วค่อยเติมสินค้า (ชื่อ ราคา ไซซ์ รูป)</p></div>`);
+  } else if (pg === 'pre') {
+    body = hd('พรีออเดอร์ มาเป็นขั้น') + panel(`<div class="xcard"><ol class="whyl" style="margin:0"><li>เปิดรอบ: ชื่อรอบ วันเปิด–ปิด</li><li>ชำระเงิน: มัดจำหรือเต็ม ตรวจสลิป</li><li>ปิดรอบ: ถึงขั้นต่ำหรือไม่</li><li>ผลิต และของถึงร้าน</li><li>จัดส่ง และลูกค้าได้รับ</li></ol>
+      <p class="muted" style="margin:.6rem 0 0;font-size:.85rem">ยังไม่ทำ · ตอบใบตั้งร้านพรีออเดอร์ก่อน</p></div>`);
+  } else if (pg === 'edit') {
+    body = hd('ตั้งค่า') + `<p class="lnote">ตั้งค่าของ <b>${esc(br.name)}</b> เท่านั้น · เก็บในเครื่องนี้ · หน้าอื่นของห้องใช้ดูอย่างเดียว</p>` + panel(`<div class="xcard"><h3 class="lsec">วิดีโอหน้าเปิดร้าน</h3>
+      <label class="field"><span>ลิงก์วิดีโอแนะนำแบรนด์ (ถ้ามี)</span><input id="fash-vid" maxlength="400" inputmode="url" value="${esc(f.vid[br.id] || '')}" placeholder="https://... (.mp4 เล่นในหน้าเปิดเลย ลิงก์อื่นขึ้นเป็นปุ่มเปิด)"></label>
+      <div class="actions"><button class="btn" style="flex:1" data-act="fash-vid">บันทึกวิดีโอ</button><button class="btn ghost" data-act="fash-vid-clear">ล้างวิดีโอ</button></div>
+      <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">ระบบนี้ยังสร้างวิดีโอให้ไม่ได้ ต้องใช้วิดีโอที่คุณมี</p></div>
+      <div class="xcard"><h3 class="lsec">พรีออเดอร์</h3><p class="muted" style="margin:0">ยังไม่เปิดให้ตั้งค่า · รอตอบใบตั้งร้านพรีออเดอร์ก่อน (รอบ ชำระเงิน ขั้นต่ำ)</p></div>`);
+  } else {
+    body = hd('ผังหน้าร้าน') + panel(`<div class="xcard">${[['home', 'หน้าห้อง', 'ภาพรวม และทางเข้าไปแต่ละหน้า'], ['id', 'ตัวตนแบรนด์', 'ชื่อ สถานะ ขอบเขต'], ['open', 'หน้าเปิดร้าน', 'วิดีโอ + ทางเข้าตามลิงก์'], ['shop', 'หน้าสินค้า', 'แต่ละหมวด · เติมทีหลัง'], ['pre', 'พรีออเดอร์', 'ขั้นตอนทีละขั้น'], ['edit', 'ตั้งค่า', 'ที่เดียวที่แก้ได้']].map(([p, a, d]) => `<button class="lmaprow" data-act="lnav" data-k="${k}" data-to="${base}:${p}"><b>${a}</b><span>${d}</span></button>`).join('')}</div>`);
+  }
+  const tail = `<div class="lrow">${lGo(k, base + ':edit', 'ตั้งค่า', pg === 'edit' ? 'on' : '')}${lGo(k, base + ':map', 'ผังหน้าร้าน', pg === 'map' ? 'on' : '')}${br.id === 'lhroy' ? '<button class="lchip" data-act="exec-room" data-room="chr">ห้องตัวละคร 6 ตัว</button>' : ''}</div>
+    <h3 class="lh3">แบรนด์อื่นในเครือ FAREEDA</h3><div class="lrow">${FASH_BR.filter(x => x.id !== br.id).map(x => lGo(k, 'r:' + x.id + ':home', esc(x.name.split(' · ')[0]))).join('')}</div>`;
+  return `<div data-notr id="fash-form" class="lroom">${crumb}${tabs}${body}${tail}
+    ${lFoot(k, (pg !== 'home' ? lGo(k, base + ':home', 'กลับแบรนด์ ' + esc(br.name.split(' · ')[0])) : '') + lGo(k, 'w', 'กลับรวมแบรนด์') + lHome)}
+    <p class="lfn">แบบจำลองจัดหน้าห้อง · สถานะตามไฟล์ที่ส่งมา · ยังไม่มีสินค้าหรือราคาจริง</p></div>`;
 }
 // ---- Character room (LHROY25): six characters, one room each (KAII and KIRA are separate rooms). Text only - no pictures are embedded in this public file.
 // Notes per character are kept on THIS device only (localStorage).
@@ -3200,22 +3268,61 @@ const chrVal = (c, k) => { const n = chrS().notes[c.id]; return n && typeof n[k]
 const chrLoad = () => { try { const v = JSON.parse(localStorage.getItem(CHR_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (_) { return {}; } };
 const chrS = () => { if (!S.exec.chr) { const v = chrLoad(); S.exec.chr = { c: CHR.some(x => x.id === v.c) ? v.c : CHR[0].id, notes: (v.notes && typeof v.notes === 'object') ? v.notes : {} }; } return S.exec.chr; };
 const chrSave = () => { try { const s = chrS(); localStorage.setItem(CHR_KEY, JSON.stringify({ c: s.c, notes: s.notes })); return true; } catch (_) { return false; } };
+const chrAutoSave = () => { const [t, cid, pg] = nvLoc('chr').split(':'); if (t !== 'r' || pg !== 'edit') return; const c = CHR.find(x => x.id === cid), g = (k) => document.getElementById('chr-' + k); if (!c || !g('a') || !g('b') || !g('c')) return; if (g('a').value !== chrVal(c, 'a') || g('b').value !== chrVal(c, 'b') || g('c').value !== chrVal(c, 'c')) { chrS().notes[c.id] = { a: g('a').value.trim(), b: g('b').value.trim(), c: g('c').value.trim() }; chrSave(); } };
+const CHR_PG = [['home', 'หน้าห้อง'], ['id', 'ตัวตน'], ['lang', 'ภาษาห้อง'], ['gal', 'คลังภาพ'], ['des', 'งานออกแบบ']];
 function chrRoomHtml() {
-  const s = chrS(), c = CHR.find(x => x.id === s.c) || CHR[0];
-  const h2 = (t) => `<h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">${t}</h2>`;
-  const edited = (x) => !!s.notes[x.id];
-  return `<div data-notr id="chr-form">
-  <div class="xcard">${h2('LHROY25 · ROYÉ Generation')}
-    <p class="muted" style="margin:0 0 .6rem">โลกตัวละคร ตุ๊กตา งานออกแบบ · ไม่ใช่เสื้อผ้า · ผลิตจริงหรือพร้อมส่งยังไม่ยืนยัน<br>ตัวละคร 6 ตัว แยกห้องรายตัว แตะชื่อเพื่อเข้าห้อง (● = คุณแก้หรือบันทึกแล้ว)</p>
-    <div class="rqf" role="group" aria-label="เลือกตัวละคร">${CHR.map(x => `<button class="${x.id === c.id ? 'on' : ''}" data-act="chr-pick" data-id="${x.id}" aria-pressed="${x.id === c.id}">${esc(x.n)}${edited(x) ? ' ●' : ''}</button>`).join('')}</div></div>
-  <div class="xcard">${h2('ห้อง ' + esc(c.n))}
-    <img class="chimg" src="${c.img}" alt="ภาพตัวละคร ${esc(c.n)}" width="84" height="84">
-    <p class="muted" style="margin:0 0 .6rem">ครอบครัว: ${esc(c.fam)}<br>ลักษณะ: ${esc(c.look)}<br>สรุปบุคลิก: ${esc(c.s)}${c.id === 'kaii' || c.id === 'kira' ? '<br>KAII และ KIRA แยกห้องกัน แม้ในรายการ FAREEDA จะเป็นครอบครัวเดียวกัน' : ''}</p>
-    <label class="field"><span>ตัวตนและนิสัยของ ${esc(c.n)}</span><textarea id="chr-a" rows="6" maxlength="1500">${esc(chrVal(c, 'a'))}</textarea></label>
-    <label class="field"><span>ภาษาห้องของ ${esc(c.n)} (สี วัสดุ ของตกแต่ง)</span><textarea id="chr-c" rows="5" maxlength="1500">${esc(chrVal(c, 'c'))}</textarea></label>
-    <label class="field"><span>สินค้าหรืองานออกแบบของ ${esc(c.n)}</span><textarea id="chr-b" rows="3" maxlength="1500" placeholder="ยังไม่ได้ใส่ · เช่น ตุ๊กตา ลาย ชุด (ถ้ายังไม่ยืนยันให้เขียนว่ายังไม่ยืนยัน)">${esc(chrVal(c, 'b'))}</textarea></label>
-    <div class="actions"><button class="btn" style="flex:1" data-act="chr-save">บันทึกห้อง ${esc(c.n)}</button></div>
-    <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">ข้อความตั้งต้นของตัวตนนิสัยและภาษาห้องมาจากไฟล์ที่ส่งมา (22 ต.ค. 00:19) และอยู่ในไฟล์แอปซึ่งเป็นไฟล์สาธารณะ · ส่วนที่คุณแก้เก็บในเครื่องนี้เท่านั้น · ภาพตัวละครเล็กๆ ฝังอยู่ในไฟล์แอปสาธารณะ ใครมีลิงก์แอปก็เปิดดูได้</p></div></div>`;
+  const s = chrS(), k = 'chr', [t, cid, pg0] = nvLoc(k).split(':'), edited = (x) => !!s.notes[x.id];
+  if (t !== 'r') {
+    const q = (s.q || '').trim().toLowerCase(), hit = (x) => !q || [x.n, x.look, x.fam, x.s].join(' ').toLowerCase().includes(q);
+    return `<div data-notr id="chr-form">
+    ${lCrumb(k, [['โลกตัวละคร', null]])}
+    <div class="lpad"><div class="lkick">LHROY25 · ROYÉ Generation</div>
+      <h2 class="lh1 lbig2">โลกของทั้งหก<br>ห้องของแต่ละคน</h2>
+      <p class="muted" style="margin:0 0 .7rem">เลือกตัวละครเพื่อชมตัวตน ภาษาห้อง ภาพต้นฉบับ และงานออกแบบของตัวนั้น</p>
+      <label class="fq"><input id="chr-q" type="search" maxlength="60" value="${esc(s.q || '')}" placeholder="ค้นหาชื่อหรือลักษณะตัวละคร" aria-label="ค้นหาตัวละคร"></label>
+      <div class="lwgrid">${CHR.map(x => `<button class="lwc" data-act="lnav" data-k="chr" data-to="r:${x.id}:home" data-s="${esc([x.n, x.look, x.fam, x.s].join(' ').toLowerCase())}" ${hit(x) ? '' : 'hidden'}><span class="lwi"><img src="${x.img}" alt="ภาพตัวละคร ${esc(x.n)}" loading="lazy"></span><span class="lwt"><b class="serif">${esc(x.n)}${edited(x) ? ' ●' : ''}</b><span>${esc(x.look)}</span><small>เข้าห้อง ${esc(x.n)} →</small></span></button>`).join('')}</div>
+      <p class="muted fnone" ${CHR.some(hit) ? 'hidden' : ''} style="text-align:center">ไม่พบตัวละครที่ตรงกับที่ค้นหา</p>
+      <div class="lbox">KAII และ KIRA มีห้องของตนเอง · ใช้ภาพเดิมจากไฟล์ที่คุณแนบ</div></div>
+    ${lFoot(k, '<button class="lchip" data-act="exec-room" data-room="fash">กลับครีเอเตอร์แฟชั่น</button>' + lHome)}
+    <p class="lfn">แบบจำลองจัดหน้าห้อง · ภาพและข้อความตั้งต้นจากไฟล์แนบ · ไม่ได้สร้างภาพตัวละครใหม่ · ● = คุณแก้ห้องนี้แล้ว (เก็บในเครื่องนี้)</p></div>`;
+  }
+  const c = CHR.find(x => x.id === cid) || CHR[0], base = 'r:' + c.id;
+  const pg = ['home', 'id', 'lang', 'gal', 'des', 'edit', 'map'].includes(pg0) ? pg0 : 'home';
+  const names = { home: 'หน้าห้อง', id: 'ตัวตน', lang: 'ภาษาห้อง', gal: 'คลังภาพ', des: 'งานออกแบบ', edit: 'แก้ไขข้อมูลห้อง', map: 'ผังห้อง' };
+  const crumb = lCrumb(k, [['โลกตัวละคร', 'w'], [esc(c.n), base + ':home'], [names[pg], null]]);
+  const tabs = lTabs(k, base, CHR_PG, CHR_PG.some(x => x[0] === pg) ? pg : '');
+  const hd = (txt) => `<h2 class="lh1">${txt} ${esc(c.n)}</h2>`;
+  const panel = (x) => `<div class="lpanel">${x}</div>`;
+  const txt = (v) => esc(v).replace(/\n/g, '<br>');
+  const twin = c.id === 'kaii' || c.id === 'kira';
+  let body = '';
+  if (pg === 'home') {
+    body = lHero(`<img src="${c.img}" alt="ภาพตัวละคร ${esc(c.n)}">`, esc(c.n) + ' · CHARACTER ROOM / ห้องตัวละคร', esc(c.n), [esc(c.look), 'ห้องครอบครัว ' + esc(c.n) + ' · แยกห้องรายตัว']) +
+      lCards(k, base, [['id', 'ตัวตนและนิสัย', 'อ่านข้อความเต็มของตัวละคร'], ['lang', 'ภาษาห้อง', 'สี วัสดุ และบรรยากาศ'], ['gal', 'คลังภาพ', 'ภาพเดิมที่แนบในไฟล์'], ['des', 'งานออกแบบ', 'รายการที่บันทึกในห้องนี้']]);
+  } else if (pg === 'id') {
+    body = hd('ตัวตนและนิสัย') + panel(`<div class="xcard"><p class="muted" style="margin:0 0 .6rem">ครอบครัว: ${esc(c.fam)}<br>ลักษณะ: ${esc(c.look)}<br>สรุปบุคลิก: ${esc(c.s)}${twin ? '<br>KAII และ KIRA แยกห้องกัน แม้ในรายการ FAREEDA จะเป็นครอบครัวเดียวกัน' : ''}</p><p style="margin:0;line-height:1.7">${txt(chrVal(c, 'a'))}</p></div>`);
+  } else if (pg === 'lang') {
+    body = hd('ภาษาห้อง') + panel(`<div class="xcard"><p style="margin:0;line-height:1.7">${txt(chrVal(c, 'c'))}</p></div>`);
+  } else if (pg === 'gal') {
+    body = hd('คลังภาพ') + `<div class="lgal"><img class="lbigimg" src="${c.img}" alt="ภาพต้นฉบับของ ${esc(c.n)}"><div class="xcard"><h3 class="lsec">ภาพอ้างอิงในไฟล์</h3><p style="margin:0 0 .4rem"><b>ภาพเดิม 1 ภาพของ ${esc(c.n)}</b></p><p style="margin:0 0 .4rem;font-weight:600">ใช้สัดส่วนต้นฉบับ ไม่เปลี่ยนหมวก เครื่องหัว หรือองค์ประกอบภาพ</p><p class="muted" style="margin:0;font-size:.8rem">ไฟล์แนบมีภาพขนาดเล็ก การขยายบนหน้าจอไม่เพิ่มรายละเอียดของต้นฉบับ</p></div></div>`;
+  } else if (pg === 'des') {
+    const b = chrVal(c, 'b');
+    body = hd('งานออกแบบ') + panel(`<div class="xcard">${b ? `<p style="margin:0;line-height:1.7">${txt(b)}</p>` : `<p class="muted" style="margin:0">ยังไม่ได้ใส่งานออกแบบหรือสินค้าของห้องนี้ · ใส่ได้ที่ “แก้ไขข้อมูลห้อง”</p>`}</div>`);
+  } else if (pg === 'edit') {
+    body = hd('แก้ไขข้อมูลห้อง') + `<p class="lnote">แก้เฉพาะห้อง <b>${esc(c.n)}</b> · เก็บในเครื่องนี้เท่านั้น · หน้าอื่นของห้องใช้อ่านอย่างเดียว</p>` + panel(`<div class="xcard">
+      <label class="field"><span>ตัวตนและนิสัยของ ${esc(c.n)}</span><textarea id="chr-a" rows="6" maxlength="1500">${esc(chrVal(c, 'a'))}</textarea></label>
+      <label class="field"><span>ภาษาห้องของ ${esc(c.n)} (สี วัสดุ ของตกแต่ง)</span><textarea id="chr-c" rows="5" maxlength="1500">${esc(chrVal(c, 'c'))}</textarea></label>
+      <label class="field"><span>สินค้าหรืองานออกแบบของ ${esc(c.n)}</span><textarea id="chr-b" rows="3" maxlength="1500" placeholder="ยังไม่ได้ใส่ · เช่น ตุ๊กตา ลาย ชุด (ถ้ายังไม่ยืนยันให้เขียนว่ายังไม่ยืนยัน)">${esc(chrVal(c, 'b'))}</textarea></label>
+      <div class="actions"><button class="btn" style="flex:1" data-act="chr-save">บันทึกห้อง ${esc(c.n)}</button></div>
+      <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">ข้อความตั้งต้นมาจากไฟล์ที่ส่งมา (22 ต.ค. 00:19) และอยู่ในไฟล์แอปซึ่งเป็นไฟล์สาธารณะ · ภาพตัวละครเล็กๆ ฝังอยู่ในไฟล์แอปสาธารณะเช่นกัน ใครมีลิงก์แอปก็เปิดดูได้</p></div>`);
+  } else {
+    body = hd('ผังห้อง') + panel(`<div class="xcard">${[['home', 'หน้าห้อง', 'ภาพรวม และทางเข้าไปแต่ละหน้า'], ['id', 'ตัวตนและนิสัย', 'อ่านข้อความเต็ม'], ['lang', 'ภาษาห้อง', 'สี วัสดุ บรรยากาศ'], ['gal', 'คลังภาพ', 'ภาพเดิมในไฟล์'], ['des', 'งานออกแบบ', 'รายการที่บันทึกในห้อง'], ['edit', 'แก้ไขข้อมูลห้อง', edited(c) ? 'ที่เดียวที่แก้ได้ · ● แก้แล้ว' : 'ที่เดียวที่แก้ได้']].map(([p, a, d]) => `<button class="lmaprow" data-act="lnav" data-k="${k}" data-to="${base}:${p}"><b>${a}</b><span>${d}</span></button>`).join('')}</div>`);
+  }
+  const tail = `<div class="lrow">${lGo(k, base + ':edit', 'แก้ไขข้อมูลห้อง', pg === 'edit' ? 'on' : '')}${lGo(k, base + ':map', 'ผังห้อง', pg === 'map' ? 'on' : '')}</div>
+    <h3 class="lh3">ห้องอื่นในโลกเดียวกัน</h3><div class="lrow">${CHR.filter(x => x.id !== c.id).map(x => lGo(k, 'r:' + x.id + ':home', esc(x.n) + (edited(x) ? ' ●' : ''))).join('')}</div>`;
+  return `<div data-notr id="chr-form" class="lroom">${crumb}${tabs}${body}${tail}
+    ${lFoot(k, (pg !== 'home' ? lGo(k, base + ':home', 'กลับห้อง ' + esc(c.n)) : '') + lGo(k, 'w', 'กลับรวม 6 ตัว') + '<button class="lchip" data-act="exec-room" data-room="fash">กลับครีเอเตอร์แฟชั่น</button>' + lHome)}
+    <p class="lfn">แบบจำลองจัดหน้าห้อง · ภาพและข้อความตั้งต้นจากไฟล์แนบ · ไม่ได้สร้างภาพตัวละครใหม่</p></div>`;
 }
 const XTITLE = { chr: ['ตัวละคร LHROY25', 'ตัวละคร 6 ตัว แยกห้องรายตัว · KAII และ KIRA แยกห้องกัน'], fash: ['ครีเอเตอร์แฟชั่น', 'เครือ FAREEDA · แบรนด์ของเรา แต่ละแบรนด์มีหน้าของตัวเอง'], ai: ['เอไอ', 'แชทถามเอไอ · ติดป้ายงานและห้อง เลือก AI ที่จะให้ตอบ แล้วเก็บคำตอบไว้'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
@@ -3404,7 +3511,7 @@ V.exec = () => {
     ${secBanner('exec', 'x')}
     ${sndBanner('exec')}
     ${pend.length && room !== 'req' ? `<div class="xalert" role="alert"><span>${I.bellRing} มีคำขอรีเซ็ตรหัสรออยู่ ${pend.length} รายการ</span><button class="btn sm" data-act="exec-room" data-room="req">เปิดดู</button></div>` : ''}
-    ${rooms[room]()}
+    <div class="${lyrTake()}">${rooms[room]()}</div>
     ${verLine()}
   </div>
   <nav class="tabbar" style="--tabs:${XROOMS.length}" aria-label="ห้องของผู้บริหาร">${XROOMS.map(([id, l, ic]) => `<button class="tab ${id === room ? 'on' : ''}" data-act="exec-room" data-room="${id}" aria-current="${id === room}"><span style="position:relative;display:inline-flex">${ic}${id === 'req' && pend.length ? `<span class="dot">${pend.length}</span>` : ''}</span>${l}</button>`).join('')}</nav>`;
@@ -4445,8 +4552,8 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '22 ต.ค. 02:40 · ห้องเอไอเป็นหน้าแชท (เลือกงาน/ห้อง เลือก AI วางคำตอบกลับมาเก็บ) · ห้องแฟชั่นจัดแบบเครือ FAREEDA: การ์ดแบรนด์ ค้นหา กรอง และหน้าของแต่ละแบรนด์ · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
-const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
+const APP_VERSION = '22 ต.ค. 03:40 · ห้องตัวละครและห้องแฟชั่นเป็นชั้นเหมือนแบบที่ส่งมา (โลก → ห้อง → หน้าย่อย · แถบตำแหน่ง · ปุ่มหน้า · การ์ด 2×2 · ย้อน/ไปต่อ · แก้ไขแยกชั้น) · ห้องแฟชั่นแยกเป็นชั้น (หน้าแบรนด์ดูอย่างเดียว · ตั้งค่าเป็นชั้นของตัวเอง) เปลี่ยนหน้าสมูท บรรทัดรุ่นพับเก็บ · ห้องเอไอเป็นหน้าแชท (เลือกงาน/ห้อง เลือก AI วางคำตอบกลับมาเก็บ) · ห้องแฟชั่นจัดแบบเครือ FAREEDA: การ์ดแบรนด์ ค้นหา กรอง และหน้าของแต่ละแบรนด์ · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const verLine = () => { const p = String(APP_VERSION).split(' · '); return `<div class="verline">เวอร์ชันแอป ${esc(p[0])} <button data-act="reload-app">โหลดแอปใหม่</button>${p.length > 1 ? `<details><summary>มีอะไรใหม่ในรุ่นนี้</summary><div>${p.slice(1).map(esc).join('<br>')}</div></details>` : ''}</div>`; };
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
 const EMAIL_RESET = false;
@@ -5028,7 +5135,7 @@ document.addEventListener('click', async (e) => {
       const ok = iconSave('khunyui-icons-set1.svg', `<svg xmlns="http://www.w3.org/2000/svg" color="#06412A" style="display:none">\n${syms}\n</svg>\n`, 'image/svg+xml');
       toast(ok ? 'โหลดชุดไอคอนทั้งหมดแล้ว (33 ตัว)' : 'โหลดไม่ได้ ลองเปิดแอปในเบราว์เซอร์'); break; }
     case 'xnav': { const l = Number(d.l) || 0; S.exec.nav = { l, sid: l >= 2 ? (d.sid || (S.exec.nav || {}).sid || null) : null, part: l === 3 ? (d.part || (S.exec.nav || {}).part || null) : null }; render('exec'); window.scrollTo(0, 0); break; }
-    case 'exec-room': if (d.room === 'home' && S.exec.room === 'home') S.exec.nav = { l: 0 }; if (d.room === 'fash' && S.exec.room !== 'fash') fashS().view = 'list'; S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', XSIDE.includes(d.room) ? 'home' : d.room); } catch (_) {} SND.unlock(); render('exec'); window.scrollTo(0, 0); break;
+    case 'exec-room': if (d.room === 'home' && S.exec.room === 'home') S.exec.nav = { l: 0 }; if ((d.room === 'fash' || d.room === 'chr') && S.exec.room !== d.room) nvReset(d.room); S.exec.room = d.room; try { localStorage.setItem('khunyui-exec-room', XSIDE.includes(d.room) ? 'home' : d.room); } catch (_) {} SND.unlock(); LYR = 'fade'; render('exec'); window.scrollTo(0, 0); break;
     case 'rq-approve': await act(async () => { const { error } = await sbx.rpc('exec_approve_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ส่งรหัสไปที่หน้าจอเขาแล้ว'); break;
     case 'rq-deny': await act(async () => { const { error } = await sbx.rpc('exec_deny_reset_request', { p_id: d.id }); if (error) throw error; await pollReqs(); render('exec'); }, 'ปฏิเสธคำขอแล้ว'); break;
     case 'fp-copy': {
@@ -5126,12 +5233,12 @@ document.addEventListener('click', async (e) => {
       await act(async () => { const { error } = await sbx.rpc('exec_revoke_recovery_code', { p_email: d.email }); if (error) throw error; await loadExec(); render('exec'); }, 'ยกเลิกรหัสกู้คืนแล้ว');
       break; }
     case 'rq-filter': S.exec.rqf = d.f || ''; render('exec'); break;
-    case 'chr-pick': { const s = chrS(); if (CHR.some(x => x.id === d.id)) { const cur = CHR.find(x => x.id === s.c), g = (k) => document.getElementById('chr-' + k); if (cur && g('a') && g('b') && g('c') && (g('a').value !== chrVal(cur, 'a') || g('b').value !== chrVal(cur, 'b') || g('c').value !== chrVal(cur, 'c'))) { s.notes[s.c] = { a: g('a').value.trim(), b: g('b').value.trim(), c: g('c').value.trim() }; } s.c = d.id; chrSave(); } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
     case 'chr-save': { const s = chrS(), g = (k) => document.getElementById('chr-' + k); if (!g('a') || !g('b') || !g('c')) break;
-      s.notes[s.c] = { a: g('a').value.trim(), b: g('b').value.trim(), c: g('c').value.trim() };
+      s.notes[nvLoc('chr').split(':')[1]] = { a: g('a').value.trim(), b: g('b').value.trim(), c: g('c').value.trim() };
       const ok = chrSave(), y = window.scrollY; render('exec'); window.scrollTo(0, y); toast(ok ? 'บันทึกแล้ว (เครื่องนี้เท่านั้น)' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ)'); break; }
-    case 'fash-brand': { const f = fashS(); if (FASH_BR.some(x => x.id === d.id)) { f.b = d.id; f.from = 'all'; f.view = 'brand'; fashSave(); } render('exec'); window.scrollTo(0, 0); break; }
-    case 'fash-back': { fashS().view = 'list'; render('exec'); window.scrollTo(0, 0); break; }
+    case 'lnav': { const k = d.k === 'chr' ? 'chr' : 'fash'; chrAutoSave(); const cur = nvLoc(k).split(':'), to = String(d.to || 'w'), tt = to.split(':'), ok = tt[0] === 'w' || (tt[0] === 'r' && (k === 'chr' ? CHR : FASH_BR).some(x => x.id === tt[1]));
+      if (ok && nvGo(k, to)) { if (k === 'fash' && tt[1] && tt[1] !== cur[1]) fashS().from = 'all'; LYR = tt[1] && tt[1] === cur[1] ? 'fade' : (tt[0] === 'w' ? 'back' : 'fwd'); render('exec'); window.scrollTo(0, 0); } break; }
+    case 'lback': case 'lfwd': { const k = d.k === 'chr' ? 'chr' : 'fash', n = nv(k), back = d.act === 'lback'; chrAutoSave(); if (back ? n.i > 0 : n.i < n.h.length - 1) { n.i += back ? -1 : 1; LYR = back ? 'back' : 'fwd'; render('exec'); window.scrollTo(0, 0); } break; }
     case 'fash-grp': { fashS().g = d.g || ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
     case 'fash-from': { fashS().from = d.k || 'all'; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
     case 'fash-vid': { const f = fashS(), el = document.getElementById('fash-vid'), v = el ? el.value.trim() : '';
@@ -5468,6 +5575,9 @@ document.addEventListener('input', (e) => {
   if (e.target.id === 'fash-q') { const f = fashS(); f.q = e.target.value; const q = f.q.trim().toLowerCase(); let n = 0;
     document.querySelectorAll('#fash-form .fcard').forEach(c => { const hit = (!f.g || c.dataset.g === f.g) && (!q || (c.dataset.s || '').includes(q)); c.hidden = !hit; if (hit) n++; });
     const no = document.querySelector('#fash-form .fnone'); if (no) no.hidden = n > 0; return; }
+  if (e.target.id === 'chr-q') { const s = chrS(); s.q = e.target.value; const q = s.q.trim().toLowerCase(); let n = 0;
+    document.querySelectorAll('#chr-form .lwc').forEach(c => { const hit = !q || (c.dataset.s || '').includes(q); c.hidden = !hit; if (hit) n++; });
+    const no = document.querySelector('#chr-form .fnone'); if (no) no.hidden = n > 0; return; }
   if (e.target.closest && e.target.closest('#fash-form, #chr-form')) return;
   if (e.target.closest && e.target.closest('#ai-form')) { aiRead(); return; }   // typing is only remembered (no redraw, so the keyboard stays open)
   if (e.target.id === 'q') { S.q = e.target.value; S.more = 12; const p = e.target.selectionStart; render(); const el = $('#q'); if (el) { el.focus(); el.setSelectionRange(p, p); } }
