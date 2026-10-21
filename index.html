@@ -422,6 +422,10 @@
 
   /* ===== wide screens (laptop / desktop, 900px and up). The phone layout above is not changed. ===== */
   html[data-view="yui"] { --w: 680px; }
+  /* exec has 9 rooms: on a phone the bar scrolls sideways instead of squeezing/cutting the last tab */
+  html[data-view="exec"] .tabbar { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(64px, 1fr); overflow-x: auto; scrollbar-width: none; }
+  html[data-view="exec"] .tabbar::-webkit-scrollbar { display: none; }
+  html[data-view="exec"] .tabbar .tab { white-space: nowrap; }
   @media (min-width: 900px) {
     html[data-view="owner"] { --w: 1240px; }
     html[data-view="exec"]  { --w: 1240px; }
@@ -553,6 +557,14 @@
   .srcbadge.s-owner { background: var(--green-soft); color: var(--green); }
   .srcbadge.s-yui { background: var(--gold-soft); color: #7A5F26; }
   .aiprev { white-space: pre-wrap; word-break: break-word; background: var(--green-soft); color: var(--ink, inherit); border-radius: 10px; padding: .6rem .75rem; font-size: .85rem; line-height: 1.5; margin: 0 0 .7rem; }
+  .fland { background: #16140f; color: #f4efe6; border-radius: 14px; overflow: hidden; margin: .2rem 0 .3rem; }
+  .fvid { aspect-ratio: 16 / 9; background: #0b0a08; display: flex; align-items: center; justify-content: center; text-align: center; color: #b9b0a0; font-size: .85rem; padding: .5rem; }
+  .fvid video { width: 100%; height: 100%; object-fit: cover; } .fvid a { color: #f4efe6; text-decoration: underline; } .fvid small { color: #8a8274; }
+  .fname { text-align: center; font-family: Georgia, 'Times New Roman', serif; letter-spacing: .22em; text-transform: uppercase; font-size: 1.05rem; padding: .9rem .8rem .2rem; }
+  .fcue { text-align: center; font-size: .75rem; color: #b9b0a0; padding: 0 1rem .8rem; line-height: 1.5; }
+  .fpage { background: #f4efe6; color: #16140f; padding: .8rem 1rem; font-size: .9rem; line-height: 1.5; } .fpage span { color: #6b6457; font-size: .8rem; }
+  .fdoors { display: flex; flex-wrap: wrap; gap: .4rem; padding: .6rem 1rem .9rem; background: #f4efe6; } .fdoors span { border: 1px solid #16140f; border-radius: 999px; padding: .15rem .7rem; font-size: .78rem; color: #16140f; }
+  .fstep { margin: 0 0 .6rem; } .fstep b { color: var(--green); }
   .aiit { align-items: flex-start; gap: .6rem; } .aiit > span:first-child { flex: 1; min-width: 0; } .aiq { display: block; margin-top: .25rem; white-space: pre-wrap; word-break: break-word; }
   .aibtn { display: flex; flex-direction: column; gap: .3rem; align-items: flex-end; }
   .rqf { display: flex; gap: .4rem; flex-wrap: wrap; margin: 0 0 .5rem; }
@@ -866,6 +878,7 @@ const sby = supabase.createClient(CONFIG.url, CONFIG.key, {
 });
 
 const I = {
+  hanger: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7.5a2 2 0 1 1 2 2c-1 .5-2 1.2-2 2.5v.5"/><path d="M12 12.5 3.6 18.2A1 1 0 0 0 4.2 20h15.6a1 1 0 0 0 .6-1.8L12 12.5Z"/></svg>',
   spark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9L11 3Z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></svg>',
   lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2"/><path d="M7 10h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"/><path d="M12 15v2"/></svg>',
   cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h2l2.3 11h11.5L21 8H6"/><path d="M8 16h11"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg>',
@@ -974,6 +987,7 @@ const i18n = t; // alias: inside click handlers `t` is the clicked element
 const langBtn = () => `<button class="langbtn" data-act="lang" aria-label="${LANG === 'en' ? 'เปลี่ยนเป็นภาษาไทย' : 'Switch to English'}">${LANG === 'en' ? 'ไทย' : 'EN'}</button>`;
 const EN = {
   // executive AI room
+  'แฟชั่น': 'Fashion',
   'เอไอ': 'AI', 'หมวดเอไอ': 'AI notes', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ': 'Write a question, tag the work and room it is about, then copy it for an AI',
   'จดคำถามให้เอไอรู้ว่าเป็นงานอะไร': 'Note a question so the AI knows which work it is about',
   'เลือกงานและห้อง พิมพ์คำถาม แล้วกดคัดลอกไปวางในแชทกับเอไอ เอไอจะรู้ทันทีว่าถามเรื่องงานไหน ห้องไหน และรุ่นแอปอะไร': 'Pick the work and room, type the question, then copy it into a chat with an AI. The AI will know which work, which room and which app version you mean.',
@@ -2900,7 +2914,7 @@ async function showExec() {
   S.exec.rt = setInterval(pollReqs, 2000);   // reset requests: checked every 2 seconds while this page is open
   S.exec.t = setInterval(async () => {
     if (route()[0] !== 'exec') return clearInterval(S.exec.t);
-    try { await loadExec(); if (!(S.exec.room === 'ai' && document.activeElement && document.activeElement.closest && document.activeElement.closest('#ai-form'))) render('exec'); } catch (_) {}   // never redraw while she is typing in the AI room
+    try { await loadExec(); if (!(document.activeElement && document.activeElement.closest && document.activeElement.closest('#ai-form, #fash-form'))) render('exec'); } catch (_) {}   // never redraw while she is typing in the AI room
   }, 30000);
 }
 async function loadExec() {
@@ -3006,10 +3020,10 @@ const sesCard = () => {
     <details class="why"><summary>อ่านก่อนใช้ (ที่ตั้ง และเวลา)</summary><ul class="whyl"><li><b>ที่ตั้ง</b> ระบบรู้แค่ IP ของเครื่อง จึงแสดง IP แบบย่อ ไม่ใช่ตำแหน่งจริง (ไม่ขอ GPS)</li><li><b>เวลา</b> "ต่อบัตรผ่านล่าสุด" คือครั้งล่าสุดที่เครื่องนั้นต่ออายุการเข้าระบบ (ราวทุกชั่วโมง) ไม่ใช่เวลาที่กดใช้งานล่าสุดเสมอไป</li><li><b>ให้ออก</b> เครื่องนั้นถูกตัดการต่ออายุทันที และแอปบนเครื่องนั้นจะพากลับหน้าเข้าสู่ระบบเองภายในราว 15 วินาทีถ้าเปิดแอปอยู่ · ไม่เปลี่ยนรหัสผ่าน</li></ul></details>
     ${list || '<p class="muted" style="margin:.4rem 0 0">ตอนนี้ไม่มีเครื่องไหนเข้าสู่ระบบอยู่</p>'}</div>`;
 };
-const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf], ['links', 'ลิงก์', I.link], ['ai', 'เอไอ', I.spark]];
+const XROOMS = [['home', 'ภาพรวม', I.home], ['req', 'คำขอรหัส', I.key], ['acc', 'บัญชีร้าน', I.user], ['money', 'รายได้', I.chart], ['log', 'ประวัติ', I.list], ['icons', 'ไอคอน', I.leaf], ['links', 'ลิงก์', I.link], ['fash', 'แฟชั่น', I.hanger], ['ai', 'เอไอ', I.spark]];
 // ---- AI room: a note-pad of questions, each tagged with the work (door) and room it is about, copyable for any AI chat.
 // Kept on THIS device only (localStorage) — nothing about the questions goes into the public file or the database.
-const AIW = { exec: ['งานบริหาร', ['ภาพรวม', 'คำขอรหัส', 'บัญชีร้าน', 'รายได้', 'ประวัติ', 'ไอคอน', 'ลิงก์', 'เอไอ']], owner: ['งานหลังร้าน', ['ออเดอร์', 'เมนู', 'แดชบอร์ด', 'ตั้งค่า']], yui: ['บอร์ดคุณยุ้ย', ['คิวและยอดวันนี้']], cust: ['ลูกค้า',['เมนู', 'ตะกร้า', 'ติดตามสถานะ']], other: ['งานอื่นนอกแอปนี้', []] };
+const AIW = { exec: ['งานบริหาร', ['ภาพรวม', 'คำขอรหัส', 'บัญชีร้าน', 'รายได้', 'ประวัติ', 'ไอคอน', 'ลิงก์', 'ครีเอเตอร์แฟชั่น', 'เอไอ']], owner: ['งานหลังร้าน', ['ออเดอร์', 'เมนู', 'แดชบอร์ด', 'ตั้งค่า']], yui: ['บอร์ดคุณยุ้ย', ['คิวและยอดวันนี้']], cust: ['ลูกค้า',['เมนู', 'ตะกร้า', 'ติดตามสถานะ']], other: ['งานอื่นนอกแอปนี้', []] };
 const AI_KEY = 'khunyui-ai-q';
 const aiLoad = () => { try { const v = JSON.parse(localStorage.getItem(AI_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (_) { return []; } };
 const aiStore = (items) => { try { localStorage.setItem(AI_KEY, JSON.stringify(items.slice(0, 200))); return true; } catch (_) { return false; } };
@@ -3038,7 +3052,53 @@ function aiRoomHtml() {
       <span class="aibtn"><button class="btn ghost sm" data-act="ai-copy-item" data-id="${esc(x.id)}">คัดลอก</button><button class="back sm" data-act="ai-del" data-id="${esc(x.id)}">ลบ</button></span></div>`).join('')
       : '<p class="muted" style="margin:.3rem 0 0">ยังไม่มีคำถามที่เก็บไว้</p>'}</div>`;
 }
-const XTITLE = { ai: ['หมวดเอไอ', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
+// ---- Fashion creator room: our brands + a storefront plan per brand (opening page with video, doors by entry link, category pages, pre-order steps).
+// Structure only: no products, prices or sale claims. The video link is kept on THIS device only (localStorage). The public storefront page is NOT built yet.
+const FASH_KEY = 'khunyui-fash';
+const FASH_DOORS = { all: 'รวม', shirt: 'เสื้อ', bag: 'กระเป๋า', shoes: 'รองเท้า', jewel: 'เครื่องประดับ' };
+const FASH_BR = [
+  { id: 'lh25', name: 'LUNCH HOUSE 105 · LH25', tag: 'แบรนด์แรก · มีแบบฟอร์มจองล่วงหน้า 25 ชุด รอแบรนด์ตอบรับ', what: 'เสื้อผ้าหญิง–ชาย ชุดแต่งตัวครบชุด กระเป๋า รองเท้า เครื่องประดับ', doors: ['all', 'shirt', 'bag', 'shoes', 'jewel'] },
+  { id: 'nadie', name: 'NADIÉ', tag: 'ต้องยืนยันก่อนว่ารับผลิตอยู่', what: 'กระเป๋าและเครื่องหนัง ชิ้นสะสม', doors: ['all', 'bag'] },
+  { id: 'belle', name: 'BELLE2001 COMPLETE DRESSING', tag: 'ยังไม่พร้อมเป็นรอบแรก', what: 'แนวทางแต่งตัวครบชุด (ยังไม่ยืนยันรายการสินค้า)', doors: ['all'] },
+  { id: 'lhroy', name: 'LHROY25 · ROYÉ Generation', tag: 'ไม่ใช่เสื้อผ้า · ผลิตจริงยังไม่ยืนยัน', what: 'โลกตัวละคร ตุ๊กตา งานออกแบบ', doors: ['all'] },
+  { id: 'mad', name: 'MADELEINE', tag: 'ยังไม่ใช่ร้าน', what: 'งานภาพแฟชั่นและสื่อบรรณาธิการ', doors: ['all'] },
+];
+const fashLoad = () => { try { const v = JSON.parse(localStorage.getItem(FASH_KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (_) { return {}; } };
+const fashS = () => { if (!S.exec.fash) { const v = fashLoad(); S.exec.fash = { b: FASH_BR.some(x => x.id === v.b) ? v.b : 'lh25', from: 'all', vid: (v.vid && typeof v.vid === 'object') ? v.vid : {} }; } return S.exec.fash; };
+const fashSave = () => { try { const f = fashS(); localStorage.setItem(FASH_KEY, JSON.stringify({ b: f.b, vid: f.vid })); return true; } catch (_) { return false; } };
+const fashUrl = (u) => /^https?:\/\/\S+$/i.test(String(u || '').trim()) ? String(u).trim() : '';
+function fashRoomHtml() {
+  const f = fashS(), br = FASH_BR.find(x => x.id === f.b) || FASH_BR[0];
+  if (!br.doors.includes(f.from)) f.from = br.doors[0];
+  const vu = fashUrl(f.vid[br.id]), dn = (k) => FASH_DOORS[k];
+  const vid = vu ? (/\.(mp4|webm)(\?|#|$)/i.test(vu) ? `<video src="${esc(vu)}" controls playsinline muted preload="metadata"></video>` : `<a href="${esc(vu)}" target="_blank" rel="noopener">เปิดวิดีโอแนะนำแบรนด์ ↗</a>`) : `<span>ที่ว่างสำหรับวิดีโอแนะนำแบรนด์ (นางแบบเดินโชว์)<br><small>ยังไม่มีวิดีโอ</small></span>`;
+  const h2 = (t) => `<h2 class="serif" style="margin:0 0 .2rem;color:var(--green);font-size:1.1rem">${t}</h2>`;
+  return `<div data-notr id="fash-form">
+  <div class="xcard">${h2('แบรนด์ของเรา')}
+    <p class="muted" style="margin:0 0 .6rem">ชื่อตามไฟล์ที่ส่งมา · แตะเพื่อดูผังหน้าร้านของแบรนด์นั้น</p>
+    <div class="rqf" role="group" aria-label="เลือกแบรนด์">${FASH_BR.map(x => `<button class="${x.id === br.id ? 'on' : ''}" data-act="fash-brand" data-id="${x.id}" aria-pressed="${x.id === br.id}">${esc(x.name)}</button>`).join('')}</div>
+    <p style="margin:.2rem 0 0"><b>${esc(br.name)}</b><br><span class="muted">${esc(br.what)}<br>สถานะ: ${esc(br.tag)}</span></p></div>
+  <div class="xcard">${h2('ผังหน้าร้านของแบรนด์นี้ (จัดระเบียบก่อน เติมสินค้าทีหลัง)')}
+    <p class="fstep"><b>ขั้น 1 · หน้าเปิดร้าน</b> เปิดมาเจอวิดีโอแนะนำแบรนด์ก่อน ชื่อแบรนด์ แล้วค่อยมีทางเข้าไปหน้าสินค้า</p>
+    <label class="field"><span>ลิงก์วิดีโอแนะนำแบรนด์ (ถ้ามี)</span><input id="fash-vid" maxlength="400" inputmode="url" value="${esc(f.vid[br.id] || '')}" placeholder="https://... (ไฟล์ .mp4 จะเล่นในหน้าเปิดเลย ลิงก์อื่นจะขึ้นเป็นปุ่มเปิด)"></label>
+    <div class="actions"><button class="btn" style="flex:1" data-act="fash-vid">ใส่ในหน้าเปิด</button><button class="btn ghost" data-act="fash-vid-clear">ล้างวิดีโอ</button></div>
+    <p class="muted" style="margin:.3rem 0 .8rem;font-size:.85rem">เก็บในเครื่องนี้เท่านั้น · ระบบนี้ยังสร้างวิดีโอให้ไม่ได้ ต้องใช้วิดีโอที่คุณมี</p>
+    <p class="fstep"><b>ขั้น 2 · ทางเข้าตามลิงก์ที่คนกดมา</b> คนมาจากลิงก์ไหน เข้าหน้านั้นก่อน หลังวิดีโอจบ</p>
+    ${br.doors.map(k => `<div class="kv"><span>มาจากลิงก์ “${dn(k)}” <span class="muted">(รหัส from=${k})</span></span><b>เปิดหน้า${dn(k)}ก่อน</b></div>`).join('')}
+    ${br.doors.length < 2 ? '<p class="muted" style="margin:.4rem 0 0;font-size:.85rem">แบรนด์นี้ยังไม่ได้กำหนดหมวดสินค้า จึงมีแค่หน้ารวม</p>' : ''}
+    <p class="fstep" style="margin-top:.8rem"><b>ขั้น 3 · หน้าสินค้าแต่ละหมวด</b> ${br.doors.map(dn).join(' · ')} — ทุกหน้า <span class="muted">ยังไม่มีสินค้า เติมทีหลัง</span></p>
+    <p class="fstep"><b>ขั้น 4 · พรีออเดอร์ มาเป็นขั้น</b> (ยังไม่ทำ · ตอบใบตั้งร้านพรีออเดอร์ก่อน)</p>
+    <ol class="whyl" style="margin:0"><li>เปิดรอบ: ชื่อรอบ วันเปิด–ปิด</li><li>ชำระเงิน: มัดจำหรือเต็ม ตรวจสลิป</li><li>ปิดรอบ: ถึงขั้นต่ำหรือไม่</li><li>ผลิต และของถึงร้าน</li><li>จัดส่ง และลูกค้าได้รับ</li></ol></div>
+  <div class="xcard">${h2('ลองดูว่าคนมาจากลิงก์ไหน')}
+    <p class="muted" style="margin:0 0 .5rem">เลือกลิงก์ที่คนกดมา แล้วดูว่าหน้าไหนเปิดก่อน</p>
+    <div class="rqf" role="group" aria-label="ลิงก์ที่มา">${br.doors.map(k => `<button class="${k === f.from ? 'on' : ''}" data-act="fash-from" data-k="${k}" aria-pressed="${k === f.from}">มาจากลิงก์ ${dn(k)}</button>`).join('')}</div>
+    <div class="fland"><div class="fvid">${vid}</div><div class="fname">${esc(br.name)}</div>
+      <div class="fcue">วิดีโอเล่นก่อน แล้วเลื่อนเข้า “หน้า${dn(f.from)}”</div>
+      <div class="fpage"><b>หน้า${dn(f.from)}</b><br><span>ยังไม่มีสินค้า · เติมทีหลัง</span></div>
+      ${br.doors.length > 1 ? `<div class="fdoors">${br.doors.filter(k => k !== f.from).map(k => `<span>${dn(k)}</span>`).join('')}</div>` : ''}</div>
+    <p class="muted" style="margin:.4rem 0 0;font-size:.85rem">นี่คือภาพจำลองในห้องนี้ · หน้าร้านจริงที่คนนอกเปิดได้ ยังไม่ได้ทำ (รอบถัดไป)</p></div></div>`;
+}
+const XTITLE = { fash: ['ครีเอเตอร์แฟชั่น', 'แบรนด์ของเรา และผังหน้าร้านของแต่ละแบรนด์ · จัดหน้าร้านก่อน เติมสินค้าทีหลัง'], ai: ['หมวดเอไอ', 'จดคำถามพร้อมบอกว่าเป็นงานและห้องไหน แล้วคัดลอกให้เอไอ'], home: ['ภาพรวมร้าน', 'ตัวเลขวันนี้และสถานะร้าน · ดูอย่างเดียว'], req: ['คำขอรีเซ็ตรหัสผ่าน', 'ศูนย์บริการ IMCB2Help · คำขอลืมรหัสจากทุกงาน (หลังร้าน / จอคุณยุ้ย) มารวมที่นี่ บอกว่ามาจากงานไหน'],
   links: ['ลิงก์ของแต่ละงาน', 'ใช้เปิดหรือติดตั้งแต่ละงาน · คัดลอกแล้วส่งให้คนที่มีบัญชีของงานนั้น'],
   icons: ['คลังไอคอนของร้าน', 'ชุดแรกของร้านส้มตำครกระเบิด คุณยุ้ย · เก็บไว้ที่นี่ กดที่ไอคอนเพื่อโหลดไฟล์ .svg'],
   acc: ['บัญชีของร้าน', 'ใครเข้าหลังร้านได้บ้าง และตั้งรหัสชั่วคราวให้เอง'], money: ['รายได้', 'ยอดที่สรุปแล้วย้อนหลัง 30 วัน'], log: ['ประวัติและหลักฐานงาน', 'ไทม์ไลน์หลักฐานงาน ทะเบียนเอกสาร และใครทำอะไร เมื่อไหร่'] };
@@ -3152,6 +3212,7 @@ V.exec = () => {
   const rooms = {
     home: homeRoom,
     ai: aiRoomHtml,
+    fash: fashRoomHtml,
     req: reqRoom,
     acc: () => {
       const accs = S.exec.accounts || [], ini = (e) => esc((e || '?').trim().charAt(0).toUpperCase());
@@ -4237,8 +4298,10 @@ function render(view) {
   const r = route();
   document.documentElement.lang = isEn() ? 'en' : 'th';
   const v = view || (r[0] === 'owner' ? 'owner' : r[0] || '');
+  const tb0 = document.querySelector('.tabbar'), sl0 = tb0 ? tb0.scrollLeft : 0;   // exec bar scrolls sideways on phones: keep its place across redraws
   $('#app').innerHTML = (V[v] || V[''])();
   ensureLangBtn(); ensureSndBtn(v); trTree($('#app'));
+  if (v === 'exec') { const tb = document.querySelector('.tabbar'), on = tb && tb.querySelector('.tab.on'); if (tb && tb.scrollWidth > tb.clientWidth) { tb.scrollLeft = sl0; if (on && (on.offsetLeft < tb.scrollLeft || on.offsetLeft + on.offsetWidth > tb.scrollLeft + tb.clientWidth)) tb.scrollLeft = on.offsetLeft - (tb.clientWidth - on.offsetWidth) / 2; } }
   if (v === 'orders' || v === 'done') refreshQB();
   if (CONFIG.testMode && S.owner.member && v !== 'owner' && v !== '' && v !== 'login' && !v.startsWith('exec') && !v.startsWith('yui')) {
     $('#app').insertAdjacentHTML('beforeend', `<button class="btn sm" data-go="#/owner/orders" style="position:fixed;right:1rem;bottom:calc(var(--bar-h) + 1.4rem + env(safe-area-inset-bottom,0px));z-index:40;box-shadow:0 4px 12px rgba(0,0,0,.2)">กลับหน้าร้าน</button>`);
@@ -4262,7 +4325,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '21 ต.ค. 22:35 · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '21 ต.ค. 23:59 · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => `<div class="verline">เวอร์ชันแอป ${APP_VERSION} <button data-act="reload-app">โหลดแอปใหม่</button></div>`;
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -4943,6 +5006,13 @@ document.addEventListener('click', async (e) => {
       await act(async () => { const { error } = await sbx.rpc('exec_revoke_recovery_code', { p_email: d.email }); if (error) throw error; await loadExec(); render('exec'); }, 'ยกเลิกรหัสกู้คืนแล้ว');
       break; }
     case 'rq-filter': S.exec.rqf = d.f || ''; render('exec'); break;
+    case 'fash-brand': { const f = fashS(); if (FASH_BR.some(x => x.id === d.id)) { f.b = d.id; f.from = 'all'; fashSave(); } const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'fash-from': { fashS().from = d.k || 'all'; const y = window.scrollY; render('exec'); window.scrollTo(0, y); break; }
+    case 'fash-vid': { const f = fashS(), el = document.getElementById('fash-vid'), v = el ? el.value.trim() : '';
+      if (v && !fashUrl(v)) { toast('ลิงก์ต้องขึ้นต้นด้วย https://'); break; }
+      if (v) f.vid[f.b] = v; else delete f.vid[f.b];
+      const ok = fashSave(); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast(ok ? 'ใส่ในหน้าเปิดแล้ว (เครื่องนี้เท่านั้น)' : 'เก็บในเครื่องนี้ไม่ได้ (เบราว์เซอร์ไม่ให้เก็บ)'); break; }
+    case 'fash-vid-clear': { const f = fashS(); delete f.vid[f.b]; fashSave(); const y = window.scrollY; render('exec'); window.scrollTo(0, y); toast('ล้างแล้ว'); break; }
     case 'ai-filter': aiS().f = d.f || ''; aiRead(); render('exec'); break;
     case 'ai-copy': { const a = aiRead(); if (!a.q.trim()) { toast('พิมพ์คำถามก่อน'); break; }
       try { await navigator.clipboard.writeText(aiMsg(a.work, a.room, a.other, a.q)); toast('คัดลอกแล้ว วางในแชทเอไอได้เลย'); } catch (_) { toast('คัดลอกไม่ได้ ให้แตะที่กรอบข้อความค้างไว้แล้วเลือกคัดลอก'); } break; }
@@ -5258,6 +5328,7 @@ document.addEventListener('change', async (e) => {
     await rpc('update_store_owner_settings', { p_store_id: CONFIG.store, p_notify_new_order: true, p_sound_new_order: t.checked }); S.owner.ownerSettings.sound_new_order = t.checked; }, 'บันทึกแล้ว');
 });
 document.addEventListener('input', (e) => {
+  if (e.target.closest && e.target.closest('#fash-form')) return;
   if (e.target.closest && e.target.closest('#ai-form')) {
     const a = aiRead();
     if (e.target.id === 'ai-work') { a.room = ''; const y = window.scrollY; render('exec'); window.scrollTo(0, y); } else aiPrev();
