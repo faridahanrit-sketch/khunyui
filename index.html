@@ -4586,7 +4586,7 @@ function pwSheet(cli) {
 }
 document.addEventListener('input', (e) => { if (e.target && e.target.id === 'fp-email' && $('#fp-msg')) $('#fp-msg').textContent = askMsg(e.target.value.trim()); });
 // App version stamp: shown at the bottom of the sign-in pages, the settings page and the executive page, so you can tell which file a phone really loaded.
-const APP_VERSION = '22 ต.ค. 04:50 · ช่องลงภาพตัวละคร: หน้า “จัดการภาพ” ลงหลายภาพ ตั้งมุม ตั้งภาพปก ลบภาพ (เก็บในเครื่องนี้) · ภาพที่ฝังในไฟล์ถูกเอาออก ไฟล์เล็กลงมาก · ภาพปกชัดขึ้นเมื่อตั้งเอง · คลังภาพตัวละคร: เพิ่มภาพ KAII 6 ภาพ KIRA 5 ภาพ และ LOUMI ท่านั่งอีก 1 ภาพ · คลังภาพตัวละคร: เพิ่มภาพ LOUMI 9 ภาพ KAYE 5 ภาพ RUGI 6 ภาพ (กดดูทีละภาพ) · หน้าตัวตนและภาษาห้องวางภาพซ้าย ข้อความขวาตามแบบที่ส่งมา · ห้องตัวละครและห้องแฟชั่นเป็นชั้นเหมือนแบบที่ส่งมา (โลก → ห้อง → หน้าย่อย · แถบตำแหน่ง · ปุ่มหน้า · การ์ด 2×2 · ย้อน/ไปต่อ · แก้ไขแยกชั้น) · ห้องแฟชั่นแยกเป็นชั้น (หน้าแบรนด์ดูอย่างเดียว · ตั้งค่าเป็นชั้นของตัวเอง) เปลี่ยนหน้าสมูท บรรทัดรุ่นพับเก็บ · ห้องเอไอเป็นหน้าแชท (เลือกงาน/ห้อง เลือก AI วางคำตอบกลับมาเก็บ) · ห้องแฟชั่นจัดแบบเครือ FAREEDA: การ์ดแบรนด์ ค้นหา กรอง และหน้าของแต่ละแบรนด์ · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
+const APP_VERSION = '23 ต.ค. 02:20 · แก้ “เด้งออก”: ตอนมือถือเพิ่งตื่นหรือสัญญาณไม่นิ่ง แอปไม่เตะออกจากระบบอีก (ต้องยืนยันว่าบัตรผ่านหายจริง 2 รอบ) · 22 ต.ค. 04:50 · ช่องลงภาพตัวละคร: หน้า “จัดการภาพ” ลงหลายภาพ ตั้งมุม ตั้งภาพปก ลบภาพ (เก็บในเครื่องนี้) · ภาพที่ฝังในไฟล์ถูกเอาออก ไฟล์เล็กลงมาก · ภาพปกชัดขึ้นเมื่อตั้งเอง · คลังภาพตัวละคร: เพิ่มภาพ KAII 6 ภาพ KIRA 5 ภาพ และ LOUMI ท่านั่งอีก 1 ภาพ · คลังภาพตัวละคร: เพิ่มภาพ LOUMI 9 ภาพ KAYE 5 ภาพ RUGI 6 ภาพ (กดดูทีละภาพ) · หน้าตัวตนและภาษาห้องวางภาพซ้าย ข้อความขวาตามแบบที่ส่งมา · ห้องตัวละครและห้องแฟชั่นเป็นชั้นเหมือนแบบที่ส่งมา (โลก → ห้อง → หน้าย่อย · แถบตำแหน่ง · ปุ่มหน้า · การ์ด 2×2 · ย้อน/ไปต่อ · แก้ไขแยกชั้น) · ห้องแฟชั่นแยกเป็นชั้น (หน้าแบรนด์ดูอย่างเดียว · ตั้งค่าเป็นชั้นของตัวเอง) เปลี่ยนหน้าสมูท บรรทัดรุ่นพับเก็บ · ห้องเอไอเป็นหน้าแชท (เลือกงาน/ห้อง เลือก AI วางคำตอบกลับมาเก็บ) · ห้องแฟชั่นจัดแบบเครือ FAREEDA: การ์ดแบรนด์ ค้นหา กรอง และหน้าของแต่ละแบรนด์ · เปิดงานบริหารมาเจอภาพรวมเสมอ ห้องแฟชั่น/ตัวละคร/เอไอขึ้นเฉพาะตอนกดเข้า · ภาพตัวละครเล็กๆ ในห้องตัวละคร · ห้องตัวละคร LHROY25: ตัวตนนิสัยและภาษาห้อง 6 ตัว (KAII/KIRA แยกห้อง) · ห้องแฟชั่น: แบรนด์ + ผังหน้าร้านต่อแบรนด์ (วิดีโอเปิด ทางเข้าตามลิงก์ที่มา) · ห้องเอไอ: จดคำถามพร้อมบอกงานและห้อง แล้วคัดลอกให้เอไอ (เก็บในเครื่องนี้) · ห้องบัญชี: ดูเครื่องที่เข้าระบบ และสั่งออกจากระบบรายเครื่อง/รายบัญชี (ไฟล์ 048) · ไทม์ไลน์หลักฐานงานในห้องประวัติ (ไฟล์ 046) · เอกสารพิมพ์เลขรหัสและเลขที่เอกสาร + ทะเบียนเอกสาร · ห้องบัญชีเป็นการ์ดขั้นตอนอ่านง่าย · รหัสงานติดอยู่ในลิงก์ทุกหน้า (ไอโฟนติดตั้งแล้วเข้าตรงงาน) · ห้องลิงก์ 4 งาน · ไอคอนและตัวติดตั้งแยก 4 งาน · ล็อกงานตามรหัสในลิงก์ (?door=) · ใบบอกทางสแกน 3 ข้อ + หน้าสแกนไม่ขึ้น · ไอคอนหน้าเข้าสู่ระบบฝังในไฟล์เดียว · เลือกงานหลังเข้าสู่ระบบ (ผู้บริหาร 3 งาน · บัญชีดูอย่างเดียว 2 งาน) · หน้าแรกเป็นหน้าเข้าสู่ระบบ · สไตล์เมนู · ป้าย QR 3 แบบ · ตัวจำลองลูกค้า';
 const verLine = () => { const p = String(APP_VERSION).split(' · '); return `<div class="verline">เวอร์ชันแอป ${esc(p[0])} <button data-act="reload-app">โหลดแอปใหม่</button>${p.length > 1 ? `<details><summary>มีอะไรใหม่ในรุ่นนี้</summary><div>${p.slice(1).map(esc).join('<br>')}</div></details>` : ''}</div>`; };
 // ---- forgot password (email code or same-browser link) ----
 // Forgot password = ask the executive (the account emails are not all real mailboxes). Set EMAIL_RESET = true only when real emails + SMTP exist.
@@ -5675,17 +5675,24 @@ function kickOut(act) {
   toast('ผู้บริหารให้เครื่องนี้ออกจากระบบ กรุณาเข้าสู่ระบบใหม่');
   const b = document.createElement('button'); b.hidden = true; b.dataset.act = act; document.body.appendChild(b); b.click(); b.remove();
 }
+const aliveStrike = {};
 async function aliveSweep() {
   const who = route()[0], m = ALIVE_MAP[who];
   if (!m || aliveBusy || document.visibilityState === 'hidden') return;
   aliveBusy = true;
+  // Only a clear, repeated "this pass is gone" answer signs her out. A phone that just woke up, a weak signal, or a failed renewal is NOT a sign-out:
+  // it must never throw her out of the work (that was the "เด้งออก" bug), so such moments are ignored and re-checked 15 s later.
+  const dead = () => { aliveStrike[who] = (aliveStrike[who] || 0) + 1; if (aliveStrike[who] >= 2) { aliveStrike[who] = 0; aliveSeen[who] = false; kickOut(m[1]); } };
   try {
-    const cl = m[0]; let session = null;
-    try { session = (await cl.auth.getSession()).data.session; } catch (_) { return; }
-    if (!session || !session.user || session.user.is_anonymous) { if (aliveSeen[who]) { aliveSeen[who] = false; kickOut(m[1]); } return; }
+    const cl = m[0]; let res;
+    if (navigator.onLine === false) return;
+    try { res = await cl.auth.getSession(); } catch (_) { return; }
+    if (!res || res.error) return;   // could not renew the pass just now (just woke up / offline): do nothing
+    const session = res.data && res.data.session;
+    if (!session || !session.user || session.user.is_anonymous) { if (aliveSeen[who]) dead(); return; }
     let r; try { r = await cl.rpc('my_session_alive'); } catch (_) { return; }
     if (r.error) return;
-    if (r.data === false) { aliveSeen[who] = false; kickOut(m[1]); } else aliveSeen[who] = true;
+    if (r.data === false) dead(); else { aliveStrike[who] = 0; aliveSeen[who] = true; }
   } finally { aliveBusy = false; }
 }
 setInterval(aliveSweep, 15000);
