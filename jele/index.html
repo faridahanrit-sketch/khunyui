@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#568f94">
+  <meta name="description" content="เจ๊เล่ส้มตำ อาหารตามสั่ง ยำ และส้มตำ พร้อมหน้างานสำหรับร้าน">
+  <title>เจ๊เล่ส้มตำ · อาหารตามสั่งและส้มตำ</title>
+  <link rel="icon" href="mark.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Taviraj:wght@500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js" defer></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="practice-band" id="modeBand">พื้นที่ฝึกใช้งาน · รายการและเงินไม่เข้าร้านจริง</div>
+  <header class="site-header">
+    <a class="brand" href="#/menu"><img src="mark.svg" width="46" height="46" alt=""><span><strong>เจ๊เล่ส้มตำ</strong><small>อาหารตามสั่งและส้มตำ</small></span></a>
+    <nav aria-label="ส่วนใช้งาน"><a href="#/menu" data-role-tab="customer">หน้าร้าน</a><a href="#/mother" data-role-tab="mother">งานของแม่</a><a href="#/help" data-role-tab="help">วิธีใช้</a></nav>
+    <button class="header-cart" data-action="cart" aria-label="เปิดตะกร้า"><span data-icon="bag"></span><span class="cart-label">ตะกร้า</span><b id="cartCount">0</b></button>
+  </header>
+  <main id="app" tabindex="-1"><div class="initial-loading">กำลังเปิดร้านเจ๊เล่…</div></main>
+  <div id="bottomArea"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="sheet" aria-label="รายละเอียด"><div id="sheetContent"></div></dialog>
+  <noscript>หน้านี้ต้องเปิดการทำงานของจาวาสคริปต์เพื่อเลือกอาหารและดูรายการค่ะ</noscript>
+</body>
+</html>
