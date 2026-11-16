@@ -1,8 +1,10 @@
 const BANNER_SRC = 'assets/jele-shop-banner.png';
 const BANNER_ALT = 'ป้ายร้านเจ๊เล่ส้มตำ รูปแม่พร้อมอาหารตามสั่ง ยำ และส้มตำ';
 
-export function bannerMarkup() {
-  return '<figure class="shop-banner"><button class="shop-banner-open" type="button" data-action="shop-banner" aria-label="ดูป้ายร้านเจ๊เล่ส้มตำเต็มภาพ"><img class="shop-banner-image" src="' + BANNER_SRC + '" width="1942" height="809" alt="' + BANNER_ALT + '" decoding="async"><span class="shop-banner-badge">ดูป้ายเต็ม</span></button></figure>';
+function escapeAttribute(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+export function bannerMarkup({owner=false,src=BANNER_SRC}={}) {
+  const safe=escapeAttribute(src);
+  return '<figure class="shop-banner" data-banner-owner="'+owner+'"><button class="shop-banner-open" type="button" data-action="shop-banner" data-banner-src="'+safe+'" aria-label="ดูป้ายร้านเจ๊เล่ส้มตำเต็มภาพ"><img class="shop-banner-image" src="'+safe+'" width="1942" height="809" alt="'+BANNER_ALT+'" decoding="async"><span class="shop-banner-badge">ดูป้ายเต็ม</span></button>'+(owner?'<div class="shop-banner-placeholder" hidden><strong>ป้ายร้านเจ๊เล่ส้มตำ</strong><span>อาหารตามสั่ง · ยำ · ส้มตำ</span></div><button type="button" class="shop-banner-change" data-action="choose-banner">เปลี่ยนภาพ</button><input type="file" id="shopBannerUpload" accept="image/jpeg,image/png,image/webp" hidden aria-label="เลือกโปสเตอร์ร้าน">':'')+'</figure>';
 }
 
 export function initBannerViewer() {
@@ -28,6 +30,7 @@ export function initBannerViewer() {
   const plus = dialog.querySelector('[data-banner-control="plus"]');
   let zoom = 1;
   let opener = null;
+  let currentSource = BANNER_SRC;
 
   function applyZoom(value, center = false) {
     if (!image.naturalWidth || !dialog.open) return;
@@ -70,6 +73,7 @@ export function initBannerViewer() {
     plus.disabled = true;
   });
   document.addEventListener('click', event => {
+    if(event.target.closest('[data-action="choose-banner"]')){document.getElementById('shopBannerUpload')?.click();return;}
     const trigger = event.target.closest('[data-action="shop-banner"]');
     if (!trigger) return;
     opener = trigger;
@@ -77,13 +81,16 @@ export function initBannerViewer() {
     error.hidden = true;
     dialog.showModal();
     document.body.classList.add('banner-viewing');
-    if (!image.getAttribute('src') || !image.naturalWidth) image.src = BANNER_SRC;
-    else applyZoom(1, true);
+    const selectedSource=trigger.dataset.bannerSrc||BANNER_SRC;
+    dialog.querySelector('.banner-original-link').href=selectedSource;
+    if(selectedSource!==currentSource||!image.getAttribute('src')||!image.naturalWidth){currentSource=selectedSource;image.src=selectedSource;}
+    else applyZoom(1,true);
   });
   document.addEventListener('error', event => {
     if (event.target.matches?.('.shop-banner-image')) {
       const banner = event.target.closest('.shop-banner');
-      if (banner) banner.hidden = true;
+      if(banner?.dataset.bannerOwner==='true'){banner.querySelector('.shop-banner-open').hidden=true;banner.querySelector('.shop-banner-placeholder').hidden=false;}
+      else if(banner)banner.hidden=true;
     }
   }, true);
   dialog.addEventListener('click', event => {

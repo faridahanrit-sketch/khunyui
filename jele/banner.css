@@ -28,3 +28,12 @@ body.banner-viewing{overflow:hidden}
 #shopBannerViewer .banner-viewer-error{margin:12px 20px;color:#ffdc94}
 @media(max-width:600px){.shop-banner{margin-bottom:18px}.shop-banner-open{border-radius:13px}.shop-banner-badge{right:8px;bottom:7px;padding:4px 8px;font-size:10px}#shopBannerViewer .banner-viewer-head{padding:12px}#shopBannerViewer h2{font-size:16px}#shopBannerViewer .banner-viewer-tools{padding-left:12px;padding-right:12px;gap:8px}#shopBannerViewer .banner-zoom-controls{gap:5px}#shopBannerViewer .banner-zoom-label{min-width:56px}}
 @media(prefers-reduced-motion:reduce){#shopBannerViewer *{scroll-behavior:auto}}
+
+.shop-banner{position:relative}
+.shop-banner-change{position:absolute;right:16px;bottom:16px;z-index:1;min-height:44px;padding:10px 20px;border:1px solid #06412a;border-radius:999px;background:#06412a;color:#fffef9;font:inherit;cursor:pointer}
+.shop-banner[data-banner-owner=true] .shop-banner-badge{left:12px;right:auto}
+.shop-banner-placeholder{min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:28px 20px 76px;border:1px solid #b89a5a;border-radius:18px;background:#f1ead8;color:#06412a;text-align:center}
+.shop-banner-placeholder strong{font-size:24px}
+.shop-banner-placeholder span{font-size:13px}
+.shop-banner button:disabled{opacity:.55;cursor:default}
+@media(max-width:600px){.shop-banner-change{right:10px;bottom:10px;font-size:13px;padding:8px 15px}.shop-banner[data-banner-owner=true] .shop-banner-badge{bottom:10px}}
