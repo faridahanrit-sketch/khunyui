@@ -1,1 +1,8 @@
-{"name":"jele-storefront","private":true,"type":"module","scripts":{"test":"node --test tests/core.test.mjs"}}
+{
+  "name": "jele-storefront",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}

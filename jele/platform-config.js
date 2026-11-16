@@ -4,6 +4,7 @@ export const PLATFORM = {
   "anonKey": "sb_publishable_jfdNhtPCWpxjCGccoON2mw_gJqNzrs3",
   "legacyStoreId": "11111111-1111-4111-8111-111111111111",
   "storeId": null,
+  "launchMode": "live",
   "profile": "jele",
   "storeName": "เจ๊เล่ส้มตำ"
 };
