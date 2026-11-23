@@ -41,6 +41,10 @@ jobs:
         working-directory: warin-apk
         run: gradle assembleDebug --no-daemon
 
+      - name: Verify Android APK signature
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs warin-apk/app/build/outputs/apk/debug/app-debug.apk
+
       - name: Rename APK
         run: |
           cp warin-apk/app/build/outputs/apk/debug/app-debug.apk WARIN_TRACK_AND_TRAP_V0.2_BUILD002.apk
