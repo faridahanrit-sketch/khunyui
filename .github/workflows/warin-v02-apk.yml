@@ -1,0 +1,53 @@
+name: WARIN V0.2 Android APK
+
+on:
+  push:
+    branches: [ warin-apk-v02-build ]
+    paths:
+      - 'warin-apk/**'
+      - '.github/workflows/warin-v02-apk.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: ''
+
+      - name: Install Android 35 platform
+        run: |
+          sdkmanager "platform-tools"
+          sdkmanager "platforms;android-35"
+          sdkmanager "build-tools;35.0.0"
+
+      - name: Set up Gradle 8.9
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '8.9'
+
+      - name: Build installable debug APK
+        working-directory: warin-apk
+        run: gradle assembleDebug --no-daemon
+
+      - name: Rename APK
+        run: |
+          cp warin-apk/app/build/outputs/apk/debug/app-debug.apk WARIN_TRACK_AND_TRAP_V0.2_BUILD002.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WARIN_TRACK_AND_TRAP_V0.2_BUILD002
+          path: WARIN_TRACK_AND_TRAP_V0.2_BUILD002.apk
+          retention-days: 30
