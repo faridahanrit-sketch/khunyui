@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>WARIN B02.1 — TRACK & TRAP V0.2</title>
+<link rel="icon" type="image/svg+xml" href="WARIN_RAT_V02_ICON.svg" />
+<link rel="apple-touch-icon" href="WARIN_RAT_V02_ICON_192.png" />
+<link rel="manifest" href="WARIN_RAT_V02_manifest.json" />
+<style>
+  :root{
+    --bg:#0f1716;--panel:#142321;--panel2:#1b2c29;--gold:#d9b66f;--cream:#fff3cf;
+    --teal:#72d9d0;--danger:#d86b5e;--ok:#8ecf8a;--muted:#8da39d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:radial-gradient(circle at 50% 20%,#1b2927,#0a1110 70%);color:#eef4ef;font-family:system-ui,-apple-system,"Noto Sans Thai",Tahoma,sans-serif;overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center}
+  #app{width:min(100vw,1280px);height:min(100vh,820px);display:grid;grid-template-rows:auto 1fr auto;background:#0f1716;border:1px solid #3a4c47;box-shadow:0 24px 70px #0009;position:relative}
+  header{display:flex;align-items:center;gap:12px;padding:10px 14px;background:linear-gradient(180deg,#1a2b28,#10201e);border-bottom:1px solid #40544f;min-height:64px}
+  .brand{min-width:210px}.brandRow{display:flex;align-items:center;gap:10px}.versionIcon{width:46px;height:46px;border-radius:13px;border:1px solid #806d46;box-shadow:0 4px 18px #0008}.versionTag{display:inline-block;margin-top:3px;padding:2px 8px;border:1px solid #6a785f;border-radius:999px;color:#9fd8cc;font-size:9px}.combo{color:#72d9d0!important}
+  .brand b{display:block;color:var(--cream);font-size:18px;letter-spacing:.4px}.brand small{color:var(--gold)}
+  .hud{display:grid;grid-template-columns:repeat(5,minmax(90px,1fr));gap:8px;flex:1}
+  .hudBox{background:#0c1716;border:1px solid #334943;border-radius:12px;padding:7px 10px;min-width:0}
+  .hudBox span{font-size:11px;color:#93aaa4;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hudBox b{font-size:14px;color:#fff3cf}
+  .bar{height:6px;background:#263835;border-radius:10px;overflow:hidden;margin-top:4px}.fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold))}
+  #gameWrap{position:relative;min-height:0;background:#dcd8cc;touch-action:none}
+  canvas{width:100%;height:100%;display:block;background:#eae7de;touch-action:none}
+  #topHint{position:absolute;left:10px;top:10px;background:#10211ee8;border:1px solid #47615a;border-radius:12px;padding:8px 10px;max-width:420px;font-size:12px;pointer-events:none;backdrop-filter:blur(4px)}
+  #topHint b{color:var(--gold)}
+  #toast{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);background:#07110fed;border:1px solid #6f8f86;color:#fff3cf;padding:8px 14px;border-radius:999px;font-size:13px;opacity:0;transition:.2s;pointer-events:none;white-space:nowrap;max-width:92%;overflow:hidden;text-overflow:ellipsis}
+  #devPanel{display:none;position:absolute;right:10px;top:10px;width:min(330px,46vw);background:#081412ed;border:1px solid #49655e;border-radius:12px;padding:10px;font:12px/1.5 ui-monospace,monospace;color:#b7e6dc;pointer-events:none;white-space:pre-line}
+  #overlay{position:absolute;inset:0;background:linear-gradient(#07100ee8,#07100ef4);display:flex;align-items:center;justify-content:center;z-index:20;padding:20px}
+  .card{width:min(720px,96%);max-height:92%;overflow:auto;background:linear-gradient(180deg,#17302c,#0e1d1b);border:1px solid #806d46;border-radius:20px;padding:20px;box-shadow:0 20px 80px #000a}
+  .card h1{margin:0 0 6px;color:var(--cream);font-size:28px}.card h2{color:var(--gold);font-size:16px;margin:10px 0 6px}.card p,.card li{color:#d6e2de;font-size:14px}.card ol{padding-left:20px}.card .row{display:flex;gap:8px;flex-wrap:wrap}
+  button{border:1px solid #5c716b;background:#1a302c;color:#eff6f2;border-radius:12px;padding:10px 12px;font:inherit;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  button:hover{filter:brightness(1.1)}button.primary{background:linear-gradient(180deg,#7b6030,#4d3c20);border-color:#b4965f;color:#fff4d0}
+  footer{display:grid;grid-template-columns:repeat(8,1fr) auto;gap:8px;padding:9px;background:#101f1d;border-top:1px solid #3c514b}
+  .tool{min-width:0;padding:8px 6px;display:flex;flex-direction:column;gap:2px;align-items:center;justify-content:center}
+  .tool.active{border-color:#d5b267;box-shadow:0 0 0 1px #d5b267 inset;background:#3a3020}.tool .ico{font-size:18px}.tool small{font-size:10px;color:#9db0ab;white-space:nowrap}.tool strong{font-size:12px;white-space:nowrap}
+  .mini{padding:8px 10px;font-size:12px}
+  @media (max-width:800px){
+    #app{width:100vw;height:100vh;border:0}.brand{min-width:130px}.brand b{font-size:14px}.brand small{font-size:10px}
+    header{padding:6px 8px;gap:6px}.hud{grid-template-columns:repeat(3,1fr)}.hudBox:nth-child(4),.hudBox:nth-child(5){display:none}
+    .hudBox{padding:5px 7px}.hudBox b{font-size:12px}.hudBox span{font-size:9px}
+    footer{grid-template-columns:repeat(4,1fr);gap:4px;padding:5px}.tool{padding:7px 2px}.tool strong{font-size:10px}.tool small{display:none}.mini{display:none}
+    #topHint{font-size:10px;max-width:65%;padding:6px 8px}#devPanel{width:55vw;font-size:9px}.card h1{font-size:22px}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+<header>
+  <div class="brand"><div class="brandRow"><img class="versionIcon" src="WARIN_RAT_V02_ICON.svg" alt="V0.2 icon"><div><b>WARIN B02.1</b><small>TRACK & TRAP · PLAYABLE V0.2</small><span class="versionTag">BUILD 002 · HUNTER AI</span></div></div></div>
+  <div class="hud">
+    <div class="hudBox"><span>เวลาในด่าน / Night</span><b id="timeText">20:00</b><div class="bar"><div id="timeFill" class="fill" style="width:0%"></div></div></div>
+    <div class="hudBox"><span>หลักฐาน / Clues</span><b><span id="clueText">0</span>/6</b><div class="bar"><div id="clueFill" class="fill" style="width:0%"></div></div></div>
+    <div class="hudBox"><span>พลังควบคุม Boss</span><b id="bossText">LOCKED</b><div class="bar"><div id="bossFill" class="fill" style="width:100%"></div></div></div>
+    <div class="hudBox"><span>Habituation / ชินเสียง</span><b id="habText">0%</b><div class="bar"><div id="habFill" class="fill" style="width:0%"></div></div></div>
+    <div class="hudBox"><span>คะแนน / Score</span><b id="scoreText">0</b><span id="bestText">BEST 0</span><span class="combo" id="comboText">COMBO ×1</span></div>
+  </div>
+  <button id="restartBtn" class="mini">↻ รีสตาร์ต</button>
+</header>
+<div id="gameWrap">
+  <canvas id="game" width="1280" height="720"></canvas>
+  <div id="topHint"><b>ภารกิจ:</b> อ่านร่องรอย 6 + ทายทางถูก 2 → บังคับเส้น → ดัก/จับจังหวะ Boss → Clean & Seal เพื่อผ่านด่าน</div>
+  <div id="devPanel"></div>
+  <div id="toast"></div>
+  <div id="overlay">
+    <div class="card">
+      <h1>WARIN B02.1 — TRACK & TRAP V0.2</h1>
+      <p>เวอร์ชันที่สองสำหรับพัฒนา: มี <b>หนูเพียง 1 ตัว</b> แต่เพิ่มการฟังเสียง ทดสอบวัตถุ ย้อนทาง จำกับดัก และเรียนรู้เส้นที่ผู้เล่นชอบปิด</p>
+      <h2>วิธีเล่น / Gameplay</h2>
+      <ol>
+        <li><b>สแกนรอย</b> เพื่อเปิดรอยเท้า มูล คราบ รอยแทะ และทางล่าสุด</li>
+        <li><b>ฟังเสียง</b> เพื่อจับทิศโดยไม่เห็นตัวหนู และใช้เสียงรบกวนบังคับทางได้ แต่ใช้ซ้ำแล้วหนูจะชิน</li>
+        <li><b>คาดการณ์</b> แตะจุดที่คิดว่าหนูจะไป ถ้าทายถูกก่อนมันถึงจุด จะเพิ่ม Combo และเปิดทาง Boss เร็วขึ้น</li>
+        <li><b>ปิดทาง + วางกับดักเกม</b> บังคับเส้นทาง แต่หนูจะจำจุดที่เคยเจอและอาจทดสอบของใหม่ก่อนผ่าน</li>
+        <li><b>หนังสติ๊ก</b> ต้องเล็งดักหน้า หนูมี Dodge และ Freeze</li>
+        <li>เมื่อเก็บหลักฐานครบ 6 และทายเส้นทางถูก 2 ครั้ง Boss จะเปิด ต้องควบคุมให้เหลือ 0 แล้ว <b>ทำความสะอาด + ปิดรัง</b></li>
+      </ol>
+      <p><b>มือถือ:</b> แตะเครื่องมือด้านล่างแล้วแตะฉาก · <b>คอม:</b> ใช้เมาส์ หรือปุ่ม 1–5</p>
+      <p style="color:#9fb4ae">หมายเหตุ: ค่าเสียงและกับดักในเกมเป็นกลไกสมมติ ไม่ใช่ค่าหรือวิธีสำหรับทำร้ายสัตว์จริง</p>
+      <div class="row"><button id="startBtn" class="primary">เริ่มด่าน / START</button><button id="devBtn">DEV MODE</button></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <button class="tool active" data-tool="scan"><span class="ico">🔦</span><strong>สแกนรอย</strong><small>Trace · 1</small></button>
+  <button class="tool" data-tool="listen"><span class="ico">👂</span><strong>ฟังเสียง</strong><small>Listen · 2</small></button>
+  <button class="tool" data-tool="sound"><span class="ico">🔊</span><strong>เสียงรบกวน</strong><small>Disrupt · 3</small></button>
+  <button class="tool" data-tool="predict"><span class="ico">🧠</span><strong>คาดทาง</strong><small>Predict · 4</small></button>
+  <button class="tool" data-tool="seal"><span class="ico">🧱</span><strong>ปิดทาง</strong><small>Block · 5</small></button>
+  <button class="tool" data-tool="trap"><span class="ico">◇</span><strong>กับดัก</strong><small>Trap · 6</small></button>
+  <button class="tool" data-tool="sling"><span class="ico">🎯</span><strong>หนังสติ๊ก</strong><small>Lead · 7</small></button>
+  <button class="tool" data-tool="clean"><span class="ico">🧼</span><strong>ทำความสะอาด</strong><small>Clean · 8</small></button>
+  <button id="debugBtn" class="mini">AI</button>
+</footer>
+</div>
+<script>
+(() => {
+'use strict';
+const VERSION={code:'V0.2',build:'002',name:'TRACK & TRAP'};
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const ui = {
+  timeText:document.getElementById('timeText'), timeFill:document.getElementById('timeFill'),
+  clueText:document.getElementById('clueText'), clueFill:document.getElementById('clueFill'),
+  bossText:document.getElementById('bossText'), bossFill:document.getElementById('bossFill'),
+  habText:document.getElementById('habText'), habFill:document.getElementById('habFill'),
+  scoreText:document.getElementById('scoreText'), bestText:document.getElementById('bestText'), comboText:document.getElementById('comboText'),
+  overlay:document.getElementById('overlay'), toast:document.getElementById('toast'), devPanel:document.getElementById('devPanel')
+};
+const W=1280,H=720;
+let running=false,last=0,elapsed=0,score=0,tool='scan',toastTimer=0,showDebug=false,gameOver=false,victory=false;
+let phase='track'; // track -> boss -> cleanup -> win
+let predictionNode=null,predictionTimer=0,correctPredictions=0,combo=1,comboTimer=0,traps=[],trapsLeft=2,listenPulse=0,escapeCount=0;
+let soundHab=0, soundCooldown=0, scanPulse=0, shotCooldown=0, sealsLeft=2, cleaned=0, requiredClean=3;
+let best=Number(localStorage.getItem('warinRatBest')||0); ui.bestText.textContent='BEST '+best;
+let audioCtx=null;
+
+// --- Ceiling graph: nodes are beam intersections. Node 9 is nest. Node 0 is exit.
+const nodes=[
+  {x:120,y:175},{x:310,y:145},{x:510,y:185},{x:720,y:145},{x:930,y:185},{x:1120,y:145},
+  {x:210,y:330},{x:430,y:300},{x:660,y:335},{x:900,y:300},{x:1110,y:330},
+  {x:330,y:470},{x:620,y:475},{x:920,y:470}
+];
+const baseEdges=[[0,1],[1,2],[2,3],[3,4],[4,5],[0,6],[1,6],[1,7],[2,7],[2,8],[3,8],[3,9],[4,9],[4,10],[5,10],[6,7],[7,8],[8,9],[9,10],[6,11],[7,11],[7,12],[8,12],[8,13],[9,13],[10,13],[11,12],[12,13]];
+let sealed=new Set();
+const edgeKey=(a,b)=>a<b?`${a}-${b}`:`${b}-${a}`;
+function neighbors(i){return baseEdges.filter(e=>e[0]===i||e[1]===i).filter(e=>!sealed.has(edgeKey(e[0],e[1]))).map(e=>e[0]===i?e[1]:e[0]);}
+function edgeMid(e){return {x:(nodes[e[0]].x+nodes[e[1]].x)/2,y:(nodes[e[0]].y+nodes[e[1]].y)/2};}
+
+const rat={node:9,target:8,x:nodes[9].x,y:nodes[9].y,prev:9,t:0,speed:125,state:'HIDE',stateTimer:1.2,dodgeCd:0,stun:0,size:1,control:100,routeMemory:[],visible:false,boss:false,feint:false,trapMemory:[],caution:0};
+let clues=[]; // {x,y,type,revealed,wet,cleaned,ttl}
+let particles=[];
+let shots=[];
+let pulses=[];
+let nestSealed=false;
+
+function resetGame(){
+  running=false;last=0;elapsed=0;score=0;tool='scan';toastTimer=0;showDebug=false;gameOver=false;victory=false;phase='track';
+  soundHab=0;soundCooldown=0;scanPulse=0;shotCooldown=0;sealsLeft=2;cleaned=0;sealed.clear();clues.length=0;particles.length=0;shots.length=0;pulses.length=0;nestSealed=false;predictionNode=null;predictionTimer=0;correctPredictions=0;combo=1;comboTimer=0;traps.length=0;trapsLeft=2;listenPulse=0;escapeCount=0;
+  Object.assign(rat,{node:9,target:8,x:nodes[9].x,y:nodes[9].y,prev:9,t:0,speed:125,state:'HIDE',stateTimer:1.2,dodgeCd:0,stun:0,size:1,control:100,routeMemory:[],visible:false,boss:false,feint:false,trapMemory:[],caution:0});
+  // Seed a few hidden clues so the first scan can teach the player immediately.
+  clues.push({x:nodes[9].x-70,y:nodes[9].y+35,type:'dropping',revealed:false,wet:false,cleaned:false,ttl:999});
+  clues.push({x:nodes[8].x+35,y:nodes[8].y+38,type:'footprint',revealed:false,wet:false,cleaned:false,ttl:999});
+  selectTool('scan'); updateUI();
+}
+
+function toast(msg){ui.toast.textContent=msg;ui.toast.style.opacity=1;toastTimer=2.2;}
+function rnd(a,b){return a+Math.random()*(b-a)}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
+
+function initAudio(){if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==='suspended') audioCtx.resume();}
+function tone(freq=300,dur=.08,pan=0,type='sine',gain=.05){
+  if(!audioCtx) return; const o=audioCtx.createOscillator(),g=audioCtx.createGain(),p=audioCtx.createStereoPanner();
+  o.type=type;o.frequency.value=freq;p.pan.value=clamp(pan,-1,1);g.gain.setValueAtTime(gain,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+dur);
+  o.connect(g).connect(p).connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+dur);
+}
+function ratSound(kind='scurry'){
+  const pan=(rat.x/W)*2-1;
+  if(kind==='scurry'){tone(170,.05,pan,'triangle',.035);setTimeout(()=>tone(240,.04,pan,'triangle',.025),45);}
+  else if(kind==='scratch'){tone(900,.05,pan,'square',.018);setTimeout(()=>tone(650,.06,pan,'square',.015),55);}
+  else if(kind==='thump'){tone(90,.12,pan,'sine',.055);}
+}
+
+function chooseNext(){
+  const ns=neighbors(rat.node); if(!ns.length){rat.state='FREEZE';rat.stateTimer=.7;return;}
+  let choices=ns.filter(n=>n!==rat.prev); if(!choices.length) choices=ns.slice();
+  const blockedByTrap=n=>traps.some(t=>t.node===n && !t.used);
+  choices.sort((a,b)=>{
+    const am=rat.routeMemory.filter(x=>x===a).length, bm=rat.routeMemory.filter(x=>x===b).length;
+    const at=blockedByTrap(a)?(rat.trapMemory.includes(a)?8:3):0, bt=blockedByTrap(b)?(rat.trapMemory.includes(b)?8:3):0;
+    return (am-at)-(bm-bt);
+  });
+  let pick=choices[Math.floor(Math.random()*Math.min(choices.length,3))];
+  if(rat.state==='RETURN' && ns.includes(9)) pick=9;
+  if(blockedByTrap(pick) && !rat.trapMemory.includes(pick) && Math.random()<.65){
+    rat.caution=pick; setState('TEST',.55); return;
+  }
+  rat.prev=rat.node; rat.target=pick; rat.t=0;
+  rat.routeMemory.push(pick); if(rat.routeMemory.length>12) rat.routeMemory.shift();
+}
+function setState(s,dur){rat.state=s;rat.stateTimer=dur;}
+function spawnClue(nodeIdx){
+  if(Math.random()>.55) return;
+  const types=['footprint','dropping','urine','gnaw','rub'];
+  const type=types[Math.floor(Math.random()*types.length)], n=nodes[nodeIdx];
+  clues.push({x:n.x+rnd(-30,30),y:n.y+rnd(18,45),type,revealed:false,wet:false,cleaned:false,ttl:80});
+  if(clues.length>18) clues.shift();
+}
+
+function updateRat(dt){
+  rat.dodgeCd=Math.max(0,rat.dodgeCd-dt); rat.stun=Math.max(0,rat.stun-dt);
+  if(rat.stun>0){rat.visible=true;setState('FREEZE',Math.max(rat.stateTimer,.15));return;}
+  rat.stateTimer-=dt;
+  if(rat.state==='HIDE'){
+    rat.visible=false;
+    if(rat.stateTimer<=0){setState('PEEK',rnd(.5,1));rat.visible=true;ratSound('scratch');}
+    return;
+  }
+  if(rat.state==='PEEK'){
+    rat.visible=true;
+    if(rat.stateTimer<=0){setState('RUN',999);chooseNext();}
+    return;
+  }
+  if(rat.state==='TEST'){
+    rat.visible=true;
+    if(rat.stateTimer<=0){
+      if(rat.caution){rat.trapMemory.push(rat.caution); rat.caution=0; setState('DOUBLE_BACK',.35);}
+      else setState('RUN',999);
+    }
+    return;
+  }
+  if(rat.state==='DOUBLE_BACK'){
+    rat.visible=true;
+    if(rat.stateTimer<=0){const ns=neighbors(rat.node).filter(n=>n!==rat.caution); if(ns.length){rat.prev=rat.node;rat.target=ns[Math.floor(Math.random()*ns.length)];rat.t=0;} setState('RUN',999);}
+    return;
+  }
+  if(rat.state==='FREEZE'){
+    rat.visible=true;
+    if(rat.stateTimer<=0){setState('RUN',999);chooseNext();}
+    return;
+  }
+  if(rat.state==='FEINT'){
+    rat.visible=true;
+    if(rat.stateTimer<=0){const tmp=rat.target;rat.target=rat.prev;rat.prev=tmp;rat.t=0;setState('RUN',999);}
+  }
+  if(rat.state==='RETURN' && rat.node===9){setState('HIDE',rnd(1,2.2));return;}
+
+  rat.visible=true;
+  const a=nodes[rat.node], b=nodes[rat.target];
+  const length=Math.max(1,dist(a,b));
+  let sp=rat.speed*(rat.boss?1.25:1)*(rat.state==='DODGE'?1.8:1);
+  rat.t += dt*sp/length;
+  rat.x=a.x+(b.x-a.x)*rat.t; rat.y=a.y+(b.y-a.y)*rat.t;
+  if(Math.random()<dt*.5) particles.push({x:rat.x,y:rat.y+14,vx:rnd(-4,4),vy:rnd(-2,3),life:1.2,type:'dust'});
+  if(rat.t>=1){
+    rat.node=rat.target;rat.x=b.x;rat.y=b.y;rat.t=0;spawnClue(rat.node);ratSound(Math.random()<.7?'scurry':'thump');
+    if(predictionNode!==null){
+      if(rat.node===predictionNode && predictionTimer>0){correctPredictions++;combo=Math.min(5,combo+1);comboTimer=5;score+=90*combo;toast(`PREDICT ถูก! ${correctPredictions}/2 · COMBO ×${combo}`);} 
+      else {combo=1;score=Math.max(0,score-20);toast('PREDICT พลาด — อ่านจังหวะใหม่');}
+      predictionNode=null;predictionTimer=0;
+    }
+    const tr=traps.find(t=>t.node===rat.node && !t.used);
+    if(tr){tr.used=true;rat.trapMemory.push(rat.node);rat.stun=1.1;setState('FREEZE',1.1);score+=140*combo;combo=Math.min(5,combo+1);comboTimer=5;toast('กับดักเกมทำงาน — หนูหยุดชั่วคราว!');}
+    const r=Math.random();
+    if(phase==='boss' && r<.22 && rat.dodgeCd<=0){setState('FEINT',.35);rat.dodgeCd=1.7;chooseNext();}
+    else if(r<.16){setState('FREEZE',rnd(.3,.75));}
+    else if(elapsed>130 || (phase==='track' && elapsed>70 && r<.35)){setState('RETURN',999);chooseNext();}
+    else chooseNext();
+  }
+}
+
+function update(dt){
+  if(!running||gameOver||victory) return;
+  elapsed+=dt; soundCooldown=Math.max(0,soundCooldown-dt); scanPulse=Math.max(0,scanPulse-dt); shotCooldown=Math.max(0,shotCooldown-dt); soundHab=Math.max(0,soundHab-dt*.7); predictionTimer=Math.max(0,predictionTimer-dt); listenPulse=Math.max(0,listenPulse-dt); comboTimer=Math.max(0,comboTimer-dt); if(comboTimer<=0)combo=1;
+  clues.forEach(c=>{c.ttl-=dt;if(c.revealed)c.revealT=(c.revealT||0)-dt;if((c.revealT||0)<=0)c.revealed=false;});
+  clues=clues.filter(c=>c.ttl>0&&!c.cleaned);
+  updateRat(dt);
+  shots.forEach(s=>{s.t+=dt*s.speed; s.x=s.sx+(s.tx-s.sx)*s.t; s.y=s.sy+(s.ty-s.sy)*s.t; if(!s.hit && rat.visible && Math.hypot(s.x-rat.x,s.y-rat.y)<28*rat.size){
+    // dodge unless disrupted/frozen or on cooldown
+    const canDodge=rat.state==='RUN' && rat.dodgeCd<=0 && Math.random()<(rat.boss?.55:.35);
+    if(canDodge){rat.dodgeCd=1.7;setState('DODGE',.3);const ns=neighbors(rat.node);if(ns.length){rat.target=ns[Math.floor(Math.random()*ns.length)];rat.t=0;}toast('หนูอ่านแนวเล็งและ DODGE!');score=Math.max(0,score-15);}
+    else {s.hit=true;rat.stun=.45;setState('FREEZE',.45);if(phase==='boss'){rat.control=Math.max(0,rat.control-20);score+=120;toast('โดนจังหวะ! Boss Control -20');}else{score+=40;toast('Tag สำเร็จ — เก็บข้อมูลเส้นทางเพิ่ม');}}
+  }});
+  shots=shots.filter(s=>s.t<1.15&&!s.hit);
+  particles.forEach(p=>{p.life-=dt;p.x+=p.vx*dt*30;p.y+=p.vy*dt*30;});particles=particles.filter(p=>p.life>0);
+  pulses.forEach(p=>p.life-=dt);pulses=pulses.filter(p=>p.life>0);
+
+  if(phase==='track' && countRevealedClues()>=6 && correctPredictions>=2){startBoss();}
+  if(phase==='boss' && rat.control<=0){phase='cleanup';rat.boss=false;rat.size=1;rat.state='RETURN';rat.target=9;rat.control=0;toast('Boss ถูกบังคับกลับรัง — CLEAN & SEAL!');spawnCleanupTargets();}
+  if(phase==='cleanup' && cleaned>=requiredClean && nestSealed){win();}
+  if(elapsed>=180 && !victory){lose('รุ่งเช้าแล้ว — หนูกลับรังและด่านรีเซ็ต');}
+  updateUI();
+}
+
+function countRevealedClues(){return Math.min(6,Number(sessionStorage.getItem('warinClues')||0));}
+function addClue(){let n=countRevealedClues(); if(n<6){n++;sessionStorage.setItem('warinClues',n);score+=80*combo;toast(`อ่านหลักฐานสำเร็จ ${n}/6`);}}
+function startBoss(){phase='boss';rat.boss=true;rat.size=1.65;rat.speed=155;rat.control=100;rat.state='RUN';rat.node=9;rat.target=8;rat.x=nodes[9].x;rat.y=nodes[9].y;toast('GIANT RAT BOSS — อ่านจังหวะ อย่ายิงตามตัว!');tone(80,.4,0,'sawtooth',.06);}
+function spawnCleanupTargets(){
+  clues.push({x:770,y:520,type:'urine',revealed:true,wet:false,cleaned:false,ttl:999,revealT:999,cleanup:true});
+  clues.push({x:870,y:545,type:'dropping',revealed:true,wet:false,cleaned:false,ttl:999,revealT:999,cleanup:true});
+  clues.push({x:990,y:515,type:'rub',revealed:true,wet:false,cleaned:false,ttl:999,revealT:999,cleanup:true});
+}
+function win(){victory=true;score+=500;best=Math.max(best,score);localStorage.setItem('warinRatBest',best);ui.bestText.textContent='BEST '+best;showEnd('ผ่านด่าน!','คุณชนะด้วย อ่านทาง → บังคับเส้นทาง → จับจังหวะ → ทำความสะอาด → ปิดรัง','เล่นอีกครั้ง');}
+function lose(msg){gameOver=true;showEnd('ด่านยังไม่ผ่าน',msg,'ลองใหม่');}
+function showEnd(title,msg,button){
+  ui.overlay.style.display='flex';ui.overlay.innerHTML=`<div class="card"><h1>${title}</h1><p>${msg}</p><h2>ผลการเล่น</h2><p>Score: <b>${score}</b> · Clues: <b>${countRevealedClues()}/6</b> · Predict: <b>${correctPredictions}/2</b> · Habituation: <b>${Math.round(soundHab)}%</b></p><button id="again" class="primary">${button}</button></div>`;
+  document.getElementById('again').onclick=()=>{sessionStorage.setItem('warinClues','0');resetGame();ui.overlay.style.display='none';running=true;initAudio();last=performance.now();requestAnimationFrame(loop);};
+}
+
+function updateUI(){
+  const t=clamp(elapsed/180,0,1), totalM=9*60, mins=Math.floor(t*totalM); let hh=(20+Math.floor(mins/60))%24,mm=mins%60; ui.timeText.textContent=String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0');ui.timeFill.style.width=(t*100)+'%';
+  const c=countRevealedClues();ui.clueText.textContent=c;ui.clueFill.style.width=(c/6*100)+'%';
+  ui.bossText.textContent=phase==='track'?'LOCKED':phase==='boss'?Math.round(rat.control)+'%':phase==='cleanup'?'CLEAN & SEAL':'CLEAR';ui.bossFill.style.width=(phase==='boss'?rat.control:phase==='track'?100:0)+'%';
+  ui.habText.textContent=Math.round(soundHab)+'%';ui.habFill.style.width=clamp(soundHab,0,100)+'%';ui.scoreText.textContent=score;ui.comboText.textContent='COMBO ×'+combo;
+  ui.devPanel.textContent=`AI STATE: ${rat.state}\nPHASE: ${phase}\nNODE: ${rat.node} → ${rat.target}\nVISIBLE: ${rat.visible}\nSPEED: ${Math.round(rat.speed)}\nROUTE MEMORY: ${rat.routeMemory.slice(-6).join(' > ')}\nSEALED: ${[...sealed].join(', ')||'-'}\nSOUND HAB: ${Math.round(soundHab)}\nCLEANED: ${cleaned}/${requiredClean}\nNEST SEALED: ${nestSealed}\nPREDICT: ${predictionNode??'-'} (${predictionTimer.toFixed(1)}s)\nCORRECT: ${correctPredictions}/2\nTRAPS: ${traps.map(t=>t.node+(t.used?'x':'')).join(',')||'-'}\nRAT TRAP MEMORY: ${rat.trapMemory.join(',')||'-'}`;
+}
+
+function selectTool(t){tool=t;document.querySelectorAll('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===t));}
+function canvasPos(ev){const r=canvas.getBoundingClientRect();return {x:(ev.clientX-r.left)/r.width*W,y:(ev.clientY-r.top)/r.height*H};}
+function nearestEdge(p,max=55){let best=null,bd=1e9;baseEdges.forEach(e=>{if(sealed.has(edgeKey(...e)))return;const a=nodes[e[0]],b=nodes[e[1]],vx=b.x-a.x,vy=b.y-a.y,l2=vx*vx+vy*vy,t=clamp(((p.x-a.x)*vx+(p.y-a.y)*vy)/l2,0,1),q={x:a.x+t*vx,y:a.y+t*vy},d=dist(p,q);if(d<bd){bd=d;best=e;}});return bd<=max?best:null;}
+function nearestNode(p,max=70){let best=null,bd=1e9;nodes.forEach((n,i)=>{const d=dist(p,n);if(d<bd){bd=d;best=i;}});return bd<=max?best:null;}
+function nearestClue(p,max=65){let best=null,bd=1e9;clues.forEach(c=>{if(!c.revealed&&!c.cleanup)return;const d=dist(p,c);if(d<bd){bd=d;best=c;}});return bd<=max?best:null;}
+
+function useTool(p){initAudio();
+  if(tool==='scan'){
+    if(scanPulse>0){toast('Trace Scan กำลังชาร์จ');return;} scanPulse=3.2;pulses.push({x:p.x,y:p.y,r:20,life:1.2,type:'scan'});tone(500,.12,(p.x/W)*2-1,'sine',.04);
+    let found=false;clues.forEach(c=>{if(dist(p,c)<240 && !c.cleaned){c.revealed=true;c.revealT=5;found=true;if(!c.counted){c.counted=true;addClue();}}});
+    if(!found)toast('ยังไม่พบร่องรอย — ลองตามคาน/มุมเงียบ');
+  }
+  else if(tool==='listen'){
+    if(listenPulse>0){toast('กำลังฟัง... รอจังหวะถัดไป');return;}listenPulse=1.2;const pan=(rat.x/W)*2-1;tone(220,.18,pan,'triangle',.035);pulses.push({x:rat.x,y:rat.y,r:15,life:.65,type:'listen'});score+=10;toast(pan<-.25?'เสียงอยู่ฝั่งซ้าย':pan>.25?'เสียงอยู่ฝั่งขวา':'เสียงอยู่ใกล้กลางฝ้า');
+  }
+  else if(tool==='predict'){
+    const n=nearestNode(p,85);if(n===null){toast('แตะใกล้จุดตัดคานเพื่อคาดเส้นทาง');return;}predictionNode=n;predictionTimer=5.5;pulses.push({x:nodes[n].x,y:nodes[n].y,r:18,life:1.3,type:'predict'});toast(`คาดการณ์ NODE ${n} — รอดูหนูเลือกทาง`);
+  }
+  else if(tool==='sound'){
+    if(soundCooldown>0){toast('Sound Disrupt กำลังชาร์จ');return;}soundCooldown=1.5;const strength=Math.max(.15,1-soundHab/120);soundHab=clamp(soundHab+24,0,100);pulses.push({x:p.x,y:p.y,r:15,life:.8,type:'sound'});tone(260,.15,(p.x/W)*2-1,'square',.045);
+    if(dist(p,rat)<260*strength){const ns=neighbors(rat.node).filter(n=>dist(nodes[n],p)>dist(nodes[rat.target],p));if(ns.length){rat.target=ns[Math.floor(Math.random()*ns.length)];rat.t=0;setState('RUN',999);score+=25;toast('เสียงบังคับให้หนู RE-ROUTE');}else toast('หนูชิน/ไม่มีทางหนีที่ดีกว่า');}else toast('เสียงไม่ถึงเส้นทางหนู');
+  }
+  else if(tool==='seal'){
+    if(phase==='cleanup' && dist(p,nodes[9])<100){nestSealed=true;score+=180;toast('ปิดช่องรังแล้ว');return;}
+    if(sealsLeft<=0){toast('แผ่นปิดทางหมดแล้ว');return;}const e=nearestEdge(p);if(!e){toast('แตะใกล้คานเพื่อปิดทาง');return;}const k=edgeKey(e[0],e[1]);sealed.add(k);sealsLeft--;score+=30;toast(`ปิดทาง ${k} — เหลือ ${sealsLeft}`);
+    if(k===edgeKey(rat.node,rat.target)){rat.target=rat.node;rat.t=0;setState('FREEZE',.35);}
+  }
+  else if(tool==='trap'){
+    if(trapsLeft<=0){toast('กับดักเกมหมดแล้ว');return;}const n=nearestNode(p,70);if(n===null){toast('วางกับดักที่จุดตัดคาน');return;}if(traps.some(t=>t.node===n&&!t.used)){toast('จุดนี้มีกับดักแล้ว');return;}traps.push({node:n,used:false});trapsLeft--;score+=20;toast(`วางกับดัก NODE ${n} · เหลือ ${trapsLeft}`);
+  }
+  else if(tool==='sling'){
+    if(shotCooldown>0){toast('หนังสติ๊กกำลังคืนตัว');return;}shotCooldown=.55;shots.push({sx:90,sy:620,tx:p.x,ty:p.y,x:90,y:620,t:0,speed:2.1,hit:false});tone(180,.08,-.8,'triangle',.04);
+  }
+  else if(tool==='clean'){
+    const c=nearestClue(p,75);if(!c){toast(phase==='cleanup'?'แตะคราบที่เรืองแสง':'ต้องสแกนให้เห็นคราบก่อน');return;}
+    if(!c.wet){c.wet=true;c.wetAt=performance.now();toast('Wet Clean — ทำคราบให้เปียกก่อน');score+=15;}
+    else if(performance.now()-c.wetAt>700){c.cleaned=true;cleaned+=c.cleanup?1:0;score+=60;toast(c.cleanup?`เช็ดสะอาด ${cleaned}/${requiredClean}`:'ทำความสะอาดร่องรอยแล้ว');}
+    else toast('รอให้น้ำยาทำงานอีกนิด');
+  }
+}
+canvas.addEventListener('pointerdown',e=>{if(!running||gameOver||victory)return;useTool(canvasPos(e));});
+window.addEventListener('keydown',e=>{if('12345678'.includes(e.key))selectTool(['scan','listen','sound','predict','seal','trap','sling','clean'][Number(e.key)-1]);});
+document.querySelectorAll('.tool').forEach(b=>b.onclick=()=>selectTool(b.dataset.tool));
+document.getElementById('debugBtn').onclick=()=>{showDebug=!showDebug;ui.devPanel.style.display=showDebug?'block':'none';};
+document.getElementById('restartBtn').onclick=()=>{sessionStorage.setItem('warinClues','0');resetGame();ui.overlay.style.display='none';running=true;initAudio();last=performance.now();requestAnimationFrame(loop);};
+document.getElementById('devBtn').onclick=()=>{showDebug=true;ui.devPanel.style.display='block';};
+document.getElementById('startBtn').onclick=()=>{sessionStorage.setItem('warinClues','0');ui.overlay.style.display='none';running=true;initAudio();last=performance.now();toast('V0.2: ฟัง → สแกน → ใช้เสียง/คาดทาง → ดัก/ปิด → ค่อยยิง');requestAnimationFrame(loop);};
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  // white ceiling / ivory panels
+  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#f4f1e8');g.addColorStop(1,'#d8d2c4');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  // ceiling panel grid
+  ctx.strokeStyle='#c7c1b3';ctx.lineWidth=2;for(let x=0;x<W;x+=160){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}for(let y=0;y<H;y+=120){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  // stains / soft dust
+  ctx.globalAlpha=.12;for(let i=0;i<20;i++){ctx.fillStyle=i%2?'#8d7c5f':'#5a5145';ctx.beginPath();ctx.ellipse((i*173)%W,(i*97)%H,30+(i%4)*12,10+(i%3)*5,0,0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;
+  // beams
+  ctx.lineCap='round';baseEdges.forEach(e=>{const a=nodes[e[0]],b=nodes[e[1]],k=edgeKey(...e);ctx.strokeStyle=sealed.has(k)?'#8a553f':'#7a5c39';ctx.lineWidth=18;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.strokeStyle=sealed.has(k)?'#d86b5e':'#b99b66';ctx.lineWidth=3;ctx.stroke();});ctx.lineCap='butt';
+  // pipes / cables
+  ctx.strokeStyle='#777f7b';ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(0,95);ctx.bezierCurveTo(320,70,520,110,820,90);ctx.stroke();ctx.strokeStyle='#567b78';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(780,0);ctx.bezierCurveTo(830,80,1000,80,1280,115);ctx.stroke();
+  // nest opening
+  ctx.fillStyle='#352d26';ctx.beginPath();ctx.ellipse(nodes[9].x+30,nodes[9].y-35,70,38,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#b8a892';ctx.lineWidth=8;ctx.stroke();
+  // nest scraps
+  ctx.strokeStyle='#c8b9a0';ctx.lineWidth=4;for(let i=0;i<9;i++){ctx.beginPath();ctx.moveTo(890+i*8,250+rnd(-3,3));ctx.lineTo(940+rnd(-10,20),280+rnd(-8,8));ctx.stroke();}
+
+  // placed game traps
+  traps.forEach(t=>{const n=nodes[t.node];ctx.save();ctx.translate(n.x,n.y);ctx.strokeStyle=t.used?'#6d6d6d':'#e5c273';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-18,0);ctx.lineTo(0,-18);ctx.lineTo(18,0);ctx.lineTo(0,18);ctx.closePath();ctx.stroke();ctx.fillStyle=t.used?'#5558':'#d86b5e';ctx.beginPath();ctx.arc(0,0,5,0,Math.PI*2);ctx.fill();ctx.restore();});
+  if(predictionNode!==null){const n=nodes[predictionNode];ctx.save();ctx.strokeStyle='#e46bd6';ctx.lineWidth=4;ctx.setLineDash([8,6]);ctx.beginPath();ctx.arc(n.x,n.y,30,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#e46bd6';ctx.font='700 12px system-ui';ctx.fillText('PREDICT',n.x-28,n.y-38);ctx.restore();}
+  // clues
+  clues.forEach(c=>drawClue(c));
+  // pulses
+  pulses.forEach(p=>{const t=1-p.life/(p.type==='scan'?1.2:.8);ctx.globalAlpha=clamp(p.life,0,1)*.55;ctx.strokeStyle=p.type==='scan'?'#46cfc9':p.type==='listen'?'#75bfff':p.type==='predict'?'#e46bd6':'#e2b85e';ctx.lineWidth=5;ctx.beginPath();ctx.arc(p.x,p.y,20+t*220,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;});
+  // particles
+  particles.forEach(p=>{ctx.globalAlpha=p.life*.25;ctx.fillStyle='#7b6e5c';ctx.beginPath();ctx.arc(p.x,p.y,2,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;});
+  // rat
+  if(rat.visible) drawRat(rat.x,rat.y,rat.size,rat.state==='DODGE');
+  else {ctx.globalAlpha=.2;ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(nodes[9].x+20,nodes[9].y-10,35,12,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}
+  // shots
+  shots.forEach(s=>{ctx.strokeStyle='#e8d49b';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(s.sx,s.sy);ctx.lineTo(s.x,s.y);ctx.stroke();ctx.fillStyle='#f4e6bd';ctx.beginPath();ctx.arc(s.x,s.y,7,0,Math.PI*2);ctx.fill();});
+  // player slingshot anchor
+  ctx.strokeStyle='#5c3f28';ctx.lineWidth=10;ctx.beginPath();ctx.moveTo(70,660);ctx.lineTo(70,600);ctx.lineTo(48,575);ctx.moveTo(70,600);ctx.lineTo(95,575);ctx.stroke();ctx.strokeStyle='#c1975b';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(48,575);ctx.lineTo(95,575);ctx.stroke();
+  // phase label
+  ctx.fillStyle='#10211edb';ctx.fillRect(10,H-58,330,42);ctx.fillStyle='#fff3cf';ctx.font='700 18px system-ui';ctx.fillText(phase==='track'?'TRACK PHASE — รอย 6 + Predict 2':phase==='boss'?'BOSS PHASE — จับจังหวะ':phase==='cleanup'?'CLEAN & SEAL PHASE':'CLEAR',24,H-31);
+}
+
+function drawClue(c){
+  const show=c.revealed||c.cleanup;if(!show){ctx.globalAlpha=.08;}else ctx.globalAlpha=1;
+  const glow=show?1:0;ctx.save();ctx.translate(c.x,c.y);
+  if(c.cleanup){ctx.shadowColor='#73e0d6';ctx.shadowBlur=14;}
+  if(c.type==='footprint'){ctx.fillStyle=show?'#6e5844':'#625849';for(let i=-1;i<=1;i++){ctx.beginPath();ctx.ellipse(i*13,0,5,8,.4,0,Math.PI*2);ctx.fill();}}
+  else if(c.type==='dropping'){ctx.fillStyle=show?'#2f2924':'#4a443c';for(let i=0;i<3;i++){ctx.beginPath();ctx.ellipse(i*9-8,0,4,7,.7,0,Math.PI*2);ctx.fill();}}
+  else if(c.type==='urine'){ctx.fillStyle=c.wet?'#79d4ca99':show?'#c9b55e88':'#9b8d5e33';ctx.beginPath();ctx.ellipse(0,0,24,10,.2,0,Math.PI*2);ctx.fill();}
+  else if(c.type==='gnaw'){ctx.strokeStyle=show?'#4d4033':'#6a6257';ctx.lineWidth=3;for(let i=-2;i<=2;i++){ctx.beginPath();ctx.moveTo(i*6,-8);ctx.lineTo(i*6+4,8);ctx.stroke();}}
+  else {ctx.strokeStyle=show?'#554a40':'#6b655d';ctx.lineWidth=8;ctx.beginPath();ctx.moveTo(-24,0);ctx.lineTo(24,0);ctx.stroke();}
+  if(show){ctx.shadowBlur=0;ctx.fillStyle='#17332f';ctx.font='700 11px system-ui';ctx.fillText(c.wet?'WET':c.type.toUpperCase(),-22,-16);}
+  ctx.restore();ctx.globalAlpha=1;
+}
+
+function drawRat(x,y,s,dodge){
+  ctx.save();ctx.translate(x,y);if(dodge)ctx.rotate(-.18);ctx.scale(s,s);
+  // shadow
+  ctx.globalAlpha=.25;ctx.fillStyle='#000';ctx.beginPath();ctx.ellipse(0,18,35,9,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+  // tail
+  ctx.strokeStyle='#b78c80';ctx.lineWidth=7;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(24,5);ctx.bezierCurveTo(65,4,82,25,105,15);ctx.stroke();
+  // body gradient
+  const rg=ctx.createRadialGradient(-8,-8,4,0,0,45);rg.addColorStop(0,'#6d6259');rg.addColorStop(1,'#302b29');ctx.fillStyle=rg;ctx.beginPath();ctx.ellipse(0,0,38,24,-.08,0,Math.PI*2);ctx.fill();
+  // head
+  ctx.fillStyle='#443d38';ctx.beginPath();ctx.ellipse(-31,-7,22,17,-.12,0,Math.PI*2);ctx.fill();
+  // snout
+  ctx.fillStyle='#695b52';ctx.beginPath();ctx.ellipse(-49,-5,13,9,0,0,Math.PI*2);ctx.fill();
+  // ears
+  ctx.fillStyle='#b7807a';ctx.beginPath();ctx.arc(-34,-23,8,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(-18,-21,7,0,Math.PI*2);ctx.fill();
+  // eye
+  ctx.fillStyle='#050505';ctx.beginPath();ctx.arc(-39,-11,3.8,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(-40,-12,1.2,0,Math.PI*2);ctx.fill();
+  // whiskers
+  ctx.strokeStyle='#d6cdc4';ctx.lineWidth=1;for(let i=-1;i<=1;i++){ctx.beginPath();ctx.moveTo(-53,-4+i*4);ctx.lineTo(-76,-10+i*8);ctx.stroke();}
+  // boss markings
+  if(rat.boss){ctx.strokeStyle='#d6b158';ctx.lineWidth=2;ctx.beginPath();ctx.arc(5,0,20,-1.2,1.2);ctx.stroke();ctx.beginPath();ctx.moveTo(-5,-18);ctx.lineTo(10,16);ctx.stroke();}
+  ctx.restore();
+}
+
+function loop(ts){if(!running)return;const dt=Math.min(.033,(ts-last)/1000||0);last=ts;update(dt);draw();if(toastTimer>0){toastTimer-=dt;if(toastTimer<=0)ui.toast.style.opacity=0;}if(running&&!gameOver&&!victory)requestAnimationFrame(loop);}
+
+resetGame();draw();
+})();
+</script>
+</body>
+</html>
