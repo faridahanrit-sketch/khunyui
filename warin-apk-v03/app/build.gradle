@@ -1,0 +1,13 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.warin.ratceiling.v03'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.warin.ratceiling.v03'
+        minSdk 26
+        targetSdk 35
+        versionCode 3
+        versionName '0.3'
+    }
+}
+dependencies {}
